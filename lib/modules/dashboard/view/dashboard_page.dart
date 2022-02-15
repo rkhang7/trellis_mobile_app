@@ -54,7 +54,7 @@ class DashBoardPage extends StatelessWidget {
                 ),
                 backgroundColor: buttonColor,
                 onTap: () {
-                  toast("Thêm bảng");
+                  Get.toNamed(AppRoutes.CREATE_TABLE);
                 }),
             SpeedDialChild(
                 label: "Thẻ",

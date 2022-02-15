@@ -40,7 +40,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
               setState(() {});
             },
             currentAccountPicture: Image.network(
-                    'https://i.pinimg.com/736x/9a/a5/5f/9aa55f48dfe94797a6c2745b08c40e2d.jpg')
+                    'https://cdn.thukyluat.vn/nhch-images//CauHoi_Hinh/9eb6abaa-8cda-456c-ad66-26ba4da23ffe.jpg')
                 .cornerRadiusWithClipRRect(50),
             accountName: Text('Hoàng Xuân Khang',
                 style: boldTextStyle(color: Colors.white, size: 16)),
