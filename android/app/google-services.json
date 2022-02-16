@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "55225536017",
+    "project_id": "trellis-44112",
+    "storage_bucket": "trellis-44112.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55225536017:android:b679e9446d7dee1c882bb0",
+        "android_client_info": {
+          "package_name": "com.example.trellis_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55225536017-67k5i3cuau66m3t9bh6g8rtnvhkpb8gh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trellis_mobile_app",
+            "certificate_hash": "b5209015e42aab6898dcd665c84caefed6bd6325"
+          }
+        },
+        {
+          "client_id": "55225536017-8pntog90sojer7ibjmlqp4o2iqp0cq83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8eLc-sPMcgyL4ypI1GnMs67jdssNloDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55225536017-8pntog90sojer7ibjmlqp4o2iqp0cq83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
