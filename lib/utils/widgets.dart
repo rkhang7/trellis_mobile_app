@@ -26,3 +26,31 @@ class DrawerList extends StatelessWidget {
     ).onTap(onTap);
   }
 }
+
+InputDecoration textFieldInputDecoration(
+    {String? labelText,
+    Color color = Colors.white,
+    EdgeInsetsGeometry? padding}) {
+  return InputDecoration(
+    contentPadding: padding,
+    labelText: labelText,
+    labelStyle: primaryTextStyle(color: color),
+    errorBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.red),
+    ),
+    focusedErrorBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.red),
+    ),
+    errorMaxLines: 2,
+    errorStyle: primaryTextStyle(color: Colors.red, size: 12),
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: color),
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: color),
+    ),
+    border: UnderlineInputBorder(
+      borderSide: BorderSide(color: color),
+    ),
+  );
+}

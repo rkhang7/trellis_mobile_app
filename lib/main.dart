@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       getPages: AppPages.getPages,
 
-      // set font for all p
+      // set font for all project
       theme: ThemeData(
         textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme,
