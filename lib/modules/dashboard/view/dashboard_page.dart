@@ -16,59 +16,108 @@ class DashBoardPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         drawer: const DrawerComponent(),
-        appBar: AppBar(
-          backgroundColor: backgroundColor,
-          title: Text(
-            'Bảng',
-            style: boldTextStyle(color: Colors.white, size: 18),
-          ),
-          actions: [
-            IconButton(
-                icon: const Icon(Icons.search, color: iconColorPrimary),
-                onPressed: () {
-                  toast('Tìm kiếm');
-                }),
-            IconButton(
-              icon:
-                  const Icon(Icons.notifications_none, color: iconColorPrimary),
-              onPressed: () {
-                Get.toNamed(AppRoutes.NOTIFICATION);
-              },
+        appBar: _buildAppBar(),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  decoration:
+                      boxDecorationWithShadow(blurRadius: 5, spreadRadius: 2),
+                  child: Text(
+                    'Nhóm 1',
+                    style: boldTextStyle(),
+                  ).paddingAll(10),
+                ),
+                10.height,
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 3,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.DETAIL_TABLE,
+                            arguments: "Example $index");
+                      },
+                      leading: Image.network(
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT5guHEUeNVd1Uc_6NdURM_7h5P6UcDE1U_Lw&usqp=CAU",
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                      ).cornerRadiusWithClipRRect(2),
+                      title: Text(
+                        "Example $index",
+                        style: boldTextStyle(),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
-        body: Container(),
-        floatingActionButton: SpeedDial(
-          backgroundColor: buttonColor,
-          foregroundColor: iconColorPrimary,
-          icon: Icons.add,
-          activeIcon: Icons.close,
-          spacing: 15,
-          spaceBetweenChildren: 12,
-          children: [
-            SpeedDialChild(
-                label: "Bảng",
-                child: const Icon(
-                  FontAwesomeIcons.table,
-                  color: iconColorPrimary,
-                ),
-                backgroundColor: buttonColor,
-                onTap: () {
-                  Get.toNamed(AppRoutes.CREATE_TABLE);
-                }),
-            SpeedDialChild(
-                label: "Thẻ",
-                child: const Icon(
-                  Icons.laptop,
-                  color: iconColorPrimary,
-                ),
-                backgroundColor: buttonColor,
-                onTap: () {
-                  toast("Thêm thẻ");
-                })
-          ],
-        ),
+        floatingActionButton: _buildFab(),
       ),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: backgroundColor,
+      title: Text(
+        'Bảng',
+        style: boldTextStyle(color: Colors.white, size: 18),
+      ),
+      actions: [
+        IconButton(
+            icon: const Icon(Icons.search, color: iconColorPrimary),
+            onPressed: () {
+              toast('Tìm kiếm');
+            }),
+        IconButton(
+          icon: const Icon(Icons.notifications_none, color: iconColorPrimary),
+          onPressed: () {
+            Get.toNamed(AppRoutes.NOTIFICATION);
+          },
+        ),
+      ],
+    );
+  }
+
+  SpeedDial _buildFab() {
+    return SpeedDial(
+      backgroundColor: buttonColor,
+      foregroundColor: iconColorPrimary,
+      icon: Icons.add,
+      activeIcon: Icons.close,
+      spacing: 15,
+      spaceBetweenChildren: 12,
+      children: [
+        SpeedDialChild(
+            label: "Bảng",
+            child: const Icon(
+              FontAwesomeIcons.table,
+              color: iconColorPrimary,
+            ),
+            backgroundColor: buttonColor,
+            onTap: () {
+              Get.toNamed(AppRoutes.CREATE_TABLE);
+            }),
+        SpeedDialChild(
+            label: "Thẻ",
+            child: const Icon(
+              Icons.laptop,
+              color: iconColorPrimary,
+            ),
+            backgroundColor: buttonColor,
+            onTap: () {
+              toast("Thêm thẻ");
+            })
+      ],
     );
   }
 }

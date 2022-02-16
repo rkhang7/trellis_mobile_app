@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trellis_mobile_app/routes/app_routes.dart';
+import 'package:trellis_mobile_app/service/auth_service.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -8,12 +11,16 @@ class WakThroughController extends GetxController {
   var pageController = PageController();
   List<Widget> pages = [];
   var selectedIndex = 0;
+  var isLogin = false.obs;
+
+  var authService = Get.find<AuthService>();
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     initPage();
+    checkLogin();
   }
 
   initPage() {
@@ -146,5 +153,20 @@ class WakThroughController extends GetxController {
         ],
       ),
     ];
+  }
+
+  Future<User?> signInByGoogleAccount() async {
+    return await authService.signInWithGoogle();
+  }
+
+  void checkLogin() {
+    authService.getUid().then(
+      (value) {
+        if (value == null) {
+        } else {
+          Get.offNamed(AppRoutes.DASHBOARD);
+        }
+      },
+    );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/walk_through/controller/walk_through_controller.dart';
 import 'package:trellis_mobile_app/modules/walk_through/view/widget.dart';
+import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/constants.dart';
 
@@ -178,7 +180,14 @@ class WalkThroughPage extends StatelessWidget {
           buildItemAuth(
               label: signInGoogleLabel,
               iconPath: "assets/icons/google.png",
-              onClick: () {}),
+              onClick: () {
+                walkThroughController.signInByGoogleAccount().then((value) => {
+                      Get.offAllNamed(
+                        AppRoutes.DASHBOARD,
+                      ),
+                      EasyLoading.showSuccess("Đăng nhập thành công"),
+                    });
+              }),
         ],
       ),
     ));
