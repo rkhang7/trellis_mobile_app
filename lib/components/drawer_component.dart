@@ -118,6 +118,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
                     authService.logout().then((value) => {
                           authService.deleteUid("uid").then((value) => {
                                 Get.offAllNamed(AppRoutes.WALK_THROUGH),
+                                EasyLoading.instance.loadingStyle =
+                                    EasyLoadingStyle.custom,
                                 EasyLoading.showSuccess("Đăng xuất thành công"),
                               }),
                         });

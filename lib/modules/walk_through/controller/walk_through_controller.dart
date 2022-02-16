@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/service/auth_service.dart';
@@ -16,11 +17,19 @@ class WakThroughController extends GetxController {
   var authService = Get.find<AuthService>();
 
   @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    print("ready");
+  }
+
+  @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     initPage();
     checkLogin();
+    print("init");
   }
 
   initPage() {

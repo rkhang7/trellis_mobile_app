@@ -185,6 +185,8 @@ class WalkThroughPage extends StatelessWidget {
                       Get.offAllNamed(
                         AppRoutes.DASHBOARD,
                       ),
+                      EasyLoading.instance.loadingStyle =
+                          EasyLoadingStyle.custom,
                       EasyLoading.showSuccess("Đăng nhập thành công"),
                     });
               }),

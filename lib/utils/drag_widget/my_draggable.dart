@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -11,12 +10,12 @@ import 'package:flutter/services.dart';
 /// Signature for determining whether the given data will be accepted by a [MyDragTarget].
 ///
 /// Used by [MyDragTarget.onWillAccept].
-typedef bool MyDragTargetWillAccept<T>(T data);
+typedef MyDragTargetWillAccept<T> = bool Function(T data);
 
 /// Signature for causing a [MyDragTarget] to accept the given data.
 ///
 /// Used by [MyDragTarget.onAccept].
-typedef void MyDragTargetAccept<T>(T data);
+typedef MyDragTargetAccept<T> = void Function(T data);
 
 /// Signature for building children of a [MyDragTarget].
 ///
@@ -26,7 +25,7 @@ typedef void MyDragTargetAccept<T>(T data);
 /// this [MyDragTarget] and that will not be accepted by the [MyDragTarget].
 ///
 /// Used by [MyDragTarget.builder].
-typedef Widget MyDragTargetBuilder<T>(
+typedef MyDragTargetBuilder<T> = Widget Function(
     BuildContext context, List<T> candidateData, List<dynamic> rejectedData);
 
 /// Signature for when a [MyDraggable] is dropped without being accepted by a [MyDragTarget].
@@ -37,7 +36,7 @@ typedef void MyDraggableCanceledCallback(Velocity velocity, Offset offset);
 /// Signature for when a [MyDraggable] leaves a [MyDragTarget].
 ///
 /// Used by [MyDragTarget.onLeave].
-typedef void MyDragTargetLeave<T>(T data);
+typedef MyDragTargetLeave<T> = void Function(T data);
 
 /// Where the [MyDraggable] should be anchored during a drag.
 enum DragAnchor {
@@ -257,7 +256,7 @@ class LongPressMyDraggable<T> extends MyDraggable<T> {
   @override
   DelayedMultiDragGestureRecognizer createRecognizer(
       GestureMultiDragStartCallback onStart) {
-    return new DelayedMultiDragGestureRecognizer(delay: delay)
+    return DelayedMultiDragGestureRecognizer(delay: delay)
       ..onStart = (Offset position) {
         final Drag? result = onStart(position);
         if (result != null) HapticFeedback.vibrate();
@@ -322,7 +321,7 @@ class MyDraggableState<T> extends State<MyDraggable<T>> {
     setState(() {
       _activeCount += 1;
     });
-    final DragAvatar<T> avatar = new DragAvatar<T>(
+    final DragAvatar<T> avatar = DragAvatar<T>(
         overlayState: Overlay.of(context, debugRequiredFor: widget)!,
         data: widget.data,
         initialPosition: position,
@@ -357,7 +356,7 @@ class MyDraggableState<T> extends State<MyDraggable<T>> {
         _activeCount < widget.maxSimultaneousDrags!;
     final bool showChild =
         _activeCount == 0 || widget.childWhenDragging == null;
-    return new Listener(
+    return Listener(
         onPointerDown: canDrag ? _routePointer : null,
         child: showChild ? widget.child : widget.childWhenDragging);
   }
@@ -457,7 +456,7 @@ class _MyDragTargetState<T> extends State<MyDragTarget<T?>> {
   @override
   Widget build(BuildContext context) {
     assert(widget.builder != null);
-    return new MetaData(
+    return MetaData(
         metaData: this,
         behavior: HitTestBehavior.translucent,
         child: widget.builder(context, _mapAvatarsToData<T?>(_candidateAvatars),
@@ -467,7 +466,8 @@ class _MyDragTargetState<T> extends State<MyDragTarget<T?>> {
 
 enum _DragEndKind { dropped, canceled }
 
-typedef void _OnDragEnd(Velocity velocity, Offset? offset, bool wasAccepted);
+typedef _OnDragEnd = void Function(
+    Velocity velocity, Offset? offset, bool wasAccepted);
 
 // The lifetime of this object is a little dubious right now. Specifically, it
 // lives as long as the pointer is down. Arguably it should self-immolate if the
@@ -478,15 +478,15 @@ class DragAvatar<T> extends Drag {
     required this.overlayState,
     this.data,
     required Offset initialPosition,
-    this.dragStartPoint: Offset.zero,
+    this.dragStartPoint = Offset.zero,
     this.feedback,
-    this.feedbackOffset: Offset.zero,
+    this.feedbackOffset = Offset.zero,
     this.onDragEnd,
     this.onMove,
   })  : assert(overlayState != null),
         assert(dragStartPoint != null),
         assert(feedbackOffset != null) {
-    _entry = new OverlayEntry(builder: _build);
+    _entry = OverlayEntry(builder: _build);
     overlayState.insert(_entry!);
     _position = initialPosition;
     updateDrag(initialPosition);
@@ -588,8 +588,9 @@ class DragAvatar<T> extends Drag {
   }
 
   void _leaveAllEntered() {
-    for (int i = 0; i < _enteredTargets.length; i += 1)
+    for (int i = 0; i < _enteredTargets.length; i += 1) {
       _enteredTargets[i]!.didLeave(this);
+    }
     _enteredTargets.clear();
   }
 
@@ -605,14 +606,15 @@ class DragAvatar<T> extends Drag {
     _entry!.remove();
     _entry = null;
     // TODO(ianh): consider passing _entry as well so the client can perform an animation.
-    if (onDragEnd != null)
+    if (onDragEnd != null) {
       onDragEnd!(velocity ?? Velocity.zero, _lastOffset, wasAccepted);
+    }
   }
 
   Widget _build(BuildContext context) {
     final RenderBox box = overlayState.context.findRenderObject() as RenderBox;
     final Offset overlayTopLeft = box.localToGlobal(Offset.zero);
-    return new Positioned(
+    return Positioned(
         //left: _lastOffset.dx - overlayTopLeft.dx,
         left: 0.0,
         top: _lastOffset!.dy - overlayTopLeft.dy,
