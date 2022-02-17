@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:trellis_mobile_app/routes/app_routes.dart';
 
 class AuthService {
   // Create storage
@@ -100,8 +102,13 @@ class AuthService {
   }
 
   void logout() async {
+    print(FirebaseAuth.instance.currentUser!.providerData[0].providerId);
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
     await deleteUid("uid");
+    await Get.offNamed(AppRoutes.WALK_THROUGH)!.then((value) {
+      EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+      EasyLoading.showSuccess("Đăng xuất thành công");
+    });
   }
 }

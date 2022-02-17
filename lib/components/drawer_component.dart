@@ -120,12 +120,6 @@ class _DrawerComponentState extends State<DrawerComponent> {
                   title: "Đăng xuất",
                   onTap: () async {
                     authService.logout();
-                    Get.back();
-                    await Get.offNamed(AppRoutes.WALK_THROUGH)!.then((value) {
-                      EasyLoading.instance.loadingStyle =
-                          EasyLoadingStyle.custom;
-                      EasyLoading.showSuccess("Đăng xuất thành công");
-                    });
                   },
                 ),
               ],
