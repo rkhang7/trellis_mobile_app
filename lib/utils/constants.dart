@@ -36,3 +36,6 @@ const emailId = "Email";
 const cancel = "Cancel";
 const name = "Name";
 const password = "Password";
+
+// SignUpScreen
+const signUpAccount = "Đăng ký tài khoản";
