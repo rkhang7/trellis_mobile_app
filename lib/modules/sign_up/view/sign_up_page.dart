@@ -76,14 +76,7 @@ class SignUpPage extends StatelessWidget {
                         String email = signUpUpController.emailController.text;
                         String password =
                             signUpUpController.passwordController.text;
-                        signUpUpController
-                            .createUserWithEmailAndPassword(email, password)
-                            .then(
-                          (value) {
-                            signUpUpController.isLoadingButton.value = false;
-                            Get.offAllNamed(AppRoutes.DASHBOARD);
-                          },
-                        );
+                        signUpUpController.signUp(email, password);
                       },
                     ),
                   ),
@@ -147,10 +140,6 @@ class SignUpPage extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           )),
     );
-  }
-
-  void _signUp() {
-    if (signUpUpController.formKey.currentState!.validate()) {}
   }
 
   _buildPasswordField(TextEditingController controller) {
