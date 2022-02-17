@@ -2,7 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/sign_up/controller/sign_up_controller.dart';
+import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/constants.dart';
 import 'package:trellis_mobile_app/utils/widget/auth_button.dart';
 
@@ -55,11 +57,59 @@ class SignUpPage extends StatelessWidget {
                         signUpUpController.confirmPasswordController),
                   ),
                   const SizedBox(height: 40),
-                  AuthButton(
-                      text: signUp,
+                  Obx(
+                    () => AuthButton(
+                      widget: signUpUpController.isLoadingButton.isTrue
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : const Text(
+                              signUp,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
                       onClick: () {
-                        _signUp();
-                      })
+                        signUpUpController.isLoadingButton.value = true;
+                        String email = signUpUpController.emailController.text;
+                        String password =
+                            signUpUpController.passwordController.text;
+                        signUpUpController
+                            .createUserWithEmailAndPassword(email, password)
+                            .then(
+                          (value) {
+                            signUpUpController.isLoadingButton.value = false;
+                            Get.offAllNamed(AppRoutes.DASHBOARD);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Bạn đã có tài khoản? ",
+                        style: primaryTextStyle(),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.back();
+                          Get.toNamed(AppRoutes.SIGN_IN);
+                        },
+                        child: Text(
+                          "Đăng nhập",
+                          style: primaryTextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

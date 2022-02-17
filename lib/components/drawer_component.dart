@@ -44,8 +44,9 @@ class _DrawerComponentState extends State<DrawerComponent> {
               isExpandable = !isExpandable;
               setState(() {});
             },
-            currentAccountPicture:
-                Image.network(currentUser!.photoURL.toString())
+            currentAccountPicture: currentUser!.photoURL == null
+                ? Image.asset("assets/icons/default_user.png")
+                : Image.network(currentUser!.photoURL.toString())
                     .cornerRadiusWithClipRRect(50),
             accountName: Text(currentUser!.displayName.toString(),
                 style: boldTextStyle(color: Colors.white, size: 16)),
@@ -115,14 +116,10 @@ class _DrawerComponentState extends State<DrawerComponent> {
                   leading: const Icon(Icons.logout_outlined),
                   title: "Đăng xuất",
                   onTap: () {
-                    authService.logout().then((value) => {
-                          authService.deleteUid("uid").then((value) => {
-                                Get.offAllNamed(AppRoutes.WALK_THROUGH),
-                                EasyLoading.instance.loadingStyle =
-                                    EasyLoadingStyle.custom,
-                                EasyLoading.showSuccess("Đăng xuất thành công"),
-                              }),
-                        });
+                    authService.logout();
+                    Get.offAll(AppRoutes.WALK_THROUGH);
+                    EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+                    EasyLoading.showSuccess("Đăng xuất thành công");
                   },
                 ),
               ],

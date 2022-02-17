@@ -47,6 +47,27 @@ class AuthService {
     return user;
   }
 
+  Future<User?> createUserWithEmailAndPassword(
+      String yourEmail, String yourPassword) async {
+    User? user;
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: yourEmail, password: yourPassword);
+      user = userCredential.user;
+      saveUid(user!.uid);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+      } else if (e.code == 'email-already-in-use') {
+        Get.snackbar("Lỗi", "Tài khoản đã tồn tại");
+      }
+    } catch (e) {
+      Get.snackbar("Lỗi", "Đã có lỗi xảy ra");
+    }
+
+    return user;
+  }
+
   Future<void> saveUid(String uid) async {
     await storage.write(key: "uid", value: uid);
   }
@@ -59,7 +80,9 @@ class AuthService {
     await storage.delete(key: key);
   }
 
-  Future<GoogleSignInAccount?> logout() async {
-    return await GoogleSignIn().signOut();
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
+    deleteUid("uid");
   }
 }

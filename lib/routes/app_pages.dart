@@ -8,6 +8,7 @@ import 'package:trellis_mobile_app/modules/detail_table/view/detail_table_page.d
 import 'package:trellis_mobile_app/modules/notification/binding/notification_binding.dart';
 import 'package:trellis_mobile_app/modules/notification/view/notification_page.dart';
 import 'package:trellis_mobile_app/modules/sign_in/binding/sign_in_binding.dart';
+import 'package:trellis_mobile_app/modules/sign_in/view/sign_in_page.dart';
 import 'package:trellis_mobile_app/modules/sign_up/binding/sign_up_binding.dart';
 import 'package:trellis_mobile_app/modules/sign_up/view/sign_up_page.dart';
 import 'package:trellis_mobile_app/modules/walk_through/binding/walk_through_binding.dart';
@@ -43,7 +44,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.SIGN_IN,
-      page: () => SignUpPage(),
+      page: () => SignInPage(),
       binding: SignInBinding(),
     ),
     GetPage(

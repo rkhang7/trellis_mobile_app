@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 
 class AuthButton extends StatelessWidget {
-  String text;
+  Widget widget;
   Function() onClick;
   AuthButton({
     Key? key,
-    required this.text,
+    required this.widget,
     required this.onClick,
   }) : super(key: key);
 
@@ -20,14 +20,7 @@ class AuthButton extends StatelessWidget {
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         onPressed: onClick,
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
+        child: widget,
       ),
     );
   }

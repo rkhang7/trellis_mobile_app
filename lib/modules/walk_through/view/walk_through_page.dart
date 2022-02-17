@@ -178,7 +178,9 @@ class WalkThroughPage extends StatelessWidget {
           buildItemAuth(
               label: signInEamilLabel,
               iconPath: "assets/icons/email.png",
-              onClick: () {}),
+              onClick: () {
+                Get.toNamed(AppRoutes.SIGN_IN);
+              }),
           buildItemAuth(
               label: signInGoogleLabel,
               iconPath: "assets/icons/google.png",
