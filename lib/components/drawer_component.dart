@@ -48,8 +48,11 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 ? Image.asset("assets/icons/default_user.png")
                 : Image.network(currentUser!.photoURL.toString())
                     .cornerRadiusWithClipRRect(50),
-            accountName: Text(currentUser!.displayName.toString(),
-                style: boldTextStyle(color: Colors.white, size: 16)),
+            accountName: currentUser!.displayName.toString() == null
+                ? Text("null",
+                    style: boldTextStyle(color: Colors.white, size: 16))
+                : Text(currentUser!.displayName.toString(),
+                    style: boldTextStyle(color: Colors.white, size: 16)),
             accountEmail: Text(currentUser!.email.toString(),
                 style: primaryTextStyle(color: Colors.white, size: 14)),
           ),
@@ -115,11 +118,14 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 DrawerList(
                   leading: const Icon(Icons.logout_outlined),
                   title: "Đăng xuất",
-                  onTap: () {
+                  onTap: () async {
                     authService.logout();
-                    Get.offAll(AppRoutes.WALK_THROUGH);
-                    EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
-                    EasyLoading.showSuccess("Đăng xuất thành công");
+                    Get.back();
+                    await Get.offNamed(AppRoutes.WALK_THROUGH)!.then((value) {
+                      EasyLoading.instance.loadingStyle =
+                          EasyLoadingStyle.custom;
+                      EasyLoading.showSuccess("Đăng xuất thành công");
+                    });
                   },
                 ),
               ],

@@ -68,6 +68,25 @@ class AuthService {
     return user;
   }
 
+  Future<User?> signInWithEmailAndPassword(
+      String yourEmail, String yourPassword) async {
+    User? user;
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: yourEmail, password: yourPassword);
+      user = userCredential.user;
+      saveUid(user!.uid);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        Get.snackbar("Lỗi", "Email không tồn tại");
+      } else if (e.code == 'wrong-password') {
+        Get.snackbar("Lỗi", "Sai mật khẩu");
+      }
+    }
+
+    return user;
+  }
+
   Future<void> saveUid(String uid) async {
     await storage.write(key: "uid", value: uid);
   }
@@ -83,6 +102,6 @@ class AuthService {
   void logout() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
-    deleteUid("uid");
+    await deleteUid("uid");
   }
 }

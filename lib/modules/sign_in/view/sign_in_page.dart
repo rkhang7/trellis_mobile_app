@@ -52,18 +52,27 @@ class SignInPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   const SizedBox(height: 40),
-                  AuthButton(
-                    widget: const Text(
-                      logIn,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
+                  Obx(
+                    () => AuthButton(
+                      widget: signInController.isButtonLoading.isTrue
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : const Text(
+                              logIn,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                      onClick: () {
+                        String email = signInController.emailController.text;
+                        String password =
+                            signInController.passwordController.text;
+                        signInController.signIn(email, password);
+                      },
                     ),
-                    onClick: () {
-                      signInController.signIn();
-                    },
                   ),
                   const SizedBox(height: 20),
                   Row(
