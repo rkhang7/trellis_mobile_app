@@ -51,29 +51,9 @@ class SignInPage extends StatelessWidget {
                         signInController.passwordController),
                   ),
                   const SizedBox(height: 20),
+                  _buildResetPassword(),
                   const SizedBox(height: 40),
-                  Obx(
-                    () => AuthButton(
-                      widget: signInController.isButtonLoading.isTrue
-                          ? const Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : const Text(
-                              logIn,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
-                      onClick: () {
-                        String email = signInController.emailController.text;
-                        String password =
-                            signInController.passwordController.text;
-                        signInController.signIn(email, password);
-                      },
-                    ),
-                  ),
+                  _buildSignInButton(),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -102,6 +82,30 @@ class SignInPage extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Obx _buildSignInButton() {
+    return Obx(
+      () => AuthButton(
+        widget: signInController.isButtonLoading.isTrue
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : const Text(
+                logIn,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+        onClick: () {
+          String email = signInController.emailController.text;
+          String password = signInController.passwordController.text;
+          signInController.signIn(email, password);
+        },
       ),
     );
   }
@@ -171,6 +175,69 @@ class SignInPage extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           )),
+    );
+  }
+
+  _buildResetPassword() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        GestureDetector(
+          onTap: () async {
+            await Get.defaultDialog(
+              contentPadding: const EdgeInsets.all(8),
+              title: resetPassword,
+              titleStyle: const TextStyle(color: Colors.blue, fontSize: 20),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("Vui lòng nhập email"),
+                  10.height,
+                  Form(
+                    key: signInController.formKeyDialog,
+                    child: _buildEmailField(
+                        signInController.emailResetPasswordController),
+                  )
+                ],
+              ),
+              confirm: Obx(
+                () => InkWell(
+                  onTap: () {
+                    signInController.resetPassword(
+                        signInController.emailResetPasswordController.text);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 200,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(8),
+                      shape: BoxShape.rectangle,
+                    ),
+                    child: signInController.isButtonLoadingDialog.isTrue
+                        ? const Center(
+                            child:
+                                CircularProgressIndicator(color: Colors.white),
+                          )
+                        : const Text(
+                            resetPassword,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                  ),
+                ),
+              ),
+            );
+          },
+          child: Text(
+            "Quên mật khẩu? ",
+            style: primaryTextStyle(color: Colors.blue),
+          ),
+        ),
+      ],
     );
   }
 }

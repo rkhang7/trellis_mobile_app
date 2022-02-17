@@ -89,6 +89,24 @@ class AuthService {
     return user;
   }
 
+  // Send user an email for password reset
+  Future<void> resetPassword(String email) async {
+    try {
+      FirebaseAuth auth = FirebaseAuth.instance;
+      await auth.sendPasswordResetEmail(email: email);
+      EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+      EasyLoading.showInfo(
+          "Vui lòng kiểm tra email của bạn để đặt lại mật khẩu",
+          duration: Duration(seconds: 3));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        Get.snackbar("Lỗi", "Email không tồn tại");
+      } else {
+        Get.snackbar("Lỗi", "Đã xảy ra lỗi");
+      }
+    }
+  }
+
   Future<void> saveUid(String uid) async {
     await storage.write(key: "uid", value: uid);
   }

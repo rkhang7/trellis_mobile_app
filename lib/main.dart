@@ -28,7 +28,7 @@ void configLoading() {
     ..maskColor = Colors.blue.withOpacity(0.5)
     ..userInteractions = true
     ..textPadding = EdgeInsets.zero
-    ..fontSize = 12
+    ..fontSize = 16
     ..dismissOnTap = false;
 }
 
