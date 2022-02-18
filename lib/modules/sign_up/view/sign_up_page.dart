@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/sign_up/controller/sign_up_controller.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';

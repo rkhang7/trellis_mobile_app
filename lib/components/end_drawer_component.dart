@@ -42,7 +42,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(MaterialIcons.person_outline),
-        title: "Members",
+        title: "Thành viên",
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -172,7 +172,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
           ),
           DrawerList(
               leading: const Icon(Icons.sync),
-              title: "Synced",
+              title: "Đồng bộ",
               onTap: () {
                 toast('Coming Soon');
               }),

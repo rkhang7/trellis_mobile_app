@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/sign_in/controller/sign_in_controller.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
@@ -35,6 +36,7 @@ class SignInPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  _buildAnimations(),
                   const Text(
                     logIn,
                     style: TextStyle(
@@ -238,6 +240,14 @@ class SignInPage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  _buildAnimations() {
+    return Lottie.asset(
+      'assets/animation/todo.json',
+      height: 200,
+      width: 200,
     );
   }
 }

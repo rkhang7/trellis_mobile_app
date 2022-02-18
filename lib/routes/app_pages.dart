@@ -41,6 +41,7 @@ class AppPages {
       name: AppRoutes.DETAIL_TABLE,
       page: () => DetailTablePage(),
       binding: DetailTableBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: AppRoutes.SIGN_IN,

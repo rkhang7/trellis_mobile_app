@@ -63,7 +63,9 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 DrawerList(
                   leading: const Icon(FontAwesomeIcons.table),
                   title: "Bảng",
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                  },
                 ),
                 DrawerList(
                   leading: const Icon(Icons.home),
@@ -119,7 +121,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                   leading: const Icon(Icons.logout_outlined),
                   title: "Đăng xuất",
                   onTap: () async {
-                    authService.logout();
+                    _openConfirmDialog();
                   },
                 ),
               ],
@@ -133,6 +135,43 @@ class _DrawerComponentState extends State<DrawerComponent> {
             },
           ).visible(!isExpandable),
         ],
+      ),
+    );
+  }
+
+  void _openConfirmDialog() {
+    Get.defaultDialog(
+      title: "Bạn có chắc muốn đăng xuất?",
+      titlePadding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+      titleStyle: TextStyle(
+        color: Colors.grey.shade700,
+        fontSize: 18,
+      ),
+      radius: 5,
+      content: Container(),
+      confirm: GestureDetector(
+        onTap: () async {
+          authService.logout();
+        },
+        child: Container(
+          margin: const EdgeInsets.only(left: 32, bottom: 12),
+          child: const Text(
+            "CÓ",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+      cancel: GestureDetector(
+        onTap: () {
+          Get.back();
+        },
+        child: Container(
+          margin: const EdgeInsets.only(left: 64),
+          child: const Text(
+            "KHÔNG",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
       ),
     );
   }
