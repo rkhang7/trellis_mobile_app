@@ -6,4 +6,5 @@ class AppRoutes {
   static const String DETAIL_TABLE = "/detail_table";
   static const String SIGN_IN = "/sign_in";
   static const String SIGN_UP = "/sign_up";
+  static const String SPLASH_SCREEN = "/splash_screen";
 }

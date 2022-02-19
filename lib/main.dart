@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      initialRoute: AppRoutes.WALK_THROUGH,
+      initialRoute: AppRoutes.SPLASH_SCREEN,
       builder: EasyLoading.init(),
     );
   }
