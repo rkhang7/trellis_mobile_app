@@ -36,7 +36,6 @@ class SignInPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildAnimations(),
                   const Text(
                     logIn,
                     style: TextStyle(
@@ -240,14 +239,6 @@ class SignInPage extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  _buildAnimations() {
-    return Lottie.asset(
-      'assets/animation/todo.json',
-      height: 200,
-      width: 200,
     );
   }
 }

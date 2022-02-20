@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:trellis_mobile_app/modules/create_card/view/create_card_page.dart';
 import 'package:trellis_mobile_app/modules/create_table/binding/create_table_binding.dart';
 import 'package:trellis_mobile_app/modules/create_table/view/create_table_page.dart';
 import 'package:trellis_mobile_app/modules/dashboard/binding/dashboard_binding.dart';
@@ -57,6 +58,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.SPLASH_SCREEN,
       page: () => const SplashScreenPage(),
+    ),
+    GetPage(
+      name: AppRoutes.CREATE_CARD,
+      page: () => const CreateCardPage(),
+      binding: CreateTableBinding(),
     ),
   ];
 }

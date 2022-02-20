@@ -118,7 +118,7 @@ class DashBoardPage extends StatelessWidget {
             ),
             backgroundColor: buttonColor,
             onTap: () {
-              toast("Thêm thẻ");
+              Get.toNamed(AppRoutes.CREATE_CARD);
             })
       ],
     );

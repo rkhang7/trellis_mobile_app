@@ -14,21 +14,7 @@ class CreateTablePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: backgroundColor,
-          leading: const CloseButton(
-            color: iconColorPrimary,
-          ),
-          title: Text('Tạo bảng', style: boldTextStyle(color: Colors.white)),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.done, color: iconColorPrimary),
-              onPressed: () {
-                Get.back();
-              },
-            )
-          ],
-        ),
+        appBar: _buildAppBar(),
         body: Container(
           padding: const EdgeInsets.all(16),
           child:
@@ -50,81 +36,137 @@ class CreateTablePage extends StatelessWidget {
             ),
             20.height,
             const Text("Không gian làm việc"),
-            DropdownButton(
-              underline: Container(
-                height: 1,
-                color: Colors.black,
-              ),
-              isExpanded: true,
-              hint: const Text(
-                "Nhóm 1",
-                style: TextStyle(color: Colors.black),
-              ),
-              onChanged: (dynamic value) {},
-              items: [
-                DropdownMenuItem(
-                    child: DrawerList(
-                      leading: const Icon(Icons.group_outlined),
-                      title: "Nhóm 1",
-                    ),
-                    value: '1'),
-                DropdownMenuItem(
-                    child: DrawerList(
-                      leading: const Icon(Icons.group_outlined),
-                      title: "Nhóm 2",
-                    ),
-                    value: '1'),
-                DropdownMenuItem(
-                    child: DrawerList(
-                      leading: const Icon(Icons.group_outlined),
-                      title: "Nhóm 3",
-                    ),
-                    value: '1'),
-              ],
-            ),
+            _buildWorkingSpace(),
             30.height,
             const Text("Quyền xem"),
-            DropdownButton(
-              underline: Container(
-                height: 1,
-                color: Colors.black,
-              ),
-              isExpanded: true,
-              hint: const Text(
-                "Không gian làm việc",
-                style: TextStyle(color: Colors.black),
-              ),
-              onChanged: (dynamic value) {},
-              items: [
-                DropdownMenuItem(
-                    child: DrawerList(
-                      leading: const Icon(
-                        FontAwesomeIcons.lock,
-                      ),
-                      title: "Riêng tư",
-                    ),
-                    value: '1'),
-                DropdownMenuItem(
-                    child: DrawerList(
-                      leading: const Icon(
-                        Icons.group_outlined,
-                      ),
-                      title: "Không gian làm việc",
-                    ),
-                    value: '1'),
-                DropdownMenuItem(
-                    child: DrawerList(
-                      leading: const Icon(
-                        Icons.public,
-                      ),
-                      title: "Công khai",
-                    ),
-                    value: '1'),
-              ],
-            ),
+            _buildViewPermission(),
           ]),
         ),
       ),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: backgroundColor,
+      leading: const CloseButton(
+        color: iconColorPrimary,
+      ),
+      title: Text('Tạo bảng', style: boldTextStyle(color: Colors.white)),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.done, color: iconColorPrimary),
+          onPressed: () {
+            Get.back();
+          },
+        )
+      ],
+    );
+  }
+
+  DropdownButton<String> _buildViewPermission() {
+    return DropdownButton(
+      underline: Container(
+        height: 1,
+        color: Colors.black,
+      ),
+      isExpanded: true,
+      hint: const Text(
+        "Không gian làm việc",
+        style: TextStyle(color: Colors.black),
+      ),
+      onChanged: (dynamic value) {},
+      items: [
+        DropdownMenuItem(
+            child: ListTile(
+              title: const Text("Riêng tư"),
+              leading: const Icon(
+                Icons.lock,
+                color: Colors.black,
+              ),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              leading: const Icon(
+                Icons.group_outlined,
+                color: Colors.black,
+              ),
+              title: const Text("Không gian làm việc"),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              leading: const Icon(
+                Icons.public,
+                color: Colors.black,
+              ),
+              title: const Text("Công khai"),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+      ],
+    );
+  }
+
+  DropdownButton<String> _buildWorkingSpace() {
+    return DropdownButton(
+      underline: Container(
+        height: 1,
+        color: Colors.black,
+      ),
+      isExpanded: true,
+      hint: const Text(
+        "Nhóm 1",
+        style: TextStyle(color: Colors.black),
+      ),
+      onChanged: (dynamic value) {},
+      items: [
+        DropdownMenuItem(
+            child: ListTile(
+              leading: const Icon(
+                Icons.group_outlined,
+                color: Colors.black,
+              ),
+              title: const Text("Nhóm 1"),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              leading: const Icon(
+                Icons.group_outlined,
+                color: Colors.black,
+              ),
+              title: const Text("Nhóm 2"),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              leading: const Icon(
+                Icons.group_outlined,
+                color: Colors.black,
+              ),
+              title: const Text("Nhóm 3"),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+      ],
     );
   }
 }

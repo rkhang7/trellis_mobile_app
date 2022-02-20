@@ -7,12 +7,13 @@ class DrawerList extends StatelessWidget {
   String? title;
   Function? onTap;
 
-  DrawerList({this.leading, this.title = 'Enter Title', this.onTap});
+  DrawerList({Key? key, this.leading, this.title = 'Enter Title', this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           leading!,
