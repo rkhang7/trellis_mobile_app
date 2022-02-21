@@ -28,7 +28,9 @@ class CreateBoardPage extends StatelessWidget {
             ),
             20.height,
             const Text("Không gian làm việc"),
-            _buildDropdownWorkingSpace(),
+            Obx(
+              () => _buildDropdownWorkingSpace(),
+            ),
             30.height,
             const Text("Quyền xem"),
             _buildDropdownViewPermission(),
@@ -112,6 +114,7 @@ class CreateBoardPage extends StatelessWidget {
 
   DropdownButton<String> _buildDropdownWorkingSpace() {
     return DropdownButton(
+      value: createBoardController.selectedWorkspaceId.toString(),
       underline: Container(
         height: 1,
         color: Colors.black,
@@ -121,45 +124,11 @@ class CreateBoardPage extends StatelessWidget {
         "Nhóm 1",
         style: TextStyle(color: Colors.black),
       ),
-      onChanged: (dynamic value) {},
-      items: [
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 1"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 2"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 3"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-      ],
+      onChanged: (selectedValue) {
+        createBoardController.selectedWorkspaceId.value =
+            int.parse(selectedValue.toString());
+      },
+      items: createBoardController.listDropdownMenuItemWorkspaces.value,
     );
   }
 }
