@@ -47,12 +47,14 @@ class CreateCardPage extends StatelessWidget {
                       child: Column(
                         children: [
                           InputFieldCreate(
+                            onChange: (value) {},
                             title: "Tên thẻ",
                             controller: createCardController.cardNameController,
                             autoFocus: false,
                             primaryColor: Colors.grey,
                           ),
                           InputFieldCreate(
+                              onChange: (value) {},
                               title: "Mô tả",
                               controller:
                                   createCardController.descriptionController,

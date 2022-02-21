@@ -8,6 +8,7 @@ class CreateBoardController extends GetxController {
   final listWorkSpaceModels = Rx<List<WorkspaceModel>>([]);
   var selectedWorkspaceId = 1.obs;
   final listDropdownMenuItemWorkspaces = Rx<List<DropdownMenuItem<String>>>([]);
+  final boardNameIsEmpty = true.obs;
 
   @override
   void onInit() {

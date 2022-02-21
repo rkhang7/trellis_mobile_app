@@ -5,6 +5,7 @@ class InputFieldCreate extends StatelessWidget {
   final bool autoFocus;
   final TextEditingController controller;
   final Color primaryColor;
+  final Function(String) onChange;
 
   const InputFieldCreate({
     Key? key,
@@ -12,6 +13,7 @@ class InputFieldCreate extends StatelessWidget {
     required this.controller,
     required this.autoFocus,
     required this.primaryColor,
+    required this.onChange,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class InputFieldCreate extends StatelessWidget {
       ),
       cursorColor: primaryColor,
       cursorHeight: 25,
+      onChanged: onChange,
     );
   }
 }

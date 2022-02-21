@@ -21,6 +21,13 @@ class CreateBoardPage extends StatelessWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             InputFieldCreate(
+              onChange: (value) {
+                if (value.isEmpty) {
+                  createBoardController.boardNameIsEmpty.value = true;
+                } else {
+                  createBoardController.boardNameIsEmpty.value = false;
+                }
+              },
               title: "Tên bảng",
               controller: createBoardController.boardNameController,
               autoFocus: true,
@@ -49,12 +56,19 @@ class CreateBoardPage extends StatelessWidget {
       ),
       title: Text('Tạo bảng', style: boldTextStyle(color: Colors.white)),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.done, color: iconColorPrimary),
-          onPressed: () {
-            Get.back();
-          },
-        )
+        Obx(
+          () => IconButton(
+            icon: Icon(
+              Icons.done,
+              color: createBoardController.boardNameIsEmpty.value
+                  ? Colors.grey
+                  : Colors.white,
+            ),
+            onPressed: () {
+              createBoardController.boardNameIsEmpty.value ? null : Get.back();
+            },
+          ),
+        ),
       ],
     );
   }
