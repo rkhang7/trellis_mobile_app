@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
+import 'package:trellis_mobile_app/modules/create_board/binding/create_board_binding.dart';
+import 'package:trellis_mobile_app/modules/create_board/view/create_board_page.dart';
+import 'package:trellis_mobile_app/modules/create_card/binding/create_card_binding.dart';
 import 'package:trellis_mobile_app/modules/create_card/view/create_card_page.dart';
-import 'package:trellis_mobile_app/modules/create_table/binding/create_table_binding.dart';
-import 'package:trellis_mobile_app/modules/create_table/view/create_table_page.dart';
 import 'package:trellis_mobile_app/modules/dashboard/binding/dashboard_binding.dart';
 import 'package:trellis_mobile_app/modules/dashboard/view/dashboard_page.dart';
 import 'package:trellis_mobile_app/modules/detail_table/binding/detail_table_binding.dart';
@@ -36,8 +37,8 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.CREATE_TABLE,
-      page: () => CreateTablePage(),
-      binding: CreateTableBinding(),
+      page: () => CreateBoardPage(),
+      binding: CreateBoardBinding(),
     ),
     GetPage(
       name: AppRoutes.DETAIL_TABLE,
@@ -61,8 +62,8 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.CREATE_CARD,
-      page: () => const CreateCardPage(),
-      binding: CreateTableBinding(),
+      page: () => CreateCardPage(),
+      binding: CreateCardBinding(),
     ),
   ];
 }

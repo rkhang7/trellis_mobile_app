@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:trellis_mobile_app/modules/create_table/controller/create_table_controller.dart';
+import 'package:trellis_mobile_app/modules/create_board/controller/create_board_controller.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
+import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
 import 'package:trellis_mobile_app/utils/widgets.dart';
 
-class CreateTablePage extends StatelessWidget {
-  CreateTablePage({Key? key}) : super(key: key);
-  final createTableController = Get.find<CreateTableController>();
+class CreateBoardPage extends StatelessWidget {
+  CreateBoardPage({Key? key}) : super(key: key);
+  final createBoardController = Get.find<CreateBoardController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,27 +20,19 @@ class CreateTablePage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            TextFormField(
-              autofocus: true,
-              decoration: const InputDecoration(
-                labelText: "Tên bảng",
-                labelStyle: TextStyle(color: Colors.green),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green, width: 2),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green, width: 2),
-                ),
-              ),
-              cursorColor: Colors.green,
-              cursorHeight: 25,
+            InputFieldCreate(
+              title: "Tên bảng",
+              controller: createBoardController.boardNameController,
+              autoFocus: true,
+              primaryColor: Colors.green,
             ),
             20.height,
             const Text("Không gian làm việc"),
-            _buildWorkingSpace(),
+            _buildDropdownWorkingSpace(),
             30.height,
             const Text("Quyền xem"),
-            _buildViewPermission(),
+            _buildDropdownViewPermission(),
+            30.height,
           ]),
         ),
       ),
@@ -64,7 +57,7 @@ class CreateTablePage extends StatelessWidget {
     );
   }
 
-  DropdownButton<String> _buildViewPermission() {
+  DropdownButton<String> _buildDropdownViewPermission() {
     return DropdownButton(
       underline: Container(
         height: 1,
@@ -117,7 +110,7 @@ class CreateTablePage extends StatelessWidget {
     );
   }
 
-  DropdownButton<String> _buildWorkingSpace() {
+  DropdownButton<String> _buildDropdownWorkingSpace() {
     return DropdownButton(
       underline: Container(
         height: 1,

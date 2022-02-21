@@ -48,6 +48,7 @@ dependencies:
   flutter_vector_icons: ^1.0.0
   email_validator: ^2.0.1
   lottie: ^1.2.2
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

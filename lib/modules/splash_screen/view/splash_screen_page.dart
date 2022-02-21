@@ -22,7 +22,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   }
 
   Future checkFirstSeen() async {
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 4, milliseconds: 30));
     Get.back();
     Get.offNamed(AppRoutes.WALK_THROUGH);
   }

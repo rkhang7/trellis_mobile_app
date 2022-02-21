@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class CreateTableController extends GetxController {
+class CreateBoardController extends GetxController {
   var itemDropDownList = [];
   var selected = "".obs;
+  var boardNameController = TextEditingController();
 
   @override
   void onInit() {
