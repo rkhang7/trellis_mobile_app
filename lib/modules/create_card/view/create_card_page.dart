@@ -5,6 +5,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/create_card/controller/create_card_controller.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
+import 'package:trellis_mobile_app/utils/extention.dart';
 
 class CreateCardPage extends StatelessWidget {
   CreateCardPage({Key? key}) : super(key: key);
@@ -367,7 +368,7 @@ class CreateCardPage extends StatelessWidget {
   _buildDropdownDateStartDate() {
     var now = DateTime.now().add(const Duration(days: 1));
     return SizedBox(
-      width: 150,
+      width: 40.0.wp,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -409,7 +410,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
-                  Get.back();
+                  _selectDate(Get.context!);
                 },
               ),
               value: '1'),
@@ -420,7 +421,7 @@ class CreateCardPage extends StatelessWidget {
 
   _buildDropdownTimeStartDate() {
     return SizedBox(
-      width: 100,
+      width: 30.0.wp,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -483,7 +484,9 @@ class CreateCardPage extends StatelessWidget {
                   "Chọn thời gian",
                   style: primaryTextStyle(color: Colors.black),
                 ),
-                onTap: () {},
+                onTap: () {
+                  _selectTimeOfDay(Get.context!);
+                },
               ),
               value: '1'),
         ],
@@ -494,7 +497,7 @@ class CreateCardPage extends StatelessWidget {
   _buildDropdownDateEndDate() {
     var now = DateTime.now().add(const Duration(days: 2));
     return SizedBox(
-      width: 150,
+      width: 40.0.wp,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -536,7 +539,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
-                  Get.back();
+                  _selectDate(Get.context!);
                 },
               ),
               value: '1'),
@@ -547,7 +550,7 @@ class CreateCardPage extends StatelessWidget {
 
   _buildDropdownTimeEndDate() {
     return SizedBox(
-      width: 100,
+      width: 30.0.wp,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -610,7 +613,9 @@ class CreateCardPage extends StatelessWidget {
                   "Chọn thời gian",
                   style: primaryTextStyle(color: Colors.black),
                 ),
-                onTap: () {},
+                onTap: () {
+                  _selectDate(Get.context!);
+                },
               ),
               value: '1'),
         ],
@@ -720,6 +725,23 @@ class CreateCardPage extends StatelessWidget {
             ),
             value: '1'),
       ],
+    );
+  }
+
+  void _selectDate(BuildContext context) async {
+    await showDatePicker(
+      context: context,
+      locale: const Locale("vi", "VN"),
+      initialDate: DateTime.now().add(const Duration(days: 1)),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2040),
+    );
+  }
+
+  void _selectTimeOfDay(BuildContext context) async {
+    await showTimePicker(
+      context: context,
+      initialTime: const TimeOfDay(hour: 9, minute: 0),
     );
   }
 }

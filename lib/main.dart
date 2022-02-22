@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:trellis_mobile_app/routes/app_pages.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 
@@ -49,6 +51,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: AppRoutes.SPLASH_SCREEN,
       builder: EasyLoading.init(),
+      localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+      supportedLocales: const [
+        Locale('vi', "VN"),
+      ],
     );
   }
 }

@@ -49,6 +49,9 @@ dependencies:
   email_validator: ^2.0.1
   lottie: ^1.2.2
   intl: ^0.17.0
+  flutter_localizations: 
+    sdk: flutter
+
 
 dev_dependencies:
   flutter_test:
