@@ -228,7 +228,9 @@ class CreateCardPage extends StatelessWidget {
               title: "Ngày bắt đầu",
               content: Row(
                 children: [
-                  _buildDropdownDateStartDate(),
+                  Obx(
+                    () => _buildDropdownDateStartDate(),
+                  ),
                   30.width,
                   _buildDropdownTimeStartDate(),
                 ],
@@ -291,7 +293,9 @@ class CreateCardPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      _buildDropdownDateEndDate(),
+                      Obx(
+                        () => _buildDropdownDateEndDate(),
+                      ),
                       30.width,
                       _buildDropdownTimeEndDate(),
                     ],
@@ -366,7 +370,7 @@ class CreateCardPage extends StatelessWidget {
   }
 
   _buildDropdownDateStartDate() {
-    var now = DateTime.now().add(const Duration(days: 1));
+    var datePicker = createCardController.startDatePicker;
     return SizedBox(
       width: 540.w,
       child: DropdownButton(
@@ -376,7 +380,7 @@ class CreateCardPage extends StatelessWidget {
         ),
         isExpanded: true,
         hint: Text(
-          "Ngày ${now.day} tháng ${now.month}",
+          "Ngày ${datePicker.value.day} tháng ${datePicker.value.month}",
           style: const TextStyle(color: Colors.black),
         ),
         onChanged: (dynamic value) {},
@@ -388,6 +392,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.startDatePicker.value = DateTime.now();
                   Get.back();
                 },
               ),
@@ -399,6 +404,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.startDatePicker.value =
+                      DateTime.now().add(
+                    const Duration(days: 1),
+                  );
+
                   Get.back();
                 },
               ),
@@ -410,7 +420,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
-                  _selectDate(Get.context!);
+                  _selectStartDate(Get.context!);
                 },
               ),
               value: '1'),
@@ -495,7 +505,7 @@ class CreateCardPage extends StatelessWidget {
   }
 
   _buildDropdownDateEndDate() {
-    var now = DateTime.now().add(const Duration(days: 2));
+    var datePicker = createCardController.endDatePicker;
     return SizedBox(
       width: 540.w,
       child: DropdownButton(
@@ -505,7 +515,7 @@ class CreateCardPage extends StatelessWidget {
         ),
         isExpanded: true,
         hint: Text(
-          "Ngày ${now.day} tháng ${now.month}",
+          "Ngày ${datePicker.value.day} tháng ${datePicker.value.month}",
           style: TextStyle(color: Colors.black),
         ),
         onChanged: (dynamic value) {},
@@ -517,6 +527,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.endDatePicker.value = DateTime.now();
                   Get.back();
                 },
               ),
@@ -528,6 +539,8 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.endDatePicker.value =
+                      DateTime.now().add(const Duration(days: 1));
                   Get.back();
                 },
               ),
@@ -539,7 +552,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
-                  _selectDate(Get.context!);
+                  _selectEndDate(Get.context!);
                 },
               ),
               value: '1'),
@@ -614,7 +627,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
-                  _selectDate(Get.context!);
+                  _selectStartDate(Get.context!);
                 },
               ),
               value: '1'),
@@ -728,14 +741,15 @@ class CreateCardPage extends StatelessWidget {
     );
   }
 
-  void _selectDate(BuildContext context) async {
+  void _selectStartDate(BuildContext context) async {
     await showDatePicker(
       context: context,
       locale: const Locale("vi", "VN"),
       initialDate: DateTime.now().add(const Duration(days: 1)),
       firstDate: DateTime(2000),
       lastDate: DateTime(2040),
-    );
+    ).then((value) => createCardController.startDatePicker.value = value!);
+    Get.back();
   }
 
   void _selectTimeOfDay(BuildContext context) async {
@@ -743,5 +757,16 @@ class CreateCardPage extends StatelessWidget {
       context: context,
       initialTime: const TimeOfDay(hour: 9, minute: 0),
     );
+  }
+
+  void _selectEndDate(BuildContext buildContext) async {
+    await showDatePicker(
+      context: buildContext,
+      locale: const Locale("vi", "VN"),
+      initialDate: DateTime.now().add(const Duration(days: 1)),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2040),
+    ).then((value) => createCardController.endDatePicker.value = value!);
+    Get.back();
   }
 }
