@@ -56,4 +56,13 @@ class CreateBoardController extends GetxController {
       Get.back();
     }
   }
+
+  WorkspaceModel? findWorkspaceById(int id) {
+    for (WorkspaceModel workspaceModel in listWorkSpaceModels.value) {
+      if (workspaceModel.id == id) {
+        return workspaceModel;
+      }
+    }
+    return null;
+  }
 }

@@ -128,15 +128,16 @@ class CreateBoardPage extends StatelessWidget {
 
   DropdownButton<String> _buildDropdownWorkingSpace() {
     return DropdownButton(
-      value: createBoardController.selectedWorkspaceId.toString(),
       underline: Container(
         height: 1,
         color: Colors.black,
       ),
       isExpanded: true,
-      hint: const Text(
-        "Nhóm 1",
-        style: TextStyle(color: Colors.black),
+      hint: Text(
+        createBoardController
+            .findWorkspaceById(createBoardController.selectedWorkspaceId.value)!
+            .name,
+        style: const TextStyle(color: Colors.black),
       ),
       onChanged: (selectedValue) {
         createBoardController.selectedWorkspaceId.value =
