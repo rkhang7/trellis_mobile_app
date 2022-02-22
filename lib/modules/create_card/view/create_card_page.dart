@@ -232,7 +232,9 @@ class CreateCardPage extends StatelessWidget {
                     () => _buildDropdownDateStartDate(),
                   ),
                   30.width,
-                  _buildDropdownTimeStartDate(),
+                  Obx(
+                    () => _buildDropdownTimeStartDate(),
+                  ),
                 ],
               ),
               cancel: GestureDetector(
@@ -297,7 +299,9 @@ class CreateCardPage extends StatelessWidget {
                         () => _buildDropdownDateEndDate(),
                       ),
                       30.width,
-                      _buildDropdownTimeEndDate(),
+                      Obx(
+                        () => _buildDropdownTimeEndDate(),
+                      ),
                     ],
                   ),
                   10.height,
@@ -429,7 +433,7 @@ class CreateCardPage extends StatelessWidget {
     );
   }
 
-  _buildDropdownTimeStartDate() {
+  Widget _buildDropdownTimeStartDate() {
     return SizedBox(
       width: 400.w,
       child: DropdownButton(
@@ -439,7 +443,7 @@ class CreateCardPage extends StatelessWidget {
         ),
         isExpanded: true,
         hint: Text(
-          "9:00",
+          createCardController.startTimePicker.value,
           style: primaryTextStyle(color: Colors.black),
         ),
         onChanged: (dynamic value) {},
@@ -451,10 +455,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.startTimePicker.value = "09:00";
                   Get.back();
                 },
               ),
-              value: '1'),
+              value: '09:00'),
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
@@ -462,10 +467,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.startTimePicker.value = "13:00";
                   Get.back();
                 },
               ),
-              value: '1'),
+              value: '13:00'),
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
@@ -473,10 +479,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.startTimePicker.value = "17:00";
                   Get.back();
                 },
               ),
-              value: '1'),
+              value: '17:00'),
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
@@ -484,10 +491,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.startTimePicker.value = "20:00";
                   Get.back();
                 },
               ),
-              value: '1'),
+              value: '20:00'),
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
@@ -495,7 +503,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
-                  _selectTimeOfDay(Get.context!);
+                  _selectStartTimePicker(Get.context!);
                 },
               ),
               value: '1'),
@@ -571,7 +579,7 @@ class CreateCardPage extends StatelessWidget {
         ),
         isExpanded: true,
         hint: Text(
-          "9:00",
+          createCardController.endTimePicker.value,
           style: primaryTextStyle(color: Colors.black),
         ),
         onChanged: (dynamic value) {},
@@ -583,10 +591,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.endTimePicker.value = "09:00";
                   Get.back();
                 },
               ),
-              value: '1'),
+              value: '09:00'),
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
@@ -594,10 +603,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.endTimePicker.value = "13:00";
                   Get.back();
                 },
               ),
-              value: '1'),
+              value: '13:00'),
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
@@ -605,10 +615,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.endTimePicker.value = "17:00";
                   Get.back();
                 },
               ),
-              value: '1'),
+              value: '17:00'),
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
@@ -616,10 +627,11 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
+                  createCardController.endTimePicker.value = "20:00";
                   Get.back();
                 },
               ),
-              value: '1'),
+              value: '20:00'),
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
@@ -627,7 +639,7 @@ class CreateCardPage extends StatelessWidget {
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
-                  _selectStartDate(Get.context!);
+                  _selectEndTimePicker(Get.context!);
                 },
               ),
               value: '1'),
@@ -752,13 +764,6 @@ class CreateCardPage extends StatelessWidget {
     Get.back();
   }
 
-  void _selectTimeOfDay(BuildContext context) async {
-    await showTimePicker(
-      context: context,
-      initialTime: const TimeOfDay(hour: 9, minute: 0),
-    );
-  }
-
   void _selectEndDate(BuildContext buildContext) async {
     await showDatePicker(
       context: buildContext,
@@ -767,6 +772,34 @@ class CreateCardPage extends StatelessWidget {
       firstDate: DateTime(2000),
       lastDate: DateTime(2040),
     ).then((value) => createCardController.endDatePicker.value = value!);
+    Get.back();
+  }
+
+  void _selectStartTimePicker(BuildContext context) async {
+    await showTimePicker(
+      context: context,
+      initialTime: const TimeOfDay(hour: 9, minute: 0),
+    ).then((value) {
+      String hour = value!.hour < 10 ? "0${value.hour}" : value.hour.toString();
+      String minute =
+          value.minute < 10 ? "0${value.minute}" : value.minute.toString();
+
+      createCardController.startTimePicker.value = "$hour:$minute";
+    });
+    Get.back();
+  }
+
+  void _selectEndTimePicker(BuildContext context) async {
+    await showTimePicker(
+      context: context,
+      initialTime: const TimeOfDay(hour: 9, minute: 0),
+    ).then((value) {
+      String hour = value!.hour < 10 ? "0${value.hour}" : value.hour.toString();
+      String minute =
+          value.minute < 10 ? "0${value.minute}" : value.minute.toString();
+
+      createCardController.endTimePicker.value = "$hour:$minute";
+    });
     Get.back();
   }
 }
