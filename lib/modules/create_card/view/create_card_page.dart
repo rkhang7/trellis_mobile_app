@@ -5,7 +5,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/create_card/controller/create_card_controller.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
-import 'package:trellis_mobile_app/utils/extention.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CreateCardPage extends StatelessWidget {
   CreateCardPage({Key? key}) : super(key: key);
@@ -368,7 +368,7 @@ class CreateCardPage extends StatelessWidget {
   _buildDropdownDateStartDate() {
     var now = DateTime.now().add(const Duration(days: 1));
     return SizedBox(
-      width: 40.0.wp,
+      width: 540.w,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -421,7 +421,7 @@ class CreateCardPage extends StatelessWidget {
 
   _buildDropdownTimeStartDate() {
     return SizedBox(
-      width: 30.0.wp,
+      width: 400.w,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -497,7 +497,7 @@ class CreateCardPage extends StatelessWidget {
   _buildDropdownDateEndDate() {
     var now = DateTime.now().add(const Duration(days: 2));
     return SizedBox(
-      width: 40.0.wp,
+      width: 540.w,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -550,7 +550,7 @@ class CreateCardPage extends StatelessWidget {
 
   _buildDropdownTimeEndDate() {
     return SizedBox(
-      width: 30.0.wp,
+      width: 400.w,
       child: DropdownButton(
         underline: Container(
           height: 1,

@@ -7,6 +7,7 @@ import 'package:trellis_mobile_app/modules/walk_through/view/widget.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalkThroughPage extends StatelessWidget {
   WalkThroughPage({Key? key}) : super(key: key);
@@ -17,19 +18,21 @@ class WalkThroughPage extends StatelessWidget {
         child: Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.w),
         child: Column(
           children: [
             Stack(
               children: [
                 Positioned(
-                  left: Get.width / 2 - 70,
+                  left: Get.width / 2 - 270.w,
                   child: Text(
                     TCAppName,
-                    style: boldTextStyle(
-                        color: Colors.white, size: 30, letterSpacing: 2),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 200.sp,
+                        letterSpacing: 2),
                   ),
-                  top: 50,
+                  top: 50.h,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,8 +73,8 @@ class WalkThroughPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        width: 100,
-                        height: 50,
+                        width: 400.w,
+                        height: 200.h,
                         child: ElevatedButton(
                           onPressed: () async {
                             await openBottomSheetSignUp();
@@ -84,13 +87,13 @@ class WalkThroughPage extends StatelessWidget {
                                   vertical: 16, horizontal: 20),
                               primary: buttonColor),
                           child: Text(signUp,
-                              style: primaryTextStyle(
-                                  color: textColorPrimary, size: 12)),
+                              style: TextStyle(
+                                  color: textColorPrimary, fontSize: 56.sp)),
                         ),
                       ),
                       SizedBox(
-                        width: 100,
-                        height: 50,
+                        width: 400.w,
+                        height: 200.h,
                         child: ElevatedButton(
                           onPressed: () async {
                             await openBottomSheetSignIn();
@@ -103,8 +106,8 @@ class WalkThroughPage extends StatelessWidget {
                                   vertical: 16, horizontal: 20),
                               primary: buttonColor),
                           child: Text(logIn,
-                              style: primaryTextStyle(
-                                  color: textColorPrimary, size: 12)),
+                              style: TextStyle(
+                                  color: textColorPrimary, fontSize: 56.sp)),
                         ),
                       ),
                     ],
@@ -148,21 +151,23 @@ class WalkThroughPage extends StatelessWidget {
 
   Future<dynamic> openBottomSheetSignUp() {
     return Get.bottomSheet(Container(
-      height: 120,
+      height: 480.h,
       width: Get.width,
       color: Colors.white,
       child: Column(
         children: [
           buildItemAuth(
-              label: signUpEmailLabel,
-              iconPath: "assets/icons/email.png",
-              onClick: () {
-                Get.toNamed(AppRoutes.SIGN_UP);
-              }),
+            label: signUpEmailLabel,
+            iconPath: "assets/icons/email.png",
+            onClick: () {
+              Get.toNamed(AppRoutes.SIGN_UP);
+            },
+          ),
           buildItemAuth(
-              label: signUpGoogleLabel,
-              iconPath: "assets/icons/google.png",
-              onClick: () {}),
+            label: signUpGoogleLabel,
+            iconPath: "assets/icons/google.png",
+            onClick: () {},
+          ),
         ],
       ),
     ));
@@ -170,7 +175,7 @@ class WalkThroughPage extends StatelessWidget {
 
   Future<dynamic> openBottomSheetSignIn() {
     return Get.bottomSheet(Container(
-      height: 120,
+      height: 480.h,
       width: Get.width,
       color: Colors.white,
       child: Column(

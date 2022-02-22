@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildItemAuth(
     {required String label,
@@ -13,13 +14,15 @@ Widget buildItemAuth(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Image.asset(iconPath, height: 35, width: 40),
-          const SizedBox(
-            width: 20,
+          SizedBox(
+            width: 30.w,
           ),
           Text(
             label.toUpperCase(),
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontSize: 64.sp,
+                color: Colors.black,
+                fontWeight: FontWeight.w600),
           ),
         ],
       ),

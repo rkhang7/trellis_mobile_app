@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,22 +40,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      getPages: AppPages.getPages,
+    return ScreenUtilInit(
+      designSize: const Size(1440, 3040),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: () => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        getPages: AppPages.getPages,
 
-      // set font for all project
-      theme: ThemeData(
-        textTheme: GoogleFonts.robotoTextTheme(
-          Theme.of(context).textTheme,
+        // set font for all project
+        theme: ThemeData(
+          textTheme: GoogleFonts.robotoTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
+        initialRoute: AppRoutes.SPLASH_SCREEN,
+        builder: EasyLoading.init(),
+        localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+        supportedLocales: const [
+          Locale('vi', "VN"),
+        ],
       ),
-      initialRoute: AppRoutes.SPLASH_SCREEN,
-      builder: EasyLoading.init(),
-      localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
-      supportedLocales: const [
-        Locale('vi', "VN"),
-      ],
     );
   }
 }
