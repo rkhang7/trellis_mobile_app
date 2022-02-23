@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:trellis_mobile_app/message.dart';
 
 import 'package:trellis_mobile_app/routes/app_pages.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
@@ -45,6 +46,12 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: () => GetMaterialApp(
+        translations: Messages(), // your translations
+        locale: const Locale(
+            'en', 'US'), // translations will be displayed in that locale
+        fallbackLocale: const Locale('en',
+            'US'), // specify the fallback locale in case an invalid locale is selected.
+
         debugShowCheckedModeBanner: false,
         getPages: AppPages.getPages,
 
@@ -57,9 +64,6 @@ class MyApp extends StatelessWidget {
         initialRoute: AppRoutes.SPLASH_SCREEN,
         builder: EasyLoading.init(),
         localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
-        supportedLocales: const [
-          Locale('vi', "VN"),
-        ],
       ),
     );
   }

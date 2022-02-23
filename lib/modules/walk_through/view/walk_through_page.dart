@@ -63,7 +63,7 @@ class WalkThroughPage extends StatelessWidget {
               ],
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              padding: EdgeInsets.fromLTRB(0, 15.w, 0, 15.w),
               width: Get.width,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +86,7 @@ class WalkThroughPage extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 20),
                               primary: buttonColor),
-                          child: Text(signUp,
+                          child: Text("sign_up".tr,
                               style: TextStyle(
                                   color: textColorPrimary, fontSize: 56.sp)),
                         ),
@@ -105,7 +105,7 @@ class WalkThroughPage extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 20),
                               primary: buttonColor),
-                          child: Text(logIn,
+                          child: Text("sign_in".tr,
                               style: TextStyle(
                                   color: textColorPrimary, fontSize: 56.sp)),
                         ),
@@ -113,31 +113,47 @@ class WalkThroughPage extends StatelessWidget {
                     ],
                   ),
                   20.height,
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: termsCondition1,
-                            style: secondaryTextStyle(
-                                color: textColorSecondary, size: 13)),
-                        TextSpan(
-                            text: termsCondition2,
+                  Container(
+                    margin: EdgeInsets.only(left: 10.w, right: 10.w),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                              text: "termsCondition1".tr,
+                              style: secondaryTextStyle(
+                                  color: textColorSecondary,
+                                  size: 56.sp.toInt())),
+                          TextSpan(
+                            text: "termsCondition2".tr,
                             style: boldTextStyle(
-                                color: textColorPrimary, size: 13)),
-                        TextSpan(
-                            text: termsCondition3,
+                              color: textColorPrimary,
+                              size: 56.sp.toInt(),
+                            ),
+                          ),
+                          TextSpan(
+                            text: "termsCondition3".tr,
                             style: secondaryTextStyle(
-                                color: textColorSecondary, size: 13)),
-                        TextSpan(
-                            text: termsCondition4,
+                              color: textColorSecondary,
+                              size: 56.sp.toInt(),
+                            ),
+                          ),
+                          TextSpan(
+                            text: "termsCondition4".tr,
                             style: boldTextStyle(
-                                color: textColorPrimary, size: 13)),
-                        TextSpan(
-                            text: termsCondition5,
+                              color: textColorPrimary,
+                              size: 56.sp.toInt(),
+                            ),
+                          ),
+                          TextSpan(
+                            text: "termsCondition5".tr,
                             style: secondaryTextStyle(
-                                color: textColorSecondary, size: 12)),
-                      ],
+                              color: textColorSecondary,
+                              size: 56.sp.toInt(),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -157,14 +173,14 @@ class WalkThroughPage extends StatelessWidget {
       child: Column(
         children: [
           buildItemAuth(
-            label: signUpEmailLabel,
+            label: "signUpEmailLabel".tr,
             iconPath: "assets/icons/email.png",
             onClick: () {
               Get.toNamed(AppRoutes.SIGN_UP);
             },
           ),
           buildItemAuth(
-            label: signUpGoogleLabel,
+            label: "signUpGoogleLabel".tr,
             iconPath: "assets/icons/google.png",
             onClick: () {},
           ),
@@ -181,13 +197,13 @@ class WalkThroughPage extends StatelessWidget {
       child: Column(
         children: [
           buildItemAuth(
-              label: signInEamilLabel,
+              label: "signInEmailLabel".tr,
               iconPath: "assets/icons/email.png",
               onClick: () {
                 Get.toNamed(AppRoutes.SIGN_IN);
               }),
           buildItemAuth(
-              label: signInGoogleLabel,
+              label: "signInGoogleLabel".tr,
               iconPath: "assets/icons/google.png",
               onClick: () {
                 walkThroughController.signInByGoogleAccount().then((value) => {

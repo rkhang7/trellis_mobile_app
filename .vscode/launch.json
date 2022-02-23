@@ -10,24 +10,24 @@
             "type": "dart"
         },
         {
-            "name": "Android",
+            "name": "Pixel",
             "request": "launch",
             "type": "dart",
             "deviceId": "emulator-5554"
         },
         {
-            "name": "Tablet",
+            "name": "Samsung",
             "request": "launch",
             "type": "dart",
-            "deviceId": "HA1J61G4"
+            "deviceId": "127.0.0.1:21503"
         }
     ],
     "compounds": [
         {
-            "name": "Android & Tablet",
+            "name": "Pixel & Samsung",
             "configurations": [
-                "Android",
-                "Tablet"
+                "Pixel",
+                "Samsung"
             ]
         }
     ]

@@ -64,9 +64,9 @@ class SignUpPage extends StatelessWidget {
                           ? const Center(
                               child: CircularProgressIndicator(),
                             )
-                          : const Text(
-                              signUp,
-                              style: TextStyle(
+                          : Text(
+                              "sign_up".tr,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,

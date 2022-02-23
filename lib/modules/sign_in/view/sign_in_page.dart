@@ -36,9 +36,9 @@ class SignInPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    logIn,
-                    style: TextStyle(
+                  Text(
+                    "sign_in".tr,
+                    style: const TextStyle(
                       color: Colors.blue,
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -94,9 +94,9 @@ class SignInPage extends StatelessWidget {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : const Text(
-                logIn,
-                style: TextStyle(
+            : Text(
+                "sign_in".tr,
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,

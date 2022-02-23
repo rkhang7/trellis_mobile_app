@@ -18,18 +18,14 @@ class WakThroughController extends GetxController {
 
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
-    print("ready");
   }
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     initPage();
     checkLogin();
-    print("init");
   }
 
   initPage() {
@@ -46,7 +42,7 @@ class WakThroughController extends GetxController {
           SizedBox(
             width: 300,
             child: Text(
-              W1title,
+              "title_walk_through_1".tr,
               style: boldTextStyle(
                 color: textColorPrimary,
                 size: 20,
@@ -61,7 +57,7 @@ class WakThroughController extends GetxController {
           SizedBox(
             width: 340,
             child: Text(
-              W1SubTitle,
+              "description_walk_through_1".tr,
               style:
                   primaryTextStyle(color: textColorPrimary, letterSpacing: 1),
               textAlign: TextAlign.center,
@@ -82,7 +78,7 @@ class WakThroughController extends GetxController {
           SizedBox(
             width: 250,
             child: Text(
-              W2title,
+              "title_walk_through_2".tr,
               style: boldTextStyle(
                   color: textColorPrimary, size: 20, letterSpacing: 1),
               textAlign: TextAlign.center,
@@ -94,7 +90,7 @@ class WakThroughController extends GetxController {
           SizedBox(
             width: 240,
             child: Text(
-              W2SubTitle,
+              "description_walk_through_2".tr,
               style:
                   primaryTextStyle(color: textColorPrimary, letterSpacing: 1),
               textAlign: TextAlign.center,
@@ -112,7 +108,7 @@ class WakThroughController extends GetxController {
           ),
           40.height,
           Text(
-            W3title,
+            "title_walk_through_3".tr,
             style: boldTextStyle(
                 color: textColorPrimary, size: 20, letterSpacing: 1),
           ),
@@ -122,7 +118,7 @@ class WakThroughController extends GetxController {
           SizedBox(
               width: 260,
               child: Text(
-                W3SubTitle,
+                "description_walk_through_3".tr,
                 style: primaryTextStyle(
                   color: textColorPrimary,
                   letterSpacing: 1,
@@ -141,7 +137,7 @@ class WakThroughController extends GetxController {
           ),
           40.height,
           Text(
-            W4title,
+            "title_walk_through_4".tr,
             style: boldTextStyle(
                 color: textColorPrimary, size: 20, letterSpacing: 1),
           ),
@@ -151,7 +147,7 @@ class WakThroughController extends GetxController {
           SizedBox(
             width: 260,
             child: Text(
-              W4SubTitle,
+              "description_walk_through_4".tr,
               style: primaryTextStyle(
                 color: textColorPrimary,
                 letterSpacing: 1,
