@@ -5,16 +5,19 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trellis_mobile_app/message.dart';
 
 import 'package:trellis_mobile_app/routes/app_pages.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
+import 'package:trellis_mobile_app/service/language_service.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  await GetStorage.init();
+  runApp(MyApp());
   configLoading();
 }
 
@@ -37,8 +40,8 @@ void configLoading() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  MyApp({Key? key}) : super(key: key);
+  LanguageService languageService = LanguageService();
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -47,8 +50,8 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: () => GetMaterialApp(
         translations: Messages(), // your translations
-        locale: const Locale(
-            'en', 'US'), // translations will be displayed in that locale
+        locale: languageService
+            .language, // translations will be displayed in that locale
         fallbackLocale: const Locale('en',
             'US'), // specify the fallback locale in case an invalid locale is selected.
 

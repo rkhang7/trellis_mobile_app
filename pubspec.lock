@@ -343,6 +343,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.1"
+  get_storage:
+    dependency: "direct main"
+    description:
+      name: get_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   google_fonts:
     dependency: "direct main"
     description:
@@ -621,13 +628,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  smart_dropdown:
-    dependency: "direct main"
-    description:
-      name: smart_dropdown
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   source_span:
     dependency: transitive
     description:

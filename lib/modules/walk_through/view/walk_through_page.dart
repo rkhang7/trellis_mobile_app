@@ -3,10 +3,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:smart_dropdown/smart_dropdown.dart';
 import 'package:trellis_mobile_app/modules/walk_through/controller/walk_through_controller.dart';
 import 'package:trellis_mobile_app/modules/walk_through/view/widget.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
+import 'package:trellis_mobile_app/service/language_service.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +15,7 @@ import 'package:flag/flag.dart';
 class WalkThroughPage extends StatelessWidget {
   WalkThroughPage({Key? key}) : super(key: key);
   final walkThroughController = Get.find<WakThroughController>();
-  List<Widget> pages = [];
+  LanguageService languageService = LanguageService();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -180,8 +180,9 @@ class WalkThroughPage extends StatelessWidget {
   Widget _buildDropdownLanguage() {
     String selectedLanguage = walkThroughController.selectedLanguage.value;
     return DropdownButton<String>(
+      underline: Container(),
       iconSize: 0,
-      hint: selectedLanguage == "VN"
+      hint: languageService.loadLanguageFromBox() == "VN"
           ? Flag.fromCode(
               FlagsCode.VN,
               width: 60,
@@ -226,9 +227,11 @@ class WalkThroughPage extends StatelessWidget {
       onChanged: (value) {
         walkThroughController.selectedLanguage.value = value!;
         if (value == "US") {
+          languageService.saveLanguageToBox("US");
           var locale = const Locale('en', 'US');
           Get.updateLocale(locale);
         } else {
+          languageService.saveLanguageToBox("VN");
           var locale = const Locale('vi', 'VN');
           Get.updateLocale(locale);
         }
@@ -292,7 +295,7 @@ class WalkThroughPage extends StatelessWidget {
   }
 
   initPage() {
-    return pages = [
+    return [
       Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
