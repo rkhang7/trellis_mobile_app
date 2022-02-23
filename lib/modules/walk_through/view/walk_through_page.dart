@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/walk_through/controller/walk_through_controller.dart';
@@ -8,6 +9,7 @@ import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flag/flag.dart';
 
 class WalkThroughPage extends StatelessWidget {
   WalkThroughPage({Key? key}) : super(key: key);
@@ -34,6 +36,7 @@ class WalkThroughPage extends StatelessWidget {
                   ),
                   top: 50.h,
                 ),
+                50.height,
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -44,7 +47,8 @@ class WalkThroughPage extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         children: walkThroughController.pages,
                         onPageChanged: (index) {
-                          walkThroughController.selectedIndex = index;
+                          walkThroughController.currentIndexWalkThrough.value =
+                              index;
                         },
                       ),
                     ),

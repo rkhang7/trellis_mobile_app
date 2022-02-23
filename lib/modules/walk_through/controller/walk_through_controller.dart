@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -13,8 +15,10 @@ class WakThroughController extends GetxController {
   List<Widget> pages = [];
   var selectedIndex = 0;
   var isLogin = false.obs;
-
+  var currentIndexWalkThrough = 0.obs;
   var authService = Get.find<AuthService>();
+
+  Timer? timer;
 
   @override
   void onReady() {
@@ -26,6 +30,7 @@ class WakThroughController extends GetxController {
     super.onInit();
     initPage();
     checkLogin();
+    timer = Timer.periodic(const Duration(seconds: 3), (Timer t) => autoLoop());
   }
 
   initPage() {
@@ -173,5 +178,15 @@ class WakThroughController extends GetxController {
         }
       },
     );
+  }
+
+  void autoLoop() {
+    if (currentIndexWalkThrough.value == 3) {
+      currentIndexWalkThrough.value = 0;
+    } else {
+      currentIndexWalkThrough.value += 1;
+    }
+
+    pageController.jumpToPage(currentIndexWalkThrough.value);
   }
 }
