@@ -621,6 +621,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smart_dropdown:
+    dependency: "direct main"
+    description:
+      name: smart_dropdown
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   source_span:
     dependency: transitive
     description:
