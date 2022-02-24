@@ -43,7 +43,7 @@ void configLoading() {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  LanguageService languageService = LanguageService();
+  final LanguageService languageService = LanguageService();
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

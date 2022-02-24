@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/create_card/controller/create_card_controller.dart';
+import 'package:trellis_mobile_app/modules/create_card/view/components/attach_item.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -80,6 +81,8 @@ class CreateCardPage extends StatelessWidget {
                           _buildStartDate(),
                           10.height,
                           _buildEndDate(),
+                          20.height,
+                          _buildAttachment(),
                         ],
                       ),
                     ),
@@ -814,5 +817,54 @@ class CreateCardPage extends StatelessWidget {
       createCardController.endTimePicker.value = "$hour:$minute";
     });
     Get.back();
+  }
+
+  _buildAttachment() {
+    return Row(
+      children: [
+        const Icon(Icons.attach_file),
+        10.width,
+        GestureDetector(
+          onTap: () {
+            Get.defaultDialog(
+                radius: 5,
+                title: "attach_from".tr,
+                contentPadding:
+                    const EdgeInsets.only(left: 24, top: 12, right: 24),
+                content: Column(
+                  children: [
+                    AttachItem(
+                      icon: Icons.camera_alt_outlined,
+                      title: "camera".tr,
+                      onClick: () {},
+                    ),
+                    30.height,
+                    AttachItem(
+                      icon: Icons.attach_file,
+                      title: "file".tr,
+                      onClick: () {},
+                    ),
+                    30.height,
+                    AttachItem(
+                      icon: FontAwesomeIcons.externalLinkAlt,
+                      title: "attach_link".tr,
+                      onClick: () {},
+                    ),
+                    30.height,
+                    AttachItem(
+                      icon: Icons.table_chart_outlined,
+                      title: "Trello",
+                      onClick: () {},
+                    ),
+                  ],
+                ));
+          },
+          child: Text(
+            "${"attachment".tr}...",
+            style: primaryTextStyle(color: Colors.black),
+          ),
+        )
+      ],
+    );
   }
 }

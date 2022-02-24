@@ -101,6 +101,11 @@ class Messages extends Translations {
           'minutes_ago': "minutes ago",
           'hours_ago': "hours ago",
           'days_ago': "days ago",
+          'attachment': "Attachment",
+          'attach_from': 'Attach from...',
+          'camera': "Camera",
+          'file': 'File',
+          'attach_link': "Attach a link",
 
           // settings page
           'settings': 'Settings',
@@ -203,6 +208,11 @@ class Messages extends Translations {
           'minutes_ago': "phút trước",
           'hours_ago': "giờ trước",
           'days_ago': "ngày trước",
+          'attachment': "Tệp đính kèm",
+          'attach_from': 'Đính kèm từ...',
+          'camera': "Chụp ảnh",
+          'file': 'Tệp',
+          'attach_link': "Đính kèm liên kết",
 
           // settings page
           'settings': 'Cài đặt',
