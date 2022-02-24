@@ -60,7 +60,7 @@ class SignInPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Bạn chưa có tài khoản? ",
+                        "no_already_account".tr,
                         style: primaryTextStyle(),
                       ),
                       GestureDetector(
@@ -69,7 +69,7 @@ class SignInPage extends StatelessWidget {
                           Get.toNamed(AppRoutes.SIGN_UP);
                         },
                         child: Text(
-                          "Đăng kí",
+                          "sign_up".tr,
                           style: primaryTextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.blue,
@@ -124,9 +124,9 @@ class SignInPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "Vui lòng nhập email";
+          return "please_enter_email".tr;
         } else if (!(EmailValidator.validate(value))) {
-          return "Email không hợp lệ";
+          return "email_invalid".tr;
         }
         return null;
       },
@@ -154,15 +154,15 @@ class SignInPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "Vui lòng nhập mật khẩu";
+          return "please_enter_password".tr;
         } else if (!(RegExp("^(\\w{6,})\$").hasMatch(value))) {
-          return "Mật khẩu ít nhất có 6 kí tự";
+          return "password_at_least".tr;
         }
         return null;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-          hintText: "Mật khẩu",
+          hintText: "password".tr,
           prefixIcon: const Icon(Icons.vpn_key),
           suffixIcon: IconButton(
               onPressed: () {
@@ -187,12 +187,12 @@ class SignInPage extends StatelessWidget {
           onTap: () async {
             await Get.defaultDialog(
               contentPadding: const EdgeInsets.all(8),
-              title: resetPassword,
+              title: "reset_password".tr,
               titleStyle: const TextStyle(color: Colors.blue, fontSize: 20),
               content: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Vui lòng nhập email"),
+                  Text("please_enter_email".tr),
                   10.height,
                   Form(
                     key: signInController.formKeyDialog,
@@ -221,9 +221,9 @@ class SignInPage extends StatelessWidget {
                             child:
                                 CircularProgressIndicator(color: Colors.white),
                           )
-                        : const Text(
-                            resetPassword,
-                            style: TextStyle(
+                        : Text(
+                            "reset_password".tr,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16),
@@ -234,7 +234,7 @@ class SignInPage extends StatelessWidget {
             );
           },
           child: Text(
-            "Quên mật khẩu? ",
+            "forgot_password".tr,
             style: primaryTextStyle(color: Colors.blue),
           ),
         ),

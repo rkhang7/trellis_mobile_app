@@ -25,7 +25,3 @@ const password = "Password";
 
 const emailAuthProvider = "password";
 const googleAuthProvider = "google.com";
-
-// SignUpScreen
-const signUpAccount = "Đăng ký tài khoản";
-const resetPassword = "Đặt lại mật khẩu";

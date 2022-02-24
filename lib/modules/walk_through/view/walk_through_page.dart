@@ -321,7 +321,7 @@ class WalkThroughPage extends StatelessWidget {
             height: 5,
           ),
           SizedBox(
-            width: 340,
+            width: 400,
             child: Text(
               "description_walk_through_1".tr,
               style:
@@ -354,7 +354,7 @@ class WalkThroughPage extends StatelessWidget {
             height: 5,
           ),
           SizedBox(
-            width: 240,
+            width: 340,
             child: Text(
               "description_walk_through_2".tr,
               style:
@@ -411,7 +411,7 @@ class WalkThroughPage extends StatelessWidget {
             height: 5,
           ),
           SizedBox(
-            width: 260,
+            width: 340,
             child: Text(
               "description_walk_through_4".tr,
               style: primaryTextStyle(

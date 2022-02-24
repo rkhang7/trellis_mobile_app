@@ -37,9 +37,9 @@ class SignUpPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    signUpAccount,
-                    style: TextStyle(
+                  Text(
+                    "register_account".tr,
+                    style: const TextStyle(
                       color: Colors.blue,
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -73,7 +73,6 @@ class SignUpPage extends StatelessWidget {
                               ),
                             ),
                       onClick: () {
-                        signUpUpController.isLoadingButton.value = true;
                         String email = signUpUpController.emailController.text;
                         String password =
                             signUpUpController.passwordController.text;
@@ -86,7 +85,7 @@ class SignUpPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Bạn đã có tài khoản? ",
+                        "already_account".tr,
                         style: primaryTextStyle(),
                       ),
                       GestureDetector(
@@ -95,7 +94,7 @@ class SignUpPage extends StatelessWidget {
                           Get.toNamed(AppRoutes.SIGN_IN);
                         },
                         child: Text(
-                          "Đăng nhập",
+                          "sign_in".tr,
                           style: primaryTextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.blue,
@@ -126,9 +125,9 @@ class SignUpPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "Vui lòng nhập email";
+          return "please_enter_email".tr;
         } else if (!(EmailValidator.validate(value))) {
-          return "Email không hợp lệ";
+          return "email_invalid".tr;
         }
         return null;
       },
@@ -156,15 +155,15 @@ class SignUpPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "Vui lòng nhập mật khẩu";
+          return "please_enter_password".tr;
         } else if (!(RegExp("^(\\w{6,})\$").hasMatch(value))) {
-          return "Mật khẩu ít nhất có 6 kí tự";
+          return "password_at_least".tr;
         }
         return null;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-          hintText: "Mật khẩu",
+          hintText: "password".tr,
           prefixIcon: const Icon(Icons.vpn_key),
           suffixIcon: IconButton(
               onPressed: () {
@@ -194,18 +193,18 @@ class SignUpPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "Vui lòng nhập mật khẩu";
+          return "please_re-enter_password".tr;
         } else if (!(RegExp("^(\\w{6,})\$").hasMatch(value))) {
-          return "Mật khẩu ít nhất có 6 kí tự";
+          return "password_at_least".tr;
         } else if (!(signUpUpController.passwordController.text ==
             signUpUpController.confirmPasswordController.text)) {
-          return "Mật khẩu không khớp";
+          return "password_incorrect".tr;
         }
         return null;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-          hintText: "Nhập lại mật khẩu",
+          hintText: "re-enter_password".tr,
           prefixIcon: const Icon(Icons.vpn_key),
           suffixIcon: IconButton(
               onPressed: () {
