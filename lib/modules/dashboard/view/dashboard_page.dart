@@ -72,7 +72,7 @@ class DashBoardPage extends StatelessWidget {
     return AppBar(
       backgroundColor: backgroundColor,
       title: Text(
-        'Bảng',
+        'boards'.tr,
         style: boldTextStyle(color: Colors.white, size: 18),
       ),
       actions: [
@@ -101,7 +101,7 @@ class DashBoardPage extends StatelessWidget {
       spaceBetweenChildren: 12,
       children: [
         SpeedDialChild(
-            label: "Bảng",
+            label: "board".tr,
             child: const Icon(
               FontAwesomeIcons.table,
               color: iconColorPrimary,
@@ -111,7 +111,7 @@ class DashBoardPage extends StatelessWidget {
               Get.toNamed(AppRoutes.CREATE_TABLE);
             }),
         SpeedDialChild(
-            label: "Thẻ",
+            label: "card".tr,
             child: const Icon(
               Icons.laptop,
               color: iconColorPrimary,

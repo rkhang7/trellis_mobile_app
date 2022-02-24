@@ -6,6 +6,7 @@ import 'package:trellis_mobile_app/modules/create_card/controller/create_card_co
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class CreateCardPage extends StatelessWidget {
   CreateCardPage({Key? key}) : super(key: key);
@@ -25,10 +26,10 @@ class CreateCardPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Bảng"),
+                      Text("board".tr),
                       _buildDropdownBoard(),
                       30.height,
-                      const Text("Danh sách"),
+                      Text("list".tr),
                       _buildDropdownList(),
                     ],
                   ),
@@ -49,14 +50,14 @@ class CreateCardPage extends StatelessWidget {
                         children: [
                           InputFieldCreate(
                             onChange: (value) {},
-                            title: "Tên thẻ",
+                            title: "card_name".tr,
                             controller: createCardController.cardNameController,
                             autoFocus: false,
                             primaryColor: Colors.grey,
                           ),
                           InputFieldCreate(
                               onChange: (value) {},
-                              title: "Mô tả",
+                              title: "desc".tr,
                               controller:
                                   createCardController.descriptionController,
                               autoFocus: false,
@@ -97,7 +98,7 @@ class CreateCardPage extends StatelessWidget {
       backgroundColor: backgroundColor,
       leading: const CloseButton(),
       title: Text(
-        "Thêm thẻ",
+        "add_card".tr,
         style: boldTextStyle(
           color: Colors.white,
           size: 18,
@@ -225,7 +226,7 @@ class CreateCardPage extends StatelessWidget {
               contentPadding:
                   const EdgeInsets.only(left: 16, right: 16, bottom: 16),
               radius: 2,
-              title: "Ngày bắt đầu",
+              title: "start_date".tr,
               content: Row(
                 children: [
                   Obx(
@@ -243,9 +244,9 @@ class CreateCardPage extends StatelessWidget {
                 },
                 child: Container(
                   margin: const EdgeInsets.only(left: 100, right: 20),
-                  child: const Text(
-                    "HỦY",
-                    style: TextStyle(
+                  child: Text(
+                    "cancel".tr,
+                    style: const TextStyle(
                       color: Colors.blue,
                       letterSpacing: 3,
                       fontSize: 16,
@@ -256,9 +257,9 @@ class CreateCardPage extends StatelessWidget {
               ),
               confirm: GestureDetector(
                 onTap: () {},
-                child: const Text(
-                  "HOÀN TẤT",
-                  style: TextStyle(
+                child: Text(
+                  "done".tr,
+                  style: const TextStyle(
                     color: Colors.blue,
                     letterSpacing: 3,
                     fontSize: 16,
@@ -269,7 +270,7 @@ class CreateCardPage extends StatelessWidget {
             );
           },
           child: Text(
-            "Ngày bắt đầu...",
+            "${"start_date".tr}...",
             style: primaryTextStyle(color: Colors.black),
           ),
         ),
@@ -289,7 +290,7 @@ class CreateCardPage extends StatelessWidget {
               contentPadding:
                   const EdgeInsets.only(left: 16, right: 16, bottom: 16),
               radius: 2,
-              title: "Ngày hết hạn",
+              title: "due_date".tr,
               content: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -305,9 +306,9 @@ class CreateCardPage extends StatelessWidget {
                     ],
                   ),
                   10.height,
-                  const Text(
-                    "Thiết lập nhắc nhở",
-                    style: TextStyle(
+                  Text(
+                    "set_reminder".tr,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
@@ -315,7 +316,7 @@ class CreateCardPage extends StatelessWidget {
                   _buildDropdownRemind(),
                   10.height,
                   Text(
-                    "Nhắc nhở chỉ được gửi đến các thành viên và người theo dõi thẻ",
+                    "reminder_desc".tr,
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                   10.height,
@@ -339,9 +340,9 @@ class CreateCardPage extends StatelessWidget {
                 },
                 child: Container(
                   margin: const EdgeInsets.only(left: 100, right: 20),
-                  child: const Text(
-                    "HỦY",
-                    style: TextStyle(
+                  child: Text(
+                    "cancel".tr,
+                    style: const TextStyle(
                       color: Colors.blue,
                       letterSpacing: 3,
                       fontSize: 16,
@@ -352,9 +353,9 @@ class CreateCardPage extends StatelessWidget {
               ),
               confirm: GestureDetector(
                 onTap: () {},
-                child: const Text(
-                  "HOÀN TẤT",
-                  style: TextStyle(
+                child: Text(
+                  "done".tr,
+                  style: const TextStyle(
                     color: Colors.blue,
                     letterSpacing: 3,
                     fontSize: 16,
@@ -365,7 +366,7 @@ class CreateCardPage extends StatelessWidget {
             );
           },
           child: Text(
-            "Ngày hết hạn...",
+            "${"due_date".tr}...",
             style: primaryTextStyle(color: Colors.black),
           ),
         ),
@@ -384,7 +385,9 @@ class CreateCardPage extends StatelessWidget {
         ),
         isExpanded: true,
         hint: Text(
-          "Ngày ${datePicker.value.day} tháng ${datePicker.value.month}",
+          Get.locale.toString() == "vi_VN"
+              ? "Ngày ${datePicker.value.day} tháng ${datePicker.value.month}"
+              : "${datePicker.value.day} thg ${datePicker.value.month}",
           style: const TextStyle(color: Colors.black),
         ),
         onChanged: (dynamic value) {},
@@ -392,7 +395,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Hôm nay",
+                  "today".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -404,7 +407,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Ngày mai",
+                  "tomorrow".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -420,7 +423,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Chọn một ngày",
+                  "pick_a_date".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -451,7 +454,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Buổi sáng",
+                  "morning".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -463,7 +466,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Buổi chiều",
+                  "afternoon".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -475,7 +478,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Buổi tối",
+                  "evening".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -487,7 +490,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Đêm",
+                  "night".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -499,7 +502,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Chọn thời gian",
+                  "pick_a_time".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -523,7 +526,9 @@ class CreateCardPage extends StatelessWidget {
         ),
         isExpanded: true,
         hint: Text(
-          "Ngày ${datePicker.value.day} tháng ${datePicker.value.month}",
+          Get.locale.toString() == "vi_VN"
+              ? "Ngày ${datePicker.value.day} tháng ${datePicker.value.month}"
+              : "${datePicker.value.day} thg ${datePicker.value.month}",
           style: TextStyle(color: Colors.black),
         ),
         onChanged: (dynamic value) {},
@@ -531,7 +536,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Hôm nay",
+                  "today".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -543,7 +548,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Ngày mai",
+                  "tomorrow".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -556,7 +561,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Chọn một ngày",
+                  "pick_a_date".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -587,7 +592,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Buổi sáng",
+                  "morning".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -599,7 +604,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Buổi chiều",
+                  "afternoon".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -611,7 +616,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Buổi tối",
+                  "evening".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -623,7 +628,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Đêm",
+                  "night".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -635,7 +640,7 @@ class CreateCardPage extends StatelessWidget {
           DropdownMenuItem(
               child: ListTile(
                 title: Text(
-                  "Chọn thời gian",
+                  "pick_a_time".tr,
                   style: primaryTextStyle(color: Colors.black),
                 ),
                 onTap: () {
@@ -664,7 +669,7 @@ class CreateCardPage extends StatelessWidget {
         DropdownMenuItem(
             child: ListTile(
               title: Text(
-                "Vào thời điểm ngày hết hạn",
+                "at_time_of_due_date".tr,
                 style: primaryTextStyle(color: Colors.black),
               ),
               onTap: () {
@@ -675,7 +680,7 @@ class CreateCardPage extends StatelessWidget {
         DropdownMenuItem(
             child: ListTile(
               title: Text(
-                "5 phút trước",
+                "5 ${"minutes_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
               onTap: () {
@@ -686,7 +691,7 @@ class CreateCardPage extends StatelessWidget {
         DropdownMenuItem(
             child: ListTile(
               title: Text(
-                "10 phút trước",
+                "10 ${"minutes_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
               onTap: () {
@@ -697,7 +702,7 @@ class CreateCardPage extends StatelessWidget {
         DropdownMenuItem(
             child: ListTile(
               title: Text(
-                "15 phút trước",
+                "15 ${"minutes_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
               onTap: () {
@@ -708,7 +713,7 @@ class CreateCardPage extends StatelessWidget {
         DropdownMenuItem(
             child: ListTile(
               title: Text(
-                "1 giờ trước",
+                "1 ${"hours_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
               onTap: () {
@@ -719,7 +724,7 @@ class CreateCardPage extends StatelessWidget {
         DropdownMenuItem(
             child: ListTile(
               title: Text(
-                "2 giờ trước",
+                "2 ${"hours_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
               onTap: () {
@@ -730,7 +735,7 @@ class CreateCardPage extends StatelessWidget {
         DropdownMenuItem(
             child: ListTile(
               title: Text(
-                "1 ngày trước",
+                "1 ${"days_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
               onTap: () {
@@ -741,7 +746,7 @@ class CreateCardPage extends StatelessWidget {
         DropdownMenuItem(
             child: ListTile(
               title: Text(
-                "2 ngày trước",
+                "2 ${"days_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
               onTap: () {
@@ -756,18 +761,26 @@ class CreateCardPage extends StatelessWidget {
   void _selectStartDate(BuildContext context) async {
     await showDatePicker(
       context: context,
-      locale: const Locale("vi", "VN"),
+      locale: Get.locale.toString() == "vi_VN"
+          ? const Locale("vi", "VN")
+          : const Locale("en", "US"),
       initialDate: DateTime.now().add(const Duration(days: 1)),
       firstDate: DateTime(2000),
       lastDate: DateTime(2040),
-    ).then((value) => createCardController.startDatePicker.value = value!);
+    ).then((value) {
+      if (value != null) {
+        createCardController.startDatePicker.value = value;
+      }
+    });
     Get.back();
   }
 
   void _selectEndDate(BuildContext buildContext) async {
     await showDatePicker(
       context: buildContext,
-      locale: const Locale("vi", "VN"),
+      locale: Get.locale.toString() == "vi_VN"
+          ? const Locale("vi", "VN")
+          : const Locale("en", "US"),
       initialDate: DateTime.now().add(const Duration(days: 1)),
       firstDate: DateTime(2000),
       lastDate: DateTime(2040),

@@ -16,33 +16,35 @@ class CreateBoardPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: Container(
-          padding: const EdgeInsets.all(16),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            InputFieldCreate(
-              onChange: (value) {
-                if (value.isEmpty) {
-                  createBoardController.boardNameIsEmpty.value = true;
-                } else {
-                  createBoardController.boardNameIsEmpty.value = false;
-                }
-              },
-              title: "Tên bảng",
-              controller: createBoardController.boardNameController,
-              autoFocus: true,
-              primaryColor: Colors.green,
-            ),
-            20.height,
-            const Text("Không gian làm việc"),
-            Obx(
-              () => _buildDropdownWorkingSpace(),
-            ),
-            30.height,
-            const Text("Quyền xem"),
-            _buildDropdownViewPermission(),
-            30.height,
-          ]),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              InputFieldCreate(
+                onChange: (value) {
+                  if (value.isEmpty) {
+                    createBoardController.boardNameIsEmpty.value = true;
+                  } else {
+                    createBoardController.boardNameIsEmpty.value = false;
+                  }
+                },
+                title: "board_name".tr,
+                controller: createBoardController.boardNameController,
+                autoFocus: true,
+                primaryColor: Colors.green,
+              ),
+              20.height,
+              Text("workspace".tr),
+              Obx(
+                () => _buildDropdownWorkingSpace(),
+              ),
+              30.height,
+              Text("visibility".tr),
+              _buildDropdownViewPermission(),
+              30.height,
+            ]),
+          ),
         ),
       ),
     );
@@ -54,7 +56,7 @@ class CreateBoardPage extends StatelessWidget {
       leading: const CloseButton(
         color: iconColorPrimary,
       ),
-      title: Text('Tạo bảng', style: boldTextStyle(color: Colors.white)),
+      title: Text('create_board'.tr, style: boldTextStyle(color: Colors.white)),
       actions: [
         Obx(
           () => IconButton(
@@ -88,7 +90,7 @@ class CreateBoardPage extends StatelessWidget {
       items: [
         DropdownMenuItem(
             child: ListTile(
-              title: const Text("Riêng tư"),
+              title: Text("private".tr),
               leading: const Icon(
                 Icons.lock,
                 color: Colors.black,
@@ -104,7 +106,7 @@ class CreateBoardPage extends StatelessWidget {
                 Icons.group_outlined,
                 color: Colors.black,
               ),
-              title: const Text("Không gian làm việc"),
+              title: Text("workspace".tr),
               onTap: () {
                 Get.back();
               },
@@ -116,7 +118,7 @@ class CreateBoardPage extends StatelessWidget {
                 Icons.public,
                 color: Colors.black,
               ),
-              title: const Text("Công khai"),
+              title: Text("public".tr),
               onTap: () {
                 Get.back();
               },
@@ -134,9 +136,14 @@ class CreateBoardPage extends StatelessWidget {
       ),
       isExpanded: true,
       hint: Text(
-        createBoardController
-            .findWorkspaceById(createBoardController.selectedWorkspaceId.value)!
-            .name,
+        createBoardController.findWorkspaceById(
+                    createBoardController.selectedWorkspaceId.value) ==
+                null
+            ? ""
+            : createBoardController
+                .findWorkspaceById(
+                    createBoardController.selectedWorkspaceId.value)!
+                .name,
         style: const TextStyle(color: Colors.black),
       ),
       onChanged: (selectedValue) {

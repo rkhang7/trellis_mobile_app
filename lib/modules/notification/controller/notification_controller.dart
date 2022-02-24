@@ -68,6 +68,6 @@ class NotificationController extends GetxController {
   }
 
   void initTitle() {
-    listTitle = ['Tất cả', 'Tôi', 'Bình luận'];
+    listTitle = ['all'.tr, 'me'.tr, 'comments'.tr];
   }
 }

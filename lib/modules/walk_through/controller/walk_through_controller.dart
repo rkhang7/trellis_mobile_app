@@ -55,7 +55,8 @@ class WakThroughController extends GetxController {
     } else {
       currentIndexWalkThrough.value += 1;
     }
-
-    pageController.jumpToPage(currentIndexWalkThrough.value);
+    if (pageController.hasClients) {
+      pageController.jumpToPage(currentIndexWalkThrough.value);
+    }
   }
 }

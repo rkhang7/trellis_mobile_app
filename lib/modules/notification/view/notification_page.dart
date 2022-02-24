@@ -19,7 +19,7 @@ class NotificationPage extends StatelessWidget {
           color: iconColorPrimary,
         ),
         title: Text(
-          'Thông báo',
+          'notifications'.tr,
           style: boldTextStyle(size: 18, color: Colors.white),
         ),
         actions: [
@@ -32,7 +32,8 @@ class NotificationPage extends StatelessWidget {
             itemBuilder: (BuildContext context) {
               List<PopupMenuEntry<Object>> list = [];
               list.add(
-                const PopupMenuItem(child: Text("Cài đặt thông báo"), value: 1),
+                PopupMenuItem(
+                    child: Text("notifications_setting".tr), value: 1),
               );
               return list;
             },

@@ -62,14 +62,14 @@ class _DrawerComponentState extends State<DrawerComponent> {
               children: [
                 DrawerList(
                   leading: const Icon(FontAwesomeIcons.table),
-                  title: "Bảng",
+                  title: "boards".tr,
                   onTap: () {
                     Get.back();
                   },
                 ),
                 DrawerList(
                   leading: const Icon(Icons.home),
-                  title: "Trang chủ",
+                  title: "home".tr,
                   onTap: () {},
                 ),
                 const Divider(
@@ -82,7 +82,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Các không gian làm việc",
+                        "workspaces".tr,
                         style: boldTextStyle(color: Colors.black87),
                       ),
                       ListView.builder(
@@ -104,22 +104,22 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 ),
                 DrawerList(
                   leading: const Icon(Icons.laptop),
-                  title: "Các thẻ của tôi",
+                  title: "my_cards".tr,
                   onTap: () {},
                 ),
                 DrawerList(
                   leading: const Icon(Icons.settings_outlined),
-                  title: "Cài đặt",
+                  title: "setting".tr,
                   onTap: () {},
                 ),
                 DrawerList(
                   leading: const Icon(Icons.info_outline),
-                  title: "Trợ giúp",
+                  title: "help".tr,
                   onTap: () {},
                 ),
                 DrawerList(
                   leading: const Icon(Icons.logout_outlined),
-                  title: "Đăng xuất",
+                  title: "log_out".tr,
                   onTap: () async {
                     _openConfirmDialog();
                   },
@@ -129,7 +129,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
           ).visible(isExpandable),
           DrawerList(
             leading: const Icon(Icons.add),
-            title: "Thêm tài khoản",
+            title: "add_account".tr,
             onTap: () {
               toast('Coming Soon');
             },
@@ -141,7 +141,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
 
   void _openConfirmDialog() {
     Get.defaultDialog(
-      title: "Bạn có chắc muốn đăng xuất?",
+      title: "are_you_sure_logout".tr,
       titlePadding: const EdgeInsets.only(left: 32, right: 32, top: 32),
       titleStyle: TextStyle(
         color: Colors.grey.shade700,
@@ -155,9 +155,9 @@ class _DrawerComponentState extends State<DrawerComponent> {
         },
         child: Container(
           margin: const EdgeInsets.only(left: 32, bottom: 12),
-          child: const Text(
-            "CÓ",
-            style: TextStyle(color: Colors.black),
+          child: Text(
+            "yes".tr,
+            style: const TextStyle(color: Colors.black),
           ),
         ),
       ),
@@ -167,9 +167,9 @@ class _DrawerComponentState extends State<DrawerComponent> {
         },
         child: Container(
           margin: const EdgeInsets.only(left: 64),
-          child: const Text(
-            "KHÔNG",
-            style: TextStyle(color: Colors.black),
+          child: Text(
+            "no".tr,
+            style: const TextStyle(color: Colors.black),
           ),
         ),
       ),
