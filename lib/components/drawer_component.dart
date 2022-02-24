@@ -110,7 +110,9 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 DrawerList(
                   leading: const Icon(Icons.settings_outlined),
                   title: "setting".tr,
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutes.SETTINGS);
+                  },
                 ),
                 DrawerList(
                   leading: const Icon(Icons.info_outline),

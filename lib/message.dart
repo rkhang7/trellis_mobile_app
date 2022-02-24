@@ -101,6 +101,11 @@ class Messages extends Translations {
           'minutes_ago': "minutes ago",
           'hours_ago': "hours ago",
           'days_ago': "days ago",
+
+          // settings page
+          'settings': 'Settings',
+          'language': "Language",
+          'select_language': 'Select language',
         },
         'vi_VN': {
           // walk through page
@@ -198,6 +203,11 @@ class Messages extends Translations {
           'minutes_ago': "phút trước",
           'hours_ago': "giờ trước",
           'days_ago': "ngày trước",
+
+          // settings page
+          'settings': 'Cài đặt',
+          'language': "Ngôn ngữ",
+          'select_language': 'Chọn ngôn ngữ',
         }
       };
 }

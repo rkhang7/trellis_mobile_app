@@ -8,6 +8,8 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trellis_mobile_app/message.dart';
+import 'package:trellis_mobile_app/modules/walk_through/binding/walk_through_binding.dart';
+import 'package:trellis_mobile_app/modules/walk_through/controller/walk_through_controller.dart';
 
 import 'package:trellis_mobile_app/routes/app_pages.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';

@@ -5,7 +5,7 @@ import 'package:trellis_mobile_app/service/auth_service.dart';
 class WalkThroughBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => WakThroughController());
+    Get.lazyPut(() => WakThroughController(), fenix: true);
     Get.lazyPut(() => AuthService(), fenix: true);
   }
 }
