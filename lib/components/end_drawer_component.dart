@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-
+import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/end_drawer_model.dart';
 import 'package:trellis_mobile_app/utils/widgets.dart';
@@ -32,7 +32,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(Feather.info),
-        title: "Về bảng này",
+        title: "about_this_board".tr,
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -42,7 +42,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(MaterialIcons.person_outline),
-        title: "Thành viên",
+        title: "members".tr,
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -52,7 +52,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(Feather.activity),
-        title: "Hoạt động",
+        title: "activity".tr,
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -62,7 +62,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(SimpleLineIcons.rocket),
-        title: "Các tiện ích bổ sung",
+        title: "power_ups".tr,
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -72,7 +72,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(Feather.credit_card),
-        title: "Các thẻ đã lưu trữ",
+        title: "archived_cards".tr,
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -82,7 +82,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(MaterialCommunityIcons.format_list_checkbox),
-        title: "Các danh sách đã lưu trữ",
+        title: "archived_list".tr,
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -92,7 +92,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
           leading: const Icon(SimpleLineIcons.settings),
-          title: "Thiết lập bảng",
+          title: "board_settings".tr,
           onTap: () {
             toast('Coming Soon');
           },
@@ -106,7 +106,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(MaterialCommunityIcons.star_outline),
-        title: "Đánh dấu sao cho bảng",
+        title: "star_board".tr,
         contents: [],
         onTap: () {
           //
@@ -116,7 +116,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(MaterialCommunityIcons.pin_outline),
-        title: "Ghim ra màn hình trang chủ",
+        title: "pin_to_home_screen".tr,
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -127,7 +127,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
     endDrawer.add(
       EndDrawerModel(
         leading: const Icon(Icons.copy_outlined),
-        title: "Sao chép bảng",
+        title: "copy_board".tr,
         contents: [],
         onTap: () {
           toast('Coming Soon');
@@ -172,7 +172,7 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
           ),
           DrawerList(
               leading: const Icon(Icons.sync),
-              title: "Đồng bộ",
+              title: "synced".tr,
               onTap: () {
                 toast('Coming Soon');
               }),

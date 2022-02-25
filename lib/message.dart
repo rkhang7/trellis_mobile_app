@@ -111,6 +111,19 @@ class Messages extends Translations {
           'settings': 'Settings',
           'language': "Language",
           'select_language': 'Select language',
+
+          // end drawer
+          'about_this_board': 'About this board',
+          'members': 'Members',
+          'activity': 'Activity',
+          'power_ups': 'Powers-Ups',
+          'archived_cards': 'Archived cards',
+          'archived_list': 'Archived list',
+          'board_settings': 'Board settings',
+          'star_board': 'Star board',
+          'pin_to_home_screen': 'Pin to home screen',
+          'copy_board': 'Copy board',
+          'synced': 'Synced',
         },
         'vi_VN': {
           // walk through page
@@ -218,6 +231,19 @@ class Messages extends Translations {
           'settings': 'Cài đặt',
           'language': "Ngôn ngữ",
           'select_language': 'Chọn ngôn ngữ',
+
+          // end drawer
+          'about_this_board': 'Về bảng này',
+          'members': 'Thành viên',
+          'activity': 'Hoạt động',
+          'power_ups': 'Các tiện ích bổ sung',
+          'archived_cards': 'Các thẻ đã lưu',
+          'archived_list': 'Các danh sách đã lưu trữ',
+          'board_settings': 'Thiết lập bảng',
+          'star_board': 'Đánh dấu sao cho bảng',
+          'pin_to_home_screen': 'Ghim ra màn hình trang chủ',
+          'copy_board': 'Sao chép bảng',
+          'synced': 'Đông bộ',
         }
       };
 }
