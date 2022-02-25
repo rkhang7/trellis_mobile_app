@@ -40,50 +40,54 @@ class CreateCardPage extends StatelessWidget {
                   width: Get.width,
                   color: backgroundColor,
                   alignment: Alignment.center,
-                  child: Container(
-                    margin: const EdgeInsets.all(16),
-                    height: Get.height / 2.5,
-                    width: Get.width,
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          InputFieldCreate(
-                            onChange: (value) {},
-                            title: "card_name".tr,
-                            controller: createCardController.cardNameController,
-                            autoFocus: false,
-                            primaryColor: Colors.grey,
-                          ),
-                          InputFieldCreate(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Container(
+                      margin: const EdgeInsets.all(16),
+                      height: Get.height / 2.5,
+                      width: Get.width,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            InputFieldCreate(
                               onChange: (value) {},
-                              title: "desc".tr,
+                              title: "card_name".tr,
                               controller:
-                                  createCardController.descriptionController,
+                                  createCardController.cardNameController,
                               autoFocus: false,
-                              primaryColor: Colors.grey),
-                          10.height,
-                          Row(
-                            children: [
-                              const Icon(Icons.person_outline),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: const CircleBorder(),
-                                  primary: Colors.green,
-                                ),
-                                onPressed: () {},
-                                child: const Icon(Icons.add),
-                              )
-                            ],
-                          ),
-                          5.height,
-                          _buildStartDate(),
-                          10.height,
-                          _buildEndDate(),
-                          20.height,
-                          _buildAttachment(),
-                        ],
+                              primaryColor: Colors.grey,
+                            ),
+                            InputFieldCreate(
+                                onChange: (value) {},
+                                title: "desc".tr,
+                                controller:
+                                    createCardController.descriptionController,
+                                autoFocus: false,
+                                primaryColor: Colors.grey),
+                            10.height,
+                            Row(
+                              children: [
+                                const Icon(Icons.person_outline),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const CircleBorder(),
+                                    primary: Colors.green,
+                                  ),
+                                  onPressed: () {},
+                                  child: const Icon(Icons.add),
+                                )
+                              ],
+                            ),
+                            5.height,
+                            _buildStartDate(),
+                            10.height,
+                            _buildEndDate(),
+                            20.height,
+                            _buildAttachment(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -836,13 +840,17 @@ class CreateCardPage extends StatelessWidget {
                     AttachItem(
                       icon: Icons.camera_alt_outlined,
                       title: "camera".tr,
-                      onClick: () {},
+                      onClick: () {
+                        createCardController.pickImageFromCamera();
+                      },
                     ),
                     30.height,
                     AttachItem(
                       icon: Icons.attach_file,
                       title: "file".tr,
-                      onClick: () {},
+                      onClick: () {
+                        createCardController.pickFile();
+                      },
                     ),
                     30.height,
                     AttachItem(

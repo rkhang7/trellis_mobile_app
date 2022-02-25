@@ -51,7 +51,7 @@ class WalkThroughPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: Get.height * .50,
+                    height: Get.height * .52,
                     child: PageView(
                       controller: walkThroughController.pageController,
                       scrollDirection: Axis.horizontal,
@@ -62,7 +62,7 @@ class WalkThroughPage extends StatelessWidget {
                       },
                     ),
                   ),
-                  30.height,
+                  40.height,
                   AnimatedContainer(
                     duration: const Duration(seconds: 1),
                     child: DotIndicator(
@@ -72,7 +72,7 @@ class WalkThroughPage extends StatelessWidget {
                   ),
                 ],
               ),
-              10.height,
+              20.height,
               Container(
                 padding: EdgeInsets.fromLTRB(0, 15.w, 0, 15.w),
                 width: Get.width,
@@ -95,7 +95,7 @@ class WalkThroughPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: 16, horizontal: 20),
+                                    vertical: 12, horizontal: 16),
                                 primary: buttonColor),
                             child: Text("sign_up".tr,
                                 style: TextStyle(
@@ -114,7 +114,7 @@ class WalkThroughPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: 16, horizontal: 20),
+                                    vertical: 12, horizontal: 16),
                                 primary: buttonColor),
                             child: Text("sign_in".tr,
                                 style: TextStyle(
@@ -134,33 +134,33 @@ class WalkThroughPage extends StatelessWidget {
                                 text: "termsCondition1".tr,
                                 style: secondaryTextStyle(
                                     color: textColorSecondary,
-                                    size: 56.sp.toInt())),
+                                    size: 54.sp.toInt())),
                             TextSpan(
                               text: "termsCondition2".tr,
                               style: boldTextStyle(
                                 color: textColorPrimary,
-                                size: 56.sp.toInt(),
+                                size: 54.sp.toInt(),
                               ),
                             ),
                             TextSpan(
                               text: "termsCondition3".tr,
                               style: secondaryTextStyle(
                                 color: textColorSecondary,
-                                size: 56.sp.toInt(),
+                                size: 54.sp.toInt(),
                               ),
                             ),
                             TextSpan(
                               text: "termsCondition4".tr,
                               style: boldTextStyle(
                                 color: textColorPrimary,
-                                size: 56.sp.toInt(),
+                                size: 54.sp.toInt(),
                               ),
                             ),
                             TextSpan(
                               text: "termsCondition5".tr,
                               style: secondaryTextStyle(
                                 color: textColorSecondary,
-                                size: 56.sp.toInt(),
+                                size: 54.sp.toInt(),
                               ),
                             ),
                           ],
@@ -296,41 +296,44 @@ class WalkThroughPage extends StatelessWidget {
 
   initPage() {
     return [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "assets/images/walkthrough1.png",
-            height: 250,
-          ),
-          40.height,
-          SizedBox(
-            width: 300,
-            child: Text(
-              "title_walk_through_1".tr,
-              style: boldTextStyle(
-                color: textColorPrimary,
-                size: 20,
-                letterSpacing: 1,
+      SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/images/walkthrough1.png",
+              height: 250,
+            ),
+            40.height,
+            SizedBox(
+              width: 300,
+              child: Text(
+                "title_walk_through_1".tr,
+                style: boldTextStyle(
+                  color: textColorPrimary,
+                  size: 20,
+                  letterSpacing: 1,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          SizedBox(
-            width: 400,
-            child: Text(
-              "description_walk_through_1".tr,
-              style:
-                  primaryTextStyle(color: textColorPrimary, letterSpacing: 1),
-              textAlign: TextAlign.center,
+            const SizedBox(
+              height: 5,
             ),
-          ),
-          // commonCacheImageWidget(tc_WalkThroughImg1.validate(), height: 230),
-        ],
+            SizedBox(
+              width: 400,
+              child: Text(
+                "description_walk_through_1".tr,
+                style:
+                    primaryTextStyle(color: textColorPrimary, letterSpacing: 1),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            // commonCacheImageWidget(tc_WalkThroughImg1.validate(), height: 230),
+          ],
+        ),
       ),
       Column(
         crossAxisAlignment: CrossAxisAlignment.center,
