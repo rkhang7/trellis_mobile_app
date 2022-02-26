@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/notification/controller/notification_controller.dart';
@@ -46,8 +47,11 @@ class NotificationPage extends StatelessWidget {
         tabBuilder: (context, index) {
           return Container(
               padding: const EdgeInsets.all(16),
-              child: Text(notificationController.listTitle[index],
-                  textAlign: TextAlign.center));
+              child: Text(
+                notificationController.listTitle[index],
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 50.sp),
+              ));
         },
         pageBuilder: (context, index) {
           return notificationController.list[index];

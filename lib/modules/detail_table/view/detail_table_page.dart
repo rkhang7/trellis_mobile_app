@@ -48,8 +48,9 @@ class _DetailTablePageState extends State<DetailTablePage> {
           itemBuilder: (context, index) {
             if (index == boards.length) {
               return _addCardWidget(context);
-            } else
+            } else {
               return _buildCard(context, index);
+            }
           },
         ),
       ),
@@ -154,7 +155,7 @@ class _DetailTablePageState extends State<DetailTablePage> {
                   children: [
                     Text(
                       boards[index].name!.toUpperCase(),
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.bold),
                     ).paddingAll(16),
                     PopupMenuButton(
@@ -163,10 +164,11 @@ class _DetailTablePageState extends State<DetailTablePage> {
                       },
                       itemBuilder: (context) {
                         List<PopupMenuEntry<Object>> list = [];
-                        list.add(PopupMenuItem(child: Text('Move list')));
-                        list.add(PopupMenuItem(child: Text('Copy')));
-                        list.add(PopupMenuItem(child: Text('Archive list')));
-                        list.add(PopupMenuItem(child: Text('watch')));
+                        list.add(const PopupMenuItem(child: Text('Move list')));
+                        list.add(const PopupMenuItem(child: Text('Copy')));
+                        list.add(
+                            const PopupMenuItem(child: Text('Archive list')));
+                        list.add(const PopupMenuItem(child: Text('watch')));
                         return list;
                       },
                     ),

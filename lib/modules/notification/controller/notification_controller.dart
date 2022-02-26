@@ -16,8 +16,7 @@ class NotificationController extends GetxController {
 
   void initList() {
     list = [
-      Container(
-          child: ListView.builder(
+      ListView.builder(
         shrinkWrap: true,
         itemCount: 4,
         itemBuilder: (context, index) {
@@ -25,8 +24,8 @@ class NotificationController extends GetxController {
             decoration: boxDecorationWithRoundedCorners(
               borderRadius: BorderRadius.circular(0),
               /* border: Border(
-              left: BorderSide(width: 2),
-            ),*/
+          left: BorderSide(width: 2),
+        ),*/
             ),
             padding: const EdgeInsets.all(16),
             margin: const EdgeInsets.only(top: 1),
@@ -59,7 +58,7 @@ class NotificationController extends GetxController {
             ),
           );
         },
-      )),
+      ),
       const Text("Không có thông báo", style: const TextStyle(fontSize: 18))
           .center(),
       const Text("Không có thông báo", style: const TextStyle(fontSize: 18))
