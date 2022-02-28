@@ -3,6 +3,8 @@ import 'package:trellis_mobile_app/modules/create_board/binding/create_board_bin
 import 'package:trellis_mobile_app/modules/create_board/view/create_board_page.dart';
 import 'package:trellis_mobile_app/modules/create_card/binding/create_card_binding.dart';
 import 'package:trellis_mobile_app/modules/create_card/view/create_card_page.dart';
+import 'package:trellis_mobile_app/modules/create_workspace/binding/create_workspace_binding.dart';
+import 'package:trellis_mobile_app/modules/create_workspace/view/create_workspace_page.dart';
 import 'package:trellis_mobile_app/modules/dashboard/binding/dashboard_binding.dart';
 import 'package:trellis_mobile_app/modules/dashboard/view/dashboard_page.dart';
 import 'package:trellis_mobile_app/modules/detail_table/binding/detail_table_binding.dart';
@@ -71,6 +73,11 @@ class AppPages {
       name: AppRoutes.SETTINGS,
       page: () => SettingsPage(),
       binding: SettingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.CREATE_WORKSPACE,
+      page: () => CreateWorkspacePage(),
+      binding: CreateWorkspaceBinding(),
     ),
   ];
 }

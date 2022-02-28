@@ -61,6 +61,7 @@ class Messages extends Translations {
           'no': 'No',
           'yes': "Yes",
           'card': "Card",
+          'workspace': 'Workspace',
 
           // notification page
           'notifications': 'Notifications',
@@ -124,6 +125,10 @@ class Messages extends Translations {
           'pin_to_home_screen': 'Pin to home screen',
           'copy_board': 'Copy board',
           'synced': 'Synced',
+
+          // create workspace page
+          "create_workspace": "Create workspace",
+          "workspace_name": 'Workspace name',
         },
         'vi_VN': {
           // walk through page
@@ -168,6 +173,8 @@ class Messages extends Translations {
           'forgot_password': 'Quên mật khẩu? ',
           'no_already_account': 'Bạn chưa có tài khoản? ',
           'reset_password': "Đặt lại mật khẩu",
+
+          // dashboard page
           "boards": "Bảng",
           'board': 'Bảng',
           'home': "Trang chủ",
@@ -181,6 +188,7 @@ class Messages extends Translations {
           'no': 'Không',
           'yes': 'Có',
           'card': "Thẻ",
+          'workspace': 'Không gian làm việc',
 
           // notification page
           'notifications': 'Thông báo',
@@ -244,6 +252,10 @@ class Messages extends Translations {
           'pin_to_home_screen': 'Ghim ra màn hình trang chủ',
           'copy_board': 'Sao chép bảng',
           'synced': 'Đông bộ',
+
+          // create workspace page
+          "create_workspace": "Tạo không gian làm việc",
+          "workspace_name": 'Tên không gian làm việc',
         }
       };
 }

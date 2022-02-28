@@ -9,4 +9,5 @@ class AppRoutes {
   static const String SPLASH_SCREEN = "/splash_screen";
   static const String CREATE_CARD = "/create_card";
   static const String SETTINGS = "/settings";
+  static const String CREATE_WORKSPACE = "/create_workspace";
 }

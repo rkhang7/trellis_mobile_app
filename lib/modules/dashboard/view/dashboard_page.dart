@@ -101,6 +101,17 @@ class DashBoardPage extends StatelessWidget {
       spaceBetweenChildren: 12,
       children: [
         SpeedDialChild(
+          label: "workspace".tr,
+          child: const Icon(
+            Icons.workspaces,
+            color: iconColorPrimary,
+          ),
+          backgroundColor: buttonColor,
+          onTap: () {
+            Get.toNamed(AppRoutes.CREATE_WORKSPACE);
+          },
+        ),
+        SpeedDialChild(
             label: "board".tr,
             child: const Icon(
               FontAwesomeIcons.table,
@@ -111,15 +122,16 @@ class DashBoardPage extends StatelessWidget {
               Get.toNamed(AppRoutes.CREATE_TABLE);
             }),
         SpeedDialChild(
-            label: "card".tr,
-            child: const Icon(
-              Icons.laptop,
-              color: iconColorPrimary,
-            ),
-            backgroundColor: buttonColor,
-            onTap: () {
-              Get.toNamed(AppRoutes.CREATE_CARD);
-            })
+          label: "card".tr,
+          child: const Icon(
+            Icons.laptop,
+            color: iconColorPrimary,
+          ),
+          backgroundColor: buttonColor,
+          onTap: () {
+            Get.toNamed(AppRoutes.CREATE_CARD);
+          },
+        ),
       ],
     );
   }

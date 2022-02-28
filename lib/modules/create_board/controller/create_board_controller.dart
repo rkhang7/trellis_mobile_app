@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trellis_mobile_app/models/workspace_model.dart';
+import 'package:trellis_mobile_app/models/core/workspace_model.dart';
 
 class CreateBoardController extends GetxController {
   var boardNameController = TextEditingController();
