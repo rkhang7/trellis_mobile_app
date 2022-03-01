@@ -50,7 +50,7 @@ class NotificationPage extends StatelessWidget {
               child: Text(
                 notificationController.listTitle[index],
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 50.sp),
+                style: TextStyle(fontSize: 45.sp),
               ));
         },
         pageBuilder: (context, index) {

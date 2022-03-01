@@ -8,7 +8,7 @@ import 'package:trellis_mobile_app/modules/create_workspace/view/create_workspac
 import 'package:trellis_mobile_app/modules/dashboard/binding/dashboard_binding.dart';
 import 'package:trellis_mobile_app/modules/dashboard/view/dashboard_page.dart';
 import 'package:trellis_mobile_app/modules/detail_table/binding/detail_table_binding.dart';
-import 'package:trellis_mobile_app/modules/detail_table/view/detail_table_page.dart';
+import 'package:trellis_mobile_app/modules/detail_table/view/detail_board_page.dart';
 import 'package:trellis_mobile_app/modules/notification/binding/notification_binding.dart';
 import 'package:trellis_mobile_app/modules/notification/view/notification_page.dart';
 import 'package:trellis_mobile_app/modules/setting/binding/setting_binding.dart';
@@ -46,8 +46,8 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.DETAIL_TABLE,
-      page: () => const DetailTablePage(),
-      binding: DetailTableBinding(),
+      page: () => DetailBoardPage(),
+      binding: DetailBoardBinding(),
       transition: Transition.rightToLeft,
     ),
     GetPage(

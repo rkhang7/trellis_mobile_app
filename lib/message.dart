@@ -129,6 +129,9 @@ class Messages extends Translations {
           // create workspace page
           "create_workspace": "Create workspace",
           "workspace_name": 'Workspace name',
+
+          // detail board page
+          "move_list": "Move list",
         },
         'vi_VN': {
           // walk through page
@@ -256,6 +259,9 @@ class Messages extends Translations {
           // create workspace page
           "create_workspace": "Tạo không gian làm việc",
           "workspace_name": 'Tên không gian làm việc',
+
+          // detail board page
+          "move_list": "Di chuyển danh sách",
         }
       };
 }

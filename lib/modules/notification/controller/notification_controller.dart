@@ -40,18 +40,25 @@ class NotificationController extends GetxController {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    createRichText(list: [
-                      TextSpan(text: 'Khang ', style: boldTextStyle(size: 14)),
-                      TextSpan(
-                          text: 'đã tạo ', style: primaryTextStyle(size: 14)),
-                      TextSpan(
-                          text: 'Nhóm KLTN ', style: boldTextStyle(size: 14)),
-                      TextSpan(
-                          text: 'vào ngày ', style: primaryTextStyle(size: 14)),
-                      TextSpan(
-                          text: '15/02/2022', style: boldTextStyle(size: 14)),
-                    ]),
-                    Text('7 giờ trước ', style: primaryTextStyle(size: 12)),
+                    createRichText(
+                      list: [
+                        TextSpan(
+                            text: 'Khang ', style: boldTextStyle(size: 14)),
+                        TextSpan(
+                            text: 'đã tạo ', style: primaryTextStyle(size: 14)),
+                        TextSpan(
+                            text: 'Nhóm KLTN ', style: boldTextStyle(size: 14)),
+                        TextSpan(
+                            text: 'vào ngày ',
+                            style: primaryTextStyle(size: 14)),
+                        TextSpan(
+                            text: '15/02/2022', style: boldTextStyle(size: 14)),
+                      ],
+                    ),
+                    Text(
+                      '7 giờ trước ',
+                      style: primaryTextStyle(size: 12),
+                    ),
                   ],
                 )
               ],
