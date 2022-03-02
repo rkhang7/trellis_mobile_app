@@ -7,7 +7,6 @@ import 'package:trellis_mobile_app/modules/create_card/view/components/attach_it
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class CreateCardPage extends StatelessWidget {
   CreateCardPage({Key? key}) : super(key: key);

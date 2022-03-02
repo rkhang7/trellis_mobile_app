@@ -142,11 +142,11 @@ class DetailBoardPage extends StatelessWidget {
                     Obx(
                       () => _buildTitle(list.name, index),
                     ),
-                    ConstrainedBox(
-                        constraints:
-                            BoxConstraints(maxHeight: Get.height * 0.76),
+                    Expanded(
                         child: _buildListCard(list.listCard, list.name, index)),
-                    _buildAddCard(),
+                    Obx(
+                      () => _buildAddCard(index),
+                    ),
                   ],
                 ),
               ),
@@ -168,6 +168,7 @@ class DetailBoardPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: 24.w),
                   child: TextFormField(
+                    maxLines: null,
                     autofocus: true,
                     controller: detailBoardController.listController[index],
                     decoration: const InputDecoration(
@@ -204,9 +205,8 @@ class DetailBoardPage extends StatelessWidget {
                           padding: EdgeInsets.only(left: 24.w),
                           child: Text(
                             name,
-                            maxLines: 1,
                             style: TextStyle(
-                                overflow: TextOverflow.ellipsis,
+                                // overflow: TextOverflow.ellipsis,
                                 color: Colors.black87,
                                 fontSize: 60.sp,
                                 fontWeight: FontWeight.bold),
@@ -234,32 +234,63 @@ class DetailBoardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildAddCard() {
-    return Center(
-      child: Row(
-        key: ValueKey(CardModel(
-            id: "id", name: "name", description: "description", position: 1)),
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              "+ ${"add_card".tr}",
-              style: const TextStyle(color: Colors.green),
+  Widget _buildAddCard(int index) {
+    var addingCard = detailBoardController.listNameCardAdding[index];
+    return addingCard
+        ? Padding(
+            padding: EdgeInsets.only(left: 24.w),
+            child: TextFormField(
+              maxLines: null,
+              autofocus: true,
+              controller: detailBoardController.listNameCardController[index],
+              decoration: InputDecoration(
+                hintText: "card_name".tr,
+                contentPadding: const EdgeInsets.all(0),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 2),
+                ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 2),
+                ),
+              ),
+              cursorColor: Colors.green,
+              cursorHeight: 25,
+              onChanged: (value) {
+                if (value.isEmpty) {
+                  detailBoardController.nameListIsEmpty.value = true;
+                } else {
+                  detailBoardController.nameListIsEmpty.value = false;
+                }
+              },
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.image_outlined),
-          ),
-        ],
-      ),
-    );
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                onPressed: () {
+                  detailBoardController.listCardScrollController[index].jumpTo(
+                      detailBoardController.listCardScrollController[index]
+                          .position.maxScrollExtent);
+                  detailBoardController.listNameCardAdding[index] = true;
+                },
+                child: Text(
+                  "+ ${"add_card".tr}",
+                  style: const TextStyle(color: Colors.green),
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.image_outlined),
+              ),
+            ],
+          );
   }
 
   Widget _buildListCard(List<CardModel> listCard, String nameList, int index) {
     return ReorderableListView.builder(
       padding: EdgeInsets.all(16.h),
+      scrollController: detailBoardController.listCardScrollController[index],
       shrinkWrap: true,
       onReorder: (oldIndex, newIndex) {
         swapCards(listCard, oldIndex, newIndex);
