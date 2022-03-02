@@ -71,9 +71,18 @@ class DetailBoardPage extends StatelessWidget {
         Obx(
           () {
             return detailBoardController.nameListEditing.isTrue
-                ? IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.check, color: Colors.white),
+                ? Obx(
+                    () => IconButton(
+                      onPressed: () {
+                        detailBoardController.nameListIsEmpty.isTrue
+                            ? null
+                            : _updateNameList();
+                      },
+                      icon: Icon(Icons.check,
+                          color: detailBoardController.nameListIsEmpty.isTrue
+                              ? Colors.grey
+                              : Colors.white),
+                    ),
                   )
                 : Row(
                     children: [
@@ -111,18 +120,38 @@ class DetailBoardPage extends StatelessWidget {
 
   Widget _buildBody() {
     return PageView.builder(
+      physics: detailBoardController.nameListEditing.isTrue
+          ? NeverScrollableScrollPhysics()
+          : null,
       itemCount: detailBoardController.listList.length,
       controller: detailBoardController.pageController,
       itemBuilder: (context, index) {
         var list = detailBoardController.listList[index];
-        return Container(
-          height: MediaQuery.of(context).size.height,
-          margin: EdgeInsets.symmetric(vertical: 48.h, horizontal: 48.w),
-          decoration: BoxDecoration(
-            color: Colors.grey[200]!,
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
-          child: _buildListCard(list.listCard, list.name, index),
+        return Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 48.h, horizontal: 48.w),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200]!,
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                ),
+                child: Column(
+                  children: [
+                    Obx(
+                      () => _buildTitle(list.name, index),
+                    ),
+                    ConstrainedBox(
+                        constraints:
+                            BoxConstraints(maxHeight: Get.height * 0.76),
+                        child: _buildListCard(list.listCard, list.name, index)),
+                    _buildAddCard(),
+                  ],
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
@@ -136,35 +165,55 @@ class DetailBoardPage extends StatelessWidget {
         detailBoardController.listNameListEditing[index]
             ? Flexible(
                 fit: FlexFit.tight,
-                child: TextFormField(
-                  autofocus: true,
-                  controller: detailBoardController.listController[index],
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.all(0),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 24.w),
+                  child: TextFormField(
+                    autofocus: true,
+                    controller: detailBoardController.listController[index],
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(0),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green, width: 2),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green, width: 2),
+                      ),
                     ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 2),
-                    ),
+                    cursorColor: Colors.green,
+                    cursorHeight: 25,
+                    onChanged: (value) {
+                      if (value.isEmpty) {
+                        detailBoardController.nameListIsEmpty.value = true;
+                      } else {
+                        detailBoardController.nameListIsEmpty.value = false;
+                      }
+                    },
                   ),
-                  cursorColor: Colors.green,
-                  cursorHeight: 25,
                 ),
               )
-            : GestureDetector(
-                onTap: () {
-                  detailBoardController.listNameListEditing[index] = true;
-                  detailBoardController.nameListEditing.value = true;
-                },
-                child: Container(
-                  margin: EdgeInsets.only(left: 20.w),
-                  child: Text(
-                    name,
-                    style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 60.sp,
-                        fontWeight: FontWeight.bold),
+            : Expanded(
+                child: InkWell(
+                  onTap: () {
+                    detailBoardController.listNameListEditing[index] = true;
+                    detailBoardController.nameListEditing.value = true;
+                  },
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 24.w),
+                          child: Text(
+                            name,
+                            maxLines: 1,
+                            style: TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                color: Colors.black87,
+                                fontSize: 60.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -185,44 +234,41 @@ class DetailBoardPage extends StatelessWidget {
     );
   }
 
-  _buildAddCard() {
-    return Row(
-      key: ValueKey(CardModel(
-          id: "id", name: "name", description: "description", position: 1)),
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            "+ ${"add_card".tr}",
-            style: const TextStyle(color: Colors.green),
+  Widget _buildAddCard() {
+    return Center(
+      child: Row(
+        key: ValueKey(CardModel(
+            id: "id", name: "name", description: "description", position: 1)),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              "+ ${"add_card".tr}",
+              style: const TextStyle(color: Colors.green),
+            ),
           ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.image_outlined),
-        ),
-      ],
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.image_outlined),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildListCard(List<CardModel> listCard, String nameList, int index) {
     return ReorderableListView.builder(
-      header: Obx(() => _buildTitle(nameList, index)),
       padding: EdgeInsets.all(16.h),
       shrinkWrap: true,
       onReorder: (oldIndex, newIndex) {
         swapCards(listCard, oldIndex, newIndex);
       },
       itemBuilder: (context, index) {
-        if (index == listCard.length) {
-          return _buildAddCard();
-        } else {
-          CardModel cardModel = listCard[index];
-          return _buildCard(cardModel);
-        }
+        CardModel cardModel = listCard[index];
+        return _buildCard(cardModel);
       },
-      itemCount: listCard.length + 1,
+      itemCount: listCard.length,
     );
   }
 
@@ -258,5 +304,15 @@ class DetailBoardPage extends StatelessWidget {
     }
     final CardModel item = listCard.removeAt(oldIndex);
     listCard.insert(newIndex, item);
+  }
+
+  _updateNameList() {
+    var currentIndex = detailBoardController.listNameListEditing.indexOf(true);
+
+    detailBoardController.listList[currentIndex].name =
+        detailBoardController.listController[currentIndex].text;
+
+    detailBoardController.nameListEditing.value = false;
+    detailBoardController.listNameListEditing[currentIndex] = false;
   }
 }
