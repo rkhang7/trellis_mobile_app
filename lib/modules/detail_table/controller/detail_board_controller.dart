@@ -6,11 +6,17 @@ import 'package:trellis_mobile_app/models/core/list_model.dart';
 class DetailBoardController extends GetxController {
   var pageController = PageController(viewportFraction: 0.8);
   var listList = <ListModel>[].obs;
+  var nameListEditing = false.obs;
+  var listNameListEditing = <bool>[].obs;
+
+  var listController = <TextEditingController>[];
 
   @override
   void onInit() {
     super.onInit();
     initData();
+    initListController();
+    initListEditing();
   }
 
   void initData() {
@@ -29,6 +35,18 @@ class DetailBoardController extends GetxController {
 
       listList.add(
           ListModel(id: i.toString(), name: "Cần làm $i", listCard: cardList));
+    }
+  }
+
+  void initListController() {
+    for (int i = 0; i < listList.length; i++) {
+      listController.add(TextEditingController());
+    }
+  }
+
+  void initListEditing() {
+    for (int i = 0; i < listList.length; i++) {
+      listNameListEditing.add(false);
     }
   }
 }

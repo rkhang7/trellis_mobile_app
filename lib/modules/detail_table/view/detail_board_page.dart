@@ -9,6 +9,7 @@ import 'package:trellis_mobile_app/modules/detail_table/controller/detail_board_
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
+import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
 
 class DetailBoardPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
@@ -34,36 +35,71 @@ class DetailBoardPage extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: iconColorPrimary),
-        onPressed: () {
-          Get.back();
-        },
-      ),
+      leading: Obx(() {
+        return detailBoardController.nameListEditing.isTrue
+            ? IconButton(
+                icon: const Icon(Icons.close, color: iconColorPrimary),
+                onPressed: () {
+                  detailBoardController.nameListEditing.value = false;
+                  for (int i = 0;
+                      i < detailBoardController.listNameListEditing.length;
+                      i++) {
+                    detailBoardController.listNameListEditing[i] = false;
+                  }
+                },
+              )
+            : IconButton(
+                icon: const Icon(Icons.arrow_back, color: iconColorPrimary),
+                onPressed: () {
+                  Get.back();
+                },
+              );
+      }),
       backgroundColor: backgroundColor,
-      title: Text(
-        name,
-        style: boldTextStyle(size: 18, color: Colors.white),
-      ),
+      title: Obx(() {
+        return detailBoardController.nameListEditing.isTrue
+            ? Text(
+                "edit_list_name".tr,
+                style: boldTextStyle(size: 18, color: Colors.white),
+              )
+            : Text(
+                name,
+                style: boldTextStyle(size: 18, color: Colors.white),
+              );
+      }),
       actions: [
-        IconButton(
-          onPressed: () {
-            toast('Coming Soon');
+        Obx(
+          () {
+            return detailBoardController.nameListEditing.isTrue
+                ? IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.check, color: Colors.white),
+                  )
+                : Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          toast('Coming Soon');
+                        },
+                        icon: const Icon(Icons.search, color: iconColorPrimary),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Get.toNamed(AppRoutes.NOTIFICATION);
+                        },
+                        icon: const Icon(Icons.notifications_none_outlined,
+                            color: iconColorPrimary),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          _handleDrawer();
+                        },
+                        icon: const Icon(Icons.more_horiz,
+                            color: iconColorPrimary),
+                      ),
+                    ],
+                  );
           },
-          icon: const Icon(Icons.search, color: iconColorPrimary),
-        ),
-        IconButton(
-          onPressed: () {
-            Get.toNamed(AppRoutes.NOTIFICATION);
-          },
-          icon: const Icon(Icons.notifications_none_outlined,
-              color: iconColorPrimary),
-        ),
-        IconButton(
-          onPressed: () {
-            _handleDrawer();
-          },
-          icon: const Icon(Icons.more_horiz, color: iconColorPrimary),
         ),
       ],
     );
@@ -80,32 +116,58 @@ class DetailBoardPage extends StatelessWidget {
       itemBuilder: (context, index) {
         var list = detailBoardController.listList[index];
         return Container(
-          constraints: const BoxConstraints.expand(),
+          height: MediaQuery.of(context).size.height,
           margin: EdgeInsets.symmetric(vertical: 48.h, horizontal: 48.w),
           decoration: BoxDecoration(
             color: Colors.grey[200]!,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
-          child: _buildListCard(list.listCard),
+          child: _buildListCard(list.listCard, list.name, index),
         );
       },
     );
   }
 
-  Widget _buildTitle(String name) {
+  Widget _buildTitle(String name, int index) {
+    detailBoardController.listController[index].text = name;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          margin: EdgeInsets.only(left: 20.w),
-          child: Text(
-            name,
-            style: TextStyle(
-                color: Colors.black87,
-                fontSize: 60.sp,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
+        detailBoardController.listNameListEditing[index]
+            ? Flexible(
+                fit: FlexFit.tight,
+                child: TextFormField(
+                  autofocus: true,
+                  controller: detailBoardController.listController[index],
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.all(0),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green, width: 2),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green, width: 2),
+                    ),
+                  ),
+                  cursorColor: Colors.green,
+                  cursorHeight: 25,
+                ),
+              )
+            : GestureDetector(
+                onTap: () {
+                  detailBoardController.listNameListEditing[index] = true;
+                  detailBoardController.nameListEditing.value = true;
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: 20.w),
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 60.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
         PopupMenuButton(
           icon: const Icon(Icons.more_vert_outlined),
           itemBuilder: (BuildContext context) {
@@ -144,9 +206,9 @@ class DetailBoardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildListCard(List<CardModel> listCard) {
+  Widget _buildListCard(List<CardModel> listCard, String nameList, int index) {
     return ReorderableListView.builder(
-      header: _buildTitle("asd"),
+      header: Obx(() => _buildTitle(nameList, index)),
       padding: EdgeInsets.all(16.h),
       shrinkWrap: true,
       onReorder: (oldIndex, newIndex) {
@@ -174,11 +236,10 @@ class DetailBoardPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
         boxShadow: const [
           BoxShadow(
-            color: Colors.grey,
-            blurRadius: 2,
-            blurStyle: BlurStyle.normal,
-            offset: Offset.zero,
-          ),
+              blurRadius: 8,
+              offset: Offset(0, 0),
+              color: Color.fromRGBO(127, 140, 141, 0.5),
+              spreadRadius: 2)
         ],
       ),
       child: Text(
