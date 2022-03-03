@@ -8,14 +8,16 @@ class DetailBoardController extends GetxController {
   var listCardScrollController = <ScrollController>[];
 
   var listList = <ListModel>[].obs;
-  var nameListEditing = false.obs; // appbar
+  var nameListEditing = false.obs; // appBar
   var listNameListEditing = <bool>[].obs; // item
   var listController = <TextEditingController>[];
   var nameListIsEmpty = false.obs;
 
   //card
-  var listNameCardAdding = <bool>[].obs;
+  var nameCardAdding = false.obs; // appBar
+  var listNameCardAdding = <bool>[].obs; // item
   var listNameCardController = <TextEditingController>[];
+  var nameCardIsEmpty = false.obs;
 
   @override
   void onInit() {

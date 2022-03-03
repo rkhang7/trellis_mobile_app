@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/components/end_drawer_component.dart';
 import 'package:trellis_mobile_app/models/core/card_model.dart';
-import 'package:trellis_mobile_app/models/core/list_model.dart';
 import 'package:trellis_mobile_app/modules/detail_table/controller/detail_board_controller.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
-import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
 
 class DetailBoardPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
@@ -36,78 +34,114 @@ class DetailBoardPage extends StatelessWidget {
   AppBar _buildAppBar() {
     return AppBar(
       leading: Obx(() {
-        return detailBoardController.nameListEditing.isTrue
-            ? IconButton(
-                icon: const Icon(Icons.close, color: iconColorPrimary),
-                onPressed: () {
-                  detailBoardController.nameListEditing.value = false;
-                  for (int i = 0;
-                      i < detailBoardController.listNameListEditing.length;
-                      i++) {
-                    detailBoardController.listNameListEditing[i] = false;
-                  }
-                },
-              )
-            : IconButton(
-                icon: const Icon(Icons.arrow_back, color: iconColorPrimary),
-                onPressed: () {
-                  Get.back();
-                },
-              );
+        if (detailBoardController.nameListEditing.isTrue) {
+          return IconButton(
+            icon: const Icon(Icons.close, color: iconColorPrimary),
+            onPressed: () {
+              detailBoardController.nameListEditing.value = false;
+              for (int i = 0;
+                  i < detailBoardController.listNameListEditing.length;
+                  i++) {
+                detailBoardController.listNameListEditing[i] = false;
+              }
+            },
+          );
+        } else if (detailBoardController.nameCardAdding.isTrue) {
+          return IconButton(
+            icon: const Icon(Icons.close, color: iconColorPrimary),
+            onPressed: () {
+              detailBoardController.nameCardAdding.value = false;
+              for (int i = 0;
+                  i < detailBoardController.listNameCardAdding.length;
+                  i++) {
+                detailBoardController.listNameCardAdding[i] = false;
+              }
+            },
+          );
+        } else {
+          return IconButton(
+            icon: const Icon(Icons.arrow_back, color: iconColorPrimary),
+            onPressed: () {
+              Get.back();
+            },
+          );
+        }
       }),
       backgroundColor: backgroundColor,
       title: Obx(() {
-        return detailBoardController.nameListEditing.isTrue
-            ? Text(
-                "edit_list_name".tr,
-                style: boldTextStyle(size: 18, color: Colors.white),
-              )
-            : Text(
-                name,
-                style: boldTextStyle(size: 18, color: Colors.white),
-              );
+        if (detailBoardController.nameListEditing.isTrue) {
+          return Text(
+            "edit_list_name".tr,
+            style: boldTextStyle(size: 18, color: Colors.white),
+          );
+        } else if (detailBoardController.nameCardAdding.isTrue) {
+          return Text(
+            "add_card".tr,
+            style: boldTextStyle(size: 18, color: Colors.white),
+          );
+        } else {
+          return Text(
+            name,
+            style: boldTextStyle(size: 18, color: Colors.white),
+          );
+        }
       }),
       actions: [
         Obx(
           () {
-            return detailBoardController.nameListEditing.isTrue
-                ? Obx(
-                    () => IconButton(
-                      onPressed: () {
-                        detailBoardController.nameListIsEmpty.isTrue
-                            ? null
-                            : _updateNameList();
-                      },
-                      icon: Icon(Icons.check,
-                          color: detailBoardController.nameListIsEmpty.isTrue
-                              ? Colors.grey
-                              : Colors.white),
-                    ),
-                  )
-                : Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          toast('Coming Soon');
-                        },
-                        icon: const Icon(Icons.search, color: iconColorPrimary),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.NOTIFICATION);
-                        },
-                        icon: const Icon(Icons.notifications_none_outlined,
-                            color: iconColorPrimary),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          _handleDrawer();
-                        },
-                        icon: const Icon(Icons.more_horiz,
-                            color: iconColorPrimary),
-                      ),
-                    ],
-                  );
+            if (detailBoardController.nameListEditing.isTrue) {
+              return Obx(
+                () => IconButton(
+                  onPressed: () {
+                    detailBoardController.nameListIsEmpty.isTrue
+                        ? null
+                        : _updateNameList();
+                  },
+                  icon: Icon(Icons.check,
+                      color: detailBoardController.nameListIsEmpty.isTrue
+                          ? Colors.grey
+                          : Colors.white),
+                ),
+              );
+            } else if (detailBoardController.nameCardAdding.isTrue) {
+              return Obx(
+                () => IconButton(
+                  onPressed: () {
+                    detailBoardController.nameCardIsEmpty.isTrue
+                        ? null
+                        : _addCardToList();
+                  },
+                  icon: Icon(Icons.check,
+                      color: detailBoardController.nameCardIsEmpty.isTrue
+                          ? Colors.grey
+                          : Colors.white),
+                ),
+              );
+            } else {
+              return Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      toast('Coming Soon');
+                    },
+                    icon: const Icon(Icons.search, color: iconColorPrimary),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.NOTIFICATION);
+                    },
+                    icon: const Icon(Icons.notifications_none_outlined,
+                        color: iconColorPrimary),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _handleDrawer();
+                    },
+                    icon: const Icon(Icons.more_horiz, color: iconColorPrimary),
+                  ),
+                ],
+              );
+            }
           },
         ),
       ],
@@ -120,8 +154,9 @@ class DetailBoardPage extends StatelessWidget {
 
   Widget _buildBody() {
     return PageView.builder(
-      physics: detailBoardController.nameListEditing.isTrue
-          ? NeverScrollableScrollPhysics()
+      physics: (detailBoardController.nameListEditing.isTrue ||
+              detailBoardController.nameCardAdding.isTrue)
+          ? const NeverScrollableScrollPhysics()
           : null,
       itemCount: detailBoardController.listList.length,
       controller: detailBoardController.pageController,
@@ -257,9 +292,9 @@ class DetailBoardPage extends StatelessWidget {
               cursorHeight: 25,
               onChanged: (value) {
                 if (value.isEmpty) {
-                  detailBoardController.nameListIsEmpty.value = true;
+                  detailBoardController.nameCardIsEmpty.value = true;
                 } else {
-                  detailBoardController.nameListIsEmpty.value = false;
+                  detailBoardController.nameCardIsEmpty.value = false;
                 }
               },
             ),
@@ -269,10 +304,21 @@ class DetailBoardPage extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  detailBoardController.listCardScrollController[index].jumpTo(
-                      detailBoardController.listCardScrollController[index]
-                          .position.maxScrollExtent);
+                  // scroll to last position
+                  // detailBoardController.listCardScrollController[index].jumpTo(
+                  //     detailBoardController.listCardScrollController[index]
+                  //         .position.maxScrollExtent);
+                  detailBoardController.listCardScrollController[index]
+                      .animateTo(
+                    detailBoardController.listCardScrollController[index]
+                        .position.maxScrollExtent,
+                    curve: Curves.easeOut,
+                    duration: const Duration(milliseconds: 500),
+                  );
                   detailBoardController.listNameCardAdding[index] = true;
+
+                  // change appBar
+                  detailBoardController.nameCardAdding.value = true;
                 },
                 child: Text(
                   "+ ${"add_card".tr}",
@@ -345,5 +391,35 @@ class DetailBoardPage extends StatelessWidget {
 
     detailBoardController.nameListEditing.value = false;
     detailBoardController.listNameListEditing[currentIndex] = false;
+  }
+
+  _addCardToList() {
+    var currentAddingIndex =
+        detailBoardController.listNameCardAdding.indexOf(true);
+
+    String nameCard =
+        detailBoardController.listNameCardController[currentAddingIndex].text;
+    int lengthListCard =
+        detailBoardController.listList[currentAddingIndex].listCard.length;
+    detailBoardController.listList[currentAddingIndex].listCard.add(CardModel(
+        id: "id",
+        name: nameCard,
+        description: "description",
+        position: lengthListCard));
+
+    // update gui
+    detailBoardController.nameCardAdding.value = false;
+    detailBoardController.listNameCardAdding[currentAddingIndex] = false;
+    detailBoardController.listNameCardController[currentAddingIndex].clear();
+
+    // after add, scroll to last position
+    detailBoardController.listCardScrollController[currentAddingIndex]
+        .animateTo(
+      (detailBoardController.listCardScrollController[currentAddingIndex]
+              .position.maxScrollExtent) +
+          1,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 500),
+    );
   }
 }
