@@ -13,11 +13,15 @@ class DetailBoardController extends GetxController {
   var listController = <TextEditingController>[];
   var nameListIsEmpty = false.obs;
 
-  //card
+  // add card
   var nameCardAdding = false.obs; // appBar
   var listNameCardAdding = <bool>[].obs; // item
   var listNameCardController = <TextEditingController>[];
   var nameCardIsEmpty = false.obs;
+
+  // add list
+  var nameListAdding = false.obs;
+  var nameListAddingController = TextEditingController();
 
   @override
   void onInit() {
@@ -38,9 +42,9 @@ class DetailBoardController extends GetxController {
   }
 
   void initData() {
-    for (int i = 0; i <= 5; i++) {
+    for (int i = 0; i <= 2; i++) {
       var cardList = <CardModel>[];
-      for (int i = 0; i <= 50; i++) {
+      for (int i = 0; i <= 20; i++) {
         cardList.add(
           CardModel(
             id: i.toString(),

@@ -58,6 +58,13 @@ class DetailBoardPage extends StatelessWidget {
               }
             },
           );
+        } else if (detailBoardController.nameListAdding.isTrue) {
+          return IconButton(
+            icon: const Icon(Icons.close, color: iconColorPrimary),
+            onPressed: () {
+              detailBoardController.nameListAdding.value = false;
+            },
+          );
         } else {
           return IconButton(
             icon: const Icon(Icons.arrow_back, color: iconColorPrimary),
@@ -77,6 +84,11 @@ class DetailBoardPage extends StatelessWidget {
         } else if (detailBoardController.nameCardAdding.isTrue) {
           return Text(
             "add_card".tr,
+            style: boldTextStyle(size: 18, color: Colors.white),
+          );
+        } else if (detailBoardController.nameListAdding.isTrue) {
+          return Text(
+            "add_list".tr,
             style: boldTextStyle(size: 18, color: Colors.white),
           );
         } else {
@@ -113,6 +125,16 @@ class DetailBoardPage extends StatelessWidget {
                   },
                   icon: Icon(Icons.check,
                       color: detailBoardController.nameCardIsEmpty.isTrue
+                          ? Colors.grey
+                          : Colors.white),
+                ),
+              );
+            } else if (detailBoardController.nameListAdding.isTrue) {
+              return Obx(
+                () => IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.check,
+                      color: detailBoardController.nameListIsEmpty.isTrue
                           ? Colors.grey
                           : Colors.white),
                 ),
@@ -155,39 +177,46 @@ class DetailBoardPage extends StatelessWidget {
   Widget _buildBody() {
     return PageView.builder(
       physics: (detailBoardController.nameListEditing.isTrue ||
-              detailBoardController.nameCardAdding.isTrue)
+              detailBoardController.nameCardAdding.isTrue ||
+              detailBoardController.nameListAdding.isTrue)
           ? const NeverScrollableScrollPhysics()
           : null,
-      itemCount: detailBoardController.listList.length,
+      itemCount: detailBoardController.listList.length + 1,
       controller: detailBoardController.pageController,
       itemBuilder: (context, index) {
-        var list = detailBoardController.listList[index];
-        return Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 48.h, horizontal: 48.w),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200]!,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                ),
-                child: Column(
-                  children: [
-                    Obx(
-                      () => _buildTitle(list.name, index),
-                    ),
-                    Expanded(
-                        child: _buildListCard(list.listCard, list.name, index)),
-                    Obx(
-                      () => _buildAddCard(index),
-                    ),
-                  ],
+        if (index == detailBoardController.listList.length) {
+          return Obx(() => _buildAddList());
+        } else {
+          var list = detailBoardController.listList[index];
+          return Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: Container(
+                  margin:
+                      EdgeInsets.symmetric(vertical: 48.h, horizontal: 48.w),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200]!,
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: Column(
+                    children: [
+                      Obx(
+                        () => _buildTitle(list.name, index),
+                      ),
+                      Expanded(
+                          child:
+                              _buildListCard(list.listCard, list.name, index)),
+                      Obx(
+                        () => _buildAddCard(index),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        );
+            ],
+          );
+        }
       },
     );
   }
@@ -218,7 +247,7 @@ class DetailBoardPage extends StatelessWidget {
                     cursorColor: Colors.green,
                     cursorHeight: 25,
                     onChanged: (value) {
-                      if (value.isEmpty) {
+                      if (value.trim().isEmpty) {
                         detailBoardController.nameListIsEmpty.value = true;
                       } else {
                         detailBoardController.nameListIsEmpty.value = false;
@@ -291,7 +320,7 @@ class DetailBoardPage extends StatelessWidget {
               cursorColor: Colors.green,
               cursorHeight: 25,
               onChanged: (value) {
-                if (value.isEmpty) {
+                if (value.trim().isEmpty) {
                   detailBoardController.nameCardIsEmpty.value = true;
                 } else {
                   detailBoardController.nameCardIsEmpty.value = false;
@@ -420,6 +449,64 @@ class DetailBoardPage extends StatelessWidget {
           1,
       curve: Curves.easeOut,
       duration: const Duration(milliseconds: 500),
+    );
+  }
+
+  Widget _buildAddList() {
+    var nameListAdding = detailBoardController.nameListAdding.value;
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            detailBoardController.nameListAdding.value = true;
+          },
+          child: Container(
+            alignment: Alignment.center,
+            height: 240.h,
+            margin: EdgeInsets.symmetric(vertical: 48.h, horizontal: 48.w),
+            decoration: BoxDecoration(
+              color: Colors.grey[200]!,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+            ),
+            child: nameListAdding
+                ? Padding(
+                    padding: EdgeInsets.only(left: 24.w),
+                    child: TextFormField(
+                      maxLines: null,
+                      autofocus: true,
+                      controller:
+                          detailBoardController.nameListAddingController,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(0),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green, width: 2),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green, width: 2),
+                        ),
+                      ),
+                      cursorColor: Colors.green,
+                      cursorHeight: 25,
+                      onChanged: (value) {
+                        if (value.trim().isEmpty) {
+                          detailBoardController.nameListIsEmpty.value = true;
+                        } else {
+                          detailBoardController.nameListIsEmpty.value = false;
+                        }
+                      },
+                    ),
+                  )
+                : Text(
+                    "add_list".tr,
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 60.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+          ),
+        ),
+      ],
     );
   }
 }
