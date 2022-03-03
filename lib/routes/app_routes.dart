@@ -10,4 +10,5 @@ class AppRoutes {
   static const String CREATE_CARD = "/create_card";
   static const String SETTINGS = "/settings";
   static const String CREATE_WORKSPACE = "/create_workspace";
+  static const String SEARCH_BOARD = "/search_board";
 }

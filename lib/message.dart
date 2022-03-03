@@ -134,6 +134,9 @@ class Messages extends Translations {
           "move_list": "Move list",
           'edit_list_name': 'Edit list name',
           'add_list': 'Add list',
+
+          // search board page
+          'search': 'Search',
         },
         'vi_VN': {
           // walk through page
@@ -266,6 +269,9 @@ class Messages extends Translations {
           "move_list": "Di chuyển danh sách",
           'edit_list_name': 'Chỉnh sửa danh sách',
           'add_list': 'Thêm danh sách',
+
+          // search board page
+          'search': 'Tìm kiếm',
         }
       };
 }

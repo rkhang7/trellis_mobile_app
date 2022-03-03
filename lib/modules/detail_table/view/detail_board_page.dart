@@ -500,7 +500,7 @@ class DetailBoardPage extends StatelessWidget {
                     "add_list".tr,
                     style: TextStyle(
                       color: Colors.green,
-                      fontSize: 60.sp,
+                      fontSize: 70.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

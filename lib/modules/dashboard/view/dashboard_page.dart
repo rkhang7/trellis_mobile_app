@@ -79,7 +79,7 @@ class DashBoardPage extends StatelessWidget {
         IconButton(
             icon: const Icon(Icons.search, color: iconColorPrimary),
             onPressed: () {
-              toast('Tìm kiếm');
+              Get.toNamed(AppRoutes.SEARCH_BOARD);
             }),
         IconButton(
           icon: const Icon(Icons.notifications_none, color: iconColorPrimary),
