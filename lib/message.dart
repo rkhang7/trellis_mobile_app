@@ -141,6 +141,10 @@ class Messages extends Translations {
 
           // search board page
           'search': 'Search',
+
+          // EasyLoading message
+          'error': "Something went wrong",
+          'sign_up_success': 'Sign up successful',
         },
         'vi_VN': {
           // walk through page
@@ -280,6 +284,10 @@ class Messages extends Translations {
 
           // search board page
           'search': 'Tìm kiếm',
+
+          // EasyLoading message
+          'error': "Đã xảy ra lỗi",
+          'sign_up_success': 'Đăng ký thành công',
         }
       };
 }

@@ -79,7 +79,9 @@ class SignUpPage extends StatelessWidget {
                     () => AuthButton(
                       widget: signUpUpController.isLoadingButton.isTrue
                           ? const Center(
-                              child: CircularProgressIndicator(),
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
                             )
                           : Text(
                               "sign_up".tr,
