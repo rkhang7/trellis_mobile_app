@@ -6,6 +6,8 @@ import 'package:trellis_mobile_app/service/auth_service.dart';
 
 class SignUpController extends GetxController {
   var formKey = GlobalKey<FormState>();
+  var firstNameController = TextEditingController();
+  var lastNameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var confirmPasswordController = TextEditingController();

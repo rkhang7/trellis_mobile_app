@@ -32,6 +32,10 @@ class Messages extends Translations {
           // sign up page
 
           'register_account': 'Register account',
+          'first_name': 'First name',
+          'last_name': 'Last name',
+          'please_enter_first_name': 'Please enter first name',
+          'please_enter_last_name': 'Please enter last name',
           'please_enter_email': "Please enter email",
           'email_invalid': 'Email invalid',
           'password': 'Password',
@@ -167,6 +171,10 @@ class Messages extends Translations {
           // sign up page
 
           'register_account': 'Đăng ký tài khoản',
+          'first_name': 'Họ',
+          'last_name': 'Tên',
+          'please_enter_first_name': 'Vui lòng nhập họ',
+          'please_enter_last_name': 'Vui lòng nhập tên',
           'please_enter_email': "Vui lòng nhập email",
           'email_invalid': 'Email không hợp lệ',
           'password': 'Mật khẩu',
