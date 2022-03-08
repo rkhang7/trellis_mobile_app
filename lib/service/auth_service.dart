@@ -4,11 +4,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:trellis_mobile_app/models/user/user_request.dart';
+import 'package:trellis_mobile_app/repository/user_repository.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 
 class AuthService {
   // Create storage
   final storage = const FlutterSecureStorage();
+  final userRepository = UserRepository();
   Future<User?> signInWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
@@ -33,7 +36,20 @@ class AuthService {
 
         user = userCredential.user;
 
-        saveUid(user!.uid);
+        if (userCredential.additionalUserInfo!.isNewUser) {
+          // save user to database
+
+          userRepository
+              .createUser(
+                UserRequest(
+                    uid: user!.uid,
+                    email: user.email ?? "",
+                    firstName: user.displayName ?? "",
+                    lastName: "",
+                    avatarBackgroundColor: "ffffff"),
+              )
+              .then((value) => {saveUid(user!.uid)});
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           // ...
