@@ -16,7 +16,7 @@ class DashBoardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: const DrawerComponent(),
+        drawer: DrawerComponent(),
         appBar: _buildAppBar(),
         body: ListView(
           shrinkWrap: true,
