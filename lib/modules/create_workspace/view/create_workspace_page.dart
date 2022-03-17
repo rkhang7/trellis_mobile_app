@@ -37,6 +37,10 @@ class CreateWorkspacePage extends StatelessWidget {
                   primaryColor: Colors.green,
                 ),
                 20.height,
+                Text(
+                  "workspace_type".tr,
+                ),
+                _buildDropdownWorkspaceType(),
               ],
             ),
           ),
@@ -69,6 +73,79 @@ class CreateWorkspacePage extends StatelessWidget {
             ),
           );
         })
+      ],
+    );
+  }
+
+  DropdownButton<String> _buildDropdownWorkspaceType() {
+    return DropdownButton(
+      underline: Container(
+        height: 1,
+        color: Colors.black,
+      ),
+      isExpanded: true,
+      hint: const Text(
+        "Chọn",
+        style: TextStyle(color: Colors.black),
+      ),
+      onChanged: (dynamic value) {},
+      items: [
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text("personnel".tr),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text("small_business".tr),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              title: const Text("Marketing"),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text("operating".tr),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text("education".tr),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text("it".tr),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text("other".tr),
+              onTap: () {
+                Get.back();
+              },
+            ),
+            value: '1'),
       ],
     );
   }

@@ -12,14 +12,15 @@ class UserResponse {
   int created_time;
   int updated_time;
 
-  UserResponse(
-      {required this.uid,
-      required this.email,
-      required this.first_name,
-      required this.last_name,
-      required this.avatar_background_color,
-      required this.created_time,
-      required this.updated_time});
+  UserResponse({
+    required this.uid,
+    required this.email,
+    required this.first_name,
+    required this.last_name,
+    required this.avatar_background_color,
+    required this.created_time,
+    required this.updated_time,
+  });
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);

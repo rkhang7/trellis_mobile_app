@@ -45,11 +45,6 @@ class _DrawerComponentState extends State<DrawerComponent> {
   }
 
   @override
-  void setState(fn) {
-    if (mounted) super.setState(fn);
-  }
-
-  @override
   void initState() {
     init();
     super.initState();

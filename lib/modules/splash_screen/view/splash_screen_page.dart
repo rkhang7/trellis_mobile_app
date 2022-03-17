@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
@@ -31,7 +32,35 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _buildAnimations(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/icons/logo.png",
+                  height: 150.h,
+                  width: 150.h,
+                ),
+                SizedBox(
+                  width: 50.w,
+                ),
+                Text(
+                  "Trellis",
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 150.sp,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 100.h,
+            ),
+            _buildAnimations(),
+          ],
+        ),
       ),
     );
   }
