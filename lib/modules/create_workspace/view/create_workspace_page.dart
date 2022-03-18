@@ -41,6 +41,8 @@ class CreateWorkspacePage extends StatelessWidget {
                   "workspace_type".tr,
                 ),
                 _buildDropdownWorkspaceType(),
+                20.height,
+                _buildDescription(),
               ],
             ),
           ),
@@ -147,6 +149,27 @@ class CreateWorkspacePage extends StatelessWidget {
             ),
             value: '1'),
       ],
+    );
+  }
+
+  Widget _buildDescription() {
+    return TextFormField(
+      autofocus: false,
+      controller: createWorkspaceController.descriptionController,
+      decoration: InputDecoration(
+        labelText: "workspace_description".tr,
+        labelStyle: const TextStyle(color: Colors.green),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.green, width: 2),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.green, width: 2),
+        ),
+      ),
+      cursorColor: Colors.green,
+      cursorHeight: 25,
+      onChanged: (value) {},
+      maxLines: null,
     );
   }
 }

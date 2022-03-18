@@ -140,6 +140,7 @@ class Messages extends Translations {
           "education": "Education",
           "it": "Information technology",
           "other": "Other",
+          "workspace_description": "Workspace Description",
 
           // detail board page
           "move_list": "Move list",
@@ -290,6 +291,7 @@ class Messages extends Translations {
           "education": "Giáo dục",
           "it": "Công nghệ thông tin",
           "other": "Khác",
+          "workspace_description": "Mô tả không gian làm việc",
 
           // detail board page
           "move_list": "Di chuyển danh sách",

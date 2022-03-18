@@ -5,6 +5,7 @@ import 'package:trellis_mobile_app/models/core/board_model.dart';
 class CreateWorkspaceController extends GetxController {
   var workspaceNameController = TextEditingController();
   var workspaceNameIsEmpty = true.obs;
+  var descriptionController = TextEditingController();
 
   @override
   void onInit() {
