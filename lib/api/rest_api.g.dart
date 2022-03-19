@@ -10,7 +10,7 @@ part of 'rest_api.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://192.168.100.186:8080/';
+    baseUrl ??= 'http://192.168.212.104:8080/';
   }
 
   final Dio _dio;
@@ -47,6 +47,23 @@ class _RestClient implements RestClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UserResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<WorkSpaceResponse> createWorkspace(workSpaceRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(workSpaceRequest.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<WorkSpaceResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/workspaces',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = WorkSpaceResponse.fromJson(_result.data!);
     return value;
   }
 

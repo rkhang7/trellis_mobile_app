@@ -4,6 +4,9 @@ class Messages extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          //common
+          "please_wait": "Please wait",
+
           // walk through page
           'sign_in': 'Log in',
           'sign_up': 'Sign up',
@@ -155,6 +158,9 @@ class Messages extends Translations {
           'sign_up_success': 'Sign up successful',
         },
         'vi_VN': {
+          //common
+          "please_wait": "vui lòng đợi",
+
           // walk through page
           'sign_in': 'Đăng nhập',
           'sign_up': 'Đăng ký',

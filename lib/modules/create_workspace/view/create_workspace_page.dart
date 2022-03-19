@@ -99,7 +99,7 @@ class CreateWorkspacePage extends StatelessWidget {
                 Get.back();
               },
             ),
-            value: '1'),
+            value: 'Nhân sự'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("small_business".tr),
@@ -107,7 +107,7 @@ class CreateWorkspacePage extends StatelessWidget {
                 Get.back();
               },
             ),
-            value: '1'),
+            value: 'Doanh nghiệp nhỏ'),
         DropdownMenuItem(
             child: ListTile(
               title: const Text("Marketing"),
@@ -115,7 +115,7 @@ class CreateWorkspacePage extends StatelessWidget {
                 Get.back();
               },
             ),
-            value: '1'),
+            value: 'Marketing'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("operating".tr),
@@ -123,7 +123,7 @@ class CreateWorkspacePage extends StatelessWidget {
                 Get.back();
               },
             ),
-            value: '1'),
+            value: 'Điều hành'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("education".tr),
@@ -131,7 +131,7 @@ class CreateWorkspacePage extends StatelessWidget {
                 Get.back();
               },
             ),
-            value: '1'),
+            value: 'Giáo dục'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("it".tr),
@@ -139,7 +139,7 @@ class CreateWorkspacePage extends StatelessWidget {
                 Get.back();
               },
             ),
-            value: '1'),
+            value: 'Công nghệ thông tin'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("other".tr),
@@ -147,7 +147,7 @@ class CreateWorkspacePage extends StatelessWidget {
                 Get.back();
               },
             ),
-            value: '1'),
+            value: 'Khác'),
       ],
     );
   }

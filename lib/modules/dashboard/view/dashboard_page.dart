@@ -47,7 +47,7 @@ class DashBoardPage extends StatelessWidget {
                         );
                       },
                       leading: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT5guHEUeNVd1Uc_6NdURM_7h5P6UcDE1U_Lw&usqp=CAU",
+                        "https://sohanews.sohacdn.com/thumb_w/660/160588918557773824/2022/2/23/photo1645602282713-16456022828641944752645.jpg",
                         height: 40,
                         width: 40,
                         fit: BoxFit.cover,

@@ -92,7 +92,9 @@ class SignInPage extends StatelessWidget {
       () => AuthButton(
         widget: signInController.isButtonLoading.isTrue
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               )
             : Text(
                 "sign_in".tr,
