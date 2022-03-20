@@ -137,12 +137,14 @@ class Messages extends Translations {
           "create_workspace": "Create workspace",
           "workspace_name": 'Workspace name',
           "workspace_type": "Workspace Type",
+          "select": "Select",
           "personnel": "Personnel",
           "small_business": "Small Business",
           "operating": "Operating",
           "education": "Education",
           "it": "Information technology",
           "other": "Other",
+          "marketing": "Marketing",
           "workspace_description": "Workspace Description",
 
           // detail board page
@@ -291,6 +293,7 @@ class Messages extends Translations {
           "create_workspace": "Tạo không gian làm việc",
           "workspace_name": 'Tên không gian làm việc',
           "workspace_type": "Loại không gian làm việc",
+          "select": "Chọn",
           "personnel": "Nhân sự",
           "small_business": "Doanh nghiệp nhỏ",
           "operating": "Điều hành",
@@ -298,6 +301,7 @@ class Messages extends Translations {
           "it": "Công nghệ thông tin",
           "other": "Khác",
           "workspace_description": "Mô tả không gian làm việc",
+          "marketing": "Marketing",
 
           // detail board page
           "move_list": "Di chuyển danh sách",

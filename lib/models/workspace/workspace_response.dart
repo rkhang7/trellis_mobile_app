@@ -7,8 +7,8 @@ class WorkSpaceResponse {
   String name;
   String workspace_type;
   String description;
-  String created_time;
-  String updated_time;
+  int created_time;
+  int updated_time;
   String created_by;
 
   WorkSpaceResponse({

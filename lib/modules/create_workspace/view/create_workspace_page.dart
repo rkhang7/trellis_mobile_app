@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:trellis_mobile_app/models/workspace/workspace_request.dart';
 import 'package:trellis_mobile_app/modules/create_board/controller/create_board_controller.dart';
 import 'package:trellis_mobile_app/modules/create_workspace/controller/create_workspace_controller.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
@@ -40,7 +42,9 @@ class CreateWorkspacePage extends StatelessWidget {
                 Text(
                   "workspace_type".tr,
                 ),
-                _buildDropdownWorkspaceType(),
+                Obx(
+                  () => _buildDropdownWorkspaceType(),
+                ),
                 20.height,
                 _buildDescription(),
               ],
@@ -63,13 +67,15 @@ class CreateWorkspacePage extends StatelessWidget {
         Obx(() {
           return IconButton(
             onPressed: () {
-              createWorkspaceController.workspaceNameIsEmpty.value
+              createWorkspaceController.workspaceNameIsEmpty.value ||
+                      createWorkspaceController.selectedType.value == "select"
                   ? null
-                  : Get.back();
+                  : createWorkspace();
             },
             icon: Icon(
               Icons.done,
-              color: createWorkspaceController.workspaceNameIsEmpty.value
+              color: createWorkspaceController.workspaceNameIsEmpty.value ||
+                      createWorkspaceController.selectedType.value == "select"
                   ? Colors.grey
                   : Colors.white,
             ),
@@ -79,75 +85,56 @@ class CreateWorkspacePage extends StatelessWidget {
     );
   }
 
-  DropdownButton<String> _buildDropdownWorkspaceType() {
+  Widget _buildDropdownWorkspaceType() {
     return DropdownButton(
       underline: Container(
         height: 1,
         color: Colors.black,
       ),
       isExpanded: true,
-      hint: const Text(
-        "Chọn",
-        style: TextStyle(color: Colors.black),
+      hint: Text(
+        createWorkspaceController.selectedType.value.toString().tr,
+        style: const TextStyle(color: Colors.black),
       ),
-      onChanged: (dynamic value) {},
+      onChanged: (dynamic value) {
+        createWorkspaceController.selectedType.value = value.toString();
+      },
       items: [
         DropdownMenuItem(
             child: ListTile(
               title: Text("personnel".tr),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: 'Nhân sự'),
+            value: 'personnel'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("small_business".tr),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: 'Doanh nghiệp nhỏ'),
+            value: 'small_business'),
         DropdownMenuItem(
             child: ListTile(
               title: const Text("Marketing"),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: 'Marketing'),
+            value: 'marketing'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("operating".tr),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: 'Điều hành'),
+            value: 'operating'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("education".tr),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: 'Giáo dục'),
+            value: 'education'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("it".tr),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: 'Công nghệ thông tin'),
+            value: 'it'),
         DropdownMenuItem(
             child: ListTile(
               title: Text("other".tr),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: 'Khác'),
+            value: 'other'),
       ],
     );
   }
@@ -170,6 +157,21 @@ class CreateWorkspacePage extends StatelessWidget {
       cursorHeight: 25,
       onChanged: (value) {},
       maxLines: null,
+    );
+  }
+
+  createWorkspace() {
+    String name = createWorkspaceController.workspaceNameController.text.trim();
+    String type = createWorkspaceController.selectedType.value;
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String description =
+        createWorkspaceController.descriptionController.text.trim();
+    createWorkspaceController.createWorkspace(
+      WorkSpaceRequest(
+          name: name,
+          workspaceType: type,
+          createdBy: uid,
+          description: description),
     );
   }
 }
