@@ -19,6 +19,7 @@ import 'package:trellis_mobile_app/modules/sign_in/binding/sign_in_binding.dart'
 import 'package:trellis_mobile_app/modules/sign_in/view/sign_in_page.dart';
 import 'package:trellis_mobile_app/modules/sign_up/binding/sign_up_binding.dart';
 import 'package:trellis_mobile_app/modules/sign_up/view/sign_up_page.dart';
+import 'package:trellis_mobile_app/modules/splash_screen/binding/splash_screen_binding.dart';
 import 'package:trellis_mobile_app/modules/splash_screen/view/splash_screen_page.dart';
 import 'package:trellis_mobile_app/modules/walk_through/binding/walk_through_binding.dart';
 import 'package:trellis_mobile_app/modules/walk_through/view/walk_through_page.dart';
@@ -65,6 +66,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.SPLASH_SCREEN,
       page: () => const SplashScreenPage(),
+      binding: SplashScreenBinding(),
     ),
     GetPage(
       name: AppRoutes.CREATE_CARD,

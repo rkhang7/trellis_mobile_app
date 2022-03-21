@@ -23,7 +23,7 @@ class SignUpController extends GetxController {
 
   var authService = Get.find<AuthService>();
 
-  var userRepository = UserRepository();
+  var userRepository = Get.find<UserRepository>();
 
   void signUp(String email, String password) {
     if (formKey.currentState!.validate()) {

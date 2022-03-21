@@ -22,7 +22,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
   bool isExpandable = true;
   final authService = Get.find<AuthService>();
   var currentUser = FirebaseAuth.instance.currentUser;
-  var userRepository = UserRepository();
+  var userRepository = Get.find<UserRepository>();
   var userResponse = UserResponse(
       uid: "uid",
       email: "email",

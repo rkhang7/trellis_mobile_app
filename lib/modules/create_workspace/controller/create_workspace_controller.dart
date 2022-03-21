@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:trellis_mobile_app/models/core/board_model.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_request.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
@@ -11,7 +10,7 @@ class CreateWorkspaceController extends GetxController {
   var workspaceNameIsEmpty = true.obs;
   var descriptionController = TextEditingController();
   var selectedType = "select".obs;
-  var workspaceRepository = WorkspaceRepository();
+  var workspaceRepository = Get.find<WorkspaceRepository>();
 
   @override
   void onInit() {

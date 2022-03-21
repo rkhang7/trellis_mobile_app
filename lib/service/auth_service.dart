@@ -11,7 +11,7 @@ import 'package:trellis_mobile_app/routes/app_routes.dart';
 class AuthService {
   // Create storage
   final storage = const FlutterSecureStorage();
-  final userRepository = UserRepository();
+  final userRepository = Get.find<UserRepository>();
   Future<User?> signInWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
