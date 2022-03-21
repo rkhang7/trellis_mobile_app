@@ -6,6 +6,7 @@ class Messages extends Translations {
         'en_US': {
           //common
           "please_wait": "Please wait",
+          "create_success": "Create success",
 
           // walk through page
           'sign_in': 'Log in',
@@ -145,7 +146,7 @@ class Messages extends Translations {
           "it": "Information technology",
           "other": "Other",
           "marketing": "Marketing",
-          "workspace_description": "Workspace Description",
+          "workspace_description": "Workspace Description (Optional)",
 
           // detail board page
           "move_list": "Move list",
@@ -162,6 +163,7 @@ class Messages extends Translations {
         'vi_VN': {
           //common
           "please_wait": "vui lòng đợi",
+          "create_success": "Tạo thành công",
 
           // walk through page
           'sign_in': 'Đăng nhập',
@@ -300,7 +302,7 @@ class Messages extends Translations {
           "education": "Giáo dục",
           "it": "Công nghệ thông tin",
           "other": "Khác",
-          "workspace_description": "Mô tả không gian làm việc",
+          "workspace_description": "Mô tả không gian làm việc (Tùy chọn)",
           "marketing": "Marketing",
 
           // detail board page

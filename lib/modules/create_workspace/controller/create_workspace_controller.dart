@@ -23,6 +23,8 @@ class CreateWorkspaceController extends GetxController {
     EasyLoading.show(status: "please_wait".tr);
     workspaceRepository.createWorkspace(workSpaceRequest).then((value) {
       EasyLoading.dismiss();
+      EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+      EasyLoading.showSuccess("create_success".tr);
       Get.back();
     }).catchError((Object obj) {
       switch (obj.runtimeType) {

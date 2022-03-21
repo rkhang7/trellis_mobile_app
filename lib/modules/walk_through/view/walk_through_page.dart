@@ -281,15 +281,13 @@ class WalkThroughPage extends StatelessWidget {
             iconPath: "assets/icons/google.png",
             onClick: () {
               walkThroughController.signInByGoogleAccount().then(
-                    (value) => {
-                      Get.offAllNamed(
-                        AppRoutes.DASHBOARD,
-                      ),
-                      EasyLoading.instance.loadingStyle =
-                          EasyLoadingStyle.custom,
-                      EasyLoading.showSuccess("Đăng nhập thành công"),
-                    },
+                (value) {
+                  Get.offAllNamed(
+                    AppRoutes.DASHBOARD,
                   );
+                  EasyLoading.dismiss();
+                },
+              );
             },
           ),
         ],
