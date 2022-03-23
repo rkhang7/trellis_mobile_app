@@ -27,7 +27,7 @@ class DashBoardPage extends StatelessWidget {
               children: [
                 Obx(
                   (() => Visibility(
-                        visible: true,
+                        visible: dashBoardController.isVisibleWorkspace.isTrue,
                         child: Container(
                           decoration: boxDecorationWithShadow(
                               blurRadius: 5, spreadRadius: 2),

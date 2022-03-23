@@ -138,7 +138,6 @@ class AuthService {
   }
 
   void logout() async {
-    print(FirebaseAuth.instance.currentUser!.providerData[0].providerId);
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
     await deleteUid("uid");

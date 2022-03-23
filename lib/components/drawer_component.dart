@@ -57,8 +57,6 @@ class _DrawerComponentState extends State<DrawerComponent> {
       setState(() {
         workspaces.assignAll(value);
       });
-
-      log(workspaces.length);
     });
   }
 
@@ -128,13 +126,15 @@ class _DrawerComponentState extends State<DrawerComponent> {
                       "workspaces".tr,
                       style: boldTextStyle(color: Colors.black87),
                     ),
-                    SizedBox(
-                      height: 700.h,
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 600.h,
+                        minHeight: 200.h,
+                      ),
                       child: ListView.builder(
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          log(workspaces[index].name);
                           return InkWell(
                             onTap: () {
                               dashboardController.workspaceSelected.value =
