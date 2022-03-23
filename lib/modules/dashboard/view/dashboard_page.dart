@@ -4,13 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/components/drawer_component.dart';
+import 'package:trellis_mobile_app/modules/dashboard/controller/dashboard_controller.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 
 class DashBoardPage extends StatelessWidget {
-  const DashBoardPage({Key? key}) : super(key: key);
-
+  DashBoardPage({Key? key}) : super(key: key);
+  final dashBoardController = Get.find<DashBoardController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,13 +25,18 @@ class DashBoardPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  decoration:
-                      boxDecorationWithShadow(blurRadius: 5, spreadRadius: 2),
-                  child: Text(
-                    'Nhóm 1',
-                    style: boldTextStyle(),
-                  ).paddingAll(10),
+                Obx(
+                  (() => Visibility(
+                        visible: true,
+                        child: Container(
+                          decoration: boxDecorationWithShadow(
+                              blurRadius: 5, spreadRadius: 2),
+                          child: Text(
+                            dashBoardController.workspaceSelected.value.name,
+                            style: boldTextStyle(),
+                          ).paddingAll(10),
+                        ),
+                      )),
                 ),
                 10.height,
                 ListView.builder(

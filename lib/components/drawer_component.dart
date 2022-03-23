@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/user/user_response.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
+import 'package:trellis_mobile_app/modules/dashboard/controller/dashboard_controller.dart';
 
 import 'package:trellis_mobile_app/repository/user_repository.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';
@@ -27,6 +28,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
   var currentUser = FirebaseAuth.instance.currentUser;
   var userRepository = Get.find<UserRepository>();
   var workspaceRepository = Get.find<WorkspaceRepository>();
+  var dashboardController = Get.find<DashBoardController>();
   var userResponse = UserResponse(
       uid: "uid",
       email: "email",
@@ -126,16 +128,23 @@ class _DrawerComponentState extends State<DrawerComponent> {
                       "workspaces".tr,
                       style: boldTextStyle(color: Colors.black87),
                     ),
-                    Container(
+                    SizedBox(
                       height: 700.h,
                       child: ListView.builder(
                         shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         itemBuilder: (context, index) {
                           log(workspaces[index].name);
-                          return DrawerList(
-                            leading: const Icon(Icons.group_outlined),
-                            title: workspaces[index].name,
+                          return InkWell(
+                            onTap: () {
+                              dashboardController.workspaceSelected.value =
+                                  workspaces[index];
+                              Get.back();
+                            },
+                            child: DrawerList(
+                              leading: const Icon(Icons.group_outlined),
+                              title: workspaces[index].name,
+                            ),
                           );
                         },
                         itemCount: workspaces.length,
