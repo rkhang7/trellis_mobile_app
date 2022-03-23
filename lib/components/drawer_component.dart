@@ -1,12 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/user/user_response.dart';
+import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 
 import 'package:trellis_mobile_app/repository/user_repository.dart';
+import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/service/auth_service.dart';
 import 'package:trellis_mobile_app/utils/widgets.dart';
@@ -23,6 +26,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
   final authService = Get.find<AuthService>();
   var currentUser = FirebaseAuth.instance.currentUser;
   var userRepository = Get.find<UserRepository>();
+  var workspaceRepository = Get.find<WorkspaceRepository>();
   var userResponse = UserResponse(
       uid: "uid",
       email: "email",
@@ -31,6 +35,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
       avatar_background_color: "ffffff",
       created_time: 1,
       updated_time: 1);
+
+  var workspaces = <WorkSpaceResponse>[];
 
   init() async {
     await userRepository.getUserById(currentUser!.uid).then(
@@ -42,6 +48,16 @@ class _DrawerComponentState extends State<DrawerComponent> {
         );
       },
     );
+
+    await workspaceRepository
+        .getWorkspacesByUid(currentUser!.uid)
+        .then((value) {
+      setState(() {
+        workspaces.assignAll(value);
+      });
+
+      log(workspaces.length);
+    });
   }
 
   @override
@@ -110,15 +126,20 @@ class _DrawerComponentState extends State<DrawerComponent> {
                       "workspaces".tr,
                       style: boldTextStyle(color: Colors.black87),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return DrawerList(
-                          leading: const Icon(Icons.group_outlined),
-                          title: "Nhóm $index",
-                        );
-                      },
-                      itemCount: 3,
+                    Container(
+                      height: 700.h,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          log(workspaces[index].name);
+                          return DrawerList(
+                            leading: const Icon(Icons.group_outlined),
+                            title: workspaces[index].name,
+                          );
+                        },
+                        itemCount: workspaces.length,
+                      ),
                     ),
                   ],
                 ),

@@ -22,7 +22,12 @@ abstract class RestClient {
   @POST("/users")
   Future<UserResponse> createUser(@Body() UserRequest user);
 
+  // workspace
+
   @POST("/workspaces")
   Future<WorkSpaceResponse> createWorkspace(
       @Body() WorkSpaceRequest workSpaceRequest);
+
+  @GET("/workspaces")
+  Future<List<WorkSpaceResponse>> getWorkspacesByUid(@Query("user") String uid);
 }
