@@ -113,6 +113,7 @@ class AuthService {
       FirebaseAuth auth = FirebaseAuth.instance;
       await auth.sendPasswordResetEmail(email: email);
       EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+
       EasyLoading.showInfo(
           "Vui lòng kiểm tra email của bạn để đặt lại mật khẩu",
           duration: Duration(seconds: 3));
@@ -143,7 +144,7 @@ class AuthService {
     await deleteUid("uid");
     await Get.offNamed(AppRoutes.WALK_THROUGH)!.then((value) {
       EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
-      EasyLoading.showSuccess("Đăng xuất thành công");
+      EasyLoading.showSuccess("logout_success".tr);
     });
   }
 }

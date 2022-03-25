@@ -1,28 +1,30 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trellis_mobile_app/models/core/workspace_model.dart';
+import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
+import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
 class CreateBoardController extends GetxController {
   var boardNameController = TextEditingController();
-  final listWorkSpaceModels = Rx<List<WorkspaceModel>>([]);
-  var selectedWorkspaceId = 1.obs;
+  final listWorkSpaces = Rx<List<WorkSpaceResponse>>([]);
+  var selectedWorkspaceId = 0.obs;
   final listDropdownMenuItemWorkspaces = Rx<List<DropdownMenuItem<String>>>([]);
   final boardNameIsEmpty = true.obs;
+  final workspaceRepository = Get.find<WorkspaceRepository>();
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getListWorkspaces();
   }
 
   @override
   void onReady() {
     super.onReady();
-    getListWorkspaces();
   }
 
-  void getListWorkspaces() {
+  void getListWorkspaces() async {
     try {
       // Get.dialog(
       //   const Center(
@@ -32,23 +34,23 @@ class CreateBoardController extends GetxController {
 
       // get data from api
 
-      var listWorkspaceFromApi = [
-        WorkspaceModel(id: 1, name: "Nhóm 1"),
-        WorkspaceModel(id: 2, name: "Nhóm 2"),
-        WorkspaceModel(id: 3, name: "Nhóm 3"),
-        WorkspaceModel(id: 4, name: "Nhóm 4"),
-      ];
-      listWorkSpaceModels.value.clear();
-      listWorkSpaceModels.value.addAll(listWorkspaceFromApi);
-      listDropdownMenuItemWorkspaces.value = [];
-      for (WorkspaceModel workspaceModel in listWorkSpaceModels.value) {
+      await workspaceRepository
+          .getWorkspacesByUid(FirebaseAuth.instance.currentUser!.uid)
+          .then((value) {
+        listWorkSpaces.value.assignAll(value);
+        if (value.isNotEmpty) {
+          selectedWorkspaceId.value = value[0].workspace_id;
+        }
+      });
+
+      for (WorkSpaceResponse workspace in listWorkSpaces.value) {
         listDropdownMenuItemWorkspaces.value.add(
           DropdownMenuItem(
             child: ListTile(
-              title: Text(workspaceModel.name),
+              title: Text(workspace.name),
               leading: const Icon(Icons.group_outlined),
             ),
-            value: workspaceModel.id.toString(),
+            value: workspace.workspace_id.toString(),
           ),
         );
       }
@@ -57,10 +59,10 @@ class CreateBoardController extends GetxController {
     }
   }
 
-  WorkspaceModel? findWorkspaceById(int id) {
-    for (WorkspaceModel workspaceModel in listWorkSpaceModels.value) {
-      if (workspaceModel.id == id) {
-        return workspaceModel;
+  WorkSpaceResponse? findWorkspaceById(int id) {
+    for (WorkSpaceResponse workspace in listWorkSpaces.value) {
+      if (workspace.workspace_id == id) {
+        return workspace;
       }
     }
     return null;

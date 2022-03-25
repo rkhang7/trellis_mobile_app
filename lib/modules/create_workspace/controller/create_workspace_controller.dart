@@ -38,10 +38,12 @@ class CreateWorkspaceController extends GetxController {
         case DioError:
           // Here's the sample to get the failed response error code and message
           EasyLoading.dismiss();
+          EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
           EasyLoading.showError("error".tr);
           break;
         default:
           EasyLoading.dismiss();
+          EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
           EasyLoading.showError("error".tr);
           break;
       }

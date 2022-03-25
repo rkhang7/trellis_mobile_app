@@ -58,12 +58,20 @@ class SignUpController extends GetxController {
                     final res = (obj as DioError).response;
                     if (obj.type == DioErrorType.connectTimeout) {
                       isLoadingButton.value = false;
+                      EasyLoading.instance.loadingStyle =
+                          EasyLoadingStyle.custom;
+
                       EasyLoading.showError("error".tr);
                     } else if (obj.type == DioErrorType.receiveTimeout) {
+                      EasyLoading.instance.loadingStyle =
+                          EasyLoadingStyle.custom;
                       EasyLoading.showError("error".tr);
                     }
                     if (res!.statusCode != 200) {
                       isLoadingButton.value = false;
+                      EasyLoading.instance.loadingStyle =
+                          EasyLoadingStyle.custom;
+
                       EasyLoading.showError("error".tr);
                     }
                     break;
