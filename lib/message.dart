@@ -160,6 +160,10 @@ class Messages extends Translations {
           // EasyLoading message
           'error': "Something went wrong",
           'sign_up_success': 'Sign up successful',
+
+          // invite member page
+          'workspace_menu': 'Workspace menu',
+          'invite': 'Invite',
         },
         'vi_VN': {
           //common
@@ -318,6 +322,10 @@ class Messages extends Translations {
           // EasyLoading message
           'error': "Đã xảy ra lỗi",
           'sign_up_success': 'Đăng ký thành công',
+
+          // invite member page
+          'workspace_menu': "Menu không gian làm việc",
+          'invite': 'Mời',
         }
       };
 }

@@ -92,6 +92,12 @@ class DashBoardPage extends StatelessWidget {
             Get.toNamed(AppRoutes.NOTIFICATION);
           },
         ),
+        IconButton(
+          onPressed: () {
+            Get.toNamed(AppRoutes.INVITE_MEMBER);
+          },
+          icon: const Icon(Icons.more_horiz, color: iconColorPrimary),
+        ),
       ],
     );
   }

@@ -14,10 +14,6 @@ class CreateCardController extends GetxController {
 
   var pickerService = Get.find<PickerService>();
 
-  void printLog() {
-    log("print log called");
-  }
-
   pickImageFromCamera() {
     pickerService.pickImageFromCamera();
   }

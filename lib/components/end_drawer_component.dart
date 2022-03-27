@@ -27,7 +27,6 @@ class _EndDrawerComponentState extends State<EndDrawerComponent> {
   }
 
   init() async {
-    print(widget.index);
     index = widget.index;
     endDrawer.add(
       EndDrawerModel(
