@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:trellis_mobile_app/modules/add_member/controller/add_member_controller.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 
-class AddMemberPage extends StatelessWidget {
-  AddMemberPage({Key? key}) : super(key: key);
-  final addMemberController = Get.find<AddMemberController>();
+import '../controller/invite_member_controller.dart';
+
+class InviteMemberPage extends StatelessWidget {
+  InviteMemberPage({Key? key}) : super(key: key);
+  final inviteMemberController = Get.find<InviteMemberController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +25,7 @@ class AddMemberPage extends StatelessWidget {
                   children: [
                     TextSpan(text: "${"add_user_to_workspace".tr}: "),
                     TextSpan(
-                        text: addMemberController.currentWorkspace!.name,
+                        text: inviteMemberController.currentWorkspace!.name,
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -33,7 +34,7 @@ class AddMemberPage extends StatelessWidget {
                 height: 20.h,
               ),
               TextFormField(
-                controller: addMemberController.emailController,
+                controller: inviteMemberController.emailController,
                 cursorColor: Colors.green,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
@@ -44,7 +45,10 @@ class AddMemberPage extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.green),
                   ),
                 ),
-              )
+                onChanged: (value) {
+                  inviteMemberController.keyword.value = value;
+                },
+              ),
             ],
           ),
         ),

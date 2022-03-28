@@ -25,4 +25,9 @@ class UserResponse {
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
       _$UserResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
+
+  @override
+  String toString() {
+    return 'UserResponse(uid: $uid, email: $email, first_name: $first_name, last_name: $last_name, avatar_background_color: $avatar_background_color, created_time: $created_time, updated_time: $updated_time)';
+  }
 }

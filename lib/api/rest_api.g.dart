@@ -51,6 +51,24 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<List<UserResponse>> searchUser(keyword) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'keyword': keyword};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<UserResponse>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/users/search',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => UserResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<WorkSpaceResponse> createWorkspace(workSpaceRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

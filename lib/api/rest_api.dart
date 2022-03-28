@@ -22,6 +22,9 @@ abstract class RestClient {
   @POST("/users")
   Future<UserResponse> createUser(@Body() UserRequest user);
 
+  @GET("/users/search")
+  Future<List<UserResponse>> searchUser(@Query("keyword") String keyword);
+
   // workspace
 
   @POST("/workspaces")

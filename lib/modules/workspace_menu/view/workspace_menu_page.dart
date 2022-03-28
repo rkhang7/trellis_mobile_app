@@ -121,7 +121,7 @@ class WorkspaceMenuPage extends StatelessWidget {
                   child: ElevatedButton(
                     style: ButtonStyle(),
                     onPressed: () async {
-                      await Get.toNamed(AppRoutes.ADD_MEMBER);
+                      await Get.toNamed(AppRoutes.INVITE_MEMBER);
                     },
                     child: Text(
                       "invite".tr,

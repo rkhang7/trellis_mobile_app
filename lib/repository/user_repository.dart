@@ -15,4 +15,9 @@ class UserRepository {
     final client = RestClient(dio);
     return await client.createUser(user);
   }
+
+  Future<List<UserResponse>> searchUser(String keyword) async {
+    final client = RestClient(dio);
+    return await client.searchUser(keyword);
+  }
 }
