@@ -161,9 +161,13 @@ class Messages extends Translations {
           'error': "Something went wrong",
           'sign_up_success': 'Sign up successful',
 
-          // invite member page
+          // workspace menu page
           'workspace_menu': 'Workspace menu',
           'invite': 'Invite',
+
+          // add member
+          'add_members': 'Invite members',
+          'add_user_to_workspace': 'Add users to the workspace'
         },
         'vi_VN': {
           //common
@@ -323,9 +327,13 @@ class Messages extends Translations {
           'error': "Đã xảy ra lỗi",
           'sign_up_success': 'Đăng ký thành công',
 
-          // invite member page
+          // workspace menu page
           'workspace_menu': "Menu không gian làm việc",
           'invite': 'Mời',
+
+          // add member
+          'add_members': 'Mời các thành viên',
+          'add_user_to_workspace': 'Thêm người dùng vào Không gian làm việc'
         }
       };
 }

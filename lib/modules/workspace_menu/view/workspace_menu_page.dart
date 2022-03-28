@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 
-class InviteMemberPage extends StatelessWidget {
-  const InviteMemberPage({Key? key}) : super(key: key);
+class WorkspaceMenuPage extends StatelessWidget {
+  const WorkspaceMenuPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +120,9 @@ class InviteMemberPage extends StatelessWidget {
                   width: Get.width * 0.7,
                   child: ElevatedButton(
                     style: ButtonStyle(),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await Get.toNamed(AppRoutes.ADD_MEMBER);
+                    },
                     child: Text(
                       "invite".tr,
                       style: TextStyle(fontSize: 64.sp),

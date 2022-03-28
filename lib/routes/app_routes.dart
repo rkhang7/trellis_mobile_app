@@ -11,5 +11,6 @@ class AppRoutes {
   static const String SETTINGS = "/settings";
   static const String CREATE_WORKSPACE = "/create_workspace";
   static const String SEARCH_BOARD = "/search_board";
-  static const String INVITE_MEMBER = "/invite_member";
+  static const String WORKSPACE_MENU = "/workspace_menu";
+  static const String ADD_MEMBER = "/add_member";
 }
