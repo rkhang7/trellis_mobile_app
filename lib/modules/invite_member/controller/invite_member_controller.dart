@@ -15,6 +15,8 @@ class InviteMemberController extends GetxController {
   WorkSpaceResponse? currentWorkspace;
   var keyword = "".obs;
 
+  var litsInviteMember = <UserResponse>[].obs;
+
   var listUserBySearch = <UserResponse>[].obs;
   @override
   void onInit() {

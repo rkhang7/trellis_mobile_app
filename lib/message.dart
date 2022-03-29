@@ -165,9 +165,11 @@ class Messages extends Translations {
           'workspace_menu': 'Workspace menu',
           'invite': 'Invite',
 
-          // add member
+          // invite member page
           'add_members': 'Invite members',
-          'add_user_to_workspace': 'Add users to the workspace'
+          'add_user_to_workspace': 'Add users to the workspace',
+          'user_not found': "User not found",
+          'add': "Add",
         },
         'vi_VN': {
           //common
@@ -331,9 +333,11 @@ class Messages extends Translations {
           'workspace_menu': "Menu không gian làm việc",
           'invite': 'Mời',
 
-          // add member
+          // invite member page
           'add_members': 'Mời các thành viên',
-          'add_user_to_workspace': 'Thêm người dùng vào Không gian làm việc'
+          'add_user_to_workspace': 'Thêm người dùng vào Không gian làm việc',
+          'user_not _found': "Không tìm thấy người dùng",
+          'add': "Thêm",
         }
       };
 }
