@@ -137,6 +137,7 @@ class Messages extends Translations {
 
           // create workspace page
           "create_workspace": "Create workspace",
+          "update_workspace": "Update workspace",
           "workspace_name": 'Workspace name',
           "workspace_type": "Workspace Type",
           "select": "Select",
@@ -164,6 +165,7 @@ class Messages extends Translations {
           // workspace menu page
           'workspace_menu': 'Workspace menu',
           'invite': 'Invite',
+          'workspace_setting': "Workspace setting",
 
           // invite member page
           'add_members': 'Invite members',
@@ -306,6 +308,7 @@ class Messages extends Translations {
 
           // create workspace page
           "create_workspace": "Tạo không gian làm việc",
+          'update_workspace': "Chỉnh sửa Không gian làm việc",
           "workspace_name": 'Tên không gian làm việc',
           "workspace_type": "Loại không gian làm việc",
           "select": "Chọn",
@@ -333,6 +336,7 @@ class Messages extends Translations {
           // workspace menu page
           'workspace_menu': "Menu không gian làm việc",
           'invite': 'Mời',
+          'workspace_setting': "Chỉnh sửa Không gian làm việc",
 
           // invite member page
           'add_members': 'Mời các thành viên',

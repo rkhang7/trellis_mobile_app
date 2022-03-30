@@ -1,17 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:trellis_mobile_app/models/workspace/workspace_request.dart';
-import 'package:trellis_mobile_app/modules/create_board/controller/create_board_controller.dart';
-import 'package:trellis_mobile_app/modules/create_workspace/controller/create_workspace_controller.dart';
-import 'package:trellis_mobile_app/utils/colors.dart';
+import 'package:trellis_mobile_app/modules/update_worksapce/controller/update_workspace_controller.dart';
 
+import '../../../utils/colors.dart';
 import '../../../utils/widget/input_field_create.dart';
 
-class CreateWorkspacePage extends StatelessWidget {
-  CreateWorkspacePage({Key? key}) : super(key: key);
-  final createWorkspaceController = Get.find<CreateWorkspaceController>();
+class UpdateWorkspacePage extends StatelessWidget {
+  UpdateWorkspacePage({Key? key}) : super(key: key);
+  final updateWorkspaceController = Get.find<UpdateWorkspaceController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,18 +24,43 @@ class CreateWorkspacePage extends StatelessWidget {
                 InputFieldCreate(
                   onChange: (value) {
                     if (value.isEmpty) {
-                      createWorkspaceController.workspaceNameIsEmpty.value =
+                      updateWorkspaceController.workspaceNameIsEmpty.value =
                           true;
                     } else {
-                      createWorkspaceController.workspaceNameIsEmpty.value =
+                      updateWorkspaceController.workspaceNameIsEmpty.value =
                           false;
                     }
                   },
                   title: "workspace_name".tr,
-                  controller: createWorkspaceController.workspaceNameController,
+                  controller: updateWorkspaceController.workspaceNameController,
                   autoFocus: true,
                   primaryColor: Colors.green,
                 ),
+                // TextFormField(
+                //   autofocus: false,
+                //   controller: updateWorkspaceController.workspaceNameController,
+                //   decoration: InputDecoration(
+                //     labelText: "workspace_name".tr,
+                //     labelStyle: const TextStyle(color: Colors.green),
+                //     enabledBorder: const UnderlineInputBorder(
+                //       borderSide: BorderSide(color: Colors.green, width: 2),
+                //     ),
+                //     focusedBorder: const UnderlineInputBorder(
+                //       borderSide: BorderSide(color: Colors.green, width: 2),
+                //     ),
+                //   ),
+                //   cursorColor: Colors.green,
+                //   cursorHeight: 25,
+                //   onChanged: (value) {
+                //     if (value.isEmpty) {
+                //       updateWorkspaceController.workspaceNameIsEmpty.value =
+                //           true;
+                //     } else {
+                //       updateWorkspaceController.workspaceNameIsEmpty.value =
+                //           false;
+                //     }
+                //   },
+                // ),
                 20.height,
                 Text(
                   "workspace_type".tr,
@@ -60,28 +83,47 @@ class CreateWorkspacePage extends StatelessWidget {
       backgroundColor: backgroundColor,
       leading: const CloseButton(),
       title: Text(
-        "create_workspace".tr,
-        style: const TextStyle(color: Colors.white),
+        "update_workspace".tr,
+        style: TextStyle(color: Colors.white, fontSize: 72.sp),
       ),
       actions: [
         Obx(() {
           return IconButton(
             onPressed: () {
-              createWorkspaceController.workspaceNameIsEmpty.value ||
-                      createWorkspaceController.selectedType.value == "select"
+              updateWorkspaceController.workspaceNameIsEmpty.value
                   ? null
-                  : createWorkspace();
+                  : updateWorkspace();
             },
             icon: Icon(
               Icons.done,
-              color: createWorkspaceController.workspaceNameIsEmpty.value ||
-                      createWorkspaceController.selectedType.value == "select"
+              color: updateWorkspaceController.workspaceNameIsEmpty.value
                   ? Colors.grey
                   : Colors.white,
             ),
           );
         })
       ],
+    );
+  }
+
+  Widget _buildDescription() {
+    return TextFormField(
+      autofocus: false,
+      controller: updateWorkspaceController.descriptionController,
+      decoration: InputDecoration(
+        labelText: "workspace_description".tr,
+        labelStyle: const TextStyle(color: Colors.green),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.green, width: 2),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.green, width: 2),
+        ),
+      ),
+      cursorColor: Colors.green,
+      cursorHeight: 25,
+      onChanged: (value) {},
+      maxLines: null,
     );
   }
 
@@ -93,11 +135,11 @@ class CreateWorkspacePage extends StatelessWidget {
       ),
       isExpanded: true,
       hint: Text(
-        createWorkspaceController.selectedType.value.toString().tr,
+        updateWorkspaceController.selectedType.value.toString().tr,
         style: const TextStyle(color: Colors.black),
       ),
       onChanged: (dynamic value) {
-        createWorkspaceController.selectedType.value = value.toString();
+        updateWorkspaceController.selectedType.value = value.toString();
       },
       items: [
         DropdownMenuItem(
@@ -139,39 +181,5 @@ class CreateWorkspacePage extends StatelessWidget {
     );
   }
 
-  Widget _buildDescription() {
-    return TextFormField(
-      autofocus: false,
-      controller: createWorkspaceController.descriptionController,
-      decoration: InputDecoration(
-        labelText: "workspace_description".tr,
-        labelStyle: const TextStyle(color: Colors.green),
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.green, width: 2),
-        ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.green, width: 2),
-        ),
-      ),
-      cursorColor: Colors.green,
-      cursorHeight: 25,
-      onChanged: (value) {},
-      maxLines: null,
-    );
-  }
-
-  createWorkspace() {
-    String name = createWorkspaceController.workspaceNameController.text.trim();
-    String type = createWorkspaceController.selectedType.value;
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-    String description =
-        createWorkspaceController.descriptionController.text.trim();
-    createWorkspaceController.createWorkspace(
-      WorkSpaceRequest(
-          name: name,
-          workspaceType: type,
-          createdBy: uid,
-          description: description),
-    );
-  }
+  updateWorkspace() {}
 }

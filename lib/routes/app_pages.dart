@@ -22,6 +22,8 @@ import 'package:trellis_mobile_app/modules/sign_up/binding/sign_up_binding.dart'
 import 'package:trellis_mobile_app/modules/sign_up/view/sign_up_page.dart';
 import 'package:trellis_mobile_app/modules/splash_screen/binding/splash_screen_binding.dart';
 import 'package:trellis_mobile_app/modules/splash_screen/view/splash_screen_page.dart';
+import 'package:trellis_mobile_app/modules/update_worksapce/binding/update_workspace_binding.dart';
+import 'package:trellis_mobile_app/modules/update_worksapce/view/update_workspace_page.dart';
 import 'package:trellis_mobile_app/modules/walk_through/binding/walk_through_binding.dart';
 import 'package:trellis_mobile_app/modules/walk_through/view/walk_through_page.dart';
 import 'package:trellis_mobile_app/modules/workspace_menu/binding/workspace_menu_binding.dart';
@@ -102,6 +104,11 @@ class AppPages {
       name: AppRoutes.INVITE_MEMBER,
       page: () => InviteMemberPage(),
       binding: InviteMemberBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.UPDATE_WORKSPACE,
+      page: () => UpdateWorkspacePage(),
+      binding: UpdateWorkSpaceBinding(),
     ),
   ];
 }
