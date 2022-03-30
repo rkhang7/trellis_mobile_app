@@ -44,11 +44,13 @@ class AuthService {
           userRepository
               .createUser(
                 UserRequest(
-                    uid: user!.uid,
-                    email: user.email ?? "",
-                    firstName: user.displayName ?? "",
-                    lastName: "",
-                    avatarBackgroundColor: "ffffff"),
+                  uid: user!.uid,
+                  email: user.email ?? "",
+                  firstName: user.displayName ?? "",
+                  lastName: "",
+                  avatarBackgroundColor: "ffffff",
+                  avatarURL: user.photoURL ?? "",
+                ),
               )
               .then((value) => {saveUid(user!.uid)});
         }

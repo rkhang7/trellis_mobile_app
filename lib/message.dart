@@ -71,6 +71,7 @@ class Messages extends Translations {
           'yes': "Yes",
           'card': "Card",
           'workspace': 'Workspace',
+          'do_not_have_workspace': "You don't have any workspace",
 
           // notification page
           'notifications': 'Notifications',
@@ -242,6 +243,7 @@ class Messages extends Translations {
           'yes': 'Có',
           'card': "Thẻ",
           'workspace': 'Không gian làm việc',
+          'do_not_have_workspace': 'Bạn không có không gian làm việc nào',
 
           // notification page
           'notifications': 'Thông báo',

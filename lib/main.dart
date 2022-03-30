@@ -20,7 +20,7 @@ void main(List<String> args) async {
   await Firebase.initializeApp();
   await GetStorage.init();
   runApp(MyApp());
-  configLoading();
+  // configLoading();
 }
 
 void configLoading() {

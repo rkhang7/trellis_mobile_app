@@ -36,7 +36,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
       last_name: "last_name",
       avatar_background_color: "ffffff",
       created_time: 1,
-      updated_time: 1);
+      updated_time: 1,
+      avatar_url: "");
 
   var workspaces = <WorkSpaceResponse>[];
 

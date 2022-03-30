@@ -116,14 +116,17 @@ class InviteMemberPage extends StatelessWidget {
                   },
                   itemBuilder: (context, userResponse) {
                     return ListTile(
-                      leading: CachedNetworkImage(
-                        imageUrl:
-                            "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true",
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) {
-                          return const Icon(Icons.error);
-                        },
+                      leading: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: userResponse.avatar_url.isEmpty
+                              ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
+                              : userResponse.avatar_url,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) {
+                            return const Icon(Icons.error);
+                          },
+                        ),
                       ),
                       title: Text(
                           "${userResponse.first_name} ${userResponse.last_name}"),

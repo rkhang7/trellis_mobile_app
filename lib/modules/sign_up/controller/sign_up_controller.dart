@@ -42,7 +42,8 @@ class SignUpController extends GetxController {
                     email: email,
                     firstName: firstNameController.text.trim(),
                     lastName: lastNameController.text.trim(),
-                    avatarBackgroundColor: hexColor))
+                    avatarBackgroundColor: hexColor,
+                    avatarURL: ""))
                 .then(
               (value) {
                 isLoadingButton.value = false;

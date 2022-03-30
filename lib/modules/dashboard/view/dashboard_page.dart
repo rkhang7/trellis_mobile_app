@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -94,7 +95,11 @@ class DashBoardPage extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            Get.toNamed(AppRoutes.WORKSPACE_MENU);
+            if (dashBoardController.listWorkspace.isEmpty) {
+              EasyLoading.showInfo("do_not_have_workspace".tr);
+            } else {
+              Get.toNamed(AppRoutes.WORKSPACE_MENU);
+            }
           },
           icon: const Icon(Icons.more_horiz, color: iconColorPrimary),
         ),

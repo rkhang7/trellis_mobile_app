@@ -29,7 +29,7 @@ class CreateWorkspaceController extends GetxController {
           dashboardController.listWorkspace[0];
       dashboardController.checkVisible();
       EasyLoading.dismiss();
-      EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+
       EasyLoading.showSuccess("create_success".tr);
 
       Get.back();
@@ -38,12 +38,12 @@ class CreateWorkspaceController extends GetxController {
         case DioError:
           // Here's the sample to get the failed response error code and message
           EasyLoading.dismiss();
-          EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+
           EasyLoading.showError("error".tr);
           break;
         default:
           EasyLoading.dismiss();
-          EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
+
           EasyLoading.showError("error".tr);
           break;
       }

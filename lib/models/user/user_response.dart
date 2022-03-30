@@ -9,6 +9,7 @@ class UserResponse {
   String first_name;
   String last_name;
   String avatar_background_color;
+  String avatar_url;
   int created_time;
   int updated_time;
 
@@ -18,6 +19,7 @@ class UserResponse {
     required this.first_name,
     required this.last_name,
     required this.avatar_background_color,
+    required this.avatar_url,
     required this.created_time,
     required this.updated_time,
   });
