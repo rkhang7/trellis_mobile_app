@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
@@ -130,7 +131,12 @@ class InviteMemberPage extends StatelessWidget {
                     );
                   },
                   onSuggestionSelected: (suggestion) {
-                    inviteMemberController.litsInviteMember.add(suggestion);
+                    if (!inviteMemberController
+                        .isDuplicateLitsInviteMember(suggestion.uid)) {
+                      inviteMemberController.litsInviteMember.add(suggestion);
+                    } else {
+                      EasyLoading.showInfo("you_have_selected_this_user".tr);
+                    }
                   },
                   hideSuggestionsOnKeyboardHide: false,
                   noItemsFoundBuilder: (_) {

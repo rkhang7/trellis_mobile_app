@@ -170,6 +170,7 @@ class Messages extends Translations {
           'add_user_to_workspace': 'Add users to the workspace',
           'user_not found': "User not found",
           'add': "Add",
+          'you_have_selected_this_user': "You have selected this user"
         },
         'vi_VN': {
           //common
@@ -338,6 +339,7 @@ class Messages extends Translations {
           'add_user_to_workspace': 'Thêm người dùng vào Không gian làm việc',
           'user_not _found': "Không tìm thấy người dùng",
           'add': "Thêm",
+          'you_have_selected_this_user': "Bạn đã chọn người dùng này",
         }
       };
 }

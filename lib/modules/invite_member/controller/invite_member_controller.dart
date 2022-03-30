@@ -44,4 +44,13 @@ class InviteMemberController extends GetxController {
       },
     );
   }
+
+  bool isDuplicateLitsInviteMember(String uid) {
+    for (UserResponse user in litsInviteMember) {
+      if (user.uid.compareTo(uid) == 0) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
