@@ -40,30 +40,8 @@ class DashBoardPage extends StatelessWidget {
                       )),
                 ),
                 10.height,
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      onTap: () async {
-                        await Get.toNamed(
-                          AppRoutes.DETAIL_TABLE,
-                          arguments: "Example $index",
-                        );
-                      },
-                      leading: Image.network(
-                        "https://sohanews.sohacdn.com/thumb_w/660/160588918557773824/2022/2/23/photo1645602282713-16456022828641944752645.jpg",
-                        height: 40,
-                        width: 40,
-                        fit: BoxFit.cover,
-                      ).cornerRadiusWithClipRRect(2),
-                      title: Text(
-                        "Example $index",
-                        style: boldTextStyle(),
-                      ),
-                    );
-                  },
+                Obx(
+                  () => _buildListBoards(),
                 ),
               ],
             ),
@@ -71,6 +49,38 @@ class DashBoardPage extends StatelessWidget {
         ),
         floatingActionButton: _buildFab(),
       ),
+    );
+  }
+
+  Widget _buildListBoards() {
+    final workspaceId =
+        dashBoardController.workspaceSelected.value.workspace_id;
+    dashBoardController.loadListBoards(workspaceId);
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: dashBoardController.listBoards.length,
+      itemBuilder: (BuildContext context, int index) {
+        final boardResponse = dashBoardController.listBoards.value[index];
+        return ListTile(
+          onTap: () async {
+            await Get.toNamed(
+              AppRoutes.DETAIL_TABLE,
+              arguments: "Example $index",
+            );
+          },
+          leading: Image.network(
+            "https://sohanews.sohacdn.com/thumb_w/660/160588918557773824/2022/2/23/photo1645602282713-16456022828641944752645.jpg",
+            height: 40,
+            width: 40,
+            fit: BoxFit.cover,
+          ).cornerRadiusWithClipRRect(2),
+          title: Text(
+            boardResponse.name,
+            style: boldTextStyle(),
+          ),
+        );
+      },
     );
   }
 

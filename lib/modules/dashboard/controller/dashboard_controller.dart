@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:trellis_mobile_app/models/board/board_response.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
+import 'package:trellis_mobile_app/repository/board_repository.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
 class DashBoardController extends GetxController {
@@ -15,13 +17,16 @@ class DashBoardController extends GetxController {
           updated_time: 1,
           created_by: "!")
       .obs;
-  var workspaceRepository = Get.find<WorkspaceRepository>();
+  final workspaceRepository = Get.find<WorkspaceRepository>();
+  final boardRepository = Get.find<BoardRepository>();
 
   var listWorkspace = <WorkSpaceResponse>[].obs;
 
   var isVisibleWorkspace = false.obs;
 
   final currentId = FirebaseAuth.instance.currentUser!.uid;
+
+  var listBoards = <BoardResponse>[].obs;
 
   @override
   void onInit() {
@@ -50,5 +55,11 @@ class DashBoardController extends GetxController {
     } else {
       isVisibleWorkspace.value = true;
     }
+  }
+
+  void loadListBoards(int workspaceId) async {
+    await boardRepository.getListBoardsInWorkspace(workspaceId).then((value) {
+      listBoards.assignAll(value);
+    });
   }
 }
