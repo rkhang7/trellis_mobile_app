@@ -1,14 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:trellis_mobile_app/modules/workspace_menu/controller/workspace_menu_controller.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 
 class WorkspaceMenuPage extends StatelessWidget {
-  const WorkspaceMenuPage({Key? key}) : super(key: key);
-
+  WorkspaceMenuPage({Key? key}) : super(key: key);
+  final workspaceMenuController = Get.find<WorkspaceMenuController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,48 +69,22 @@ class WorkspaceMenuPage extends StatelessWidget {
                   spacing: 20.h,
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.start,
-                  children: [
-                    Image.asset(
-                      "assets/icons/logo.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                    Image.asset(
-                      "assets/icons/logo.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                    Image.asset(
-                      "assets/icons/logo.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                    Image.asset(
-                      "assets/icons/logo.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                    Image.asset(
-                      "assets/icons/logo.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                    Image.asset(
-                      "assets/icons/logo.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                    Image.asset(
-                      "assets/icons/logo.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                    Image.asset(
-                      "assets/icons/logo.png",
-                      width: 40,
-                      height: 40,
-                    ),
-                  ],
+                  children: workspaceMenuController.listMember.value
+                      .map((userResponse) {
+                    // return ClipOval(
+                    //   child: CachedNetworkImage(
+                    //     imageUrl: userResponse.avatar_url.isEmpty
+                    //         ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
+                    //         : userResponse.avatar_url,
+                    //     placeholder: (context, url) =>
+                    //         const CircularProgressIndicator(),
+                    //     errorWidget: (context, url, error) {
+                    //       return const Icon(Icons.error);
+                    //     },
+                    //   ),
+                    // );
+                    return Container();
+                  }).toList(),
                 ),
               ),
             ],

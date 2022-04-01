@@ -4,8 +4,8 @@ part 'member_response.g.dart';
 @JsonSerializable()
 class MemberResponse {
   String member_id;
-  String permission;
-  String workspace_id;
+  int permission;
+  int workspace_id;
   int created_time;
   int updated_time;
 

@@ -9,8 +9,8 @@ part of 'member_response.dart';
 MemberResponse _$MemberResponseFromJson(Map<String, dynamic> json) =>
     MemberResponse(
       member_id: json['member_id'] as String,
-      permission: json['permission'] as String,
-      workspace_id: json['workspace_id'] as String,
+      permission: json['permission'] as int,
+      workspace_id: json['workspace_id'] as int,
       created_time: json['created_time'] as int,
       updated_time: json['updated_time'] as int,
     );

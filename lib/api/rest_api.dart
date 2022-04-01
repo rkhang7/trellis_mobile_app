@@ -1,5 +1,7 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
+import 'package:trellis_mobile_app/models/member/member_request.dart';
+import 'package:trellis_mobile_app/models/member/member_response.dart';
 import 'package:trellis_mobile_app/models/user/user_request.dart';
 import 'package:trellis_mobile_app/models/user/user_response.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_request.dart';
@@ -15,7 +17,6 @@ abstract class RestClient {
   }
 
   // user
-
   @GET("/users/{uid}")
   Future<UserResponse> getUserById(@Path() String uid);
 
@@ -26,11 +27,19 @@ abstract class RestClient {
   Future<List<UserResponse>> searchUser(@Query("keyword") String keyword);
 
   // workspace
-
   @POST("/workspaces")
   Future<WorkSpaceResponse> createWorkspace(
       @Body() WorkSpaceRequest workSpaceRequest);
 
   @GET("/workspaces")
   Future<List<WorkSpaceResponse>> getWorkspacesByUid(@Query("user") String uid);
+
+  // member
+  @POST("/members")
+  Future<MemberResponse> createMemberIntoWorkspace(
+      @Body() MemberRequest memberRequest);
+
+  @GET("members")
+  Future<List<MemberResponse>> getListMemberInWorkspace(
+      @Query("workspace") int workspaceId);
 }

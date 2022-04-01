@@ -9,8 +9,8 @@ part of 'member_request.dart';
 MemberRequest _$MemberRequestFromJson(Map<String, dynamic> json) =>
     MemberRequest(
       memberId: json['memberId'] as String,
-      permission: json['permission'] as String,
-      workspaceId: json['workspaceId'] as String,
+      permission: json['permission'] as int,
+      workspaceId: json['workspaceId'] as int,
     );
 
 Map<String, dynamic> _$MemberRequestToJson(MemberRequest instance) =>

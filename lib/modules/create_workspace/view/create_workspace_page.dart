@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_request.dart';
-import 'package:trellis_mobile_app/modules/create_board/controller/create_board_controller.dart';
 import 'package:trellis_mobile_app/modules/create_workspace/controller/create_workspace_controller.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 

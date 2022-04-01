@@ -97,7 +97,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.WORKSPACE_MENU,
-      page: () => const WorkspaceMenuPage(),
+      page: () => WorkspaceMenuPage(),
       binding: WorkspaceMenuBinding(),
     ),
     GetPage(

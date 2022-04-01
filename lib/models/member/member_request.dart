@@ -4,8 +4,8 @@ part 'member_request.g.dart';
 @JsonSerializable()
 class MemberRequest {
   String memberId;
-  String permission;
-  String workspaceId;
+  int permission;
+  int workspaceId;
 
   MemberRequest({
     required this.memberId,
