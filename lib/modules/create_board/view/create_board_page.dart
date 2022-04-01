@@ -41,7 +41,9 @@ class CreateBoardPage extends StatelessWidget {
               ),
               30.height,
               Text("visibility".tr),
-              _buildDropdownViewPermission(),
+              Obx(
+                () => _buildDropdownViewPermission(),
+              ),
               30.height,
             ]),
           ),
@@ -67,7 +69,9 @@ class CreateBoardPage extends StatelessWidget {
                   : Colors.white,
             ),
             onPressed: () {
-              createBoardController.boardNameIsEmpty.value ? null : Get.back();
+              createBoardController.boardNameIsEmpty.value
+                  ? null
+                  : createBoardController.createBoard();
             },
           ),
         ),
@@ -75,18 +79,22 @@ class CreateBoardPage extends StatelessWidget {
     );
   }
 
-  DropdownButton<String> _buildDropdownViewPermission() {
+  DropdownButton<int> _buildDropdownViewPermission() {
     return DropdownButton(
       underline: Container(
         height: 1,
         color: Colors.black,
       ),
       isExpanded: true,
-      hint: const Text(
-        "Không gian làm việc",
-        style: TextStyle(color: Colors.black),
+      hint: Text(
+        createBoardController.selectType.value == 1
+            ? "private".tr
+            : "public".tr,
+        style: const TextStyle(color: Colors.black),
       ),
-      onChanged: (dynamic value) {},
+      onChanged: (dynamic value) {
+        createBoardController.selectType.value = value;
+      },
       items: [
         DropdownMenuItem(
             child: ListTile(
@@ -95,35 +103,17 @@ class CreateBoardPage extends StatelessWidget {
                 Icons.lock,
                 color: Colors.black,
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 1),
         DropdownMenuItem(
             child: ListTile(
               leading: const Icon(
                 Icons.group_outlined,
                 color: Colors.black,
               ),
-              title: Text("workspace".tr),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.public,
-                color: Colors.black,
-              ),
               title: Text("public".tr),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 2),
       ],
     );
   }

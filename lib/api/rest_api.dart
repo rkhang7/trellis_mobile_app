@@ -1,5 +1,7 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
+import 'package:trellis_mobile_app/models/board/board_request.dart';
+import 'package:trellis_mobile_app/models/board/board_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
 import 'package:trellis_mobile_app/models/user/user_request.dart';
@@ -42,4 +44,8 @@ abstract class RestClient {
   @GET("members")
   Future<List<MemberResponse>> getListMemberInWorkspace(
       @Query("workspace") int workspaceId);
+
+  // board
+  @POST("/boards")
+  Future<BoardResponse> createBoard(@Body() BoardRequest boardRequest);
 }

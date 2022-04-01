@@ -21,6 +21,8 @@ class DashBoardController extends GetxController {
 
   var isVisibleWorkspace = false.obs;
 
+  final currentId = FirebaseAuth.instance.currentUser!.uid;
+
   @override
   void onInit() {
     // TODO: implement onInit

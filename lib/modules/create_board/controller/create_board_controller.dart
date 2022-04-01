@@ -1,7 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
+import 'package:trellis_mobile_app/modules/dashboard/controller/dashboard_controller.dart';
+import 'package:trellis_mobile_app/repository/board_repository.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
 class CreateBoardController extends GetxController {
@@ -11,6 +16,9 @@ class CreateBoardController extends GetxController {
   final listDropdownMenuItemWorkspaces = Rx<List<DropdownMenuItem<String>>>([]);
   final boardNameIsEmpty = true.obs;
   final workspaceRepository = Get.find<WorkspaceRepository>();
+  final boardRepository = Get.find<BoardRepository>();
+  final dashBoardController = Get.find<DashBoardController>();
+  var selectType = 1.obs;
 
   @override
   void onInit() {
@@ -66,5 +74,40 @@ class CreateBoardController extends GetxController {
       }
     }
     return null;
+  }
+
+  void createBoard() {
+    EasyLoading.show(status: "please_wait".tr);
+    String boardName = boardNameController.text;
+    var boardRequest = BoardRequest(
+        name: boardName,
+        description: "",
+        closed: true,
+        visibility: selectType.value,
+        workspaceId: selectedWorkspaceId.value,
+        createdBy: dashBoardController.currentId);
+
+    boardRepository.createBoard(boardRequest).then((value) {
+      EasyLoading.dismiss();
+
+      EasyLoading.showSuccess("create_success".tr);
+
+      Get.back();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+    ;
   }
 }
