@@ -18,7 +18,9 @@ class WorkspaceMenuPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            _buildInviteMemberArea(),
+            Obx(
+              () => _buildInviteMemberArea(),
+            ),
             SizedBox(
               height: 80.h,
             ),
@@ -69,21 +71,30 @@ class WorkspaceMenuPage extends StatelessWidget {
                   spacing: 20.h,
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.start,
-                  children: workspaceMenuController.listMember.value
-                      .map((userResponse) {
-                    // return ClipOval(
-                    //   child: CachedNetworkImage(
-                    //     imageUrl: userResponse.avatar_url.isEmpty
-                    //         ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                    //         : userResponse.avatar_url,
-                    //     placeholder: (context, url) =>
-                    //         const CircularProgressIndicator(),
-                    //     errorWidget: (context, url, error) {
-                    //       return const Icon(Icons.error);
-                    //     },
-                    //   ),
+                  children:
+                      workspaceMenuController.listMember.map((userResponse) {
+                    return Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.white,
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: userResponse.avatar_url.isEmpty
+                              ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
+                              : userResponse.avatar_url,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) {
+                            return const Icon(Icons.error);
+                          },
+                        ),
+                      ),
+                    );
+                    // return Container(
+                    //   width: 50,
+                    //   height: 50,
+                    //   color: Colors.red,
                     // );
-                    return Container();
                   }).toList(),
                 ),
               ),

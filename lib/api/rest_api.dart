@@ -2,6 +2,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
+import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
 import 'package:trellis_mobile_app/models/user/user_request.dart';
@@ -42,7 +43,7 @@ abstract class RestClient {
       @Body() MemberRequest memberRequest);
 
   @GET("members")
-  Future<List<MemberResponse>> getListMemberInWorkspace(
+  Future<List<MemberDetailResponse>> getListMemberInWorkspace(
       @Query("workspace") int workspaceId);
 
   // board
