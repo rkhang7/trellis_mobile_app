@@ -49,7 +49,7 @@ abstract class RestClient {
   @POST("/boards")
   Future<BoardResponse> createBoard(@Body() BoardRequest boardRequest);
 
-  @GET("/boards")
+  @GET("/boards/workspace/{workspaceId}/user/{uid}")
   Future<List<BoardResponse>> getListBoardsInWorkspace(
-      @Query("workspace") int workspaceId);
+      @Path("workspaceId") int workspaceId, @Path("uid") String uid);
 }

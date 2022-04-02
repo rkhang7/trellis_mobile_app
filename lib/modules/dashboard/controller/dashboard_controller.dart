@@ -30,10 +30,8 @@ class DashBoardController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-
     initWorkspace();
+    super.onInit();
   }
 
   void initWorkspace() async {
@@ -58,7 +56,9 @@ class DashBoardController extends GetxController {
   }
 
   void loadListBoards(int workspaceId) async {
-    await boardRepository.getListBoardsInWorkspace(workspaceId).then((value) {
+    await boardRepository
+        .getListBoardsInWorkspace(workspaceId, currentId)
+        .then((value) {
       listBoards.assignAll(value);
     });
   }

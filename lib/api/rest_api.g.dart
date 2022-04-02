@@ -157,17 +157,18 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<BoardResponse>> getListBoardsInWorkspace(workspaceId) async {
+  Future<List<BoardResponse>> getListBoardsInWorkspace(workspaceId, uid) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'workspace': workspaceId};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<BoardResponse>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/boards',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<List<BoardResponse>>(Options(
+                method: 'GET', headers: _headers, extra: _extra)
+            .compose(
+                _dio.options, '/boards/workspace/${workspaceId}/user/${uid}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
         .map((dynamic i) => BoardResponse.fromJson(i as Map<String, dynamic>))
         .toList();

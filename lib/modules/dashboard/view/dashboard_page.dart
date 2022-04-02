@@ -55,13 +55,13 @@ class DashBoardPage extends StatelessWidget {
   Widget _buildListBoards() {
     final workspaceId =
         dashBoardController.workspaceSelected.value.workspace_id;
-    dashBoardController.loadListBoards(workspaceId);
+    // dashBoardController.loadListBoards(workspaceId);
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: dashBoardController.listBoards.length,
       itemBuilder: (BuildContext context, int index) {
-        final boardResponse = dashBoardController.listBoards.value[index];
+        final boardResponse = dashBoardController.listBoards[index];
         return ListTile(
           onTap: () async {
             await Get.toNamed(

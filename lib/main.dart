@@ -23,23 +23,23 @@ void main(List<String> args) async {
   // configLoading();
 }
 
-void configLoading() {
-  EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 2000)
-    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-    ..loadingStyle = EasyLoadingStyle.dark
-    ..indicatorSize = 45.0
-    ..radius = 10.0
-    ..progressColor = Colors.white
-    ..backgroundColor = Colors.blue
-    ..indicatorColor = Colors.white
-    ..textColor = Colors.white
-    ..maskColor = Colors.blue.withOpacity(0.5)
-    ..userInteractions = true
-    ..textPadding = EdgeInsets.zero
-    ..fontSize = 16
-    ..dismissOnTap = false;
-}
+// void configLoading() {
+//   EasyLoading.instance
+//     ..displayDuration = const Duration(milliseconds: 2000)
+//     ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+//     ..loadingStyle = EasyLoadingStyle.dark
+//     ..indicatorSize = 45.0
+//     ..radius = 10.0
+//     ..progressColor = Colors.white
+//     ..backgroundColor = Colors.blue
+//     ..indicatorColor = Colors.white
+//     ..textColor = Colors.white
+//     ..maskColor = Colors.blue.withOpacity(0.5)
+//     ..userInteractions = true
+//     ..textPadding = EdgeInsets.zero
+//     ..fontSize = 16
+//     ..dismissOnTap = false;
+// }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);

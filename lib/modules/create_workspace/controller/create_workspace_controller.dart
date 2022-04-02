@@ -37,7 +37,7 @@ class CreateWorkspaceController extends GetxController {
       memberRepository
           .createMemberIntoWorkspace(
         MemberRequest(
-            memberId: FirebaseAuth.instance.currentUser!.uid,
+            memberId: dashboardController.currentId,
             permission: 1,
             workspaceId: value.workspace_id),
       )
