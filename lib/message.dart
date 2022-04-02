@@ -7,6 +7,9 @@ class Messages extends Translations {
           //common
           "please_wait": "Please wait",
           "create_success": "Create success",
+          'admin': "Admin",
+          'leave': "Leave",
+          'remove': "Remove",
 
           // walk through page
           'sign_in': 'Log in',
@@ -179,6 +182,9 @@ class Messages extends Translations {
           //common
           "please_wait": "vui lòng đợi",
           "create_success": "Tạo thành công",
+          'admin': "Người quản trị",
+          'leave': "Rời khỏi",
+          'remove': "Loại bỏ",
 
           // walk through page
           'sign_in': 'Đăng nhập',

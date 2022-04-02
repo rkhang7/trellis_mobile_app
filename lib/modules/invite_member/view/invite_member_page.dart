@@ -112,7 +112,11 @@ class InviteMemberPage extends StatelessWidget {
                   ),
                   suggestionsCallback: (pattern) async {
                     return await inviteMemberController.userRepository
-                        .searchUser(pattern);
+                        .searchUserInWorkspace(
+                      pattern,
+                      inviteMemberController.dashboardController
+                          .workspaceSelected.value.workspace_id,
+                    );
                   },
                   itemBuilder: (context, userResponse) {
                     return ListTile(

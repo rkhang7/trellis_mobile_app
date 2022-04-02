@@ -12,6 +12,8 @@ import 'package:trellis_mobile_app/modules/detail_table/view/detail_board_page.d
 import 'package:trellis_mobile_app/modules/invite_member/binding/invite_member_binding.dart';
 import 'package:trellis_mobile_app/modules/notification/binding/notification_binding.dart';
 import 'package:trellis_mobile_app/modules/notification/view/notification_page.dart';
+import 'package:trellis_mobile_app/modules/remove_member/binding/remove_member_binding.dart';
+import 'package:trellis_mobile_app/modules/remove_member/view/remove_member_page.dart';
 import 'package:trellis_mobile_app/modules/search_board/binding/search_board_binding.dart';
 import 'package:trellis_mobile_app/modules/search_board/view/search_board_page.dart';
 import 'package:trellis_mobile_app/modules/setting/binding/setting_binding.dart';
@@ -22,8 +24,8 @@ import 'package:trellis_mobile_app/modules/sign_up/binding/sign_up_binding.dart'
 import 'package:trellis_mobile_app/modules/sign_up/view/sign_up_page.dart';
 import 'package:trellis_mobile_app/modules/splash_screen/binding/splash_screen_binding.dart';
 import 'package:trellis_mobile_app/modules/splash_screen/view/splash_screen_page.dart';
-import 'package:trellis_mobile_app/modules/update_worksapce/binding/update_workspace_binding.dart';
-import 'package:trellis_mobile_app/modules/update_worksapce/view/update_workspace_page.dart';
+import 'package:trellis_mobile_app/modules/update_workspace/binding/update_workspace_binding.dart';
+import 'package:trellis_mobile_app/modules/update_workspace/view/update_workspace_page.dart';
 import 'package:trellis_mobile_app/modules/walk_through/binding/walk_through_binding.dart';
 import 'package:trellis_mobile_app/modules/walk_through/view/walk_through_page.dart';
 import 'package:trellis_mobile_app/modules/workspace_menu/binding/workspace_menu_binding.dart';
@@ -109,6 +111,11 @@ class AppPages {
       name: AppRoutes.UPDATE_WORKSPACE,
       page: () => UpdateWorkspacePage(),
       binding: UpdateWorkSpaceBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.REMOVE_MEMBER,
+      page: () => RemoveMemberPage(),
+      binding: RemoveMemberBinding(),
     ),
   ];
 }

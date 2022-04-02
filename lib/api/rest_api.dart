@@ -27,7 +27,8 @@ abstract class RestClient {
   Future<UserResponse> createUser(@Body() UserRequest user);
 
   @GET("/users/search")
-  Future<List<UserResponse>> searchUser(@Query("keyword") String keyword);
+  Future<List<UserResponse>> searchUserInWorkspace(
+      @Query("keyword") String keyword, @Query("workspace") int workspace);
 
   // workspace
   @POST("/workspaces")

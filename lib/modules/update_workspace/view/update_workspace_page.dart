@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:trellis_mobile_app/modules/update_worksapce/controller/update_workspace_controller.dart';
+import 'package:trellis_mobile_app/modules/update_workspace/controller/update_workspace_controller.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/widget/input_field_create.dart';

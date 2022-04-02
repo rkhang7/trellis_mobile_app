@@ -18,8 +18,13 @@ class WorkspaceMenuPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Obx(
-              () => _buildInviteMemberArea(),
+            InkWell(
+              onTap: () {
+                Get.toNamed(AppRoutes.REMOVE_MEMBER);
+              },
+              child: Obx(
+                () => _buildInviteMemberArea(),
+              ),
             ),
             SizedBox(
               height: 80.h,

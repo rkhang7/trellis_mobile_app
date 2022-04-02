@@ -51,9 +51,12 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<UserResponse>> searchUser(keyword) async {
+  Future<List<UserResponse>> searchUserInWorkspace(keyword, workspace) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'keyword': keyword};
+    final queryParameters = <String, dynamic>{
+      r'keyword': keyword,
+      r'workspace': workspace
+    };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
@@ -142,11 +145,11 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<MemberResponse>> inviteMulti(memberRequest) async {
+  Future<List<MemberResponse>> inviteMulti(listMemberRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = memberRequest.map((e) => e.toJson()).toList();
+    final _data = listMemberRequest.map((e) => e.toJson()).toList();
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<MemberResponse>>(
             Options(method: 'POST', headers: _headers, extra: _extra)
