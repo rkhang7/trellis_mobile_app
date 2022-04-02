@@ -21,7 +21,7 @@ class WorkspaceMenuController extends GetxController {
   void initListMember() {
     int workspaceId = dashboardController.workspaceSelected.value.workspace_id;
     memberRepository.getListMemberInWorkspace(workspaceId).then((value) {
-      listMember.assignAll(value);
+      listMember.addAll(value);
     });
   }
 }

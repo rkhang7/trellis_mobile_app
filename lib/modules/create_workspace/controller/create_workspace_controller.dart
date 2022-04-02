@@ -43,7 +43,9 @@ class CreateWorkspaceController extends GetxController {
       )
           .then(
         (value) {
-          EasyLoading.dismiss();
+          if (EasyLoading.isShow) {
+            EasyLoading.dismiss();
+          }
 
           EasyLoading.showSuccess("create_success".tr);
 
@@ -54,12 +56,16 @@ class CreateWorkspaceController extends GetxController {
       switch (obj.runtimeType) {
         case DioError:
           // Here's the sample to get the failed response error code and message
-          EasyLoading.dismiss();
+          if (EasyLoading.isShow) {
+            EasyLoading.dismiss();
+          }
 
           EasyLoading.showError("error".tr);
           break;
         default:
-          EasyLoading.dismiss();
+          if (EasyLoading.isShow) {
+            EasyLoading.dismiss();
+          }
 
           EasyLoading.showError("error".tr);
           break;

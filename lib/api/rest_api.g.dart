@@ -142,6 +142,24 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<List<MemberResponse>> inviteMulti(memberRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = memberRequest.map((e) => e.toJson()).toList();
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<MemberResponse>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/members/adds',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => MemberResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<BoardResponse> createBoard(boardRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

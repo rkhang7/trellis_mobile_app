@@ -146,7 +146,7 @@ class InviteMemberPage extends StatelessWidget {
                     return Align(
                       alignment: Alignment.topCenter,
                       child: Text(
-                        "user_not _found".tr,
+                        "user_not_found".tr,
                         style: TextStyle(fontSize: 64.sp, color: Colors.red),
                       ),
                     );
@@ -180,7 +180,9 @@ class InviteMemberPage extends StatelessWidget {
         ? Container()
         : Center(
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                inviteMemberController.inviteMulti();
+              },
               child: Text(
                 "${"add".tr}  ",
                 style: TextStyle(

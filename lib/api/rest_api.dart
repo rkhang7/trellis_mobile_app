@@ -46,6 +46,10 @@ abstract class RestClient {
   Future<List<MemberDetailResponse>> getListMemberInWorkspace(
       @Query("workspace") int workspaceId);
 
+  @POST("/members/adds")
+  Future<List<MemberResponse>> inviteMulti(
+      @Body() List<MemberRequest> listMemberRequest);
+
   // board
   @POST("/boards")
   Future<BoardResponse> createBoard(@Body() BoardRequest boardRequest);

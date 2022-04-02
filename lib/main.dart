@@ -67,7 +67,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
         initialRoute: AppRoutes.SPLASH_SCREEN,
-        builder: EasyLoading.init(),
+        builder: (context, child) {
+          return EasyLoading.init()(context, child);
+        },
         localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
       ),
     );

@@ -171,7 +171,7 @@ class Messages extends Translations {
           // invite member page
           'add_members': 'Invite members',
           'add_user_to_workspace': 'Add users to the workspace',
-          'user_not found': "User not found",
+          'user_not_found': "User not found",
           'add': "Add",
           'you_have_selected_this_user': "You have selected this user"
         },
@@ -343,7 +343,7 @@ class Messages extends Translations {
           // invite member page
           'add_members': 'Mời các thành viên',
           'add_user_to_workspace': 'Thêm người dùng vào Không gian làm việc',
-          'user_not _found': "Không tìm thấy người dùng",
+          'user_not_found': "Không tìm thấy người dùng",
           'add': "Thêm",
           'you_have_selected_this_user': "Bạn đã chọn người dùng này",
         }
