@@ -176,7 +176,12 @@ class Messages extends Translations {
           'add_user_to_workspace': 'Add users to the workspace',
           'user_not_found': "User not found",
           'add': "Add",
-          'you_have_selected_this_user': "You have selected this user"
+          'you_have_selected_this_user': "You have selected this user",
+
+          // remove member page
+          'remove_from_workspace': 'Remove from workspace',
+          'admin_permission_explain':
+              "Can view, create, edit Workspace boards and change settings for the Workspace"
         },
         'vi_VN': {
           //common
@@ -352,6 +357,11 @@ class Messages extends Translations {
           'user_not_found': "Không tìm thấy người dùng",
           'add': "Thêm",
           'you_have_selected_this_user': "Bạn đã chọn người dùng này",
+
+          // remove member page
+          'remove_from_workspace': 'Gỡ khỏi Không gian làm việc',
+          'admin_permission_explain':
+              "Có thể xem, tạo và chỉnh sửa các bảng Không gian làm việc, cũng như thay đổi cài đặt cho Không gian làm viêc",
         }
       };
 }
