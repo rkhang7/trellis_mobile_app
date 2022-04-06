@@ -2,16 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
-import 'package:trellis_mobile_app/models/user/user_response.dart';
 import 'package:trellis_mobile_app/modules/remove_member/controller/remove_member_controller.dart';
-import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
+import 'package:confirm_dialog/confirm_dialog.dart';
 
 class RemoveMemberPage extends StatelessWidget {
   RemoveMemberPage({Key? key}) : super(key: key);
@@ -41,14 +38,16 @@ class RemoveMemberPage extends StatelessWidget {
             thickness: 0.5,
             color: Colors.grey.shade800,
           ),
-          _buildListMember(),
+          Obx(
+            () => _buildListMember(),
+          ),
         ],
       ),
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(context),
     ));
   }
 
-  _buildAppBar() {
+  _buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: backgroundColor,
       title: Text(
@@ -58,7 +57,18 @@ class RemoveMemberPage extends StatelessWidget {
       actions: [
         Center(
           child: GestureDetector(
-            onTap: () {},
+            onTap: () async {
+              if (await confirm(
+                context,
+                title: const Text('Confirm'),
+                content: const Text('Would you like to remove?'),
+                textOK: const Text('Yes'),
+                textCancel: const Text('No'),
+              )) {
+                removeMemberController.leaveWorkspace();
+              }
+              return print('pressedCancel');
+            },
             child: Text(
               "${"leave".tr}   ".toUpperCase(),
               style: TextStyle(
@@ -83,18 +93,15 @@ class RemoveMemberPage extends StatelessWidget {
             onTap: () {
               if (userResponse.member_id ==
                   removeMemberController.dashBoardController.currentId) {
-                Get.bottomSheet(
-                  Container(
-                    height: 100,
-                    color: Colors.blue,
-                  ),
-                );
+                // Get.bottomSheet(
+                //   Container(
+                //     height: 100,
+                //     color: Colors.blue,
+                //   ),
+                // );
               } else {
                 if (removeMemberController.getPermissionForCurrentUser() == 1) {
-                  Get.bottomSheet(
-                      _buildRemoveMember(
-                        userResponse,
-                      ),
+                  Get.bottomSheet(_buildRemoveMember(userResponse, index),
                       backgroundColor: Colors.white);
                 }
               }
@@ -135,11 +142,14 @@ class RemoveMemberPage extends StatelessWidget {
             removeMemberController.workspaceMenuController.listMember.length);
   }
 
-  Widget _buildRemoveMember(MemberDetailResponse userResponse) {
+  Widget _buildRemoveMember(MemberDetailResponse userResponse, int index) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(
+          height: 36.h,
+        ),
         ListTile(
           leading: ClipOval(
             child: CachedNetworkImage(
@@ -186,7 +196,10 @@ class RemoveMemberPage extends StatelessWidget {
         ),
         Center(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              removeMemberController.removeMemberFormWorkspace(
+                  userResponse.member_id, index);
+            },
             child: Text("remove_from_workspace".tr),
             style: ElevatedButton.styleFrom(primary: Colors.deepOrangeAccent),
           ),

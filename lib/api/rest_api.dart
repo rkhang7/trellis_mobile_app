@@ -12,7 +12,7 @@ import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 
 part 'rest_api.g.dart';
 
-@RestApi(baseUrl: "http://192.168.1.25:8080/")
+@RestApi(baseUrl: "http://192.168.212.115:8080/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
@@ -50,6 +50,10 @@ abstract class RestClient {
   @POST("/members/adds")
   Future<List<MemberResponse>> inviteMulti(
       @Body() List<MemberRequest> listMemberRequest);
+
+  @DELETE("/members/{uid}/{workspaceId}")
+  Future<void> removeMemberFromWorkspace(
+      @Path("uid") String uid, @Path("workspaceId") int workspaceId);
 
   // board
   @POST("/boards")

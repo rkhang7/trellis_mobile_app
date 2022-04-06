@@ -31,6 +31,7 @@ class DashBoardController extends GetxController {
   @override
   void onInit() {
     initWorkspace();
+    loadListBoards(workspaceSelected.value.workspace_id);
     super.onInit();
   }
 

@@ -25,4 +25,9 @@ class MemberRepository {
     final client = RestClient(dio);
     return await client.inviteMulti(listMemberRequest);
   }
+
+  Future<void> removeMemberFromWorkspace(String uid, int workspaceId) async {
+    final client = RestClient(dio);
+    return await client.removeMemberFromWorkspace(uid, workspaceId);
+  }
 }

@@ -108,6 +108,5 @@ class CreateBoardController extends GetxController {
           break;
       }
     });
-    ;
   }
 }

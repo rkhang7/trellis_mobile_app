@@ -1,11 +1,15 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/controller/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/workspace_menu/controller/workspace_menu_controller.dart';
+import 'package:trellis_mobile_app/repository/member_repository.dart';
 
 class RemoveMemberController extends GetxController {
   final workspaceMenuController = Get.find<WorkspaceMenuController>();
   final dashBoardController = Get.find<DashBoardController>();
+  final memberRepository = Get.find<MemberRepository>();
 
   var listMember = <MemberDetailResponse>[];
 
@@ -22,5 +26,57 @@ class RemoveMemberController extends GetxController {
       }
     }
     return -1;
+  }
+
+  void removeMemberFormWorkspace(String uid, int index) async {
+    EasyLoading.show(status: "please_wait".tr);
+    await memberRepository
+        .removeMemberFromWorkspace(
+            uid, dashBoardController.workspaceSelected.value.workspace_id)
+        .then((value) {
+      listMember.removeAt(index);
+      EasyLoading.dismiss();
+      Get.back();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
+
+  void leaveWorkspace() async {
+    EasyLoading.show(status: "please_wait".tr);
+    await memberRepository
+        .removeMemberFromWorkspace(dashBoardController.currentId,
+            dashBoardController.workspaceSelected.value.workspace_id)
+        .then((value) {
+      EasyLoading.dismiss();
+      Get.back();
+      Get.back();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
   }
 }
