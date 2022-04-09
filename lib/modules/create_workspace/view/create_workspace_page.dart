@@ -170,7 +170,8 @@ class CreateWorkspacePage extends StatelessWidget {
           name: name,
           workspaceType: type,
           createdBy: uid,
-          description: description),
+          description: description,
+          closed: false),
     );
   }
 }

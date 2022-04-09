@@ -10,7 +10,7 @@ part of 'rest_api.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://192.168.212.115:8080/';
+    baseUrl ??= 'http://192.168.1.3:8080/';
   }
 
   final Dio _dio;
@@ -173,7 +173,7 @@ class _RestClient implements RestClient {
             .compose(_dio.options, '/members/${uid}/${workspaceId}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return;
+    return null;
   }
 
   @override

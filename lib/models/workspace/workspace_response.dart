@@ -10,6 +10,7 @@ class WorkSpaceResponse {
   String name;
   String workspace_type;
   String description;
+  bool closed;
   int created_time;
   int updated_time;
   String created_by;
@@ -19,6 +20,7 @@ class WorkSpaceResponse {
     required this.name,
     required this.workspace_type,
     required this.description,
+    required this.closed,
     required this.created_time,
     required this.updated_time,
     required this.created_by,

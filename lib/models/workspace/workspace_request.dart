@@ -6,12 +6,14 @@ class WorkSpaceRequest {
   String name;
   String workspaceType;
   String? description;
+  bool closed;
   String createdBy;
 
   WorkSpaceRequest({
     required this.name,
     required this.workspaceType,
     this.description,
+    required this.closed,
     required this.createdBy,
   });
 

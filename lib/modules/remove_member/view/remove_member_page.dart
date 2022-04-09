@@ -67,7 +67,6 @@ class RemoveMemberPage extends StatelessWidget {
               )) {
                 removeMemberController.leaveWorkspace();
               }
-              return print('pressedCancel');
             },
             child: Text(
               "${"leave".tr}   ".toUpperCase(),

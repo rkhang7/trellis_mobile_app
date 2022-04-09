@@ -13,6 +13,7 @@ class DashBoardController extends GetxController {
           name: "name",
           workspace_type: "workspace_type",
           description: "description",
+          closed: false,
           created_time: 1,
           updated_time: 1,
           created_by: "!")
