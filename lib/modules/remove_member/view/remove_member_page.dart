@@ -55,30 +55,43 @@ class RemoveMemberPage extends StatelessWidget {
         style: boldTextStyle(color: Colors.white, size: 18),
       ),
       actions: [
-        Center(
-          child: GestureDetector(
-            onTap: () async {
-              if (await confirm(
-                context,
-                title: const Text('Confirm'),
-                content: const Text('Would you like to remove?'),
-                textOK: const Text('Yes'),
-                textCancel: const Text('No'),
-              )) {
-                removeMemberController.leaveWorkspace();
-              }
-            },
-            child: Text(
-              "${"leave".tr}   ".toUpperCase(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 56.sp,
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        )
+        Obx(() => _buildLeave(context)),
       ],
+    );
+  }
+
+  Widget _buildLeave(BuildContext context) {
+    return Visibility(
+      visible: removeMemberController.listMember.length == 1 ? false : true,
+      child: Center(
+        child: GestureDetector(
+          onTap: () async {
+            if (await confirm(
+              context,
+              title: Text('confirm'.tr),
+              content: Text('would_you_live_to_leave'.tr),
+              textOK: Text(
+                'yes'.tr,
+                style: TextStyle(fontSize: 64.sp),
+              ),
+              textCancel: Text(
+                'no'.tr,
+                style: TextStyle(fontSize: 64.sp),
+              ),
+            )) {
+              removeMemberController.leaveWorkspace();
+            }
+          },
+          child: Text(
+            "${"leave".tr}   ".toUpperCase(),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 56.sp,
+                letterSpacing: 2,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
     );
   }
 

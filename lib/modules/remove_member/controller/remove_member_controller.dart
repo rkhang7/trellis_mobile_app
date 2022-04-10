@@ -11,7 +11,7 @@ class RemoveMemberController extends GetxController {
   final dashBoardController = Get.find<DashBoardController>();
   final memberRepository = Get.find<MemberRepository>();
 
-  var listMember = <MemberDetailResponse>[];
+  var listMember = <MemberDetailResponse>[].obs;
 
   @override
   void onInit() {

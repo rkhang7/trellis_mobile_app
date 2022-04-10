@@ -10,6 +10,7 @@ class Messages extends Translations {
           'admin': "Admin",
           'leave': "Leave",
           'remove': "Remove",
+          'confirm': 'Confirm',
 
           // walk through page
           'sign_in': 'Log in',
@@ -181,7 +182,8 @@ class Messages extends Translations {
           // remove member page
           'remove_from_workspace': 'Remove from workspace',
           'admin_permission_explain':
-              "Can view, create, edit Workspace boards and change settings for the Workspace"
+              "Can view, create, edit Workspace boards and change settings for the Workspace",
+          'would_you_live_to_leave': 'Would you like to leave this workspace?',
         },
         'vi_VN': {
           //common
@@ -190,6 +192,7 @@ class Messages extends Translations {
           'admin': "Người quản trị",
           'leave': "Rời khỏi",
           'remove': "Loại bỏ",
+          'confirm': 'Xác nhận',
 
           // walk through page
           'sign_in': 'Đăng nhập',
@@ -362,6 +365,8 @@ class Messages extends Translations {
           'remove_from_workspace': 'Gỡ khỏi Không gian làm việc',
           'admin_permission_explain':
               "Có thể xem, tạo và chỉnh sửa các bảng Không gian làm việc, cũng như thay đổi cài đặt cho Không gian làm viêc",
+          'would_you_live_to_leave':
+              "Bạn có muốn rời khỏi Không gian làm việc này?"
         }
       };
 }
