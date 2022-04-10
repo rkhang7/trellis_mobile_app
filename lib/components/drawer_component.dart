@@ -140,6 +140,8 @@ class _DrawerComponentState extends State<DrawerComponent> {
                             onTap: () {
                               dashboardController.workspaceSelected.value =
                                   workspaces[index];
+                              dashboardController.loadListBoards(
+                                  workspaces[index].workspace_id);
                               Get.back();
                             },
                             child: DrawerList(

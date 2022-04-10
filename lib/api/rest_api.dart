@@ -12,7 +12,7 @@ import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 
 part 'rest_api.g.dart';
 
-@RestApi(baseUrl: "http://192.168.1.3:8080/")
+@RestApi(baseUrl: "http://192.168.1.8:8080/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);

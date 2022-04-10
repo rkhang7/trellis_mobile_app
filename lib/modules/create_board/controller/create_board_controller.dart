@@ -92,6 +92,8 @@ class CreateBoardController extends GetxController {
 
       EasyLoading.showSuccess("create_success".tr);
 
+      dashBoardController.listBoards.insert(0, value);
+
       Get.back();
     }).catchError((Object obj) {
       switch (obj.runtimeType) {

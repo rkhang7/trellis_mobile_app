@@ -45,6 +45,7 @@ class DashBoardController extends GetxController {
         workspaceSelected.value = workspaces.elementAt(0);
         log(workspaceSelected.value.name);
       }
+      loadListBoards(workspaceSelected.value.workspace_id);
       checkVisible();
     });
   }

@@ -53,9 +53,9 @@ class DashBoardPage extends StatelessWidget {
   }
 
   Widget _buildListBoards() {
-    final workspaceId =
-        dashBoardController.workspaceSelected.value.workspace_id;
-    // dashBoardController.loadListBoards(workspaceId);
+    // final workspaceId =
+    //     dashBoardController.workspaceSelected.value.workspace_id;
+    // dashBoardController.loadListBoards(1);
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -70,7 +70,7 @@ class DashBoardPage extends StatelessWidget {
             );
           },
           leading: Image.network(
-            "https://sohanews.sohacdn.com/thumb_w/660/160588918557773824/2022/2/23/photo1645602282713-16456022828641944752645.jpg",
+            "https://znews-stc.zdn.vn/static/topic/person/cristiano-ronaldo.jpg",
             height: 40,
             width: 40,
             fit: BoxFit.cover,
