@@ -1,5 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/controller/dashboard_controller.dart';
 import 'package:trellis_mobile_app/repository/list_repository.dart';
@@ -82,5 +86,49 @@ class DetailBoardController extends GetxController {
     for (int i = 0; i < lists.length; i++) {
       listCardScrollController.add(ScrollController());
     }
+  }
+
+  void createList() {
+    EasyLoading.show(status: "please_wait".tr);
+    listRepository
+        .createList(ListRequest(
+            name: nameListAddingController.text,
+            position: lists.length,
+            boardId: dashBoardController.boardIdSelected,
+            createdBy: dashBoardController.currentId))
+        .then((value) {
+      EasyLoading.dismiss();
+
+      EasyLoading.showSuccess("create_success".tr);
+
+      nameListAdding.value = false;
+
+      updateController();
+
+      // insert to first index list workspace
+      lists.add(value);
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
+
+  void updateController() {
+    listController.add(TextEditingController());
+    listNameListEditing.add(false);
+    listNameCardController.add(TextEditingController());
+    listNameCardAdding.add(false);
+    listCardScrollController.add(ScrollController());
   }
 }

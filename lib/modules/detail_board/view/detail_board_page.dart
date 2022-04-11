@@ -132,7 +132,9 @@ class DetailBoardPage extends StatelessWidget {
             } else if (detailBoardController.nameListAdding.isTrue) {
               return Obx(
                 () => IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    detailBoardController.createList();
+                  },
                   icon: Icon(Icons.check,
                       color: detailBoardController.nameListIsEmpty.isTrue
                           ? Colors.grey
