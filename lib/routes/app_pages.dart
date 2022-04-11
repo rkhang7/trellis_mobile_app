@@ -7,8 +7,6 @@ import 'package:trellis_mobile_app/modules/create_workspace/binding/create_works
 import 'package:trellis_mobile_app/modules/create_workspace/view/create_workspace_page.dart';
 import 'package:trellis_mobile_app/modules/dashboard/binding/dashboard_binding.dart';
 import 'package:trellis_mobile_app/modules/dashboard/view/dashboard_page.dart';
-import 'package:trellis_mobile_app/modules/detail_table/binding/detail_table_binding.dart';
-import 'package:trellis_mobile_app/modules/detail_table/view/detail_board_page.dart';
 import 'package:trellis_mobile_app/modules/invite_member/binding/invite_member_binding.dart';
 import 'package:trellis_mobile_app/modules/notification/binding/notification_binding.dart';
 import 'package:trellis_mobile_app/modules/notification/view/notification_page.dart';
@@ -32,6 +30,8 @@ import 'package:trellis_mobile_app/modules/workspace_menu/binding/workspace_menu
 import 'package:trellis_mobile_app/modules/workspace_menu/view/workspace_menu_page.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 
+import '../modules/detail_board/binding/detail_board_binding.dart';
+import '../modules/detail_board/view/detail_board_page.dart';
 import '../modules/invite_member/view/invite_member_page.dart';
 
 class AppPages {
@@ -52,12 +52,12 @@ class AppPages {
       binding: NotificationBinding(),
     ),
     GetPage(
-      name: AppRoutes.CREATE_TABLE,
+      name: AppRoutes.CREATE_BOARD,
       page: () => CreateBoardPage(),
       binding: CreateBoardBinding(),
     ),
     GetPage(
-      name: AppRoutes.DETAIL_TABLE,
+      name: AppRoutes.DETAIL_BOARD,
       page: () => DetailBoardPage(),
       binding: DetailBoardBinding(),
       transition: Transition.rightToLeft,

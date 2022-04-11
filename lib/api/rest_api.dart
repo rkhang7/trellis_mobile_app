@@ -2,6 +2,8 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
+import 'package:trellis_mobile_app/models/list/list_request.dart';
+import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
@@ -12,7 +14,7 @@ import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 
 part 'rest_api.g.dart';
 
-@RestApi(baseUrl: "http://192.168.1.8:8080/")
+@RestApi(baseUrl: "http://10.0.2.2:8080/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
@@ -62,4 +64,8 @@ abstract class RestClient {
   @GET("/boards/workspace/{workspaceId}/user/{uid}")
   Future<List<BoardResponse>> getListBoardsInWorkspace(
       @Path("workspaceId") int workspaceId, @Path("uid") String uid);
+
+  // list
+  @POST("/board-list")
+  Future<ListResponse> createList(@Body() ListRequest listRequest);
 }

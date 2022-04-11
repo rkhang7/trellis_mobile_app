@@ -4,10 +4,11 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/components/end_drawer_component.dart';
 import 'package:trellis_mobile_app/models/core/card_model.dart';
-import 'package:trellis_mobile_app/modules/detail_table/controller/detail_board_controller.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
+
+import '../controller/detail_board_controller.dart';
 
 class DetailBoardPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();

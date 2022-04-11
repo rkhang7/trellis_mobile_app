@@ -65,8 +65,8 @@ class DashBoardPage extends StatelessWidget {
         return ListTile(
           onTap: () async {
             await Get.toNamed(
-              AppRoutes.DETAIL_TABLE,
-              arguments: "Example $index",
+              AppRoutes.DETAIL_BOARD,
+              arguments: boardResponse.name,
             );
           },
           leading: Image.network(
@@ -145,7 +145,7 @@ class DashBoardPage extends StatelessWidget {
             ),
             backgroundColor: buttonColor,
             onTap: () {
-              Get.toNamed(AppRoutes.CREATE_TABLE);
+              Get.toNamed(AppRoutes.CREATE_BOARD);
             }),
         SpeedDialChild(
           label: "card".tr,
