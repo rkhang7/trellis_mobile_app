@@ -7,6 +7,7 @@ class Messages extends Translations {
           //common
           "please_wait": "Please wait",
           "create_success": "Create success",
+          'update_success': "Update success",
           'admin': "Admin",
           'leave': "Leave",
           'remove': "Remove",
@@ -189,6 +190,7 @@ class Messages extends Translations {
           //common
           "please_wait": "vui lòng đợi",
           "create_success": "Tạo thành công",
+          'update_success': "Cập nhật thành công",
           'admin': "Người quản trị",
           'leave': "Rời khỏi",
           'remove': "Loại bỏ",

@@ -108,6 +108,24 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<WorkSpaceResponse> updateWorkspace(
+      workspaceId, workSpaceRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(workSpaceRequest.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<WorkSpaceResponse>(
+            Options(method: 'PUT', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/workspaces/${workspaceId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = WorkSpaceResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<MemberResponse> createMemberIntoWorkspace(memberRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

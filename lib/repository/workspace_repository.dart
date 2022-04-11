@@ -17,4 +17,10 @@ class WorkspaceRepository {
     final client = RestClient(dio);
     return await client.getWorkspacesByUid(uid);
   }
+
+  Future<WorkSpaceResponse> updateWorkspace(
+      int workspaceId, WorkSpaceRequest workSpaceRequest) async {
+    final client = RestClient(dio);
+    return await client.updateWorkspace(workspaceId, workSpaceRequest);
+  }
 }

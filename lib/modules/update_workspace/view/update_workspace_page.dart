@@ -92,7 +92,7 @@ class UpdateWorkspacePage extends StatelessWidget {
             onPressed: () {
               updateWorkspaceController.workspaceNameIsEmpty.value
                   ? null
-                  : updateWorkspace();
+                  : updateWorkspaceController.updateWorkspace();
             },
             icon: Icon(
               Icons.done,
