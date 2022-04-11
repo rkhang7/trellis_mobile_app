@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trellis_mobile_app/models/core/card_model.dart';
-import 'package:trellis_mobile_app/models/core/list_model.dart';
+import 'package:trellis_mobile_app/models/list/list_response.dart';
+import 'package:trellis_mobile_app/modules/dashboard/controller/dashboard_controller.dart';
+import 'package:trellis_mobile_app/repository/list_repository.dart';
 
 class DetailBoardController extends GetxController {
+  final listRepository = Get.find<ListRepository>();
+  var dashBoardController = Get.find<DashBoardController>();
   var pageController = PageController(viewportFraction: 0.8);
   var listCardScrollController = <ScrollController>[];
 
-  var listList = <ListModel>[].obs;
+  var lists = <ListResponse>[].obs;
   var nameListEditing = false.obs; // appBar
   var listNameListEditing = <bool>[].obs; // item
   var listController = <TextEditingController>[];
@@ -25,13 +28,9 @@ class DetailBoardController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     initData();
-    initListController();
-    initListEditing();
-    initListNameCardController();
-    initListNameCardAdding();
-    initListCardScrollController();
+
+    super.onInit();
   }
 
   @override
@@ -41,52 +40,46 @@ class DetailBoardController extends GetxController {
     pageController.dispose();
   }
 
-  void initData() {
-    for (int i = 0; i <= 2; i++) {
-      var cardList = <CardModel>[];
-      for (int i = 0; i <= 20; i++) {
-        cardList.add(
-          CardModel(
-            id: i.toString(),
-            name:
-                "Name Name Name Name Name Name Name Name Name Name Name Name $i",
-            description: "description $i",
-            position: i,
-          ),
-        );
-      }
+  void initData() async {
+    await listRepository
+        .getListsInBoard(dashBoardController.boardIdSelected)
+        .then((value) {
+      lists.assignAll(value);
 
-      listList.add(
-          ListModel(id: i.toString(), name: "Cần làm $i", listCard: cardList));
-    }
+      initListController();
+      initListEditing();
+      initListNameCardController();
+      initListNameCardAdding();
+      initListCardScrollController();
+    });
   }
 
   void initListController() {
-    for (int i = 0; i < listList.length; i++) {
+    for (int i = 0; i < lists.length; i++) {
       listController.add(TextEditingController());
     }
   }
 
   void initListEditing() {
-    for (int i = 0; i < listList.length; i++) {
+    for (int i = 0; i < lists.length; i++) {
       listNameListEditing.add(false);
     }
   }
 
   void initListNameCardController() {
-    for (int i = 0; i < listList.length; i++) {
+    for (int i = 0; i < lists.length; i++) {
       listNameCardController.add(TextEditingController());
     }
   }
 
   void initListNameCardAdding() {
-    for (int i = 0; i < listList.length; i++) {
+    for (int i = 0; i < lists.length; i++) {
       listNameCardAdding.add(false);
     }
   }
 
   void initListCardScrollController() {
-    for (int i = 0; i < listList.length; i++) {
+    for (int i = 0; i < lists.length; i++) {
       listCardScrollController.add(ScrollController());
     }
   }

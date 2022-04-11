@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -64,9 +66,12 @@ class DashBoardPage extends StatelessWidget {
         final boardResponse = dashBoardController.listBoards[index];
         return ListTile(
           onTap: () async {
+            dashBoardController.boardIdSelected = boardResponse.board_id;
             await Get.toNamed(
               AppRoutes.DETAIL_BOARD,
-              arguments: boardResponse.name,
+              parameters: {
+                'name': boardResponse.name,
+              },
             );
           },
           leading: Image.network(

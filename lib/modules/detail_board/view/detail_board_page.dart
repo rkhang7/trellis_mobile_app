@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/components/end_drawer_component.dart';
-import 'package:trellis_mobile_app/models/core/card_model.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
@@ -12,7 +11,7 @@ import '../controller/detail_board_controller.dart';
 
 class DetailBoardPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  final name = Get.arguments;
+  final name = Get.parameters['name'];
   final detailBoardController = Get.find<DetailBoardController>();
 
   DetailBoardPage({Key? key}) : super(key: key);
@@ -94,7 +93,7 @@ class DetailBoardPage extends StatelessWidget {
           );
         } else {
           return Text(
-            name,
+            name!,
             style: boldTextStyle(size: 18, color: Colors.white),
           );
         }
@@ -106,9 +105,9 @@ class DetailBoardPage extends StatelessWidget {
               return Obx(
                 () => IconButton(
                   onPressed: () {
-                    detailBoardController.nameListIsEmpty.isTrue
-                        ? null
-                        : _updateNameList();
+                    // detailBoardController.nameListIsEmpty.isTrue
+                    //     ? null
+                    //     : _updateNameList();
                   },
                   icon: Icon(Icons.check,
                       color: detailBoardController.nameListIsEmpty.isTrue
@@ -120,9 +119,9 @@ class DetailBoardPage extends StatelessWidget {
               return Obx(
                 () => IconButton(
                   onPressed: () {
-                    detailBoardController.nameCardIsEmpty.isTrue
-                        ? null
-                        : _addCardToList();
+                    // detailBoardController.nameCardIsEmpty.isTrue
+                    //     ? null
+                    //     : _addCardToList();
                   },
                   icon: Icon(Icons.check,
                       color: detailBoardController.nameCardIsEmpty.isTrue
@@ -182,13 +181,13 @@ class DetailBoardPage extends StatelessWidget {
               detailBoardController.nameListAdding.isTrue)
           ? const NeverScrollableScrollPhysics()
           : null,
-      itemCount: detailBoardController.listList.length + 1,
+      itemCount: detailBoardController.lists.length + 1,
       controller: detailBoardController.pageController,
       itemBuilder: (context, index) {
-        if (index == detailBoardController.listList.length) {
+        if (index == detailBoardController.lists.length) {
           return Obx(() => _buildAddList());
         } else {
-          var list = detailBoardController.listList[index];
+          var list = detailBoardController.lists[index];
           return Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -205,9 +204,11 @@ class DetailBoardPage extends StatelessWidget {
                       Obx(
                         () => _buildTitle(list.name, index),
                       ),
+
                       Expanded(
-                          child:
-                              _buildListCard(list.listCard, list.name, index)),
+                          child: Container(
+                        height: 200,
+                      )), // _buildListCard(list.listCard, list.name, index)),
                       Obx(
                         () => _buildAddCard(index),
                       ),
@@ -363,95 +364,95 @@ class DetailBoardPage extends StatelessWidget {
           );
   }
 
-  Widget _buildListCard(List<CardModel> listCard, String nameList, int index) {
-    return ReorderableListView.builder(
-      padding: EdgeInsets.all(16.h),
-      scrollController: detailBoardController.listCardScrollController[index],
-      shrinkWrap: true,
-      onReorder: (oldIndex, newIndex) {
-        swapCards(listCard, oldIndex, newIndex);
-      },
-      itemBuilder: (context, index) {
-        CardModel cardModel = listCard[index];
-        return _buildCard(cardModel);
-      },
-      itemCount: listCard.length,
-    );
-  }
+  // Widget _buildListCard(List<CardModel> listCard, String nameList, int index) {
+  //   return ReorderableListView.builder(
+  //     padding: EdgeInsets.all(16.h),
+  //     scrollController: detailBoardController.listCardScrollController[index],
+  //     shrinkWrap: true,
+  //     onReorder: (oldIndex, newIndex) {
+  //       swapCards(listCard, oldIndex, newIndex);
+  //     },
+  //     itemBuilder: (context, index) {
+  //       CardModel cardModel = listCard[index];
+  //       return _buildCard(cardModel);
+  //     },
+  //     itemCount: listCard.length,
+  //   );
+  // }
 
-  Container _buildCard(CardModel cardModel) {
-    return Container(
-      key: ValueKey(cardModel),
-      margin: EdgeInsets.all(8.w),
-      padding: EdgeInsets.all(24.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(4),
-        boxShadow: const [
-          BoxShadow(
-              blurRadius: 8,
-              offset: Offset(0, 0),
-              color: Color.fromRGBO(127, 140, 141, 0.5),
-              spreadRadius: 2)
-        ],
-      ),
-      child: Text(
-        cardModel.name,
-        overflow: TextOverflow.clip,
-        style: TextStyle(
-          fontSize: 60.sp,
-        ),
-      ),
-    );
-  }
+  // Container _buildCard(CardModel cardModel) {
+  //   return Container(
+  //     key: ValueKey(cardModel),
+  //     margin: EdgeInsets.all(8.w),
+  //     padding: EdgeInsets.all(24.w),
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(4),
+  //       boxShadow: const [
+  //         BoxShadow(
+  //             blurRadius: 8,
+  //             offset: Offset(0, 0),
+  //             color: Color.fromRGBO(127, 140, 141, 0.5),
+  //             spreadRadius: 2)
+  //       ],
+  //     ),
+  //     child: Text(
+  //       cardModel.name,
+  //       overflow: TextOverflow.clip,
+  //       style: TextStyle(
+  //         fontSize: 60.sp,
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  void swapCards(List<CardModel> listCard, int oldIndex, int newIndex) {
-    if (oldIndex < newIndex) {
-      newIndex -= 1;
-    }
-    final CardModel item = listCard.removeAt(oldIndex);
-    listCard.insert(newIndex, item);
-  }
+  // void swapCards(List<CardModel> listCard, int oldIndex, int newIndex) {
+  //   if (oldIndex < newIndex) {
+  //     newIndex -= 1;
+  //   }
+  //   final CardModel item = listCard.removeAt(oldIndex);
+  //   listCard.insert(newIndex, item);
+  // }
 
-  _updateNameList() {
-    var currentIndex = detailBoardController.listNameListEditing.indexOf(true);
+  // _updateNameList() {
+  //   var currentIndex = detailBoardController.listNameListEditing.indexOf(true);
 
-    detailBoardController.listList[currentIndex].name =
-        detailBoardController.listController[currentIndex].text;
+  //   detailBoardController.listList[currentIndex].name =
+  //       detailBoardController.listController[currentIndex].text;
 
-    detailBoardController.nameListEditing.value = false;
-    detailBoardController.listNameListEditing[currentIndex] = false;
-  }
+  //   detailBoardController.nameListEditing.value = false;
+  //   detailBoardController.listNameListEditing[currentIndex] = false;
+  // }
 
-  _addCardToList() {
-    var currentAddingIndex =
-        detailBoardController.listNameCardAdding.indexOf(true);
+  // _addCardToList() {
+  //   var currentAddingIndex =
+  //       detailBoardController.listNameCardAdding.indexOf(true);
 
-    String nameCard =
-        detailBoardController.listNameCardController[currentAddingIndex].text;
-    int lengthListCard =
-        detailBoardController.listList[currentAddingIndex].listCard.length;
-    detailBoardController.listList[currentAddingIndex].listCard.add(CardModel(
-        id: "id",
-        name: nameCard,
-        description: "description",
-        position: lengthListCard));
+  //   String nameCard =
+  //       detailBoardController.listNameCardController[currentAddingIndex].text;
+  //   int lengthListCard =
+  //       detailBoardController.lists[currentAddingIndex].listCard.length;
+  //   detailBoardController.lists[currentAddingIndex].listCard.add(CardModel(
+  //       id: "id",
+  //       name: nameCard,
+  //       description: "description",
+  //       position: lengthListCard));
 
-    // update gui
-    detailBoardController.nameCardAdding.value = false;
-    detailBoardController.listNameCardAdding[currentAddingIndex] = false;
-    detailBoardController.listNameCardController[currentAddingIndex].clear();
+  //   // update gui
+  //   detailBoardController.nameCardAdding.value = false;
+  //   detailBoardController.listNameCardAdding[currentAddingIndex] = false;
+  //   detailBoardController.listNameCardController[currentAddingIndex].clear();
 
-    // after add, scroll to last position
-    detailBoardController.listCardScrollController[currentAddingIndex]
-        .animateTo(
-      (detailBoardController.listCardScrollController[currentAddingIndex]
-              .position.maxScrollExtent) +
-          1,
-      curve: Curves.easeOut,
-      duration: const Duration(milliseconds: 500),
-    );
-  }
+  //   // after add, scroll to last position
+  //   detailBoardController.listCardScrollController[currentAddingIndex]
+  //       .animateTo(
+  //     (detailBoardController.listCardScrollController[currentAddingIndex]
+  //             .position.maxScrollExtent) +
+  //         1,
+  //     curve: Curves.easeOut,
+  //     duration: const Duration(milliseconds: 500),
+  //   );
+  // }
 
   Widget _buildAddList() {
     var nameListAdding = detailBoardController.nameListAdding.value;

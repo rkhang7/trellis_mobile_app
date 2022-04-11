@@ -13,7 +13,7 @@ ListResponse _$ListResponseFromJson(Map<String, dynamic> json) => ListResponse(
       board_id: json['board_id'] as int,
       created_time: json['created_time'] as int,
       updated_time: json['updated_time'] as int,
-      createdBy: json['createdBy'] as String,
+      created_by: json['created_by'] as String,
     );
 
 Map<String, dynamic> _$ListResponseToJson(ListResponse instance) =>
@@ -24,5 +24,5 @@ Map<String, dynamic> _$ListResponseToJson(ListResponse instance) =>
       'board_id': instance.board_id,
       'created_time': instance.created_time,
       'updated_time': instance.updated_time,
-      'createdBy': instance.createdBy,
+      'created_by': instance.created_by,
     };

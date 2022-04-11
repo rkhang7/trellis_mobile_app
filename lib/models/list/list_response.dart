@@ -9,7 +9,7 @@ class ListResponse {
   int board_id;
   int created_time;
   int updated_time;
-  String createdBy;
+  String created_by;
 
   ListResponse({
     required this.list_id,
@@ -18,7 +18,7 @@ class ListResponse {
     required this.board_id,
     required this.created_time,
     required this.updated_time,
-    required this.createdBy,
+    required this.created_by,
   });
 
   factory ListResponse.fromJson(Map<String, dynamic> json) =>

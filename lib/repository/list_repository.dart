@@ -10,4 +10,9 @@ class ListRepository {
     final client = RestClient(dio);
     return await client.createList(listRequest);
   }
+
+  Future<List<ListResponse>> getListsInBoard(int boardId) async {
+    final client = RestClient(dio);
+    return await client.getListsInBoard(boardId);
+  }
 }

@@ -29,6 +29,8 @@ class DashBoardController extends GetxController {
 
   var listBoards = <BoardResponse>[].obs;
 
+  var boardIdSelected = -1;
+
   @override
   void onInit() {
     initWorkspace();
