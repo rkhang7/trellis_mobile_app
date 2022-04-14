@@ -15,4 +15,9 @@ class ListRepository {
     final client = RestClient(dio);
     return await client.getListsInBoard(boardId);
   }
+
+  Future<ListResponse> updateList(int listId, ListRequest listRequest) async {
+    final client = RestClient(dio);
+    return await client.updateList(listId, listRequest);
+  }
 }

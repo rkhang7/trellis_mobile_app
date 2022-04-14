@@ -105,9 +105,9 @@ class DetailBoardPage extends StatelessWidget {
               return Obx(
                 () => IconButton(
                   onPressed: () {
-                    // detailBoardController.nameListIsEmpty.isTrue
-                    //     ? null
-                    //     : _updateNameList();
+                    detailBoardController.nameListIsEmpty.isTrue
+                        ? null
+                        : detailBoardController.updateNameList();
                   },
                   icon: Icon(Icons.check,
                       color: detailBoardController.nameListIsEmpty.isTrue
@@ -414,16 +414,6 @@ class DetailBoardPage extends StatelessWidget {
   //   }
   //   final CardModel item = listCard.removeAt(oldIndex);
   //   listCard.insert(newIndex, item);
-  // }
-
-  // _updateNameList() {
-  //   var currentIndex = detailBoardController.listNameListEditing.indexOf(true);
-
-  //   detailBoardController.listList[currentIndex].name =
-  //       detailBoardController.listController[currentIndex].text;
-
-  //   detailBoardController.nameListEditing.value = false;
-  //   detailBoardController.listNameListEditing[currentIndex] = false;
   // }
 
   // _addCardToList() {

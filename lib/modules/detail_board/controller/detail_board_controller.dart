@@ -105,6 +105,9 @@ class DetailBoardController extends GetxController {
 
       updateController();
 
+      // clean controller
+      nameListAddingController.clear();
+
       // insert to first index list workspace
       lists.add(value);
     }).catchError((Object obj) {
@@ -130,5 +133,46 @@ class DetailBoardController extends GetxController {
     listNameCardController.add(TextEditingController());
     listNameCardAdding.add(false);
     listCardScrollController.add(ScrollController());
+  }
+
+  void updateNameList() {
+    EasyLoading.show(status: "please_wait".tr);
+    var currentIndex = listNameListEditing.indexOf(true);
+    var currentList = lists[currentIndex];
+    String newName = listController[currentIndex].text;
+    listRepository
+        .updateList(
+      currentList.list_id,
+      ListRequest(
+        name: newName,
+        position: currentList.position,
+        boardId: currentList.board_id,
+        createdBy: currentList.created_by,
+      ),
+    )
+        .then((value) {
+      EasyLoading.dismiss();
+
+      EasyLoading.showSuccess("update_success".tr);
+
+      //update list
+      currentList.name = value.name;
+      nameListEditing.value = false;
+      listNameListEditing[currentIndex] = false;
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
   }
 }

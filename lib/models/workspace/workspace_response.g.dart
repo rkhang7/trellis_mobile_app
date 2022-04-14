@@ -11,7 +11,7 @@ WorkSpaceResponse _$WorkSpaceResponseFromJson(Map<String, dynamic> json) =>
       workspace_id: json['workspace_id'] as int,
       name: json['name'] as String,
       workspace_type: json['workspace_type'] as String,
-      description: json['description'] ?? "",
+      description: json['description'] as String,
       closed: json['closed'] as bool,
       created_time: json['created_time'] as int,
       updated_time: json['updated_time'] as int,

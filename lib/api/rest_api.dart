@@ -73,6 +73,11 @@ abstract class RestClient {
   // list
   @POST("/board-list")
   Future<ListResponse> createList(@Body() ListRequest listRequest);
+
   @GET("/board-list")
   Future<List<ListResponse>> getListsInBoard(@Query("boardId") int boardId);
+
+  @PUT("/board-list/{listId}")
+  Future<ListResponse> updateList(
+      @Path("listId") int listId, @Body() ListRequest listRequest);
 }
