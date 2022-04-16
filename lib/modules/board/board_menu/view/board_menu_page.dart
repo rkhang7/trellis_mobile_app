@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/board/board_menu/controller/board_menu_controller.dart';
@@ -15,6 +16,7 @@ class BoardMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       body: SafeArea(
         child: Column(
           children: [
@@ -29,6 +31,7 @@ class BoardMenuPage extends StatelessWidget {
             SizedBox(
               height: 80.h,
             ),
+            _buildWorkspaceSettingArea(),
           ],
         ),
       ),
@@ -134,6 +137,32 @@ class BoardMenuPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildWorkspaceSettingArea() {
+    return InkWell(
+      onTap: () {
+        Get.toNamed(AppRoutes.UPDATE_BOARD);
+      },
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(left: 18),
+        height: 200.h,
+        child: Row(
+          children: [
+            Icon(
+              FontAwesomeIcons.penFancy,
+              size: 72.sp,
+            ),
+            SizedBox(width: 60.w),
+            Text(
+              "board_setting".tr,
+              style: TextStyle(fontSize: 64.sp),
+            ),
+          ],
+        ),
       ),
     );
   }

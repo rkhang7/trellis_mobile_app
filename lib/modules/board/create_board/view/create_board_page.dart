@@ -46,6 +46,7 @@ class CreateBoardPage extends StatelessWidget {
                 () => _buildDropdownViewPermission(),
               ),
               30.height,
+              _buildDescription(),
             ]),
           ),
         ),
@@ -142,6 +143,27 @@ class CreateBoardPage extends StatelessWidget {
             int.parse(selectedValue.toString());
       },
       items: createBoardController.listDropdownMenuItemWorkspaces.value,
+    );
+  }
+
+  Widget _buildDescription() {
+    return TextFormField(
+      autofocus: false,
+      controller: createBoardController.descriptionController,
+      decoration: InputDecoration(
+        labelText: "board_description".tr,
+        labelStyle: const TextStyle(color: Colors.green),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.green, width: 2),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.green, width: 2),
+        ),
+      ),
+      cursorColor: Colors.green,
+      cursorHeight: 25,
+      onChanged: (value) {},
+      maxLines: null,
     );
   }
 }

@@ -11,6 +11,7 @@ import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
 class CreateBoardController extends GetxController {
   var boardNameController = TextEditingController();
+  final descriptionController = TextEditingController();
   final listWorkSpaces = Rx<List<WorkSpaceResponse>>([]);
   var selectedWorkspaceId = 0.obs;
   final listDropdownMenuItemWorkspaces = Rx<List<DropdownMenuItem<String>>>([]);
@@ -81,7 +82,7 @@ class CreateBoardController extends GetxController {
     String boardName = boardNameController.text;
     var boardRequest = BoardRequest(
         name: boardName,
-        description: "",
+        description: descriptionController.text,
         closed: false,
         visibility: selectType.value,
         workspaceId: selectedWorkspaceId.value,

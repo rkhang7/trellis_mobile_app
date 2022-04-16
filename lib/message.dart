@@ -92,6 +92,7 @@ class Messages extends Translations {
           'create_board': "Create board",
           'private': "Private",
           'public': "Public",
+          "board_description": "Board description (Optional)",
 
           // create card page
           "add_card": "Add card",
@@ -154,7 +155,7 @@ class Messages extends Translations {
           "it": "Information technology",
           "other": "Other",
           "marketing": "Marketing",
-          "workspace_description": "Workspace Description (Optional)",
+          "workspace_description": "Workspace description (Optional)",
 
           // detail board page
           "move_list": "Move list",
@@ -190,7 +191,8 @@ class Messages extends Translations {
               "Would you like to leave this board?",
 
           // board menu page
-          'board_menu': "Board menu"
+          'board_menu': "Board menu",
+          'board_setting': "Board setting",
         },
         'vi_VN': {
           //common
@@ -274,13 +276,14 @@ class Messages extends Translations {
           'me': 'Tôi',
           'comments': 'Bình luận',
 
-          // create add board page
+          // create board page
           'board_name': "Tên bảng",
           'workspace': 'Không gian làm việc',
           'visibility': 'Quyền xem',
           'create_board': "Tạo bảng",
           'private': "Riêng tư",
           'public': "Công khai",
+          'board_description': 'Mô tả bảng (Tùy chọn)',
 
           // create card page
           "add_card": "Thêm thẻ",
@@ -379,7 +382,8 @@ class Messages extends Translations {
           'would_you_live_to_leave_board': "Bạn có muốn rời khỏi Bảng này?",
 
           // board menu page
-          'board_menu': "Menu bảng"
+          'board_menu': "Menu bảng",
+          'board_setting': "Chỉnh sửa bảng",
         }
       };
 }

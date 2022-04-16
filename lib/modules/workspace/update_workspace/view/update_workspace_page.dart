@@ -36,31 +36,6 @@ class UpdateWorkspacePage extends StatelessWidget {
                   autoFocus: true,
                   primaryColor: Colors.green,
                 ),
-                // TextFormField(
-                //   autofocus: false,
-                //   controller: updateWorkspaceController.workspaceNameController,
-                //   decoration: InputDecoration(
-                //     labelText: "workspace_name".tr,
-                //     labelStyle: const TextStyle(color: Colors.green),
-                //     enabledBorder: const UnderlineInputBorder(
-                //       borderSide: BorderSide(color: Colors.green, width: 2),
-                //     ),
-                //     focusedBorder: const UnderlineInputBorder(
-                //       borderSide: BorderSide(color: Colors.green, width: 2),
-                //     ),
-                //   ),
-                //   cursorColor: Colors.green,
-                //   cursorHeight: 25,
-                //   onChanged: (value) {
-                //     if (value.isEmpty) {
-                //       updateWorkspaceController.workspaceNameIsEmpty.value =
-                //           true;
-                //     } else {
-                //       updateWorkspaceController.workspaceNameIsEmpty.value =
-                //           false;
-                //     }
-                //   },
-                // ),
                 20.height,
                 Text(
                   "workspace_type".tr,
