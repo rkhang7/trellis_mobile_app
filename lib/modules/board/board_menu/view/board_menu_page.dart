@@ -19,7 +19,9 @@ class BoardMenuPage extends StatelessWidget {
         child: Column(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(AppRoutes.REMOVE_BOARD_MEMBER);
+              },
               child: Obx(
                 () => _buildInviteMemberArea(),
               ),

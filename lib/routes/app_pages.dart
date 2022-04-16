@@ -3,6 +3,7 @@ import 'package:trellis_mobile_app/modules/board/board_menu/binding/board_menu_b
 import 'package:trellis_mobile_app/modules/board/board_menu/view/board_menu_page.dart';
 import 'package:trellis_mobile_app/modules/board/invite_board_member/binding/invite_board_member_binding.dart';
 import 'package:trellis_mobile_app/modules/board/invite_board_member/view/invite_board_member_page.dart';
+import 'package:trellis_mobile_app/modules/board/remove_board_member/view/remove_board_member_page.dart';
 
 import 'package:trellis_mobile_app/modules/create_card/binding/create_card_binding.dart';
 import 'package:trellis_mobile_app/modules/create_card/view/create_card_page.dart';
@@ -28,6 +29,7 @@ import 'package:trellis_mobile_app/routes/app_routes.dart';
 
 import '../modules/board/create_board/binding/create_board_binding.dart';
 import '../modules/board/create_board/view/create_board_page.dart';
+import '../modules/board/remove_board_member/binding/remove_board_member_binding.dart';
 import '../modules/board/search_board/binding/search_board_binding.dart';
 import '../modules/board/search_board/view/search_board_page.dart';
 
@@ -137,6 +139,11 @@ class AppPages {
       name: AppRoutes.INVITE_BOARD_MEMBER,
       page: () => InviteBoardMemberPage(),
       binding: InviteBoardMemberBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.REMOVE_BOARD_MEMBER,
+      page: () => RemoveBoardMemberPage(),
+      binding: RemoveBoardMemberBinding(),
     ),
   ];
 }

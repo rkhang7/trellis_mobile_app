@@ -55,10 +55,6 @@ abstract class RestClient {
   Future<MemberResponse> createMemberIntoWorkspace(
       @Body() MemberRequest memberRequest);
 
-  @GET("members")
-  Future<List<MemberDetailResponse>> getListMemberInWorkspace(
-      @Query("workspace") int workspaceId);
-
   @POST("/members/adds")
   Future<List<MemberResponse>> inviteMulti(
       @Body() List<MemberRequest> listMemberRequest);
@@ -67,6 +63,10 @@ abstract class RestClient {
   Future<void> removeMemberFromWorkspace(
       @Path("uid") String uid, @Path("workspaceId") int workspaceId);
 
+  @GET("members")
+  Future<List<MemberDetailResponse>> getListMemberInWorkspace(
+      @Query("workspace") int workspaceId);
+
   @GET("/board-members")
   Future<List<BoardMemberDetailResponse>> getListMemberInBoard(
       @Query("boardId") int boardId);
@@ -74,6 +74,10 @@ abstract class RestClient {
   @POST("/board-members/adds")
   Future<List<BoardMemberResponse>> inviteMultiBoard(
       @Body() List<BoardMemberRequest> listBoardMemberRequest);
+
+  @DELETE("/board-members/{memberId}/{boardId}")
+  Future<void> removeMemberFromBoard(
+      @Path("memberId") String memberId, @Path("boardId") int boardId);
 
   // board
   @POST("/boards")

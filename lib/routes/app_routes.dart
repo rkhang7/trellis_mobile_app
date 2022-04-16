@@ -17,4 +17,5 @@ class AppRoutes {
   static const String REMOVE_MEMBER = "/remove_member";
   static const String BOARD_MENU = "/board_menu";
   static const String INVITE_BOARD_MEMBER = "/invite_board_member";
+  static const String REMOVE_BOARD_MEMBER = "/remove_board_member";
 }

@@ -45,4 +45,9 @@ class MemberRepository {
     final client = RestClient(dio);
     return await client.getListMemberInBoard(boardId);
   }
+
+  Future<void> removeMemberFromBoard(String memberId, int boardId) async {
+    final client = RestClient(dio);
+    return await client.removeMemberFromBoard(memberId, boardId);
+  }
 }

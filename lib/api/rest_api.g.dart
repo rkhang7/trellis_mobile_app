@@ -145,26 +145,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<MemberDetailResponse>> getListMemberInWorkspace(
-      workspaceId) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'workspace': workspaceId};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<MemberDetailResponse>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'members',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) =>
-            MemberDetailResponse.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  @override
   Future<List<MemberResponse>> inviteMulti(listMemberRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -194,6 +174,26 @@ class _RestClient implements RestClient {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
+  }
+
+  @override
+  Future<List<MemberDetailResponse>> getListMemberInWorkspace(
+      workspaceId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'workspace': workspaceId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<MemberDetailResponse>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, 'members',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            MemberDetailResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
   }
 
   @override
@@ -233,6 +233,20 @@ class _RestClient implements RestClient {
             BoardMemberResponse.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
+  }
+
+  @override
+  Future<void> removeMemberFromBoard(memberId, boardId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    await _dio.fetch<void>(_setStreamType<void>(
+        Options(method: 'DELETE', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/board-members/${memberId}/${boardId}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    return null;
   }
 
   @override
