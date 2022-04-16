@@ -55,6 +55,7 @@ class CreateWorkspaceController extends GetxController {
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
+
           // Here's the sample to get the failed response error code and message
           if (EasyLoading.isShow) {
             EasyLoading.dismiss();

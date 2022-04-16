@@ -185,6 +185,9 @@ class Messages extends Translations {
           'admin_permission_explain':
               "Can view, create, edit Workspace boards and change settings for the Workspace",
           'would_you_live_to_leave': 'Would you like to leave this workspace?',
+
+          // board menu page
+          'board_menu': "Board menu"
         },
         'vi_VN': {
           //common
@@ -368,7 +371,10 @@ class Messages extends Translations {
           'admin_permission_explain':
               "Có thể xem, tạo và chỉnh sửa các bảng Không gian làm việc, cũng như thay đổi cài đặt cho Không gian làm viêc",
           'would_you_live_to_leave':
-              "Bạn có muốn rời khỏi Không gian làm việc này?"
+              "Bạn có muốn rời khỏi Không gian làm việc này?",
+
+          // board menu page
+          'board_menu': "Menu bảng"
         }
       };
 }

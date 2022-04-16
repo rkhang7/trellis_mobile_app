@@ -10,7 +10,7 @@ part of 'rest_api.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://10.0.2.2:8080/';
+    baseUrl ??= 'http://192.168.40.82:8080/';
   }
 
   final Dio _dio;
@@ -192,6 +192,25 @@ class _RestClient implements RestClient {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
+  }
+
+  @override
+  Future<List<BoardMemberDetailResponse>> getListMemberInBoard(boardId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'boardId': boardId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<BoardMemberDetailResponse>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/board-members',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            BoardMemberDetailResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
 
 import '../api/rest_api.dart';
+import '../models/member/board_member_detail_response.dart';
 
 class MemberRepository {
   final dio = Dio(); // Provide a dio instance
@@ -29,5 +30,11 @@ class MemberRepository {
   Future<void> removeMemberFromWorkspace(String uid, int workspaceId) async {
     final client = RestClient(dio);
     return await client.removeMemberFromWorkspace(uid, workspaceId);
+  }
+
+  Future<List<BoardMemberDetailResponse>> getListMemberInBoard(
+      int boardId) async {
+    final client = RestClient(dio);
+    return await client.getListMemberInBoard(boardId);
   }
 }

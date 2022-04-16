@@ -15,4 +15,5 @@ class AppRoutes {
   static const String INVITE_MEMBER = "/invite_member";
   static const String UPDATE_WORKSPACE = "/update_workspace";
   static const String REMOVE_MEMBER = "/remove_member";
+  static const String BOARD_MENU = "/board_menu";
 }

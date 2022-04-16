@@ -23,7 +23,7 @@ class DetailBoardPage extends StatelessWidget {
           resizeToAvoidBottomInset: true,
           key: _key,
           backgroundColor: backgroundColor,
-          endDrawer: EndDrawerComponent(),
+          // endDrawer: EndDrawerComponent(),
           appBar: _buildAppBar(),
           body: Obx(() {
             return _buildBody();
@@ -159,7 +159,7 @@ class DetailBoardPage extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      _handleDrawer();
+                      Get.toNamed(AppRoutes.BOARD_MENU);
                     },
                     icon: const Icon(Icons.more_horiz, color: iconColorPrimary),
                   ),
@@ -170,10 +170,6 @@ class DetailBoardPage extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void _handleDrawer() {
-    _key.currentState!.openEndDrawer();
   }
 
   Widget _buildBody() {

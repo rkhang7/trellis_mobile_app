@@ -4,6 +4,7 @@ import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
+import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
@@ -14,7 +15,7 @@ import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 
 part 'rest_api.g.dart';
 
-@RestApi(baseUrl: "http://10.0.2.2:8080/")
+@RestApi(baseUrl: "http://192.168.40.82:8080/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
@@ -61,6 +62,10 @@ abstract class RestClient {
   @DELETE("/members/{uid}/{workspaceId}")
   Future<void> removeMemberFromWorkspace(
       @Path("uid") String uid, @Path("workspaceId") int workspaceId);
+
+  @GET("/board-members")
+  Future<List<BoardMemberDetailResponse>> getListMemberInBoard(
+      @Query("boardId") int boardId);
 
   // board
   @POST("/boards")

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:trellis_mobile_app/modules/board/board_menu/binding/board_menu_binding.dart';
+import 'package:trellis_mobile_app/modules/board/board_menu/view/board_menu_page.dart';
 
 import 'package:trellis_mobile_app/modules/create_card/binding/create_card_binding.dart';
 import 'package:trellis_mobile_app/modules/create_card/view/create_card_page.dart';
@@ -123,6 +125,11 @@ class AppPages {
       name: AppRoutes.REMOVE_MEMBER,
       page: () => RemoveMemberPage(),
       binding: RemoveMemberBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.BOARD_MENU,
+      page: () => BoardMenuPage(),
+      binding: BoardMenuBinding(),
     ),
   ];
 }
