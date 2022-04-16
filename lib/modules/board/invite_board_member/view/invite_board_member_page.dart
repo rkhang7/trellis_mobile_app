@@ -1,20 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:trellis_mobile_app/models/user/user_response.dart';
+import 'package:trellis_mobile_app/modules/board/invite_board_member/controller/invite_board_member_controller.dart';
+import 'package:trellis_mobile_app/repository/user_repository.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 
-import '../controller/invite_member_controller.dart';
+import '../../../../models/user/user_response.dart';
 
-class InviteMemberPage extends StatelessWidget {
-  InviteMemberPage({Key? key}) : super(key: key);
-  final inviteMemberController = Get.find<InviteMemberController>();
-  final currentUser = FirebaseAuth.instance.currentUser;
+class InviteBoardMemberPage extends StatelessWidget {
+  InviteBoardMemberPage({Key? key}) : super(key: key);
+  final inviteBoardMemberController = Get.find<InviteBoardMemberController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +31,9 @@ class InviteMemberPage extends StatelessWidget {
                   text: TextSpan(
                     style: TextStyle(color: Colors.black, fontSize: 64.sp),
                     children: [
-                      TextSpan(text: "${"add_user_to_workspace".tr}: "),
+                      TextSpan(text: "${"add_user_to_board".tr}: "),
                       TextSpan(
-                          text: inviteMemberController.currentWorkspace!.name,
+                          text: inviteBoardMemberController.currentBoard!.name,
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
@@ -48,7 +48,7 @@ class InviteMemberPage extends StatelessWidget {
                       shrinkWrap: true,
                       itemBuilder: (_, index) {
                         UserResponse userResponse =
-                            inviteMemberController.litsInviteMember[index];
+                            inviteBoardMemberController.litsInviteMember[index];
                         return Column(
                           children: [
                             Align(
@@ -75,7 +75,8 @@ class InviteMemberPage extends StatelessWidget {
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        inviteMemberController.litsInviteMember
+                                        inviteBoardMemberController
+                                            .litsInviteMember
                                             .removeAt(index);
                                       },
                                       icon: const Icon(
@@ -93,7 +94,8 @@ class InviteMemberPage extends StatelessWidget {
                           ],
                         );
                       },
-                      itemCount: inviteMemberController.litsInviteMember.length,
+                      itemCount:
+                          inviteBoardMemberController.litsInviteMember.length,
                     ),
                   );
                 }),
@@ -111,12 +113,13 @@ class InviteMemberPage extends StatelessWidget {
                     ),
                   ),
                   suggestionsCallback: (pattern) async {
-                    return await inviteMemberController.userRepository
+                    return await inviteBoardMemberController.userRepository
                         .searchUserInWorkspace(
-                            pattern,
-                            inviteMemberController.dashboardController
-                                .workspaceSelected.value.workspace_id,
-                            -1);
+                      pattern,
+                      -1,
+                      inviteBoardMemberController
+                          .dashboardController.boardIdSelected,
+                    );
                   },
                   itemBuilder: (context, userResponse) {
                     return ListTile(
@@ -138,9 +141,10 @@ class InviteMemberPage extends StatelessWidget {
                     );
                   },
                   onSuggestionSelected: (suggestion) {
-                    if (!inviteMemberController
+                    if (!inviteBoardMemberController
                         .isDuplicateLitsInviteMember(suggestion.uid)) {
-                      inviteMemberController.litsInviteMember.add(suggestion);
+                      inviteBoardMemberController.litsInviteMember
+                          .add(suggestion);
                     } else {
                       EasyLoading.showInfo("you_have_selected_this_user".tr);
                     }
@@ -180,12 +184,12 @@ class InviteMemberPage extends StatelessWidget {
   }
 
   Widget _buildActions() {
-    return inviteMemberController.litsInviteMember.isEmpty
+    return inviteBoardMemberController.litsInviteMember.isEmpty
         ? Container()
         : Center(
             child: GestureDetector(
               onTap: () {
-                inviteMemberController.inviteMulti();
+                inviteBoardMemberController.inviteMulti();
               },
               child: Text(
                 "${"add".tr}  ",

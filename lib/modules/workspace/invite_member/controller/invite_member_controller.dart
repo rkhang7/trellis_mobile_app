@@ -46,8 +46,8 @@ class InviteMemberController extends GetxController {
 
   void searchUserByEmail(String keyword) {
     userRepository
-        .searchUserInWorkspace(
-            keyword, dashboardController.workspaceSelected.value.workspace_id)
+        .searchUserInWorkspace(keyword,
+            dashboardController.workspaceSelected.value.workspace_id, -1)
         .then(
       (value) {
         listUserBySearch.assignAll(value);

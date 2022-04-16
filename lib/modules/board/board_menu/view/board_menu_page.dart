@@ -122,7 +122,7 @@ class BoardMenuPage extends StatelessWidget {
               child: ElevatedButton(
                 style: ButtonStyle(),
                 onPressed: () async {
-                  await Get.toNamed(AppRoutes.INVITE_MEMBER);
+                  await Get.toNamed(AppRoutes.INVITE_BOARD_MEMBER);
                 },
                 child: Text(
                   "invite".tr,

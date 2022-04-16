@@ -82,7 +82,7 @@ class CreateBoardController extends GetxController {
     var boardRequest = BoardRequest(
         name: boardName,
         description: "",
-        closed: true,
+        closed: false,
         visibility: selectType.value,
         workspaceId: selectedWorkspaceId.value,
         createdBy: dashBoardController.currentId);

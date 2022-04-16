@@ -17,8 +17,8 @@ class UserRepository {
   }
 
   Future<List<UserResponse>> searchUserInWorkspace(
-      String keyword, int workspace) async {
+      String keyword, int workspace, int boardId) async {
     final client = RestClient(dio);
-    return await client.searchUserInWorkspace(keyword, workspace);
+    return await client.searchUserInWorkspace(keyword, workspace, boardId);
   }
 }

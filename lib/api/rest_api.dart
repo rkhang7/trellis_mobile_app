@@ -5,6 +5,8 @@ import 'package:trellis_mobile_app/models/board/board_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
+import 'package:trellis_mobile_app/models/member/board_member_request.dart';
+import 'package:trellis_mobile_app/models/member/board_member_response.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
@@ -31,7 +33,9 @@ abstract class RestClient {
 
   @GET("/users/search")
   Future<List<UserResponse>> searchUserInWorkspace(
-      @Query("keyword") String keyword, @Query("workspace") int workspace);
+      @Query("keyword") String keyword,
+      @Query("workspace") int workspace,
+      @Query("board") int boardId);
 
   // workspace
   @POST("/workspaces")
@@ -67,6 +71,10 @@ abstract class RestClient {
   Future<List<BoardMemberDetailResponse>> getListMemberInBoard(
       @Query("boardId") int boardId);
 
+  @POST("/board-members/adds")
+  Future<List<BoardMemberResponse>> inviteMultiBoard(
+      @Body() List<BoardMemberRequest> listBoardMemberRequest);
+
   // board
   @POST("/boards")
   Future<BoardResponse> createBoard(@Body() BoardRequest boardRequest);
@@ -74,6 +82,9 @@ abstract class RestClient {
   @GET("/boards/workspace/{workspaceId}/user/{uid}")
   Future<List<BoardResponse>> getListBoardsInWorkspace(
       @Path("workspaceId") int workspaceId, @Path("uid") String uid);
+
+  @GET("/boards/{boardId}")
+  Future<BoardResponse> getBoardById(@Path("boardId") int boardId);
 
   // list
   @POST("/board-list")

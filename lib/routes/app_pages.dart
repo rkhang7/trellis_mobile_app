@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:trellis_mobile_app/modules/board/board_menu/binding/board_menu_binding.dart';
 import 'package:trellis_mobile_app/modules/board/board_menu/view/board_menu_page.dart';
+import 'package:trellis_mobile_app/modules/board/invite_board_member/binding/invite_board_member_binding.dart';
+import 'package:trellis_mobile_app/modules/board/invite_board_member/view/invite_board_member_page.dart';
 
 import 'package:trellis_mobile_app/modules/create_card/binding/create_card_binding.dart';
 import 'package:trellis_mobile_app/modules/create_card/view/create_card_page.dart';
@@ -130,6 +132,11 @@ class AppPages {
       name: AppRoutes.BOARD_MENU,
       page: () => BoardMenuPage(),
       binding: BoardMenuBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.INVITE_BOARD_MEMBER,
+      page: () => InviteBoardMemberPage(),
+      binding: InviteBoardMemberBinding(),
     ),
   ];
 }

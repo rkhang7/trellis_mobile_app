@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:trellis_mobile_app/models/member/board_member_request.dart';
+import 'package:trellis_mobile_app/models/member/board_member_response.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
@@ -25,6 +27,12 @@ class MemberRepository {
       List<MemberRequest> listMemberRequest) async {
     final client = RestClient(dio);
     return await client.inviteMulti(listMemberRequest);
+  }
+
+  Future<List<BoardMemberResponse>> inviteMultiBoard(
+      List<BoardMemberRequest> listBoardMemberRequest) async {
+    final client = RestClient(dio);
+    return await client.inviteMultiBoard(listBoardMemberRequest);
   }
 
   Future<void> removeMemberFromWorkspace(String uid, int workspaceId) async {

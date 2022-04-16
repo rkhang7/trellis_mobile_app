@@ -51,11 +51,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<UserResponse>> searchUserInWorkspace(keyword, workspace) async {
+  Future<List<UserResponse>> searchUserInWorkspace(
+      keyword, workspace, boardId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'keyword': keyword,
-      r'workspace': workspace
+      r'workspace': workspace,
+      r'board': boardId
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -214,6 +216,26 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<List<BoardMemberResponse>> inviteMultiBoard(
+      listBoardMemberRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = listBoardMemberRequest.map((e) => e.toJson()).toList();
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<BoardMemberResponse>>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/board-members/adds',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) =>
+            BoardMemberResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<BoardResponse> createBoard(boardRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -246,6 +268,22 @@ class _RestClient implements RestClient {
     var value = _result.data!
         .map((dynamic i) => BoardResponse.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<BoardResponse> getBoardById(boardId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BoardResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/boards/${boardId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BoardResponse.fromJson(_result.data!);
     return value;
   }
 
