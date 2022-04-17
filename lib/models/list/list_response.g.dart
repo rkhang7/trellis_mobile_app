@@ -14,6 +14,9 @@ ListResponse _$ListResponseFromJson(Map<String, dynamic> json) => ListResponse(
       created_time: json['created_time'] as int,
       updated_time: json['updated_time'] as int,
       created_by: json['created_by'] as String,
+      cards: (json['cards'] as List<dynamic>)
+          .map((e) => CardResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ListResponseToJson(ListResponse instance) =>
@@ -25,4 +28,5 @@ Map<String, dynamic> _$ListResponseToJson(ListResponse instance) =>
       'created_time': instance.created_time,
       'updated_time': instance.updated_time,
       'created_by': instance.created_by,
+      'cards': instance.cards,
     };

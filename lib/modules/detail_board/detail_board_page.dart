@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/components/end_drawer_component.dart';
+import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
@@ -202,11 +203,9 @@ class DetailBoardPage extends StatelessWidget {
                       Obx(
                         () => _buildTitle(list.name, index),
                       ),
-
                       Expanded(
-                          child: Container(
-                        height: 200,
-                      )), // _buildListCard(list.listCard, list.name, index)),
+                        child: _buildListCard(list.cards, list.name, index),
+                      ),
                       Obx(
                         () => _buildAddCard(index),
                       ),
@@ -362,47 +361,48 @@ class DetailBoardPage extends StatelessWidget {
           );
   }
 
-  // Widget _buildListCard(List<CardModel> listCard, String nameList, int index) {
-  //   return ReorderableListView.builder(
-  //     padding: EdgeInsets.all(16.h),
-  //     scrollController: detailBoardController.listCardScrollController[index],
-  //     shrinkWrap: true,
-  //     onReorder: (oldIndex, newIndex) {
-  //       swapCards(listCard, oldIndex, newIndex);
-  //     },
-  //     itemBuilder: (context, index) {
-  //       CardModel cardModel = listCard[index];
-  //       return _buildCard(cardModel);
-  //     },
-  //     itemCount: listCard.length,
-  //   );
-  // }
+  Widget _buildListCard(
+      List<CardResponse> listCard, String nameList, int index) {
+    return ReorderableListView.builder(
+      padding: EdgeInsets.all(16.h),
+      scrollController: detailBoardController.listCardScrollController[index],
+      shrinkWrap: true,
+      onReorder: (oldIndex, newIndex) {
+        // swapCards(listCard, oldIndex, newIndex);
+      },
+      itemBuilder: (context, index) {
+        CardResponse cardModel = listCard[index];
+        return _buildCard(cardModel);
+      },
+      itemCount: listCard.length,
+    );
+  }
 
-  // Container _buildCard(CardModel cardModel) {
-  //   return Container(
-  //     key: ValueKey(cardModel),
-  //     margin: EdgeInsets.all(8.w),
-  //     padding: EdgeInsets.all(24.w),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(4),
-  //       boxShadow: const [
-  //         BoxShadow(
-  //             blurRadius: 8,
-  //             offset: Offset(0, 0),
-  //             color: Color.fromRGBO(127, 140, 141, 0.5),
-  //             spreadRadius: 2)
-  //       ],
-  //     ),
-  //     child: Text(
-  //       cardModel.name,
-  //       overflow: TextOverflow.clip,
-  //       style: TextStyle(
-  //         fontSize: 60.sp,
-  //       ),
-  //     ),
-  //   );
-  // }
+  Container _buildCard(CardResponse cardModel) {
+    return Container(
+      key: ValueKey(cardModel),
+      margin: EdgeInsets.all(8.w),
+      padding: EdgeInsets.all(24.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4),
+        boxShadow: const [
+          BoxShadow(
+              blurRadius: 8,
+              offset: Offset(0, 0),
+              color: Color.fromRGBO(127, 140, 141, 0.5),
+              spreadRadius: 2)
+        ],
+      ),
+      child: Text(
+        cardModel.name,
+        overflow: TextOverflow.clip,
+        style: TextStyle(
+          fontSize: 60.sp,
+        ),
+      ),
+    );
+  }
 
   // void swapCards(List<CardModel> listCard, int oldIndex, int newIndex) {
   //   if (oldIndex < newIndex) {

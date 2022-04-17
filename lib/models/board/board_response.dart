@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:trellis_mobile_app/models/card/card_response.dart';
 part 'board_response.g.dart';
 
 @JsonSerializable()
