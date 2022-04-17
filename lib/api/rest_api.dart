@@ -2,6 +2,8 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
+import 'package:trellis_mobile_app/models/card/card_request.dart';
+import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
@@ -17,7 +19,7 @@ import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 
 part 'rest_api.g.dart';
 
-@RestApi(baseUrl: "http://192.168.1.3:8080/")
+@RestApi(baseUrl: "http://10.0.2.2:8080/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
@@ -104,4 +106,8 @@ abstract class RestClient {
   @PUT("/board-list/{listId}")
   Future<ListResponse> updateList(
       @Path("listId") int listId, @Body() ListRequest listRequest);
+
+  // card
+  @POST("/cards")
+  Future<CardResponse> createCard(@Body() CardRequest cardRequest);
 }

@@ -51,15 +51,17 @@ class DetailBoardController extends GetxController {
   void initData() async {
     await listRepository
         .getListsInBoard(dashBoardController.boardIdSelected)
-        .then((value) {
-      lists.assignAll(value);
+        .then(
+      (value) {
+        lists.assignAll(value);
 
-      initListController();
-      initListEditing();
-      initListNameCardController();
-      initListNameCardAdding();
-      initListCardScrollController();
-    });
+        initListController();
+        initListEditing();
+        initListNameCardController();
+        initListNameCardAdding();
+        initListCardScrollController();
+      },
+    );
   }
 
   void initListController() {
@@ -178,5 +180,13 @@ class DetailBoardController extends GetxController {
           break;
       }
     });
+  }
+
+  ListResponse findListById(int id) {
+    return lists.firstWhere((element) => element.list_id == id);
+  }
+
+  int findIndexListById(int id) {
+    return lists.indexWhere((element) => element.list_id == id);
   }
 }

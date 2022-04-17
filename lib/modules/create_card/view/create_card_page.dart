@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CreateCardPage extends StatelessWidget {
   CreateCardPage({Key? key}) : super(key: key);
   final createCardController = Get.find<CreateCardController>();
+  var listId = Get.parameters["listId"];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,19 +22,19 @@ class CreateCardPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("board".tr),
-                      _buildDropdownBoard(),
-                      30.height,
-                      Text("list".tr),
-                      _buildDropdownList(),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(16),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Text("board".tr),
+                //       _buildDropdownBoard(),
+                //       30.height,
+                //       Text("list".tr),
+                //       _buildDropdownList(),
+                //     ],
+                //   ),
+                // ),
                 Container(
                   height: Get.height / 2.5,
                   width: Get.width,
@@ -51,12 +52,20 @@ class CreateCardPage extends StatelessWidget {
                         child: Column(
                           children: [
                             InputFieldCreate(
-                              onChange: (value) {},
+                              onChange: (value) {
+                                if (value.isEmpty) {
+                                  createCardController.cardNameIsEmpty.value =
+                                      true;
+                                } else {
+                                  createCardController.cardNameIsEmpty.value =
+                                      false;
+                                }
+                              },
                               title: "card_name".tr,
                               controller:
                                   createCardController.cardNameController,
                               autoFocus: false,
-                              primaryColor: Colors.grey,
+                              primaryColor: Colors.green,
                             ),
                             InputFieldCreate(
                                 onChange: (value) {},
@@ -64,7 +73,7 @@ class CreateCardPage extends StatelessWidget {
                                 controller:
                                     createCardController.descriptionController,
                                 autoFocus: false,
-                                primaryColor: Colors.grey),
+                                primaryColor: Colors.green),
                             10.height,
                             Row(
                               children: [
@@ -110,113 +119,25 @@ class CreateCardPage extends StatelessWidget {
           size: 18,
         ),
       ),
-      actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.check))],
-    );
-  }
-
-  _buildDropdownBoard() {
-    return DropdownButton(
-      underline: Container(
-        height: 1,
-        color: Colors.black,
-      ),
-      isExpanded: true,
-      hint: const Text(
-        "Test",
-        style: TextStyle(color: Colors.black),
-      ),
-      onChanged: (dynamic value) {},
-      items: [
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 1"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 2"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 3"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
+      actions: [
+        Obx(() => _buildAction()),
       ],
     );
   }
 
-  _buildDropdownList() {
-    return DropdownButton(
-      underline: Container(
-        height: 1,
-        color: Colors.black,
+  Widget _buildAction() {
+    return IconButton(
+      onPressed: () {
+        createCardController.cardNameIsEmpty.isTrue
+            ? null
+            : createCardController.createCard(int.parse(listId!));
+      },
+      icon: Icon(
+        Icons.check,
+        color: createCardController.cardNameIsEmpty.isTrue
+            ? Colors.grey
+            : Colors.white,
       ),
-      isExpanded: true,
-      hint: const Text(
-        "Login",
-        style: TextStyle(color: Colors.black),
-      ),
-      onChanged: (dynamic value) {},
-      items: [
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 1"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 2"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-        DropdownMenuItem(
-            child: ListTile(
-              leading: const Icon(
-                Icons.group_outlined,
-                color: Colors.black,
-              ),
-              title: const Text("Nhóm 3"),
-              onTap: () {
-                Get.back();
-              },
-            ),
-            value: '1'),
-      ],
     );
   }
 
@@ -465,6 +386,7 @@ class CreateCardPage extends StatelessWidget {
                 ),
                 onTap: () {
                   createCardController.startTimePicker.value = "09:00";
+                  createCardController.startDateTime.hour = 9;
                   Get.back();
                 },
               ),
@@ -477,6 +399,7 @@ class CreateCardPage extends StatelessWidget {
                 ),
                 onTap: () {
                   createCardController.startTimePicker.value = "13:00";
+                  createCardController.startDateTime.hour = 13;
                   Get.back();
                 },
               ),
@@ -489,6 +412,7 @@ class CreateCardPage extends StatelessWidget {
                 ),
                 onTap: () {
                   createCardController.startTimePicker.value = "17:00";
+                  createCardController.startDateTime.hour = 17;
                   Get.back();
                 },
               ),
@@ -501,6 +425,7 @@ class CreateCardPage extends StatelessWidget {
                 ),
                 onTap: () {
                   createCardController.startTimePicker.value = "20:00";
+                  createCardController.startDateTime.hour = 20;
                   Get.back();
                 },
               ),
@@ -603,6 +528,8 @@ class CreateCardPage extends StatelessWidget {
                 ),
                 onTap: () {
                   createCardController.endTimePicker.value = "09:00";
+                  createCardController.endDateTime.hour = 9;
+
                   Get.back();
                 },
               ),
@@ -615,6 +542,8 @@ class CreateCardPage extends StatelessWidget {
                 ),
                 onTap: () {
                   createCardController.endTimePicker.value = "13:00";
+                  createCardController.endDateTime.hour = 13;
+
                   Get.back();
                 },
               ),
@@ -627,6 +556,7 @@ class CreateCardPage extends StatelessWidget {
                 ),
                 onTap: () {
                   createCardController.endTimePicker.value = "17:00";
+                  createCardController.endDateTime.hour = 17;
                   Get.back();
                 },
               ),
@@ -639,6 +569,7 @@ class CreateCardPage extends StatelessWidget {
                 ),
                 onTap: () {
                   createCardController.endTimePicker.value = "20:00";
+                  createCardController.endDateTime.hour = 20;
                   Get.back();
                 },
               ),
@@ -804,6 +735,8 @@ class CreateCardPage extends StatelessWidget {
           value.minute < 10 ? "0${value.minute}" : value.minute.toString();
 
       createCardController.startTimePicker.value = "$hour:$minute";
+      createCardController.startDateTime.hour = value.hour;
+      createCardController.startDateTime.minute = value.minute;
     });
     Get.back();
   }
@@ -818,6 +751,8 @@ class CreateCardPage extends StatelessWidget {
           value.minute < 10 ? "0${value.minute}" : value.minute.toString();
 
       createCardController.endTimePicker.value = "$hour:$minute";
+      createCardController.endDateTime.hour = value.hour;
+      createCardController.endDateTime.minute = value.minute;
     });
     Get.back();
   }

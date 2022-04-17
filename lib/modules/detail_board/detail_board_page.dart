@@ -206,9 +206,7 @@ class DetailBoardPage extends StatelessWidget {
                       Expanded(
                         child: _buildListCard(list.cards, list.name, index),
                       ),
-                      Obx(
-                        () => _buildAddCard(index),
-                      ),
+                      _buildAddCard(index),
                     ],
                   ),
                 ),
@@ -298,67 +296,40 @@ class DetailBoardPage extends StatelessWidget {
   }
 
   Widget _buildAddCard(int index) {
-    var addingCard = detailBoardController.listNameCardAdding[index];
-    return addingCard
-        ? Padding(
-            padding: EdgeInsets.only(left: 24.w),
-            child: TextFormField(
-              maxLines: null,
-              autofocus: true,
-              controller: detailBoardController.listNameCardController[index],
-              decoration: InputDecoration(
-                hintText: "card_name".tr,
-                contentPadding: const EdgeInsets.all(0),
-                enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green, width: 2),
-                ),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green, width: 2),
-                ),
-              ),
-              cursorColor: Colors.green,
-              cursorHeight: 25,
-              onChanged: (value) {
-                if (value.trim().isEmpty) {
-                  detailBoardController.nameCardIsEmpty.value = true;
-                } else {
-                  detailBoardController.nameCardIsEmpty.value = false;
-                }
-              },
-            ),
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: () {
-                  // scroll to last position
-                  // detailBoardController.listCardScrollController[index].jumpTo(
-                  //     detailBoardController.listCardScrollController[index]
-                  //         .position.maxScrollExtent);
-                  detailBoardController.listCardScrollController[index]
-                      .animateTo(
-                    detailBoardController.listCardScrollController[index]
-                        .position.maxScrollExtent,
-                    curve: Curves.easeOut,
-                    duration: const Duration(milliseconds: 500),
-                  );
-                  detailBoardController.listNameCardAdding[index] = true;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TextButton(
+          onPressed: () {
+            // // scroll to last position
+            // // detailBoardController.listCardScrollController[index].jumpTo(
+            // //     detailBoardController.listCardScrollController[index]
+            // //         .position.maxScrollExtent);
+            // detailBoardController.listCardScrollController[index].animateTo(
+            //   detailBoardController
+            //       .listCardScrollController[index].position.maxScrollExtent,
+            //   curve: Curves.easeOut,
+            //   duration: const Duration(milliseconds: 500),
+            // );
+            // detailBoardController.listNameCardAdding[index] = true;
 
-                  // change appBar
-                  detailBoardController.nameCardAdding.value = true;
-                },
-                child: Text(
-                  "+ ${"add_card".tr}",
-                  style: const TextStyle(color: Colors.green),
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.image_outlined),
-              ),
-            ],
-          );
+            // // change appBar
+            // detailBoardController.nameCardAdding.value = true;
+            Get.toNamed(AppRoutes.CREATE_CARD, parameters: {
+              "listId": detailBoardController.lists[index].list_id.toString()
+            });
+          },
+          child: Text(
+            "+ ${"add_card".tr}",
+            style: const TextStyle(color: Colors.green),
+          ),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.image_outlined),
+        ),
+      ],
+    );
   }
 
   Widget _buildListCard(

@@ -150,17 +150,17 @@ class DashBoardPage extends StatelessWidget {
             onTap: () {
               Get.toNamed(AppRoutes.CREATE_BOARD);
             }),
-        SpeedDialChild(
-          label: "card".tr,
-          child: const Icon(
-            Icons.laptop,
-            color: iconColorPrimary,
-          ),
-          backgroundColor: buttonColor,
-          onTap: () {
-            Get.toNamed(AppRoutes.CREATE_CARD);
-          },
-        ),
+        // SpeedDialChild(
+        //   label: "card".tr,
+        //   child: const Icon(
+        //     Icons.laptop,
+        //     color: iconColorPrimary,
+        //   ),
+        //   backgroundColor: buttonColor,
+        //   onTap: () {
+        //     Get.toNamed(AppRoutes.CREATE_CARD);
+        //   },
+        // ),
       ],
     );
   }
