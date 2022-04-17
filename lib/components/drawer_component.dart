@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/user/user_response.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
-import 'package:trellis_mobile_app/modules/dashboard/controller/dashboard_controller.dart';
+import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 
 import 'package:trellis_mobile_app/repository/user_repository.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';

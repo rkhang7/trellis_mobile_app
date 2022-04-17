@@ -3,7 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:trellis_mobile_app/modules/walk_through/controller/walk_through_controller.dart';
+import 'package:trellis_mobile_app/modules/walk_through/walk_through_controller.dart';
 import 'package:trellis_mobile_app/modules/walk_through/view/widget.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/service/language_service.dart';

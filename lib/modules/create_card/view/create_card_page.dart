@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:trellis_mobile_app/modules/create_card/controller/create_card_controller.dart';
+import 'package:trellis_mobile_app/modules/create_card/create_card_controller.dart';
 import 'package:trellis_mobile_app/modules/create_card/view/components/attach_item.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 import 'package:trellis_mobile_app/utils/widget/input_field_create.dart';
