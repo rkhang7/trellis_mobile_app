@@ -10,7 +10,7 @@ part of 'rest_api.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://192.168.40.82:8080/';
+    baseUrl ??= 'http://192.168.1.3:8080/';
   }
 
   final Dio _dio;
@@ -294,6 +294,23 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BoardResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/boards/${boardId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BoardResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BoardResponse> updateBoard(boardId, boardRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(boardRequest.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BoardResponse>(
+            Options(method: 'PUT', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/boards/${boardId}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));

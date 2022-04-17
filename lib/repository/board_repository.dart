@@ -22,4 +22,10 @@ class BoardRepository {
     final client = RestClient(dio);
     return await client.getBoardById(boardId);
   }
+
+  Future<BoardResponse> updateBoard(
+      int boardId, BoardRequest boardRequest) async {
+    final client = RestClient(dio);
+    return await client.updateBoard(boardId, boardRequest);
+  }
 }

@@ -55,9 +55,7 @@ class DashBoardPage extends StatelessWidget {
   }
 
   Widget _buildListBoards() {
-    // final workspaceId =
-    //     dashBoardController.workspaceSelected.value.workspace_id;
-    // dashBoardController.loadListBoards(1);
+    dashBoardController.listBoards;
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,

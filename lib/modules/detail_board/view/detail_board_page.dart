@@ -11,7 +11,7 @@ import '../controller/detail_board_controller.dart';
 
 class DetailBoardPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  final name = Get.parameters['name'];
+
   final detailBoardController = Get.find<DetailBoardController>();
 
   DetailBoardPage({Key? key}) : super(key: key);
@@ -93,7 +93,7 @@ class DetailBoardPage extends StatelessWidget {
           );
         } else {
           return Text(
-            name!,
+            detailBoardController.name.toString(),
             style: boldTextStyle(size: 18, color: Colors.white),
           );
         }

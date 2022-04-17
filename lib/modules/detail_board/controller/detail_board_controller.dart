@@ -30,6 +30,10 @@ class DetailBoardController extends GetxController {
   var nameListAdding = false.obs;
   var nameListAddingController = TextEditingController();
 
+  var nameList = ''.obs;
+
+  final name = Get.parameters['name'].obs;
+
   @override
   void onInit() {
     initData();

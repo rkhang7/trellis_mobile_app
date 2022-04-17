@@ -68,6 +68,5 @@ class UpdateWorkspaceController extends GetxController {
           break;
       }
     });
-    ;
   }
 }

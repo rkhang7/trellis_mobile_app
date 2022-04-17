@@ -67,4 +67,8 @@ class DashBoardController extends GetxController {
       listBoards.assignAll(value);
     });
   }
+
+  int findIndexBoardById(int boardId) {
+    return listBoards.indexWhere((element) => element.board_id == boardId);
+  }
 }
