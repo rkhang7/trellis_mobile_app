@@ -123,6 +123,8 @@ class Messages extends Translations {
           'camera': "Camera",
           'file': 'File',
           'attach_link': "Attach a link",
+          'the_due_date_must_be_before_the_start_date':
+              'The due date must be before the start date',
 
           // settings page
           'settings': 'Settings',
@@ -314,6 +316,8 @@ class Messages extends Translations {
           'camera': "Chụp ảnh",
           'file': 'Tệp',
           'attach_link': "Đính kèm liên kết",
+          'the_due_date_must_be_before_the_start_date':
+              "Ngày hết bạn phải trước ngày bắt đầu",
 
           // settings page
           'settings': 'Cài đặt',

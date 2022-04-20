@@ -168,6 +168,11 @@ class CreateCardPage extends StatelessWidget {
               cancel: GestureDetector(
                 onTap: () {
                   Get.back();
+                  createCardController.startDatePicker.value =
+                      DateTime.now().add(const Duration(days: 1));
+                  createCardController.startTimePicker.value = "9:00";
+                  createCardController.startDateTime.hour = 9;
+                  createCardController.startDateTime.minute = 0;
                 },
                 child: Container(
                   margin: const EdgeInsets.only(left: 100, right: 20),
@@ -183,7 +188,9 @@ class CreateCardPage extends StatelessWidget {
                 ),
               ),
               confirm: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.back();
+                },
                 child: Text(
                   "done".tr,
                   style: const TextStyle(
@@ -264,6 +271,11 @@ class CreateCardPage extends StatelessWidget {
               cancel: GestureDetector(
                 onTap: () {
                   Get.back();
+                  createCardController.endDatePicker.value =
+                      DateTime.now().add(const Duration(days: 2));
+                  createCardController.endTimePicker.value = "9:00";
+                  createCardController.endDateTime.hour = 9;
+                  createCardController.endDateTime.minute = 0;
                 },
                 child: Container(
                   margin: const EdgeInsets.only(left: 100, right: 20),
@@ -279,7 +291,9 @@ class CreateCardPage extends StatelessWidget {
                 ),
               ),
               confirm: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.back();
+                },
                 child: Text(
                   "done".tr,
                   style: const TextStyle(

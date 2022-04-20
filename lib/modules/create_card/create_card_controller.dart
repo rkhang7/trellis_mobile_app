@@ -24,18 +24,18 @@ class CreateCardController extends GetxController {
   var descriptionController = TextEditingController();
   var startDatePicker = DateTime.now().add(const Duration(days: 1)).obs;
   var startTimePicker = "09:00".obs;
-  var endDatePicker = DateTime.now().add(const Duration(days: 1)).obs;
+  var endDatePicker = DateTime.now().add(const Duration(days: 2)).obs;
   var endTimePicker = "09:00".obs;
 
   var startDateTime =
-      MyDateTime(year: -1, month: -1, day: -1, hour: -1, minute: 0);
+      MyDateTime(year: -1, month: -1, day: -1, hour: 9, minute: 0);
 
   var endDateTime =
-      MyDateTime(year: -1, month: -1, day: -1, hour: -1, minute: 0);
+      MyDateTime(year: -1, month: -1, day: -1, hour: 9, minute: 0);
 
   @override
   void onInit() {
-    initDateTime();
+    updateDateTime();
     super.onInit();
   }
 
@@ -48,14 +48,20 @@ class CreateCardController extends GetxController {
   }
 
   void createCard(int listId) {
+    updateDateTime();
     var startDate = DateTime(startDateTime.year, startDateTime.month,
         startDateTime.day, startDateTime.hour, startDateTime.minute, 0, 0);
 
     var endDate = DateTime(endDateTime.year, endDateTime.month, endDateTime.day,
         endDateTime.hour, endDateTime.minute, 0, 0);
 
+    if (endDate.toUtc().millisecondsSinceEpoch <=
+        startDate.toUtc().millisecondsSinceEpoch) {
+      EasyLoading.showError("the_due_date_must_be_before_the_start_date".tr);
+      return;
+    }
     int lengthListCard =
-        detailBoardController.findListById(listId).cards!.length;
+        detailBoardController.findListById(listId).cards.length;
     EasyLoading.show(status: "please_wait".tr);
     String cardName = cardNameController.text;
     String description = descriptionController.text;
@@ -78,7 +84,7 @@ class CreateCardController extends GetxController {
 
       detailBoardController
           .lists[detailBoardController.findIndexListById(listId)].cards
-          ?.add(value);
+          .add(value);
 
       detailBoardController.lists.refresh();
 
@@ -100,7 +106,7 @@ class CreateCardController extends GetxController {
     });
   }
 
-  void initDateTime() {
+  void updateDateTime() {
     startDateTime.year = startDatePicker.value.year;
     startDateTime.month = startDatePicker.value.month;
     startDateTime.day = startDatePicker.value.day;
