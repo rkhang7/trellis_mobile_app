@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
@@ -188,5 +190,25 @@ class DetailBoardController extends GetxController {
 
   int findIndexListById(int id) {
     return lists.indexWhere((element) => element.list_id == id);
+  }
+
+  DateTime convertTimestampToDate(int timestamp) {
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    return date;
+  }
+
+  String getDateShowUI(CardResponse card) {
+    String s = "";
+
+    if (Get.locale.toString() == "vi_VN") {
+      var start = DateFormat('dd/MM, HH:mm')
+          .format(convertTimestampToDate(card.start_date));
+
+      var end = DateFormat('dd/MM, HH:mm')
+          .format(convertTimestampToDate(card.due_date));
+      s = "$start  -  $end";
+    }
+
+    return s;
   }
 }

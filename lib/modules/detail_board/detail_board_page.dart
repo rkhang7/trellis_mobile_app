@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/components/end_drawer_component.dart';
@@ -365,12 +366,29 @@ class DetailBoardPage extends StatelessWidget {
               spreadRadius: 2)
         ],
       ),
-      child: Text(
-        cardModel.name,
-        overflow: TextOverflow.clip,
-        style: TextStyle(
-          fontSize: 60.sp,
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            cardModel.name,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              fontSize: 60.sp,
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            children: [
+              const Icon(Icons.access_time),
+              SizedBox(
+                width: 30.w,
+              ),
+              Text(detailBoardController.getDateShowUI(cardModel)),
+            ],
+          ),
+        ],
       ),
     );
   }
