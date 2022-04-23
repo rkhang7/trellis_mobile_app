@@ -26,6 +26,7 @@ class CreateCardController extends GetxController {
   var startTimePicker = "09:00".obs;
   var endDatePicker = DateTime.now().add(const Duration(days: 2)).obs;
   var endTimePicker = "09:00".obs;
+  var reminderCode = 0.obs;
 
   var startDateTime =
       MyDateTime(year: -1, month: -1, day: -1, hour: 9, minute: 0);
@@ -55,6 +56,38 @@ class CreateCardController extends GetxController {
     var endDate = DateTime(endDateTime.year, endDateTime.month, endDateTime.day,
         endDateTime.hour, endDateTime.minute, 0, 0);
 
+    var reminderDate = DateTime.now();
+
+    switch (reminderCode.value) {
+      case 0:
+        reminderDate = DateTime.now();
+        break;
+      case 1:
+        reminderDate = endDate.subtract(const Duration(minutes: 5));
+        break;
+      case 2:
+        reminderDate = endDate.subtract(const Duration(minutes: 10));
+        break;
+      case 3:
+        reminderDate = endDate.subtract(const Duration(minutes: 15));
+        break;
+      case 4:
+        reminderDate = endDate.subtract(const Duration(hours: 1));
+        break;
+      case 5:
+        reminderDate = endDate.subtract(const Duration(hours: 2));
+        break;
+      case 6:
+        reminderDate = endDate.subtract(const Duration(days: 1));
+        break;
+      case 7:
+        reminderDate = endDate.subtract(const Duration(days: 2));
+        break;
+      default:
+        reminderDate = DateTime.now();
+        break;
+    }
+
     if (endDate.toUtc().millisecondsSinceEpoch <=
         startDate.toUtc().millisecondsSinceEpoch) {
       EasyLoading.showError("the_due_date_must_be_before_the_start_date".tr);
@@ -71,6 +104,7 @@ class CreateCardController extends GetxController {
       position: lengthListCard,
       startDate: startDate.toUtc().millisecondsSinceEpoch,
       dueDate: endDate.toUtc().millisecondsSinceEpoch,
+      reminder: reminderDate.toUtc().millisecondsSinceEpoch,
       listId: listId,
       createdBy: dashBoardController.currentId,
     );
@@ -114,5 +148,28 @@ class CreateCardController extends GetxController {
     endDateTime.year = endDatePicker.value.year;
     endDateTime.month = endDatePicker.value.month;
     endDateTime.day = endDatePicker.value.day;
+  }
+
+  String getReminderByCode(int code) {
+    switch (code) {
+      case 0:
+        return "at_time_of_due_date".tr;
+      case 1:
+        return "5 ${"minutes_ago".tr}";
+      case 2:
+        return "10 ${"minutes_ago".tr}";
+      case 3:
+        return "15 ${"minutes_ago".tr}";
+      case 4:
+        return "1 ${"hours_ago".tr}";
+      case 5:
+        return "2 ${"hours_ago".tr}";
+      case 6:
+        return "1 ${"days_ago".tr}";
+      case 7:
+        return "2 ${"days_ago".tr}";
+      default:
+        return "at_time_of_due_date".tr;
+    }
   }
 }

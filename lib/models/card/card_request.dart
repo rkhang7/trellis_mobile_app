@@ -7,6 +7,7 @@ class CardRequest {
   String description;
   int position;
   int startDate;
+  int reminder;
   int dueDate;
   int listId;
   String createdBy;
@@ -17,6 +18,7 @@ class CardRequest {
       required this.position,
       required this.startDate,
       required this.dueDate,
+      required this.reminder,
       required this.listId,
       required this.createdBy});
 

@@ -10,6 +10,7 @@ class CardResponse {
   int position;
   int start_date;
   int due_date;
+  int reminder;
   int list_id;
   bool is_complete;
   int created_time;
@@ -24,6 +25,7 @@ class CardResponse {
     required this.position,
     required this.start_date,
     required this.due_date,
+    required this.reminder,
     required this.list_id,
     required this.is_complete,
     required this.created_time,

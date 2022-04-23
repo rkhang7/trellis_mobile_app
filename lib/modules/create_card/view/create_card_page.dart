@@ -247,7 +247,7 @@ class CreateCardPage extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
-                  _buildDropdownRemind(),
+                  Obx(() => _buildDropdownRemind()),
                   10.height,
                   Text(
                     "reminder_desc".tr,
@@ -271,6 +271,7 @@ class CreateCardPage extends StatelessWidget {
               cancel: GestureDetector(
                 onTap: () {
                   Get.back();
+                  createCardController.reminderCode.value = 0;
                   createCardController.endDatePicker.value =
                       DateTime.now().add(const Duration(days: 2));
                   createCardController.endTimePicker.value = "9:00";
@@ -604,18 +605,21 @@ class CreateCardPage extends StatelessWidget {
     );
   }
 
-  _buildDropdownRemind() {
-    return DropdownButton(
+  Widget _buildDropdownRemind() {
+    return DropdownButton<int>(
       underline: Container(
         height: 1,
         color: Colors.black,
       ),
       isExpanded: true,
-      hint: const Text(
-        "1 ngày trước",
-        style: TextStyle(color: Colors.black),
+      hint: Text(
+        createCardController
+            .getReminderByCode(createCardController.reminderCode.value),
+        style: const TextStyle(color: Colors.black),
       ),
-      onChanged: (dynamic value) {},
+      onChanged: (dynamic value) {
+        createCardController.reminderCode.value = value;
+      },
       items: [
         DropdownMenuItem(
             child: ListTile(
@@ -623,88 +627,64 @@ class CreateCardPage extends StatelessWidget {
                 "at_time_of_due_date".tr,
                 style: primaryTextStyle(color: Colors.black),
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 0),
         DropdownMenuItem(
             child: ListTile(
               title: Text(
                 "5 ${"minutes_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 1),
         DropdownMenuItem(
             child: ListTile(
               title: Text(
                 "10 ${"minutes_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 2),
         DropdownMenuItem(
             child: ListTile(
               title: Text(
                 "15 ${"minutes_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 3),
         DropdownMenuItem(
             child: ListTile(
               title: Text(
                 "1 ${"hours_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 4),
         DropdownMenuItem(
             child: ListTile(
               title: Text(
                 "2 ${"hours_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 5),
         DropdownMenuItem(
             child: ListTile(
               title: Text(
                 "1 ${"days_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 6),
         DropdownMenuItem(
             child: ListTile(
               title: Text(
                 "2 ${"days_ago".tr}",
                 style: primaryTextStyle(color: Colors.black),
               ),
-              onTap: () {
-                Get.back();
-              },
             ),
-            value: '1'),
+            value: 7),
       ],
     );
   }

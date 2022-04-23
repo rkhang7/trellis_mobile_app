@@ -12,6 +12,7 @@ CardRequest _$CardRequestFromJson(Map<String, dynamic> json) => CardRequest(
       position: json['position'] as int,
       startDate: json['startDate'] as int,
       dueDate: json['dueDate'] as int,
+      reminder: json['reminder'] as int,
       listId: json['listId'] as int,
       createdBy: json['createdBy'] as String,
     );
@@ -22,6 +23,7 @@ Map<String, dynamic> _$CardRequestToJson(CardRequest instance) =>
       'description': instance.description,
       'position': instance.position,
       'startDate': instance.startDate,
+      'reminder': instance.reminder,
       'dueDate': instance.dueDate,
       'listId': instance.listId,
       'createdBy': instance.createdBy,
