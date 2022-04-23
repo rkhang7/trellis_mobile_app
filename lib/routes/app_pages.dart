@@ -6,9 +6,8 @@ import 'package:trellis_mobile_app/modules/board/invite_board_member/invite_boar
 import 'package:trellis_mobile_app/modules/board/remove_board_member/remove_board_member_page.dart';
 import 'package:trellis_mobile_app/modules/board/update_board/update_board_binding.dart';
 import 'package:trellis_mobile_app/modules/board/update_board/update_board_page.dart';
-
-import 'package:trellis_mobile_app/modules/create_card/create_card_binding.dart';
-import 'package:trellis_mobile_app/modules/create_card/view/create_card_page.dart';
+import 'package:trellis_mobile_app/modules/card/update_card/update_card_binding.dart';
+import 'package:trellis_mobile_app/modules/card/update_card/update_card_page.dart';
 
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_binding.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_page.dart';
@@ -35,6 +34,8 @@ import '../modules/board/remove_board_member/remove_board_member_binding.dart';
 import '../modules/board/search_board/search_board_binding.dart';
 import '../modules/board/search_board/search_board_page.dart';
 
+import '../modules/card/create_card/create_card_binding.dart';
+import '../modules/card/create_card/view/create_card_page.dart';
 import '../modules/detail_board/detail_board_binding.dart';
 import '../modules/detail_board/detail_board_page.dart';
 
@@ -152,6 +153,16 @@ class AppPages {
       name: AppRoutes.UPDATE_BOARD,
       page: () => UpdateBoardPage(),
       binding: UpdateBoardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.UPDATE_BOARD,
+      page: () => UpdateBoardPage(),
+      binding: UpdateBoardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.UPDATE_CARD,
+      page: () => UpdateCardPage(),
+      binding: UpdateCardBiding(),
     ),
   ];
 }

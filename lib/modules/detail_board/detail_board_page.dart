@@ -366,29 +366,34 @@ class DetailBoardPage extends StatelessWidget {
               spreadRadius: 2)
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            cardModel.name,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
-              fontSize: 60.sp,
-            ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Row(
-            children: [
-              const Icon(Icons.access_time),
-              SizedBox(
-                width: 30.w,
+      child: InkWell(
+        onTap: () {
+          Get.toNamed(AppRoutes.UPDATE_CARD);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              cardModel.name,
+              overflow: TextOverflow.clip,
+              style: TextStyle(
+                fontSize: 60.sp,
               ),
-              Text(detailBoardController.getDateShowUI(cardModel)),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Row(
+              children: [
+                const Icon(Icons.access_time),
+                SizedBox(
+                  width: 30.w,
+                ),
+                Text(detailBoardController.getDateShowUI(cardModel)),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
