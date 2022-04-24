@@ -19,8 +19,8 @@ CardResponse _$CardResponseFromJson(Map<String, dynamic> json) => CardResponse(
       created_time: json['created_time'] as int,
       updated_time: json['updated_time'] as int,
       created_by: json['created_by'] as String,
-      members: (json['members'] as List<dynamic>?)
-          ?.map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
+      members: (json['members'] as List<dynamic>)
+          .map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

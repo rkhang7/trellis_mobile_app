@@ -16,7 +16,7 @@ class CardResponse {
   int created_time;
   int updated_time;
   String created_by;
-  List<UserResponse>? members;
+  List<UserResponse> members;
 
   CardResponse({
     required this.card_id,
