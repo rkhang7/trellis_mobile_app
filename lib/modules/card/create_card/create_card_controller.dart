@@ -7,15 +7,18 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'package:trellis_mobile_app/models/card/card_request.dart';
+import 'package:trellis_mobile_app/models/member/card_member_request.dart';
 import 'package:trellis_mobile_app/models/my_date_time.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/detail_board/detail_board_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
+import 'package:trellis_mobile_app/repository/member_repository.dart';
 import 'package:trellis_mobile_app/service/picker_service.dart';
 
 class CreateCardController extends GetxController {
   final pickerService = Get.find<PickerService>();
   final cardRepository = Get.find<CardRepository>();
+  final memberRepository = Get.find<MemberRepository>();
   final detailBoardController = Get.find<DetailBoardController>();
   final dashBoardController = Get.find<DashBoardController>();
 
@@ -33,6 +36,8 @@ class CreateCardController extends GetxController {
 
   var endDateTime =
       MyDateTime(year: -1, month: -1, day: -1, hour: 9, minute: 0);
+
+  var isAddMeToCard = true.obs;
 
   @override
   void onInit() {
@@ -109,20 +114,49 @@ class CreateCardController extends GetxController {
       createdBy: dashBoardController.currentId,
     );
 
-    cardRepository.creatCard(cardRequest).then((value) {
-      EasyLoading.dismiss();
-
-      EasyLoading.showSuccess("create_success".tr);
-
+    cardRepository.createCard(cardRequest).then((value) {
       // insert to first index list workspace
 
       detailBoardController
           .lists[detailBoardController.findIndexListById(listId)].cards
           .add(value);
 
-      detailBoardController.lists.refresh();
+      if (isAddMeToCard.isTrue) {
+        memberRepository
+            .createMemberIntoCard(CardMemberRequest(
+                memberId: dashBoardController.currentId, cardId: value.card_id))
+            .then((value) {
+          EasyLoading.dismiss();
 
-      Get.back();
+          EasyLoading.showSuccess("create_success".tr);
+
+          detailBoardController.lists.refresh();
+
+          Get.back();
+        }).catchError((Object obj) {
+          switch (obj.runtimeType) {
+            case DioError:
+              // Here's the sample to get the failed response error code and message
+              EasyLoading.dismiss();
+
+              EasyLoading.showError("error".tr);
+              break;
+            default:
+              EasyLoading.dismiss();
+
+              EasyLoading.showError("error".tr);
+              break;
+          }
+        });
+      } else {
+        EasyLoading.dismiss();
+
+        EasyLoading.showSuccess("create_success".tr);
+
+        detailBoardController.lists.refresh();
+
+        Get.back();
+      }
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:

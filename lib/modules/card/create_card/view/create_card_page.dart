@@ -242,18 +242,25 @@ class CreateCardPage extends StatelessWidget {
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                   10.height,
-                  CheckboxListTile(
-                    contentPadding: const EdgeInsets.all(0),
-                    value: true,
-                    onChanged: (value) {},
-                    title: const Text(
-                      "Thêm tôi vào thẻ",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )
+                  Obx(() {
+                    return CheckboxListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      value: createCardController.isAddMeToCard.isTrue
+                          ? true
+                          : false,
+                      onChanged: (value) {
+                        createCardController.isAddMeToCard.value =
+                            !createCardController.isAddMeToCard.value;
+                      },
+                      title: const Text(
+                        "Thêm tôi vào thẻ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    );
+                  })
                 ],
               ),
               cancel: GestureDetector(
@@ -265,6 +272,7 @@ class CreateCardPage extends StatelessWidget {
                   createCardController.endTimePicker.value = "9:00";
                   createCardController.endDateTime.hour = 9;
                   createCardController.endDateTime.minute = 0;
+                  createCardController.isAddMeToCard.value = true;
                 },
                 child: Container(
                   margin: const EdgeInsets.only(left: 100, right: 20),

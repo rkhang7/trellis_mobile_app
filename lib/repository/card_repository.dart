@@ -7,7 +7,7 @@ import '../api/rest_api.dart';
 class CardRepository {
   final dio = Dio(); // Provide a dio instance
 
-  Future<CardResponse> creatCard(CardRequest cardRequest) {
+  Future<CardResponse> createCard(CardRequest cardRequest) {
     final client = RestClient(dio);
     return client.createCard(cardRequest);
   }

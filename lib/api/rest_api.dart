@@ -9,6 +9,8 @@ import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_request.dart';
 import 'package:trellis_mobile_app/models/member/board_member_response.dart';
+import 'package:trellis_mobile_app/models/member/card_member_request.dart';
+import 'package:trellis_mobile_app/models/member/card_member_response.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
@@ -80,6 +82,10 @@ abstract class RestClient {
   @DELETE("/board-members/{memberId}/{boardId}")
   Future<void> removeMemberFromBoard(
       @Path("memberId") String memberId, @Path("boardId") int boardId);
+
+  @POST("/card-member")
+  Future<CardMemberResponse> createMemberIntoCard(
+      @Body() CardMemberRequest cardMemberRequest);
 
   // board
   @POST("/boards")

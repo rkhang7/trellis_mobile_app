@@ -86,6 +86,8 @@ class DashBoardPage extends StatelessWidget {
     //   },
     // );
     return GridView.builder(
+      physics: ScrollPhysics(),
+      scrollDirection: Axis.vertical,
       padding: const EdgeInsets.all(5),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
