@@ -13,6 +13,7 @@ BoardRequest _$BoardRequestFromJson(Map<String, dynamic> json) => BoardRequest(
       visibility: json['visibility'] as int,
       workspaceId: json['workspaceId'] as int,
       createdBy: json['createdBy'] as String,
+      backgroundColor: json['backgroundColor'] as String,
     );
 
 Map<String, dynamic> _$BoardRequestToJson(BoardRequest instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$BoardRequestToJson(BoardRequest instance) =>
       'visibility': instance.visibility,
       'workspaceId': instance.workspaceId,
       'createdBy': instance.createdBy,
+      'backgroundColor': instance.backgroundColor,
     };

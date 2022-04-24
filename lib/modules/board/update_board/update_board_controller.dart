@@ -43,7 +43,9 @@ class UpdateBoardController extends GetxController {
                 closed: false,
                 workspaceId: boardMenuController.currentBoard!.workspace_id,
                 visibility: selectedType.value,
-                createdBy: boardMenuController.currentBoard!.created_by))
+                createdBy: boardMenuController.currentBoard!.created_by,
+                backgroundColor:
+                    boardMenuController.currentBoard!.background_color))
         .then((value) {
       int index = dashBoardController.findIndexBoardById(boardId);
       dashBoardController.listBoards[index].name = value.name;

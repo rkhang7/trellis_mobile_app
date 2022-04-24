@@ -1,5 +1,7 @@
 //WalkThrough
 
+import 'package:flutter/cupertino.dart';
+
 const TCAppName = 'Trellis';
 
 const isDarkModeOnPref = "isDarkModeOnPref";
@@ -25,3 +27,13 @@ const password = "Password";
 
 const emailAuthProvider = "password";
 const googleAuthProvider = "google.com";
+
+const int myBlueColor = 0xFF1976D2;
+const int myAmberColor = 0xFFF57C00;
+const int myGreenColor = 0xFF388E3C;
+const int myRedColor = 0xFFD32F2F;
+const int myPurpleColor = 0xFF7C4DFF;
+const int myPinkColor = 0xFFC2185B;
+const int myTealColor = 0xFF009688;
+const int myCyanColor = 0xFF0097A7;
+const int myGreyColor = 0xFF607D8B;

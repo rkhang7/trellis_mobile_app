@@ -9,14 +9,17 @@ class BoardRequest {
   int visibility;
   int workspaceId;
   String createdBy;
+  String backgroundColor;
 
-  BoardRequest(
-      {required this.name,
-      required this.description,
-      required this.closed,
-      required this.visibility,
-      required this.workspaceId,
-      required this.createdBy});
+  BoardRequest({
+    required this.name,
+    required this.description,
+    required this.closed,
+    required this.visibility,
+    required this.workspaceId,
+    required this.createdBy,
+    required this.backgroundColor,
+  });
 
   factory BoardRequest.fromJson(Map<String, dynamic> json) =>
       _$BoardRequestFromJson(json);

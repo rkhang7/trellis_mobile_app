@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -11,6 +9,7 @@ import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
+import 'package:trellis_mobile_app/utils/constants.dart';
 
 class DashBoardPage extends StatelessWidget {
   DashBoardPage({Key? key}) : super(key: key);
@@ -110,7 +109,7 @@ class DashBoardPage extends StatelessWidget {
             );
           },
           child: Card(
-            color: Colors.blue,
+            color: Color(int.parse(boardResponse.background_color)),
             child: Center(
               child: Text(
                 boardResponse.name,

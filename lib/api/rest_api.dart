@@ -84,7 +84,7 @@ abstract class RestClient {
       @Path("memberId") String memberId, @Path("boardId") int boardId);
 
   @POST("/card-member")
-  Future<CardMemberResponse> createMemberIntoCard(
+  Future<UserResponse> createMemberIntoCard(
       @Body() CardMemberRequest cardMemberRequest);
 
   // board

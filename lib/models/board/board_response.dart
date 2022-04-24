@@ -13,6 +13,7 @@ class BoardResponse {
   int created_time;
   int updated_time;
   String created_by;
+  String background_color;
 
   BoardResponse({
     required this.board_id,
@@ -24,6 +25,7 @@ class BoardResponse {
     required this.created_time,
     required this.updated_time,
     required this.created_by,
+    required this.background_color,
   });
 
   factory BoardResponse.fromJson(Map<String, dynamic> json) =>

@@ -6,6 +6,7 @@ import 'package:trellis_mobile_app/models/member/card_member_response.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
+import 'package:trellis_mobile_app/models/user/user_response.dart';
 
 import '../api/rest_api.dart';
 import '../models/member/board_member_detail_response.dart';
@@ -53,7 +54,7 @@ class MemberRepository {
     return await client.removeMemberFromBoard(memberId, boardId);
   }
 
-  Future<CardMemberResponse> createMemberIntoCard(
+  Future<UserResponse> createMemberIntoCard(
       CardMemberRequest cardMemberRequest) async {
     final client = RestClient(dio);
     return await client.createMemberIntoCard(cardMemberRequest);

@@ -195,6 +195,7 @@ class Messages extends Translations {
           // board menu page
           'board_menu': "Board menu",
           'board_setting': "Board setting",
+          'background_color': "Background color",
         },
         'vi_VN': {
           //common
@@ -388,6 +389,7 @@ class Messages extends Translations {
           // board menu page
           'board_menu': "Menu bảng",
           'board_setting': "Chỉnh sửa bảng",
+          'background_color': "Màu nền",
         }
       };
 }

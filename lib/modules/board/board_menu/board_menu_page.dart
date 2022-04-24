@@ -32,6 +32,10 @@ class BoardMenuPage extends StatelessWidget {
               height: 80.h,
             ),
             _buildWorkspaceSettingArea(),
+            SizedBox(
+              height: 80.h,
+            ),
+            _buildBackgroundColorArea(),
           ],
         ),
       ),
@@ -159,6 +163,32 @@ class BoardMenuPage extends StatelessWidget {
             SizedBox(width: 60.w),
             Text(
               "board_setting".tr,
+              style: TextStyle(fontSize: 64.sp),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildBackgroundColorArea() {
+    return InkWell(
+      onTap: () {
+        Get.toNamed(AppRoutes.BOARD_BACKGROUND);
+      },
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(left: 18),
+        height: 200.h,
+        child: Row(
+          children: [
+            Icon(
+              Icons.color_lens,
+              size: 72.sp,
+            ),
+            SizedBox(width: 60.w),
+            Text(
+              "background_color".tr,
               style: TextStyle(fontSize: 64.sp),
             ),
           ],

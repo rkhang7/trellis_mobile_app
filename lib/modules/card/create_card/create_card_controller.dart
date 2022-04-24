@@ -9,15 +9,18 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/member/card_member_request.dart';
 import 'package:trellis_mobile_app/models/my_date_time.dart';
+import 'package:trellis_mobile_app/models/user/user_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/detail_board/detail_board_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
 import 'package:trellis_mobile_app/repository/member_repository.dart';
+import 'package:trellis_mobile_app/repository/user_repository.dart';
 import 'package:trellis_mobile_app/service/picker_service.dart';
 
 class CreateCardController extends GetxController {
   final pickerService = Get.find<PickerService>();
   final cardRepository = Get.find<CardRepository>();
+  final userRepository = Get.find<UserRepository>();
   final memberRepository = Get.find<MemberRepository>();
   final detailBoardController = Get.find<DetailBoardController>();
   final dashBoardController = Get.find<DashBoardController>();
@@ -129,6 +132,15 @@ class CreateCardController extends GetxController {
           EasyLoading.dismiss();
 
           EasyLoading.showSuccess("create_success".tr);
+
+          // detailBoardController
+          //     .lists[detailBoardController.findIndexListById(listId)]
+          //     .cards[detailBoardController
+          //         .lists[detailBoardController.findIndexListById(listId)]
+          //         .cards
+          //         .length]
+          //     .members
+          //     .add(findUserById(value.member_id));
 
           detailBoardController.lists.refresh();
 

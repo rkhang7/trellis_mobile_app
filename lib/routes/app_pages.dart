@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:trellis_mobile_app/modules/board/board_background/board_background_binding.dart';
+import 'package:trellis_mobile_app/modules/board/board_background/board_background_page.dart';
 import 'package:trellis_mobile_app/modules/board/board_menu/board_menu_binding.dart';
 import 'package:trellis_mobile_app/modules/board/board_menu/board_menu_page.dart';
 import 'package:trellis_mobile_app/modules/board/invite_board_member/invite_board_member_binding.dart';
@@ -163,6 +165,11 @@ class AppPages {
       name: AppRoutes.UPDATE_CARD,
       page: () => UpdateCardPage(),
       binding: UpdateCardBiding(),
+    ),
+    GetPage(
+      name: AppRoutes.BOARD_BACKGROUND,
+      page: () => BoardBackgroundPage(),
+      binding: BoardBackgroundBinding(),
     ),
   ];
 }

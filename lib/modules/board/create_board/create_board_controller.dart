@@ -8,6 +8,7 @@ import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/repository/board_repository.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';
+import 'package:trellis_mobile_app/utils/constants.dart';
 
 class CreateBoardController extends GetxController {
   var boardNameController = TextEditingController();
@@ -81,12 +82,14 @@ class CreateBoardController extends GetxController {
     EasyLoading.show(status: "please_wait".tr);
     String boardName = boardNameController.text;
     var boardRequest = BoardRequest(
-        name: boardName,
-        description: descriptionController.text,
-        closed: false,
-        visibility: selectType.value,
-        workspaceId: selectedWorkspaceId.value,
-        createdBy: dashBoardController.currentId);
+      name: boardName,
+      description: descriptionController.text,
+      closed: false,
+      visibility: selectType.value,
+      workspaceId: selectedWorkspaceId.value,
+      createdBy: dashBoardController.currentId,
+      backgroundColor: myBlueColor.toString(),
+    );
 
     boardRepository.createBoard(boardRequest).then((value) {
       EasyLoading.dismiss();
