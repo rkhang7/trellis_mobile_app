@@ -110,4 +110,8 @@ abstract class RestClient {
   // card
   @POST("/cards")
   Future<CardResponse> createCard(@Body() CardRequest cardRequest);
+
+  @GET("/cards/{listId}/move/{cardId}")
+  Future<String> swapCards(@Path("listId") int listId,
+      @Path("cardId") int cardId, @Query("position") int position);
 }

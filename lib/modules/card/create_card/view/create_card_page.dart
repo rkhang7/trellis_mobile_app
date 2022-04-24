@@ -76,19 +76,6 @@ class CreateCardPage extends StatelessWidget {
                                 autoFocus: false,
                                 primaryColor: Colors.green),
                             10.height,
-                            Row(
-                              children: [
-                                const Icon(Icons.person_outline),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const CircleBorder(),
-                                    primary: Colors.green,
-                                  ),
-                                  onPressed: () {},
-                                  child: const Icon(Icons.add),
-                                )
-                              ],
-                            ),
                             5.height,
                             _buildStartDate(),
                             10.height,

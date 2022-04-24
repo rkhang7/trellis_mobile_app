@@ -56,13 +56,48 @@ class DashBoardPage extends StatelessWidget {
 
   Widget _buildListBoards() {
     dashBoardController.listBoards;
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
+    // return ListView.builder(
+    //   physics: const NeverScrollableScrollPhysics(),
+    //   shrinkWrap: true,
+    //   itemCount: dashBoardController.listBoards.length,
+    //   itemBuilder: (BuildContext context, int index) {
+    //     final boardResponse = dashBoardController.listBoards[index];
+    //     return ListTile(
+    //       onTap: () async {
+    //         dashBoardController.boardIdSelected = boardResponse.board_id;
+    //         await Get.toNamed(
+    //           AppRoutes.DETAIL_BOARD,
+    //           parameters: {
+    //             'name': boardResponse.name,
+    //           },
+    //         );
+    //       },
+    //       leading: Image.network(
+    //         "https://znews-stc.zdn.vn/static/topic/person/cristiano-ronaldo.jpg",
+    //         height: 40,
+    //         width: 40,
+    //         fit: BoxFit.cover,
+    //       ).cornerRadiusWithClipRRect(2),
+    //       title: Text(
+    //         boardResponse.name,
+    //         style: boldTextStyle(),
+    //       ),
+    //     );
+    //   },
+    // );
+    return GridView.builder(
+      padding: const EdgeInsets.all(5),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1.5,
+        mainAxisSpacing: 3,
+        crossAxisSpacing: 3,
+      ),
       shrinkWrap: true,
       itemCount: dashBoardController.listBoards.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (context, index) {
         final boardResponse = dashBoardController.listBoards[index];
-        return ListTile(
+        return InkWell(
           onTap: () async {
             dashBoardController.boardIdSelected = boardResponse.board_id;
             await Get.toNamed(
@@ -72,15 +107,16 @@ class DashBoardPage extends StatelessWidget {
               },
             );
           },
-          leading: Image.network(
-            "https://znews-stc.zdn.vn/static/topic/person/cristiano-ronaldo.jpg",
-            height: 40,
-            width: 40,
-            fit: BoxFit.cover,
-          ).cornerRadiusWithClipRRect(2),
-          title: Text(
-            boardResponse.name,
-            style: boldTextStyle(),
+          child: Card(
+            color: Colors.blue,
+            child: Center(
+              child: Text(
+                boardResponse.name,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
         );
       },

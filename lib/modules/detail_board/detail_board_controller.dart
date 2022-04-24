@@ -8,10 +8,12 @@ import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
+import 'package:trellis_mobile_app/repository/card_repository.dart';
 import 'package:trellis_mobile_app/repository/list_repository.dart';
 
 class DetailBoardController extends GetxController {
   final listRepository = Get.find<ListRepository>();
+  final cardRepository = Get.find<CardRepository>();
   var dashBoardController = Get.find<DashBoardController>();
   var pageController = PageController(viewportFraction: 0.8);
   var listCardScrollController = <ScrollController>[];
@@ -210,5 +212,26 @@ class DetailBoardController extends GetxController {
     }
 
     return s;
+  }
+
+  void swapCard(int listId, int cardId, int position) {
+    EasyLoading.show(status: "please_wait".tr);
+    cardRepository.swapCards(listId, cardId, position).then((value) {
+      EasyLoading.dismiss();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
   }
 }

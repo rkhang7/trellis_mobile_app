@@ -340,7 +340,7 @@ class DetailBoardPage extends StatelessWidget {
       scrollController: detailBoardController.listCardScrollController[index],
       shrinkWrap: true,
       onReorder: (oldIndex, newIndex) {
-        // swapCards(listCard, oldIndex, newIndex);
+        swapCards(listCard, oldIndex, newIndex, index);
       },
       itemBuilder: (context, index) {
         CardResponse cardModel = listCard[index];
@@ -398,13 +398,16 @@ class DetailBoardPage extends StatelessWidget {
     );
   }
 
-  // void swapCards(List<CardModel> listCard, int oldIndex, int newIndex) {
-  //   if (oldIndex < newIndex) {
-  //     newIndex -= 1;
-  //   }
-  //   final CardModel item = listCard.removeAt(oldIndex);
-  //   listCard.insert(newIndex, item);
-  // }
+  void swapCards(
+      List<CardResponse> listCard, int oldIndex, int newIndex, int index) {
+    detailBoardController.swapCard(detailBoardController.lists[index].list_id,
+        listCard[oldIndex].card_id, newIndex - 1);
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final CardResponse item = listCard.removeAt(oldIndex);
+    listCard.insert(newIndex, item);
+  }
 
   // _addCardToList() {
   //   var currentAddingIndex =

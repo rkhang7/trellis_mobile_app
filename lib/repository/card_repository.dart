@@ -11,4 +11,9 @@ class CardRepository {
     final client = RestClient(dio);
     return client.createCard(cardRequest);
   }
+
+  Future<String> swapCards(int listId, int cardId, int position) async {
+    final client = RestClient(dio);
+    return await client.swapCards(listId, cardId, position);
+  }
 }
