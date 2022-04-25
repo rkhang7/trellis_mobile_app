@@ -133,14 +133,12 @@ class CreateCardController extends GetxController {
 
           EasyLoading.showSuccess("create_success".tr);
 
-          // detailBoardController
-          //     .lists[detailBoardController.findIndexListById(listId)]
-          //     .cards[detailBoardController
-          //         .lists[detailBoardController.findIndexListById(listId)]
-          //         .cards
-          //         .length]
-          //     .members
-          //     .add(findUserById(value.member_id));
+          int listIndex = detailBoardController.findIndexListById(listId);
+          int lenghtCurrentCard =
+              detailBoardController.lists[listIndex].cards.length;
+          detailBoardController
+              .lists[listIndex].cards[lenghtCurrentCard - 1].members
+              .add(value);
 
           detailBoardController.lists.refresh();
 
