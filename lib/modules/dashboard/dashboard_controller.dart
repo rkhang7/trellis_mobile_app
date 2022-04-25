@@ -80,4 +80,8 @@ class DashBoardController extends GetxController {
     }
     return null;
   }
+
+  Future refresh() async {
+    loadListBoards(workspaceSelected.value.workspace_id);
+  }
 }

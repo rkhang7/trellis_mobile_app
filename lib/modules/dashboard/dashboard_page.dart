@@ -85,43 +85,47 @@ class DashBoardPage extends StatelessWidget {
     //     );
     //   },
     // );
-    return GridView.builder(
-      physics: ScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      padding: const EdgeInsets.all(5),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.5,
-        mainAxisSpacing: 3,
-        crossAxisSpacing: 3,
-      ),
-      shrinkWrap: true,
-      itemCount: dashBoardController.listBoards.length,
-      itemBuilder: (context, index) {
-        final boardResponse = dashBoardController.listBoards[index];
-        return InkWell(
-          onTap: () async {
-            dashBoardController.boardIdSelected = boardResponse.board_id;
-            await Get.toNamed(
-              AppRoutes.DETAIL_BOARD,
-              parameters: {
-                'name': boardResponse.name,
-              },
-            );
-          },
-          child: Card(
-            color: HexColor(boardResponse.background_color),
-            child: Center(
-              child: Text(
-                boardResponse.name,
-                style: TextStyle(
-                  color: Colors.white,
+    return RefreshIndicator(
+      triggerMode: RefreshIndicatorTriggerMode.onEdge,
+      onRefresh: dashBoardController.refresh,
+      child: GridView.builder(
+        physics: const AlwaysScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        padding: const EdgeInsets.all(5),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 1.5,
+          mainAxisSpacing: 3,
+          crossAxisSpacing: 3,
+        ),
+        shrinkWrap: true,
+        itemCount: dashBoardController.listBoards.length,
+        itemBuilder: (context, index) {
+          final boardResponse = dashBoardController.listBoards[index];
+          return InkWell(
+            onTap: () async {
+              dashBoardController.boardIdSelected = boardResponse.board_id;
+              await Get.toNamed(
+                AppRoutes.DETAIL_BOARD,
+                parameters: {
+                  'name': boardResponse.name,
+                },
+              );
+            },
+            child: Card(
+              color: HexColor(boardResponse.background_color),
+              child: Center(
+                child: Text(
+                  boardResponse.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
