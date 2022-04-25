@@ -1,5 +1,5 @@
 class MyColor {
-  int color;
+  String color;
   bool isSelect;
 
   MyColor({required this.color, required this.isSelect});

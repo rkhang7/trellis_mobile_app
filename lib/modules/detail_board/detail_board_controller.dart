@@ -38,10 +38,13 @@ class DetailBoardController extends GetxController {
 
   final name = Get.parameters['name'].obs;
 
+  var backgroundColor = "".obs;
+
   @override
   void onInit() {
     initData();
-
+    backgroundColor.value =
+        dashBoardController.getBoardSelected()!.background_color;
     super.onInit();
   }
 

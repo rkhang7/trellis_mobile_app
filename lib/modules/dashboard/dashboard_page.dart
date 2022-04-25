@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/components/drawer_component.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
@@ -109,7 +110,7 @@ class DashBoardPage extends StatelessWidget {
             );
           },
           child: Card(
-            color: Color(int.parse(boardResponse.background_color)),
+            color: HexColor(boardResponse.background_color),
             child: Center(
               child: Text(
                 boardResponse.name,

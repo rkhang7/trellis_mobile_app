@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/components/end_drawer_component.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
@@ -25,7 +26,7 @@ class DetailBoardPage extends StatelessWidget {
       child: Scaffold(
           resizeToAvoidBottomInset: true,
           key: _key,
-          backgroundColor: backgroundColor,
+
           // endDrawer: EndDrawerComponent(),
           appBar: _buildAppBar(),
           body: Obx(() {
@@ -176,47 +177,50 @@ class DetailBoardPage extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return PageView.builder(
-      physics: (detailBoardController.nameListEditing.isTrue ||
-              detailBoardController.nameCardAdding.isTrue ||
-              detailBoardController.nameListAdding.isTrue)
-          ? const NeverScrollableScrollPhysics()
-          : null,
-      itemCount: detailBoardController.lists.length + 1,
-      controller: detailBoardController.pageController,
-      itemBuilder: (context, index) {
-        if (index == detailBoardController.lists.length) {
-          return Obx(() => _buildAddList());
-        } else {
-          var list = detailBoardController.lists[index];
-          return Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Expanded(
-                child: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 48.h, horizontal: 48.w),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200]!,
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Column(
-                    children: [
-                      Obx(
-                        () => _buildTitle(list.name, index),
-                      ),
-                      Expanded(
-                        child: _buildListCard(list.cards, list.name, index),
-                      ),
-                      _buildAddCard(index),
-                    ],
+    return Container(
+      color: HexColor(detailBoardController.backgroundColor.value),
+      child: PageView.builder(
+        physics: (detailBoardController.nameListEditing.isTrue ||
+                detailBoardController.nameCardAdding.isTrue ||
+                detailBoardController.nameListAdding.isTrue)
+            ? const NeverScrollableScrollPhysics()
+            : null,
+        itemCount: detailBoardController.lists.length + 1,
+        controller: detailBoardController.pageController,
+        itemBuilder: (context, index) {
+          if (index == detailBoardController.lists.length) {
+            return Obx(() => _buildAddList());
+          } else {
+            var list = detailBoardController.lists[index];
+            return Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Container(
+                    margin:
+                        EdgeInsets.symmetric(vertical: 48.h, horizontal: 48.w),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200]!,
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                    child: Column(
+                      children: [
+                        Obx(
+                          () => _buildTitle(list.name, index),
+                        ),
+                        Expanded(
+                          child: _buildListCard(list.cards, list.name, index),
+                        ),
+                        _buildAddCard(index),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
-        }
-      },
+              ],
+            );
+          }
+        },
+      ),
     );
   }
 

@@ -71,4 +71,13 @@ class DashBoardController extends GetxController {
   int findIndexBoardById(int boardId) {
     return listBoards.indexWhere((element) => element.board_id == boardId);
   }
+
+  BoardResponse? getBoardSelected() {
+    for (BoardResponse boardResponse in listBoards) {
+      if (boardResponse.board_id == boardIdSelected) {
+        return boardResponse;
+      }
+    }
+    return null;
+  }
 }
