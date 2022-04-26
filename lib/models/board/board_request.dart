@@ -10,6 +10,7 @@ class BoardRequest {
   int workspaceId;
   String createdBy;
   String backgroundColor;
+  String backgroundDarkColor;
 
   BoardRequest({
     required this.name,
@@ -19,6 +20,7 @@ class BoardRequest {
     required this.workspaceId,
     required this.createdBy,
     required this.backgroundColor,
+    required this.backgroundDarkColor,
   });
 
   factory BoardRequest.fromJson(Map<String, dynamic> json) =>

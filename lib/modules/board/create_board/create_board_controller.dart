@@ -89,6 +89,7 @@ class CreateBoardController extends GetxController {
       workspaceId: selectedWorkspaceId.value,
       createdBy: dashBoardController.currentId,
       backgroundColor: myBlueColor.toString(),
+      backgroundDarkColor: myDarkBlueColor.toString(),
     );
 
     boardRepository.createBoard(boardRequest).then((value) {

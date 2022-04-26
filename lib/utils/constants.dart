@@ -28,12 +28,29 @@ const password = "Password";
 const emailAuthProvider = "password";
 const googleAuthProvider = "google.com";
 
-const String myBlueColor = "#1976D2";
-const String myAmberColor = "#F57C00";
-const String myGreenColor = "#388E3C";
-const String myRedColor = "#D32F2F";
-const String myPurpleColor = "#7C4DFF";
-const String myPinkColor = "#C2185B";
+const String myBlueColor = "#03A9F4";
+const String myDarkBlueColor = "#0288D1";
+
+const String myAmberColor = "#FFC107";
+const String myDarkAmberColor = "#F57C00";
+
+const String myGreenColor = "#4CAF50";
+const String myDarkGreenColor = "#388E3C";
+
+const String myRedColor = "#F44336";
+const String myDarkRedColor = "#D32F2F";
+
+const String myPurpleColor = "#673AB7";
+const String myDarkPurpleColor = "#512DA8";
+
+const String myPinkColor = "#E91E63";
+const String myDarkPinkColor = "#C2185B";
+
 const String myTealColor = "#009688";
-const String myCyanColor = "#0097A7";
-const String myGreyColor = "#607D8B";
+const String myDarkTealColor = "#00796B";
+
+const String myCyanColor = "#00BCD4";
+const String myDarkCyanColor = "#0097A7";
+
+const String myGreyColor = "#9E9E9E";
+const String myDarkGreyColor = "#616161";

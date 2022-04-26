@@ -78,7 +78,7 @@ class DetailBoardPage extends StatelessWidget {
           );
         }
       }),
-      backgroundColor: backgroundColor,
+      backgroundColor: HexColor(detailBoardController.appBarColor.value),
       title: Obx(() {
         if (detailBoardController.nameListEditing.isTrue) {
           return Text(

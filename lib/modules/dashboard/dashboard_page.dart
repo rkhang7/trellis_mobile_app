@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -95,8 +96,8 @@ class DashBoardPage extends StatelessWidget {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 1.5,
-          mainAxisSpacing: 3,
-          crossAxisSpacing: 3,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
         ),
         shrinkWrap: true,
         itemCount: dashBoardController.listBoards.length,
@@ -112,16 +113,40 @@ class DashBoardPage extends StatelessWidget {
                 },
               );
             },
-            child: Card(
-              color: HexColor(boardResponse.background_color),
-              child: Center(
-                child: Text(
-                  boardResponse.name,
-                  style: TextStyle(
-                    color: Colors.white,
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: HexColor(boardResponse.background_color),
                   ),
                 ),
-              ),
+                Positioned(
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10)),
+                        color: HexColor(boardResponse.background_dark_color),
+                      ),
+                      height: 50,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20.w),
+                        child: Text(
+                          boardResponse.name,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 56.sp,
+                            // fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      alignment: Alignment.centerLeft),
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                )
+              ],
             ),
           );
         },

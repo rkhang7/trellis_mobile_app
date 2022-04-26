@@ -17,6 +17,10 @@ class BoardBackgroundController extends GetxController {
   @override
   void onInit() {
     listMyColor.value = Common.getListBackgroundBoard();
+    selectListBackgroundColor(dashBoardController
+        .listBoards[dashBoardController
+            .findIndexBoardById(dashBoardController.boardIdSelected)]
+        .background_color);
     super.onInit();
   }
 
@@ -26,31 +30,38 @@ class BoardBackgroundController extends GetxController {
     });
   }
 
-  void changeBackgroundBoard(int colorIndex, String newColor) {
+  void changeBackgroundBoard(
+      int colorIndex, String primaryColor, String darkColor) {
     EasyLoading.show(status: "please_wait".tr);
     unSelectListColor();
     listMyColor[colorIndex].isSelect = true;
     listMyColor.refresh();
     int indexBoard = dashBoardController
         .findIndexBoardById(dashBoardController.boardIdSelected);
-    dashBoardController.listBoards[indexBoard].background_color = newColor;
+    dashBoardController.listBoards[indexBoard].background_color = primaryColor;
+    dashBoardController.listBoards[indexBoard].background_dark_color =
+        darkColor;
     dashBoardController.listBoards.refresh();
-    detailBoardController.backgroundColor.value = newColor;
+    detailBoardController.backgroundColor.value = primaryColor;
+    detailBoardController.appBarColor.value = darkColor;
 
     boardRepository
         .updateBoard(
       dashBoardController.boardIdSelected,
       BoardRequest(
-          name: dashBoardController.listBoards[indexBoard].name,
-          description: dashBoardController.listBoards[indexBoard].description,
-          closed: dashBoardController.listBoards[indexBoard].closed,
-          visibility: dashBoardController.listBoards[indexBoard].visibility,
-          workspaceId: dashBoardController.listBoards[indexBoard].workspace_id,
-          createdBy: dashBoardController.listBoards[indexBoard].created_by,
-          backgroundColor: newColor),
+        name: dashBoardController.listBoards[indexBoard].name,
+        description: dashBoardController.listBoards[indexBoard].description,
+        closed: dashBoardController.listBoards[indexBoard].closed,
+        visibility: dashBoardController.listBoards[indexBoard].visibility,
+        workspaceId: dashBoardController.listBoards[indexBoard].workspace_id,
+        createdBy: dashBoardController.listBoards[indexBoard].created_by,
+        backgroundColor: primaryColor,
+        backgroundDarkColor: darkColor,
+      ),
     )
         .then((value) {
       EasyLoading.dismiss();
+      Get.back();
       Get.back();
       Get.back();
     }).catchError((Object obj) {
@@ -68,6 +79,14 @@ class BoardBackgroundController extends GetxController {
           break;
       }
     });
-    ;
+  }
+
+  void selectListBackgroundColor(String color) {
+    for (MyColor myColor in listMyColor) {
+      if (myColor.color == color) {
+        myColor.isSelect = true;
+        break;
+      }
+    }
   }
 }

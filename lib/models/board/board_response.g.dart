@@ -18,6 +18,7 @@ BoardResponse _$BoardResponseFromJson(Map<String, dynamic> json) =>
       updated_time: json['updated_time'] as int,
       created_by: json['created_by'] as String,
       background_color: json['background_color'] as String,
+      background_dark_color: json['background_dark_color'] as String,
     );
 
 Map<String, dynamic> _$BoardResponseToJson(BoardResponse instance) =>
@@ -32,4 +33,5 @@ Map<String, dynamic> _$BoardResponseToJson(BoardResponse instance) =>
       'updated_time': instance.updated_time,
       'created_by': instance.created_by,
       'background_color': instance.background_color,
+      'background_dark_color': instance.background_dark_color,
     };
