@@ -63,7 +63,6 @@ class BoardBackgroundController extends GetxController {
       EasyLoading.dismiss();
       Get.back();
       Get.back();
-      Get.back();
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:

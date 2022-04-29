@@ -16,4 +16,9 @@ class CardRepository {
     final client = RestClient(dio);
     return await client.swapCards(listId, cardId, position);
   }
+
+  Future<CardResponse> updateCard(int cardId, CardRequest cardRequest) async {
+    final client = RestClient(dio);
+    return await client.updateCard(cardId, cardRequest);
+  }
 }

@@ -13,3 +13,44 @@
           break;
       }
     });
+
+
+
+    EasyLoading.show(status: "please_wait".tr);
+    String boardName = boardNameController.text;
+    var boardRequest = BoardRequest(
+      name: boardName,
+      description: descriptionController.text,
+      closed: false,
+      visibility: selectType.value,
+      workspaceId: selectedWorkspaceId.value,
+      createdBy: dashBoardController.currentId,
+      backgroundColor: myBlueColor.toString(),
+      backgroundDarkColor: myDarkBlueColor.toString(),
+    );
+
+    boardRepository.createBoard(boardRequest).then((value) {
+      EasyLoading.dismiss();
+
+      EasyLoading.showSuccess("create_success".tr);
+
+      // insert to first index list workspace
+      dashBoardController.listBoards.insert(0, value);
+
+      Get.back();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }

@@ -63,7 +63,6 @@ class UpdateBoardController extends GetxController {
       EasyLoading.showSuccess("update_success".tr);
       Get.back();
       Get.back();
-      Get.back();
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:

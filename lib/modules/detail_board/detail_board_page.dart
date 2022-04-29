@@ -22,17 +22,20 @@ class DetailBoardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          key: _key,
+    return Obx(() => SafeArea(
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            key: _key,
 
-          // endDrawer: EndDrawerComponent(),
-          appBar: _buildAppBar(),
-          body: Obx(() {
-            return _buildBody();
-          })),
-    );
+            // endDrawer: EndDrawerComponent(),
+            appBar: _buildAppBar(),
+            body: Obx(
+              () {
+                return _buildBody();
+              },
+            ),
+          ),
+        ));
   }
 
   AppBar _buildAppBar() {
@@ -355,7 +358,7 @@ class DetailBoardPage extends StatelessWidget {
     );
   }
 
-  Container _buildCard(CardResponse cardModel) {
+  Widget _buildCard(CardResponse cardModel) {
     return Container(
       key: ValueKey(cardModel),
       margin: EdgeInsets.all(8.w),
@@ -374,6 +377,7 @@ class DetailBoardPage extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Get.toNamed(AppRoutes.UPDATE_CARD);
+          detailBoardController.selectedCard.value = cardModel;
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
