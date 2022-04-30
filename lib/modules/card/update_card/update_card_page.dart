@@ -13,13 +13,21 @@ class UpdateCardPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Obx(
-              () => _buildInfoCardArea(),
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Obx(
+                () => _buildInfoCardArea(),
+              ),
+              SizedBox(
+                height: 40.h,
+              ),
+              Obx(
+                () => _buildEditDescriptionArea(),
+              ),
+            ],
+          ),
         ),
       ),
       appBar: _buildAppBar(),
@@ -34,7 +42,12 @@ class UpdateCardPage extends StatelessWidget {
         // Status bar color
         statusBarColor: Colors.white,
       ),
-      leading: const CloseButton(color: Colors.black),
+      leading: CloseButton(
+        color: Colors.black,
+        onPressed: () {
+          updateCardController.handleLeading();
+        },
+      ),
       actions: [
         Obx(() => _buildAction()),
       ],
@@ -48,7 +61,12 @@ class UpdateCardPage extends StatelessWidget {
             "edit_card_name".tr,
             style: TextStyle(color: Colors.black, fontSize: 64.sp),
           )
-        : Container();
+        : updateCardController.editingDescription.isTrue
+            ? Text(
+                "edit_card_description".tr,
+                style: TextStyle(color: Colors.black, fontSize: 64.sp),
+              )
+            : Container();
   }
 
   Widget _buildAction() {
@@ -64,10 +82,17 @@ class UpdateCardPage extends StatelessWidget {
                     ? Colors.grey
                     : Colors.black),
           )
-        : IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert, color: Colors.black),
-          );
+        : updateCardController.editingDescription.isTrue
+            ? IconButton(
+                onPressed: () {
+                  updateCardController.updateCardDescription();
+                },
+                icon: const Icon(Icons.check, color: Colors.black),
+              )
+            : IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.more_vert, color: Colors.black),
+              );
   }
 
   Widget _buildInfoCardArea() {
@@ -82,10 +107,17 @@ class UpdateCardPage extends StatelessWidget {
         child: updateCardController.editingName.isFalse
             ? Text(
                 updateCardController.cardUpdate.value.name,
-                style: TextStyle(color: Colors.black, fontSize: 81.sp),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 81.sp,
+                ),
+                maxLines: null,
               )
             : TextFormField(
-                style: TextStyle(color: Colors.black, fontSize: 81.sp),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 81.sp,
+                ),
                 maxLines: null,
                 autofocus: true,
                 controller: updateCardController.cardNameController,
@@ -108,6 +140,57 @@ class UpdateCardPage extends StatelessWidget {
                   }
                 },
               ),
+      ),
+    );
+  }
+
+  _buildEditDescriptionArea() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      width: Get.width,
+      color: Colors.white,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          const Icon(Icons.vertical_distribute_sharp),
+          SizedBox(
+            width: 80.w,
+          ),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                updateCardController.editingDescription.value = true;
+              },
+              child: updateCardController.editingDescription.isFalse
+                  ? Text(
+                      updateCardController.cardUpdate.value.description == ""
+                          ? "add_card_description".tr
+                          : updateCardController.cardUpdate.value.description,
+                      style: TextStyle(color: Colors.black, fontSize: 72.sp),
+                    )
+                  : TextFormField(
+                      minLines: 3,
+                      style: TextStyle(color: Colors.black, fontSize: 72.sp),
+                      maxLines: null,
+                      autofocus: true,
+                      controller:
+                          updateCardController.cardDescriptionController,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(0),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green, width: 2),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green, width: 2),
+                        ),
+                      ),
+                      cursorColor: Colors.green,
+                      cursorHeight: 25,
+                    ),
+            ),
+          ),
+        ],
       ),
     );
   }
