@@ -40,6 +40,7 @@ class UpdateCardController extends GetxController {
   var startTimePicker = "09:00".obs;
   var endDatePicker = DateTime.now().add(const Duration(days: 2)).obs;
   var endTimePicker = "09:00".obs;
+
   var reminderCode = 0.obs;
 
   var startDateTime =
@@ -52,30 +53,7 @@ class UpdateCardController extends GetxController {
 
   @override
   void onInit() {
-    cardUpdate.value = detailBoardController.selectedCard.value;
-    cardNameController.text = cardUpdate.value.name;
-    cardDescriptionController.text = cardUpdate.value.description;
-    startDatePicker.value =
-        DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.start_date);
-    endDatePicker.value =
-        DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.due_date);
-
-    String startHour = startDatePicker.value.hour < 10
-        ? "0${startDatePicker.value.hour}"
-        : "${startDatePicker.value.hour}";
-    String startMinute = startDatePicker.value.minute < 10
-        ? "0${startDatePicker.value.minute}"
-        : "${startDatePicker.value.minute}";
-
-    startTimePicker.value = "$startHour: $startMinute";
-
-    String endHour = endDatePicker.value.hour < 10
-        ? "0${endDatePicker.value.hour}"
-        : "${endDatePicker.value.hour}";
-    String endMinute = endDatePicker.value.minute < 10
-        ? "0${endDatePicker.value.minute}"
-        : "${endDatePicker.value.minute}";
-    endTimePicker.value = "${endHour}: ${endMinute}";
+    initData();
     super.onInit();
   }
 
@@ -166,6 +144,12 @@ class UpdateCardController extends GetxController {
 
     var endDate = DateTime(endDateTime.year, endDateTime.month, endDateTime.day,
         endDateTime.hour, endDateTime.minute, 0, 0);
+
+    if (endDate.toUtc().millisecondsSinceEpoch <=
+        startDate.toUtc().millisecondsSinceEpoch) {
+      EasyLoading.showError("the_due_date_must_be_before_the_start_date".tr);
+      return;
+    }
     EasyLoading.show(status: "please_wait".tr);
     var newCard = CardRequest(
       name: cardUpdate.value.name,
@@ -187,6 +171,92 @@ class UpdateCardController extends GetxController {
           DateTime.fromMillisecondsSinceEpoch(value.start_date);
 
       cardUpdate.value.start_date = value.start_date;
+
+      Get.back();
+
+      detailBoardController.lists.refresh();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
+
+  void updateCardSDueDate() {
+    updateDateTime();
+    var startDate = DateTime(startDateTime.year, startDateTime.month,
+        startDateTime.day, startDateTime.hour, startDateTime.minute, 0, 0);
+
+    var endDate = DateTime(endDateTime.year, endDateTime.month, endDateTime.day,
+        endDateTime.hour, endDateTime.minute, 0, 0);
+
+    var reminderDate = DateTime.now();
+
+    switch (reminderCode.value) {
+      case 0:
+        reminderDate = DateTime.now();
+        break;
+      case 1:
+        reminderDate = endDate.subtract(const Duration(minutes: 5));
+        break;
+      case 2:
+        reminderDate = endDate.subtract(const Duration(minutes: 10));
+        break;
+      case 3:
+        reminderDate = endDate.subtract(const Duration(minutes: 15));
+        break;
+      case 4:
+        reminderDate = endDate.subtract(const Duration(hours: 1));
+        break;
+      case 5:
+        reminderDate = endDate.subtract(const Duration(hours: 2));
+        break;
+      case 6:
+        reminderDate = endDate.subtract(const Duration(days: 1));
+        break;
+      case 7:
+        reminderDate = endDate.subtract(const Duration(days: 2));
+        break;
+      default:
+        reminderDate = DateTime.now();
+        break;
+    }
+    if (endDate.toUtc().millisecondsSinceEpoch <=
+        startDate.toUtc().millisecondsSinceEpoch) {
+      EasyLoading.showError("the_due_date_must_be_before_the_start_date".tr);
+      return;
+    }
+    EasyLoading.show(status: "please_wait".tr);
+    var newCard = CardRequest(
+      name: cardUpdate.value.name,
+      description: cardUpdate.value.description,
+      position: cardUpdate.value.position,
+      startDate: cardUpdate.value.due_date,
+      dueDate: endDate.toUtc().millisecondsSinceEpoch,
+      reminder: reminderDate.toUtc().millisecondsSinceEpoch,
+      listId: cardUpdate.value.list_id,
+      createdBy: cardUpdate.value.created_by,
+    );
+
+    cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {
+      EasyLoading.dismiss();
+
+      EasyLoading.showSuccess("update_success".tr);
+
+      endDatePicker.value = DateTime.fromMillisecondsSinceEpoch(value.due_date);
+
+      cardUpdate.value.due_date = value.due_date;
+      cardUpdate.value.reminder = value.reminder;
 
       Get.back();
 
@@ -246,6 +316,65 @@ class UpdateCardController extends GetxController {
         return "2 ${"days_ago".tr}";
       default:
         return "at_time_of_due_date".tr;
+    }
+  }
+
+  void initData() {
+    cardUpdate.value = detailBoardController.selectedCard.value;
+    cardNameController.text = cardUpdate.value.name;
+    cardDescriptionController.text = cardUpdate.value.description;
+    startDatePicker.value =
+        DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.start_date);
+    endDatePicker.value =
+        DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.due_date);
+
+    String startHour = startDatePicker.value.hour < 10
+        ? "0${startDatePicker.value.hour}"
+        : "${startDatePicker.value.hour}";
+    String startMinute = startDatePicker.value.minute < 10
+        ? "0${startDatePicker.value.minute}"
+        : "${startDatePicker.value.minute}";
+
+    startTimePicker.value = "$startHour: $startMinute";
+
+    String endHour = endDatePicker.value.hour < 10
+        ? "0${endDatePicker.value.hour}"
+        : "${endDatePicker.value.hour}";
+    String endMinute = endDatePicker.value.minute < 10
+        ? "0${endDatePicker.value.minute}"
+        : "${endDatePicker.value.minute}";
+    endTimePicker.value = "${endHour}: ${endMinute}";
+
+    var diff = endDatePicker.value
+        .difference(
+            DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.reminder))
+        .inMinutes;
+
+    switch (diff) {
+      case 0:
+        reminderCode.value = 0;
+        break;
+      case 5:
+        reminderCode.value = 1;
+        break;
+      case 10:
+        reminderCode.value = 2;
+        break;
+      case 15:
+        reminderCode.value = 3;
+        break;
+      case 60:
+        reminderCode.value = 4;
+        break;
+      case 120:
+        reminderCode.value = 5;
+        break;
+      case 1440:
+        reminderCode.value = 6;
+        break;
+      case 2880:
+        reminderCode.value = 7;
+        break;
     }
   }
 }

@@ -224,77 +224,73 @@ class UpdateCardPage extends StatelessWidget {
         const Icon(null),
         10.width,
         GestureDetector(
-          onTap: () {
-            Get.defaultDialog(
-              contentPadding:
-                  const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-              radius: 2,
-              title: "due_date".tr,
-              content: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Obx(
-                        () => _buildDropdownDateEndDate(),
-                      ),
-                      30.width,
-                      Obx(
-                        () => _buildDropdownTimeEndDate(),
-                      ),
-                    ],
-                  ),
-                  10.height,
-                  Text(
-                    "set_reminder".tr,
-                    style: const TextStyle(
-                        color: Colors.black,
+            onTap: () {
+              Get.defaultDialog(
+                contentPadding:
+                    const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                radius: 2,
+                title: "due_date".tr,
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Obx(
+                          () => _buildDropdownDateEndDate(),
+                        ),
+                        30.width,
+                        Obx(
+                          () => _buildDropdownTimeEndDate(),
+                        ),
+                      ],
+                    ),
+                    10.height,
+                    Text(
+                      "set_reminder".tr,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Obx(() => _buildDropdownRemind()),
+                    10.height,
+                    Text(
+                      "reminder_desc".tr,
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                    10.height,
+                  ],
+                ),
+                cancel: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                    // updateCardController.reminderCode.value = 0;
+                    // updateCardController.endDatePicker.value =
+                    //     DateTime.now().add(const Duration(days: 2));
+                    // updateCardController.endTimePicker.value = "9:00";
+                    // updateCardController.endDateTime.hour = 9;
+                    // updateCardController.endDateTime.minute = 0;
+                    // updateCardController.isAddMeToCard.value = true;
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 100, right: 20),
+                    child: Text(
+                      "cancel".tr,
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        letterSpacing: 3,
                         fontSize: 16,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Obx(() => _buildDropdownRemind()),
-                  10.height,
-                  Text(
-                    "reminder_desc".tr,
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
-                  10.height,
-                  Obx(() {
-                    return CheckboxListTile(
-                      contentPadding: const EdgeInsets.all(0),
-                      value: updateCardController.isAddMeToCard.isTrue
-                          ? true
-                          : false,
-                      onChanged: (value) {
-                        updateCardController.isAddMeToCard.value =
-                            !updateCardController.isAddMeToCard.value;
-                      },
-                      title: const Text(
-                        "Thêm tôi vào thẻ",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.bold,
                       ),
-                    );
-                  })
-                ],
-              ),
-              cancel: GestureDetector(
-                onTap: () {
-                  Get.back();
-                  // updateCardController.reminderCode.value = 0;
-                  // updateCardController.endDatePicker.value =
-                  //     DateTime.now().add(const Duration(days: 2));
-                  // updateCardController.endTimePicker.value = "9:00";
-                  // updateCardController.endDateTime.hour = 9;
-                  // updateCardController.endDateTime.minute = 0;
-                  // updateCardController.isAddMeToCard.value = true;
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(left: 100, right: 20),
+                    ),
+                  ),
+                ),
+                confirm: GestureDetector(
+                  onTap: () {
+                    updateCardController.updateCardSDueDate();
+                  },
                   child: Text(
-                    "cancel".tr,
+                    "done".tr,
                     style: const TextStyle(
                       color: Colors.blue,
                       letterSpacing: 3,
@@ -303,28 +299,14 @@ class UpdateCardPage extends StatelessWidget {
                     ),
                   ),
                 ),
+              );
+            },
+            child: Obx(
+              () => Text(
+                "${"due_date".tr}: ${DateFormat('dd-MM, kk:mm').format(updateCardController.endDatePicker.value)}",
+                style: primaryTextStyle(color: Colors.black),
               ),
-              confirm: GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: Text(
-                  "done".tr,
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    letterSpacing: 3,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            );
-          },
-          child: Text(
-            "${"due_date".tr}: ${DateFormat('dd-MM, kk:mm').format(updateCardController.endDatePicker.value)}",
-            style: primaryTextStyle(color: Colors.black),
-          ),
-        ),
+            )),
       ],
     );
   }
