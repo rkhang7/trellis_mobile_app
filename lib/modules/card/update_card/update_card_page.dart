@@ -287,7 +287,7 @@ class UpdateCardPage extends StatelessWidget {
                 ),
                 confirm: GestureDetector(
                   onTap: () {
-                    updateCardController.updateCardSDueDate();
+                    updateCardController.updateCardDueDate();
                   },
                   child: Text(
                     "done".tr,

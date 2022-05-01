@@ -192,7 +192,7 @@ class UpdateCardController extends GetxController {
     });
   }
 
-  void updateCardSDueDate() {
+  void updateCardDueDate() {
     updateDateTime();
     var startDate = DateTime(startDateTime.year, startDateTime.month,
         startDateTime.day, startDateTime.hour, startDateTime.minute, 0, 0);
@@ -281,6 +281,8 @@ class UpdateCardController extends GetxController {
   void handleLeading() {
     if (editingName.isTrue) {
       editingName.value = false;
+    } else if (editingDescription.isTrue) {
+      editingDescription.value = false;
     } else {
       Get.back();
     }
