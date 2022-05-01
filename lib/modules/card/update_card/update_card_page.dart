@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +24,10 @@ class UpdateCardPage extends StatelessWidget {
               Obx(
                 () => _buildInfoCardArea(),
               ),
+              SizedBox(
+                height: 50.h,
+              ),
+              _buildMemberArea(),
               SizedBox(
                 height: 50.h,
               ),
@@ -817,5 +822,66 @@ class UpdateCardPage extends StatelessWidget {
       }
     });
     Get.back();
+  }
+
+  _buildMemberArea() {
+    return InkWell(
+      onTap: () {
+        Get.dialog(
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.red,
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        color: Colors.white,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Icon(Icons.person_outline),
+            SizedBox(
+              width: 24.w,
+            ),
+            Expanded(
+              child: Wrap(
+                runSpacing: 20.h,
+                spacing: 20.h,
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.start,
+                children: updateCardController.cardUpdate.value.members
+                    .map((userResponse) {
+                  return Container(
+                    width: 40,
+                    height: 40,
+                    color: Colors.white,
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: userResponse.avatar_url.isEmpty
+                            ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
+                            : userResponse.avatar_url,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) {
+                          return const Icon(Icons.error);
+                        },
+                      ),
+                    ),
+                  );
+                  // return Container(
+                  //   width: 50,
+                  //   height: 50,
+                  //   color: Colors.red,
+                  // );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
