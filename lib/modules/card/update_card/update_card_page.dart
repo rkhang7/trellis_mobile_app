@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/board/update_board/update_board_controller.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_controller.dart';
 
@@ -21,11 +24,15 @@ class UpdateCardPage extends StatelessWidget {
                 () => _buildInfoCardArea(),
               ),
               SizedBox(
-                height: 40.h,
+                height: 50.h,
               ),
               Obx(
                 () => _buildEditDescriptionArea(),
               ),
+              SizedBox(
+                height: 50.h,
+              ),
+              _buildDateArea(),
             ],
           ),
         ),
@@ -167,11 +174,11 @@ class UpdateCardPage extends StatelessWidget {
                       updateCardController.cardUpdate.value.description == ""
                           ? "add_card_description".tr
                           : updateCardController.cardUpdate.value.description,
-                      style: TextStyle(color: Colors.black, fontSize: 72.sp),
+                      style: TextStyle(color: Colors.black, fontSize: 64.sp),
                     )
                   : TextFormField(
                       minLines: 3,
-                      style: TextStyle(color: Colors.black, fontSize: 72.sp),
+                      style: TextStyle(color: Colors.black, fontSize: 64.sp),
                       maxLines: null,
                       autofocus: true,
                       controller:
@@ -193,5 +200,640 @@ class UpdateCardPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _buildDateArea() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      color: Colors.white,
+      width: Get.width,
+      child: Column(
+        children: [
+          _buildStartDate(),
+          10.height,
+          _buildEndDate(),
+        ],
+      ),
+    );
+  }
+
+  _buildEndDate() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        const Icon(null),
+        10.width,
+        GestureDetector(
+          onTap: () {
+            Get.defaultDialog(
+              contentPadding:
+                  const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              radius: 2,
+              title: "due_date".tr,
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Obx(
+                        () => _buildDropdownDateEndDate(),
+                      ),
+                      30.width,
+                      Obx(
+                        () => _buildDropdownTimeEndDate(),
+                      ),
+                    ],
+                  ),
+                  10.height,
+                  Text(
+                    "set_reminder".tr,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Obx(() => _buildDropdownRemind()),
+                  10.height,
+                  Text(
+                    "reminder_desc".tr,
+                    style: TextStyle(color: Colors.grey[600]),
+                  ),
+                  10.height,
+                  Obx(() {
+                    return CheckboxListTile(
+                      contentPadding: const EdgeInsets.all(0),
+                      value: updateCardController.isAddMeToCard.isTrue
+                          ? true
+                          : false,
+                      onChanged: (value) {
+                        updateCardController.isAddMeToCard.value =
+                            !updateCardController.isAddMeToCard.value;
+                      },
+                      title: const Text(
+                        "Thêm tôi vào thẻ",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    );
+                  })
+                ],
+              ),
+              cancel: GestureDetector(
+                onTap: () {
+                  Get.back();
+                  // updateCardController.reminderCode.value = 0;
+                  // updateCardController.endDatePicker.value =
+                  //     DateTime.now().add(const Duration(days: 2));
+                  // updateCardController.endTimePicker.value = "9:00";
+                  // updateCardController.endDateTime.hour = 9;
+                  // updateCardController.endDateTime.minute = 0;
+                  // updateCardController.isAddMeToCard.value = true;
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(left: 100, right: 20),
+                  child: Text(
+                    "cancel".tr,
+                    style: const TextStyle(
+                      color: Colors.blue,
+                      letterSpacing: 3,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              confirm: GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: Text(
+                  "done".tr,
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    letterSpacing: 3,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            );
+          },
+          child: Text(
+            "${"due_date".tr}: ${DateFormat('dd-MM, kk:mm').format(updateCardController.endDatePicker.value)}",
+            style: primaryTextStyle(color: Colors.black),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDropdownRemind() {
+    return DropdownButton<int>(
+      underline: Container(
+        height: 1,
+        color: Colors.black,
+      ),
+      isExpanded: true,
+      hint: Text(
+        updateCardController
+            .getReminderByCode(updateCardController.reminderCode.value),
+        style: const TextStyle(color: Colors.black),
+      ),
+      onChanged: (dynamic value) {
+        updateCardController.reminderCode.value = value;
+      },
+      items: [
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text(
+                "at_time_of_due_date".tr,
+                style: primaryTextStyle(color: Colors.black),
+              ),
+            ),
+            value: 0),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text(
+                "5 ${"minutes_ago".tr}",
+                style: primaryTextStyle(color: Colors.black),
+              ),
+            ),
+            value: 1),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text(
+                "10 ${"minutes_ago".tr}",
+                style: primaryTextStyle(color: Colors.black),
+              ),
+            ),
+            value: 2),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text(
+                "15 ${"minutes_ago".tr}",
+                style: primaryTextStyle(color: Colors.black),
+              ),
+            ),
+            value: 3),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text(
+                "1 ${"hours_ago".tr}",
+                style: primaryTextStyle(color: Colors.black),
+              ),
+            ),
+            value: 4),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text(
+                "2 ${"hours_ago".tr}",
+                style: primaryTextStyle(color: Colors.black),
+              ),
+            ),
+            value: 5),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text(
+                "1 ${"days_ago".tr}",
+                style: primaryTextStyle(color: Colors.black),
+              ),
+            ),
+            value: 6),
+        DropdownMenuItem(
+            child: ListTile(
+              title: Text(
+                "2 ${"days_ago".tr}",
+                style: primaryTextStyle(color: Colors.black),
+              ),
+            ),
+            value: 7),
+      ],
+    );
+  }
+
+  _buildDropdownTimeEndDate() {
+    return SizedBox(
+      width: 400.w,
+      child: DropdownButton(
+        underline: Container(
+          height: 1,
+          color: Colors.black,
+        ),
+        isExpanded: true,
+        hint: Text(
+          updateCardController.endTimePicker.value,
+          style: primaryTextStyle(color: Colors.black),
+        ),
+        onChanged: (dynamic value) {},
+        items: [
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "morning".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.endTimePicker.value = "09:00";
+                  updateCardController.endDateTime.hour = 9;
+
+                  Get.back();
+                },
+              ),
+              value: '09:00'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "afternoon".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.endTimePicker.value = "13:00";
+                  updateCardController.endDateTime.hour = 13;
+
+                  Get.back();
+                },
+              ),
+              value: '13:00'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "evening".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.endTimePicker.value = "17:00";
+                  updateCardController.endDateTime.hour = 17;
+                  Get.back();
+                },
+              ),
+              value: '17:00'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "night".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.endTimePicker.value = "20:00";
+                  updateCardController.endDateTime.hour = 20;
+                  Get.back();
+                },
+              ),
+              value: '20:00'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "pick_a_time".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  _selectEndTimePicker(Get.context!);
+                },
+              ),
+              value: '1'),
+        ],
+      ),
+    );
+  }
+
+  void _selectEndTimePicker(BuildContext context) async {
+    await showTimePicker(
+      context: context,
+      initialTime: const TimeOfDay(hour: 9, minute: 0),
+    ).then((value) {
+      String hour = value!.hour < 10 ? "0${value.hour}" : value.hour.toString();
+      String minute =
+          value.minute < 10 ? "0${value.minute}" : value.minute.toString();
+
+      updateCardController.endTimePicker.value = "$hour:$minute";
+      updateCardController.endDateTime.hour = value.hour;
+      updateCardController.endDateTime.minute = value.minute;
+    });
+    Get.back();
+  }
+
+  _buildDropdownDateEndDate() {
+    var datePicker = updateCardController.endDatePicker;
+    return SizedBox(
+      width: 540.w,
+      child: DropdownButton(
+        underline: Container(
+          height: 1,
+          color: Colors.black,
+        ),
+        isExpanded: true,
+        hint: Text(
+          Get.locale.toString() == "vi_VN"
+              ? "Ngày ${datePicker.value.day} tháng ${datePicker.value.month}"
+              : "${datePicker.value.day} thg ${datePicker.value.month}",
+          style: TextStyle(color: Colors.black),
+        ),
+        onChanged: (dynamic value) {},
+        items: [
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "today".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.endDatePicker.value = DateTime.now();
+                  Get.back();
+                },
+              ),
+              value: '1'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "tomorrow".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.endDatePicker.value =
+                      DateTime.now().add(const Duration(days: 1));
+                  Get.back();
+                },
+              ),
+              value: '1'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "pick_a_date".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  _selectEndDate(Get.context!);
+                },
+              ),
+              value: '1'),
+        ],
+      ),
+    );
+  }
+
+  void _selectEndDate(BuildContext buildContext) async {
+    await showDatePicker(
+      context: buildContext,
+      locale: Get.locale.toString() == "vi_VN"
+          ? const Locale("vi", "VN")
+          : const Locale("en", "US"),
+      initialDate: DateTime.now().add(const Duration(days: 1)),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2040),
+    ).then((value) => updateCardController.endDatePicker.value = value!);
+    Get.back();
+  }
+
+  _buildStartDate() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        const Icon(FontAwesomeIcons.clock),
+        10.width,
+        GestureDetector(
+          onTap: () {
+            Get.defaultDialog(
+              contentPadding:
+                  const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              radius: 2,
+              title: "start_date".tr,
+              content: Row(
+                children: [
+                  Obx(
+                    () => _buildDropdownDateStartDate(),
+                  ),
+                  30.width,
+                  Obx(
+                    () => _buildDropdownTimeStartDate(),
+                  ),
+                ],
+              ),
+              cancel: GestureDetector(
+                onTap: () {
+                  Get.back();
+                  // updateCardController.startDatePicker.value =
+                  //     DateTime.now().add(const Duration(days: 1));
+                  // updateCardController.startTimePicker.value = "9:00";
+                  // updateCardController.startDateTime.hour = 9;
+                  // updateCardController.startDateTime.minute = 0;
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(left: 100, right: 20),
+                  child: Text(
+                    "cancel".tr,
+                    style: const TextStyle(
+                      color: Colors.blue,
+                      letterSpacing: 3,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              confirm: GestureDetector(
+                onTap: () {
+                  updateCardController.updateCardStartDay();
+                },
+                child: Text(
+                  "done".tr,
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    letterSpacing: 3,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            );
+          },
+          child: Obx(
+            () => Text(
+              "${"start_date".tr}: ${DateFormat('dd-MM, kk:mm').format(updateCardController.startDatePicker.value)}",
+              style: primaryTextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDropdownTimeStartDate() {
+    return SizedBox(
+      width: 400.w,
+      child: DropdownButton(
+        underline: Container(
+          height: 1,
+          color: Colors.black,
+        ),
+        isExpanded: true,
+        hint: Text(
+          updateCardController.startTimePicker.value,
+          style: primaryTextStyle(color: Colors.black),
+        ),
+        onChanged: (dynamic value) {},
+        items: [
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "morning".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.startTimePicker.value = "09:00";
+                  updateCardController.startDateTime.hour = 9;
+                  Get.back();
+                },
+              ),
+              value: '09:00'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "afternoon".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.startTimePicker.value = "13:00";
+                  updateCardController.startDateTime.hour = 13;
+                  Get.back();
+                },
+              ),
+              value: '13:00'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "evening".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.startTimePicker.value = "17:00";
+                  updateCardController.startDateTime.hour = 17;
+                  Get.back();
+                },
+              ),
+              value: '17:00'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "night".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.startTimePicker.value = "20:00";
+                  updateCardController.startDateTime.hour = 20;
+                  Get.back();
+                },
+              ),
+              value: '20:00'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "pick_a_time".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  _selectStartTimePicker(Get.context!);
+                },
+              ),
+              value: '1'),
+        ],
+      ),
+    );
+  }
+
+  void _selectStartTimePicker(BuildContext context) async {
+    await showTimePicker(
+      context: context,
+      initialTime: const TimeOfDay(hour: 9, minute: 0),
+    ).then((value) {
+      String hour = value!.hour < 10 ? "0${value.hour}" : value.hour.toString();
+      String minute =
+          value.minute < 10 ? "0${value.minute}" : value.minute.toString();
+
+      updateCardController.startTimePicker.value = "$hour:$minute";
+      updateCardController.startDateTime.hour = value.hour;
+      updateCardController.startDateTime.minute = value.minute;
+    });
+    Get.back();
+  }
+
+  _buildDropdownDateStartDate() {
+    var datePicker = updateCardController.startDatePicker;
+    return SizedBox(
+      width: 540.w,
+      child: DropdownButton(
+        underline: Container(
+          height: 1,
+          color: Colors.black,
+        ),
+        isExpanded: true,
+        hint: Text(
+          Get.locale.toString() == "vi_VN"
+              ? "Ngày ${datePicker.value.day} tháng ${datePicker.value.month}"
+              : "${datePicker.value.day} thg ${datePicker.value.month}",
+          style: const TextStyle(color: Colors.black),
+        ),
+        onChanged: (dynamic value) {},
+        items: [
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "today".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.startDatePicker.value = DateTime.now();
+                  Get.back();
+                },
+              ),
+              value: '1'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "tomorrow".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  updateCardController.startDatePicker.value =
+                      DateTime.now().add(
+                    const Duration(days: 1),
+                  );
+
+                  Get.back();
+                },
+              ),
+              value: '1'),
+          DropdownMenuItem(
+              child: ListTile(
+                title: Text(
+                  "pick_a_date".tr,
+                  style: primaryTextStyle(color: Colors.black),
+                ),
+                onTap: () {
+                  _selectStartDate(Get.context!);
+                },
+              ),
+              value: '1'),
+        ],
+      ),
+    );
+  }
+
+  void _selectStartDate(BuildContext context) async {
+    await showDatePicker(
+      context: context,
+      locale: Get.locale.toString() == "vi_VN"
+          ? const Locale("vi", "VN")
+          : const Locale("en", "US"),
+      initialDate: DateTime.now().add(const Duration(days: 1)),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2040),
+    ).then((value) {
+      if (value != null) {
+        updateCardController.startDatePicker.value = value;
+      }
+    });
+    Get.back();
   }
 }
