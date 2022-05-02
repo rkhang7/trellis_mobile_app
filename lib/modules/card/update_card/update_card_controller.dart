@@ -415,6 +415,7 @@ class UpdateCardController extends GetxController {
           .then((value) {
         cardUpdate.value.members.removeWhere((element) => element.uid == uid);
         cardUpdate.refresh();
+        listMemberInBoard.refresh();
         detailBoardController.lists.refresh();
         EasyLoading.dismiss();
       }).catchError((Object obj) {
@@ -439,6 +440,7 @@ class UpdateCardController extends GetxController {
           .then((value) {
         cardUpdate.value.members.add(value);
         cardUpdate.refresh();
+        listMemberInBoard.refresh();
         detailBoardController.lists.refresh();
         EasyLoading.dismiss();
       }).catchError((Object obj) {

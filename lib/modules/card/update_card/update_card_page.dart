@@ -902,48 +902,50 @@ class UpdateCardPage extends StatelessWidget {
               ),
             ),
           ),
-          ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: updateCardController.listMemberInBoard.length,
-            itemBuilder: (_, index) {
-              final userResponse =
-                  updateCardController.listMemberInBoard[index];
-              return InkWell(
-                onTap: () {
-                  updateCardController
-                      .handleClickListMember(userResponse.member_id);
-                },
-                child: ListTile(
-                  leading: ClipOval(
-                    child: CachedNetworkImage(
-                      height: 50,
-                      width: 50,
-                      imageUrl: userResponse.avatar_url.isEmpty
-                          ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                          : userResponse.avatar_url,
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      errorWidget: (context, url, error) {
-                        return const Icon(Icons.error);
-                      },
+          Obx(
+            () => ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: updateCardController.listMemberInBoard.length,
+              itemBuilder: (_, index) {
+                final userResponse =
+                    updateCardController.listMemberInBoard[index];
+                return InkWell(
+                  onTap: () {
+                    updateCardController
+                        .handleClickListMember(userResponse.member_id);
+                  },
+                  child: ListTile(
+                    leading: ClipOval(
+                      child: CachedNetworkImage(
+                        height: 50,
+                        width: 50,
+                        imageUrl: userResponse.avatar_url.isEmpty
+                            ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
+                            : userResponse.avatar_url,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) {
+                          return const Icon(Icons.error);
+                        },
+                      ),
                     ),
+                    title: Text(
+                        "${userResponse.first_name} ${userResponse.last_name}"),
+                    subtitle: Text(userResponse.email),
+                    trailing: updateCardController
+                            .memberIsExistInCard(userResponse.member_id)
+                        ? const Icon(
+                            Icons.check,
+                            color: Colors.black,
+                          )
+                        : null,
                   ),
-                  title: Text(
-                      "${userResponse.first_name} ${userResponse.last_name}"),
-                  subtitle: Text(userResponse.email),
-                  trailing: updateCardController
-                          .memberIsExistInCard(userResponse.member_id)
-                      ? const Icon(
-                          Icons.check,
-                          color: Colors.black,
-                        )
-                      : null,
-                ),
-              );
-            },
-          ),
+                );
+              },
+            ),
+          )
         ],
       ),
       btnOkOnPress: () {},
