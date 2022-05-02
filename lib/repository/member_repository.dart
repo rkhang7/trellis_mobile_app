@@ -59,4 +59,9 @@ class MemberRepository {
     final client = RestClient(dio);
     return await client.createMemberIntoCard(cardMemberRequest);
   }
+
+  Future<void> removeMemberInCard(String memberId, int cardId) async {
+    final client = RestClient(dio);
+    return await client.removeMemberInCard(memberId, cardId);
+  }
 }

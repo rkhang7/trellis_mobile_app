@@ -6,13 +6,20 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
+import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
+import 'package:trellis_mobile_app/models/member/card_member_request.dart';
+import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/detail_board/detail_board_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
+import 'package:trellis_mobile_app/repository/member_repository.dart';
 
 import '../../../models/my_date_time.dart';
+import '../../../models/user/user_response.dart';
 
 class UpdateCardController extends GetxController {
   final detailBoardController = Get.find<DetailBoardController>();
+  final memberRepository = Get.find<MemberRepository>();
+  final dashBoardController = Get.find<DashBoardController>();
   final cardNameController = TextEditingController();
   final cardDescriptionController = TextEditingController();
   final cardRepository = Get.find<CardRepository>();
@@ -50,6 +57,10 @@ class UpdateCardController extends GetxController {
       MyDateTime(year: -1, month: -1, day: -1, hour: 9, minute: 0);
 
   var isAddMeToCard = true.obs;
+
+  var listMemberInBoard = <BoardMemberDetailResponse>[].obs;
+
+  var isSelectedMember = false.obs;
 
   @override
   void onInit() {
@@ -377,6 +388,74 @@ class UpdateCardController extends GetxController {
       case 2880:
         reminderCode.value = 7;
         break;
+    }
+
+    memberRepository
+        .getListMemberInBoard(dashBoardController.boardIdSelected)
+        .then((value) {
+      listMemberInBoard.assignAll(value);
+    });
+  }
+
+  bool memberIsExistInCard(String memberId) {
+    for (UserResponse userResponse in cardUpdate.value.members) {
+      if (userResponse.uid == memberId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void handleClickListMember(String uid) {
+    EasyLoading.show(status: "please_wait".tr);
+    if (memberIsExistInCard(uid)) {
+      // remove member
+      memberRepository
+          .removeMemberInCard(uid, cardUpdate.value.card_id)
+          .then((value) {
+        cardUpdate.value.members.removeWhere((element) => element.uid == uid);
+        cardUpdate.refresh();
+        detailBoardController.lists.refresh();
+        EasyLoading.dismiss();
+      }).catchError((Object obj) {
+        switch (obj.runtimeType) {
+          case DioError:
+            // Here's the sample to get the failed response error code and message
+            EasyLoading.dismiss();
+
+            EasyLoading.showError("error".tr);
+            break;
+          default:
+            EasyLoading.dismiss();
+
+            EasyLoading.showError("error".tr);
+            break;
+        }
+      });
+    } else {
+      memberRepository
+          .createMemberIntoCard(CardMemberRequest(
+              memberId: uid, cardId: cardUpdate.value.card_id))
+          .then((value) {
+        cardUpdate.value.members.add(value);
+        cardUpdate.refresh();
+        detailBoardController.lists.refresh();
+        EasyLoading.dismiss();
+      }).catchError((Object obj) {
+        switch (obj.runtimeType) {
+          case DioError:
+            // Here's the sample to get the failed response error code and message
+            EasyLoading.dismiss();
+
+            EasyLoading.showError("error".tr);
+            break;
+          default:
+            EasyLoading.dismiss();
+
+            EasyLoading.showError("error".tr);
+            break;
+        }
+      });
     }
   }
 }

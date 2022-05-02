@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/board/update_board/update_board_controller.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_controller.dart';
+import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 
 class UpdateCardPage extends StatelessWidget {
   UpdateCardPage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class UpdateCardPage extends StatelessWidget {
               SizedBox(
                 height: 50.h,
               ),
-              _buildMemberArea(),
+              _buildMemberArea(context),
               SizedBox(
                 height: 50.h,
               ),
@@ -824,16 +825,10 @@ class UpdateCardPage extends StatelessWidget {
     Get.back();
   }
 
-  _buildMemberArea() {
+  _buildMemberArea(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.dialog(
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.red,
-          ),
-        );
+        openDialog(context).show();
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -846,42 +841,112 @@ class UpdateCardPage extends StatelessWidget {
             SizedBox(
               width: 24.w,
             ),
-            Expanded(
-              child: Wrap(
-                runSpacing: 20.h,
-                spacing: 20.h,
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.start,
-                children: updateCardController.cardUpdate.value.members
-                    .map((userResponse) {
-                  return Container(
-                    width: 40,
-                    height: 40,
-                    color: Colors.white,
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        imageUrl: userResponse.avatar_url.isEmpty
-                            ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                            : userResponse.avatar_url,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) {
-                          return const Icon(Icons.error);
-                        },
+            Obx(
+              () => Expanded(
+                child: Wrap(
+                  runSpacing: 20.h,
+                  spacing: 20.h,
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.start,
+                  children: updateCardController.cardUpdate.value.members
+                      .map((userResponse) {
+                    return Container(
+                      width: 40,
+                      height: 40,
+                      color: Colors.white,
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: userResponse.avatar_url.isEmpty
+                              ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
+                              : userResponse.avatar_url,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) {
+                            return const Icon(Icons.error);
+                          },
+                        ),
                       ),
-                    ),
-                  );
-                  // return Container(
-                  //   width: 50,
-                  //   height: 50,
-                  //   color: Colors.red,
-                  // );
-                }).toList(),
+                    );
+                    // return Container(
+                    //   width: 50,
+                    //   height: 50,
+                    //   color: Colors.red,
+                    // );
+                  }).toList(),
+                ),
               ),
-            ),
+            )
           ],
         ),
       ),
+    );
+  }
+
+  dialog.AwesomeDialog openDialog(BuildContext context) {
+    return dialog.AwesomeDialog(
+      context: context,
+      animType: dialog.AnimType.SCALE,
+      dialogType: dialog.DialogType.NO_HEADER,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 18),
+            child: Text(
+              "card_members".tr,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 72.sp,
+              ),
+            ),
+          ),
+          ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: updateCardController.listMemberInBoard.length,
+            itemBuilder: (_, index) {
+              final userResponse =
+                  updateCardController.listMemberInBoard[index];
+              return InkWell(
+                onTap: () {
+                  updateCardController
+                      .handleClickListMember(userResponse.member_id);
+                },
+                child: ListTile(
+                  leading: ClipOval(
+                    child: CachedNetworkImage(
+                      height: 50,
+                      width: 50,
+                      imageUrl: userResponse.avatar_url.isEmpty
+                          ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
+                          : userResponse.avatar_url,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) {
+                        return const Icon(Icons.error);
+                      },
+                    ),
+                  ),
+                  title: Text(
+                      "${userResponse.first_name} ${userResponse.last_name}"),
+                  subtitle: Text(userResponse.email),
+                  trailing: updateCardController
+                          .memberIsExistInCard(userResponse.member_id)
+                      ? const Icon(
+                          Icons.check,
+                          color: Colors.black,
+                        )
+                      : null,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      btnOkOnPress: () {},
     );
   }
 }

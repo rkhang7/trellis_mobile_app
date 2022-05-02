@@ -87,6 +87,10 @@ abstract class RestClient {
   Future<UserResponse> createMemberIntoCard(
       @Body() CardMemberRequest cardMemberRequest);
 
+  @DELETE("/card-member/{memberId}/{cardId}")
+  Future<void> removeMemberInCard(
+      @Path("memberId") String memberId, @Path("cardId") int cardId);
+
   // board
   @POST("/boards")
   Future<BoardResponse> createBoard(@Body() BoardRequest boardRequest);

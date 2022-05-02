@@ -201,6 +201,7 @@ class Messages extends Translations {
           'edit_card_name': 'Edit name',
           'add_card_description': "Add card description...",
           'edit_card_description': "Edit description",
+          'card_members': "Card members",
         },
         'vi_VN': {
           //common
@@ -400,6 +401,7 @@ class Messages extends Translations {
           'edit_card_name': 'Chỉnh sửa tên',
           'add_card_description': "Thêm mô tả thẻ...",
           'edit_card_description': "Chỉnh sửa mô tả",
+          'card_members': "Thành viên thẻ",
         }
       };
 }
