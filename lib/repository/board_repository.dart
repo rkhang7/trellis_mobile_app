@@ -28,4 +28,9 @@ class BoardRepository {
     final client = RestClient(dio);
     return await client.updateBoard(boardId, boardRequest);
   }
+
+  Future<void> deleteBoard(int boardId) async {
+    final client = RestClient(dio);
+    return await client.deleteBoard(boardId);
+  }
 }

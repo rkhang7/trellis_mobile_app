@@ -28,13 +28,13 @@ class UpdateCardPage extends StatelessWidget {
               SizedBox(
                 height: 50.h,
               ),
-              _buildMemberArea(context),
-              SizedBox(
-                height: 50.h,
-              ),
               Obx(
                 () => _buildEditDescriptionArea(),
               ),
+              SizedBox(
+                height: 50.h,
+              ),
+              _buildMemberArea(context),
               SizedBox(
                 height: 50.h,
               ),

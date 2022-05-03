@@ -196,6 +196,7 @@ class Messages extends Translations {
           'board_menu': "Board menu",
           'board_setting': "Board setting",
           'background_color': "Background color",
+          'delete_board': 'Delete board',
 
           // update card page
           'edit_card_name': 'Edit name',
@@ -396,6 +397,7 @@ class Messages extends Translations {
           'board_menu': "Menu bảng",
           'board_setting': "Chỉnh sửa bảng",
           'background_color': "Màu nền",
+          'delete_board': 'Xóa bảng',
 
           // update card page
           'edit_card_name': 'Chỉnh sửa tên',

@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,6 +37,10 @@ class BoardMenuPage extends StatelessWidget {
               height: 80.h,
             ),
             _buildBackgroundColorArea(),
+            SizedBox(
+              height: 80.h,
+            ),
+            _buildDeleteBoardArea(context),
           ],
         ),
       ),
@@ -192,6 +197,42 @@ class BoardMenuPage extends StatelessWidget {
               style: TextStyle(fontSize: 64.sp),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  _buildDeleteBoardArea(BuildContext context) {
+    return Visibility(
+      visible: true,
+      child: InkWell(
+        onTap: () {
+          dialog.AwesomeDialog(
+            context: context,
+            dialogType: dialog.DialogType.WARNING,
+            animType: dialog.AnimType.BOTTOMSLIDE,
+            title: 'delete_board'.tr,
+            desc: 'are_you_sure_delete_this_board'.tr,
+            btnCancelOnPress: () {},
+            btnOkOnPress: () {},
+          ).show();
+        },
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.only(left: 18),
+          height: 200.h,
+          child: Row(
+            children: [
+              Icon(
+                Icons.delete,
+                size: 72.sp,
+                color: Colors.red,
+              ),
+              SizedBox(width: 60.w),
+              Text("delete_board".tr,
+                  style: TextStyle(fontSize: 64.sp, color: Colors.red)),
+            ],
+          ),
         ),
       ),
     );

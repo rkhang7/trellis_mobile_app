@@ -35,4 +35,18 @@ class BoardMenuController extends GetxController {
       currentBoard = value;
     });
   }
+
+  bool currentUserIsAdmin() {
+    if (listMember.isNotEmpty) {
+      for (BoardMemberDetailResponse boardMemberDetailResponse in listMember) {
+        if (boardMemberDetailResponse.member_id ==
+            dashBoardController.currentId) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      return false;
+    }
+  }
 }
