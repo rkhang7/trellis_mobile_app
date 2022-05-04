@@ -298,9 +298,10 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<BoardResponse>> getListBoardsInWorkspace(workspaceId, uid) async {
+  Future<List<BoardResponse>> getListBoardsInWorkspace(
+      workspaceId, uid, name) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'name': name};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
@@ -433,14 +434,15 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<String> swapCards(listId, cardId, position) async {
+  Future<String> moveCards(listId, oldIndex, newIndex) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'position': position};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'GET', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/cards/${listId}/move/${cardId}',
+            .compose(
+                _dio.options, '/cards/${listId}/move/${oldIndex}/${newIndex}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

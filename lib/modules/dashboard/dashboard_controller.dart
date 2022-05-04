@@ -62,7 +62,7 @@ class DashBoardController extends GetxController {
 
   void loadListBoards(int workspaceId) async {
     await boardRepository
-        .getListBoardsInWorkspace(workspaceId, currentId)
+        .getListBoardsInWorkspace(workspaceId, currentId, "")
         .then((value) {
       listBoards.assignAll(value);
     });

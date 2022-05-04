@@ -97,7 +97,10 @@ abstract class RestClient {
 
   @GET("/boards/workspace/{workspaceId}/user/{uid}")
   Future<List<BoardResponse>> getListBoardsInWorkspace(
-      @Path("workspaceId") int workspaceId, @Path("uid") String uid);
+    @Path("workspaceId") int workspaceId,
+    @Path("uid") String uid,
+    @Query("name") String name,
+  );
 
   @GET("/boards/{boardId}")
   Future<BoardResponse> getBoardById(@Path("boardId") int boardId);
@@ -124,9 +127,12 @@ abstract class RestClient {
   @POST("/cards")
   Future<CardResponse> createCard(@Body() CardRequest cardRequest);
 
-  @GET("/cards/{listId}/move/{cardId}")
-  Future<String> swapCards(@Path("listId") int listId,
-      @Path("cardId") int cardId, @Query("position") int position);
+  @GET("/cards/{listId}/move/{oldIndex}/{newIndex}")
+  Future<String> moveCards(
+    @Path("listId") int listId,
+    @Path("oldIndex") int oldIndex,
+    @Path("newIndex") int newIndex,
+  );
 
   @PUT("/cards/{cardId}")
   Future<CardResponse> updateCard(

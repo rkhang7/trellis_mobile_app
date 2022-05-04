@@ -235,9 +235,9 @@ class DetailBoardController extends GetxController {
     return s;
   }
 
-  void swapCard(int listId, int cardId, int position) {
+  void moveCards(int listId, int oldIndex, int newIndex) {
     EasyLoading.show(status: "please_wait".tr);
-    cardRepository.swapCards(listId, cardId, position).then((value) {
+    cardRepository.moveCards(listId, oldIndex, newIndex).then((value) {
       EasyLoading.dismiss();
     }).catchError((Object obj) {
       switch (obj.runtimeType) {

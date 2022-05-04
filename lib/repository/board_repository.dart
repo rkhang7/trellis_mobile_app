@@ -13,9 +13,9 @@ class BoardRepository {
   }
 
   Future<List<BoardResponse>> getListBoardsInWorkspace(
-      int workspaceId, String uid) async {
+      int workspaceId, String uid, String name) async {
     final client = RestClient(dio);
-    return await client.getListBoardsInWorkspace(workspaceId, uid);
+    return await client.getListBoardsInWorkspace(workspaceId, uid, name);
   }
 
   Future<BoardResponse> getBoardById(int boardId) async {

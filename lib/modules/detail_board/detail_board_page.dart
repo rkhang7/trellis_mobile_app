@@ -447,8 +447,9 @@ class DetailBoardPage extends StatelessWidget {
 
   void swapCards(
       List<CardResponse> listCard, int oldIndex, int newIndex, int index) {
-    detailBoardController.swapCard(detailBoardController.lists[index].list_id,
-        listCard[oldIndex].card_id, newIndex - 1);
+    detailBoardController.moveCards(
+        detailBoardController.lists[index].list_id, oldIndex, newIndex);
+
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }

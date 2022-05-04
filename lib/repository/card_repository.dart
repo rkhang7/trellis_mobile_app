@@ -12,9 +12,9 @@ class CardRepository {
     return client.createCard(cardRequest);
   }
 
-  Future<String> swapCards(int listId, int cardId, int position) async {
+  Future<String> moveCards(int listId, int oldIndex, int newIndex) async {
     final client = RestClient(dio);
-    return await client.swapCards(listId, cardId, position);
+    return await client.moveCards(listId, oldIndex, newIndex);
   }
 
   Future<CardResponse> updateCard(int cardId, CardRequest cardRequest) async {
