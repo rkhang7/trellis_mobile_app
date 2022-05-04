@@ -8,6 +8,8 @@ import 'package:trellis_mobile_app/modules/board/invite_board_member/invite_boar
 import 'package:trellis_mobile_app/modules/board/remove_board_member/remove_board_member_page.dart';
 import 'package:trellis_mobile_app/modules/board/update_board/update_board_binding.dart';
 import 'package:trellis_mobile_app/modules/board/update_board/update_board_page.dart';
+import 'package:trellis_mobile_app/modules/card/my_card/my_card_binding.dart';
+import 'package:trellis_mobile_app/modules/card/my_card/my_card_page.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_binding.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_page.dart';
 
@@ -170,6 +172,11 @@ class AppPages {
       name: AppRoutes.BOARD_BACKGROUND,
       page: () => BoardBackgroundPage(),
       binding: BoardBackgroundBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.MY_CARD,
+      page: () => MyCardPage(),
+      binding: MyCardBinding(),
     ),
   ];
 }

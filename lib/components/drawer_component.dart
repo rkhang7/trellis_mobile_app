@@ -163,7 +163,9 @@ class _DrawerComponentState extends State<DrawerComponent> {
               DrawerList(
                 leading: const Icon(Icons.laptop),
                 title: "my_cards".tr,
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(AppRoutes.MY_CARD);
+                },
               ),
               DrawerList(
                 leading: const Icon(Icons.settings_outlined),

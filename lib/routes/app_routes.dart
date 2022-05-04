@@ -21,4 +21,5 @@ class AppRoutes {
   static const String UPDATE_BOARD = "/update_board";
   static const String UPDATE_CARD = "/update_card";
   static const String BOARD_BACKGROUND = "/board_background";
+  static const String MY_CARD = "/my_card";
 }
