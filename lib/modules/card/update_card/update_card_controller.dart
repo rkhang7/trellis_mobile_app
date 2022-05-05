@@ -60,7 +60,7 @@ class UpdateCardController extends GetxController {
 
   var listMemberInBoard = <BoardMemberDetailResponse>[].obs;
 
-  var isSelectedMember = false.obs;
+  var isShowQuickActions = true.obs;
 
   @override
   void onInit() {

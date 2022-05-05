@@ -17,7 +17,7 @@ class MyCardPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            _buildTaskBar(),
+            _buildTaskBar(context),
             _buildDateBar(),
           ],
         ),
@@ -66,7 +66,7 @@ class MyCardPage extends StatelessWidget {
     );
   }
 
-  _buildTaskBar() {
+  _buildTaskBar(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 20, left: 20, top: 10),
       child: Row(
@@ -80,10 +80,10 @@ class MyCardPage extends StatelessWidget {
                   _showDialog(
                     CupertinoDatePicker(
                       initialDateTime: DateTime.now(),
-                      mode: CupertinoDatePickerMode.date,
+                      mode: CupertinoDatePickerMode.time,
                       use24hFormat: true,
-                      // This is called when the user changes the date.
-                      onDateTimeChanged: (DateTime newDate) {},
+                      // This is called when the user changes the time.
+                      onDateTimeChanged: (DateTime newTime) {},
                     ),
                   );
                 },

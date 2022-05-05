@@ -29,6 +29,12 @@ class UpdateCardPage extends StatelessWidget {
                 height: 50.h,
               ),
               Obx(
+                () => _buildQuickAction(),
+              ),
+              SizedBox(
+                height: 50.h,
+              ),
+              Obx(
                 () => _buildEditDescriptionArea(),
               ),
               SizedBox(
@@ -949,6 +955,161 @@ class UpdateCardPage extends StatelessWidget {
         ],
       ),
       btnOkOnPress: () {},
+    );
+  }
+
+  _buildQuickAction() {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () {
+              updateCardController.isShowQuickActions.value =
+                  !updateCardController.isShowQuickActions.value;
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "quick_actions".tr,
+                  style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                ),
+                Icon(
+                  updateCardController.isShowQuickActions.isTrue
+                      ? Icons.keyboard_arrow_up_sharp
+                      : Icons.keyboard_arrow_down_sharp,
+                  size: 36,
+                  color: Colors.black,
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 16.h,
+          ),
+          Visibility(
+            visible: updateCardController.isShowQuickActions.value,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 16.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.check_box_rounded,
+                                  color: Colors.green),
+                              SizedBox(
+                                width: 24.w,
+                              ),
+                              Text(
+                                "add_task".tr,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 56.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      flex: 12,
+                    ),
+                    Expanded(
+                      child: Container(),
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 16.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(Icons.attach_file_rounded,
+                                  color: Colors.blue.shade600),
+                              SizedBox(
+                                width: 24.w,
+                              ),
+                              Text(
+                                "add_task".tr,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 56.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      flex: 12,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 40.w,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade300,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 16.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(Icons.person, color: Colors.purple.shade600),
+                              SizedBox(
+                                width: 24.w,
+                              ),
+                              Text(
+                                "members".tr,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 56.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      flex: 12,
+                    ),
+                    Expanded(
+                      child: Container(),
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Container(),
+                      flex: 12,
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

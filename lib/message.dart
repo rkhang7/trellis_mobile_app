@@ -203,6 +203,9 @@ class Messages extends Translations {
           'add_card_description': "Add card description...",
           'edit_card_description': "Edit description",
           'card_members': "Card members",
+          'quick_actions': "Quick actions",
+          'add_task': "Add task",
+          'add_attachment': 'Add_attachment',
         },
         'vi_VN': {
           //common
@@ -404,6 +407,9 @@ class Messages extends Translations {
           'add_card_description': "Thêm mô tả thẻ...",
           'edit_card_description': "Chỉnh sửa mô tả",
           'card_members': "Thành viên thẻ",
+          'quick_actions': "Các hành động nhanh",
+          'add_task': "Thêm công việc",
+          'add_attachment': 'Thêm tệp đính kèm',
         }
       };
 }
