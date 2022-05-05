@@ -62,6 +62,9 @@ class UpdateCardController extends GetxController {
 
   var isShowQuickActions = true.obs;
 
+  var addingTask = false.obs;
+  var taskNameController = TextEditingController();
+
   @override
   void onInit() {
     initData();

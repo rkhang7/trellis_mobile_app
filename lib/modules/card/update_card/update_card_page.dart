@@ -29,7 +29,7 @@ class UpdateCardPage extends StatelessWidget {
                 height: 50.h,
               ),
               Obx(
-                () => _buildQuickAction(),
+                () => _buildQuickAction(context),
               ),
               SizedBox(
                 height: 50.h,
@@ -45,6 +45,12 @@ class UpdateCardPage extends StatelessWidget {
                 height: 50.h,
               ),
               _buildDateArea(),
+              SizedBox(
+                height: 50.h,
+              ),
+              Obx(
+                () => _buildListTasks(),
+              ),
             ],
           ),
         ),
@@ -958,7 +964,7 @@ class UpdateCardPage extends StatelessWidget {
     );
   }
 
-  _buildQuickAction() {
+  _buildQuickAction(BuildContext context) {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -1047,7 +1053,7 @@ class UpdateCardPage extends StatelessWidget {
                                 width: 24.w,
                               ),
                               Text(
-                                "add_task".tr,
+                                "add_attachment".tr,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 56.sp,
@@ -1067,29 +1073,35 @@ class UpdateCardPage extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 16.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.person, color: Colors.purple.shade600),
-                              SizedBox(
-                                width: 24.w,
-                              ),
-                              Text(
-                                "members".tr,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 56.sp,
+                      child: InkWell(
+                        onTap: () async {
+                          await openDialog(context).show();
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(Icons.person,
+                                    color: Colors.purple.shade600),
+                                SizedBox(
+                                  width: 24.w,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  "members".tr,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 56.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -1108,6 +1120,69 @@ class UpdateCardPage extends StatelessWidget {
               ],
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  _buildListTasks() {
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Column(
+        children: [
+          ListView.separated(
+            scrollDirection: Axis.vertical,
+            physics: AlwaysScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: updateCardController.cardUpdate.value.members.length,
+            itemBuilder: (_, index) {
+              return CheckboxListTile(
+                controlAffinity: ListTileControlAffinity.leading,
+                value: false,
+                onChanged: (value) {},
+                title: Text(
+                  index.toString(),
+                ),
+              );
+            },
+            separatorBuilder: (_, index) {
+              return Padding(
+                padding: EdgeInsets.only(left: 64.w),
+                child: const Divider(
+                  color: Colors.black,
+                ),
+              );
+            },
+          ),
+          InkWell(
+            onTap: () {
+              updateCardController.addingTask.value = true;
+            },
+            child: updateCardController.addingTask.isFalse
+                ? Text(
+                    "add_task".tr,
+                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                  )
+                : TextFormField(
+                    minLines: 1,
+                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                    maxLines: null,
+                    autofocus: true,
+                    controller: updateCardController.taskNameController,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(0),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green, width: 2),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green, width: 2),
+                      ),
+                    ),
+                    cursorColor: Colors.green,
+                    cursorHeight: 25,
+                  ),
+          ),
         ],
       ),
     );
