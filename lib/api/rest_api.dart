@@ -14,6 +14,8 @@ import 'package:trellis_mobile_app/models/member/card_member_response.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
+import 'package:trellis_mobile_app/models/task/task_request.dart';
+import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/models/user/user_request.dart';
 import 'package:trellis_mobile_app/models/user/user_response.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_request.dart';
@@ -137,4 +139,8 @@ abstract class RestClient {
   @PUT("/cards/{cardId}")
   Future<CardResponse> updateCard(
       @Path("cardId") int cardId, @Body() CardRequest cardRequest);
+
+  //task
+  @POST("/tasks")
+  Future<TaskResponse> createTask(@Body() TaskRequest taskRequest);
 }

@@ -24,19 +24,21 @@ class UpdateCardController extends GetxController {
   final cardDescriptionController = TextEditingController();
   final cardRepository = Get.find<CardRepository>();
   var cardUpdate = CardResponse(
-      card_id: -1,
-      name: "name",
-      description: "description",
-      position: -1,
-      start_date: -1,
-      due_date: -1,
-      reminder: -1,
-      list_id: -1,
-      is_complete: false,
-      created_time: -1,
-      updated_time: -1,
-      created_by: "",
-      members: []).obs;
+    card_id: -1,
+    name: "name",
+    description: "description",
+    position: -1,
+    start_date: -1,
+    due_date: -1,
+    reminder: -1,
+    list_id: -1,
+    is_complete: false,
+    created_time: -1,
+    updated_time: -1,
+    created_by: "",
+    members: [],
+    tasks: [],
+  ).obs;
 
   var editingName = false.obs;
   var cardNameIsEmpty = false.obs;

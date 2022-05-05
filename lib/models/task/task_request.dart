@@ -7,18 +7,15 @@ class TaskRequest {
   int position;
   int cardId;
   bool isComplete;
-  int createdTime;
-  int updatedTime;
   int createdBy;
 
-  TaskRequest(
-      {required this.name,
-      required this.position,
-      required this.cardId,
-      required this.isComplete,
-      required this.createdTime,
-      required this.updatedTime,
-      required this.createdBy});
+  TaskRequest({
+    required this.name,
+    required this.position,
+    required this.cardId,
+    required this.isComplete,
+    required this.createdBy,
+  });
 
   factory TaskRequest.fromJson(Map<String, dynamic> json) =>
       _$TaskRequestFromJson(json);

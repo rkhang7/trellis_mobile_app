@@ -3,6 +3,7 @@ import 'package:trellis_mobile_app/repository/board_repository.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
 import 'package:trellis_mobile_app/repository/list_repository.dart';
 import 'package:trellis_mobile_app/repository/member_repository.dart';
+import 'package:trellis_mobile_app/repository/task_repository.dart';
 import 'package:trellis_mobile_app/repository/user_repository.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
@@ -15,5 +16,6 @@ class SplashScreenBinding extends Bindings {
     Get.lazyPut(() => BoardRepository(), fenix: true);
     Get.lazyPut(() => ListRepository(), fenix: true);
     Get.lazyPut(() => CardRepository(), fenix: true);
+    Get.lazyPut(() => TaskRepository(), fenix: true);
   }
 }
