@@ -547,4 +547,16 @@ class UpdateCardController extends GetxController {
     return cardUpdate.value.tasks
         .indexWhere((element) => element.task_id == taskId);
   }
+
+  int getLengthTaskIsComplete() {
+    int total = 0;
+    cardUpdate.value.tasks.forEach(
+      (element) {
+        if (element.is_complete) {
+          total++;
+        }
+      },
+    );
+    return total;
+  }
 }

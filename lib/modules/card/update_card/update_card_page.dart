@@ -6,8 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:trellis_mobile_app/models/task/task_response.dart';
-import 'package:trellis_mobile_app/modules/board/update_board/update_board_controller.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 
@@ -1151,6 +1151,18 @@ class UpdateCardPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Visibility(
+            visible: updateCardController.cardUpdate.value.tasks.isNotEmpty,
+            child: updateCardController.cardUpdate.value.tasks.isNotEmpty
+                ? StepProgressIndicator(
+                    totalSteps:
+                        updateCardController.cardUpdate.value.tasks.length,
+                    currentStep: updateCardController.getLengthTaskIsComplete(),
+                    selectedColor: Colors.blue,
+                    unselectedColor: Colors.blue.shade100,
+                  )
+                : Container(),
+          ),
           ListView.separated(
             scrollDirection: Axis.vertical,
             physics: AlwaysScrollableScrollPhysics(),
