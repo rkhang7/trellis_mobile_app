@@ -11,7 +11,7 @@ TaskRequest _$TaskRequestFromJson(Map<String, dynamic> json) => TaskRequest(
       position: json['position'] as int,
       cardId: json['cardId'] as int,
       isComplete: json['isComplete'] as bool,
-      createdBy: json['createdBy'] as int,
+      createdBy: json['createdBy'] as String,
     );
 
 Map<String, dynamic> _$TaskRequestToJson(TaskRequest instance) =>

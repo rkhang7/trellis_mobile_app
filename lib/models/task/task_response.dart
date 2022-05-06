@@ -10,7 +10,7 @@ class TaskResponse {
   bool is_complete;
   int created_time;
   int updated_time;
-  int created_by;
+  String created_by;
 
   TaskResponse({
     required this.task_id,

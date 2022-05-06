@@ -7,7 +7,7 @@ class TaskRequest {
   int position;
   int cardId;
   bool isComplete;
-  int createdBy;
+  String createdBy;
 
   TaskRequest({
     required this.name,

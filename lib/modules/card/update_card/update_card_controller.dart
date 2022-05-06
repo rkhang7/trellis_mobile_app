@@ -8,10 +8,12 @@ import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/card_member_request.dart';
+import 'package:trellis_mobile_app/models/task/task_request.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/detail_board/detail_board_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
 import 'package:trellis_mobile_app/repository/member_repository.dart';
+import 'package:trellis_mobile_app/repository/task_repository.dart';
 
 import '../../../models/my_date_time.dart';
 import '../../../models/user/user_response.dart';
@@ -19,6 +21,7 @@ import '../../../models/user/user_response.dart';
 class UpdateCardController extends GetxController {
   final detailBoardController = Get.find<DetailBoardController>();
   final memberRepository = Get.find<MemberRepository>();
+  final taskRepository = Get.find<TaskRepository>();
   final dashBoardController = Get.find<DashBoardController>();
   final cardNameController = TextEditingController();
   final cardDescriptionController = TextEditingController();
@@ -67,8 +70,11 @@ class UpdateCardController extends GetxController {
   var addingTask = false.obs;
   var taskNameController = TextEditingController();
 
+  late FocusNode focusNode;
+
   @override
   void onInit() {
+    focusNode = FocusNode();
     initData();
     super.onInit();
   }
@@ -299,6 +305,8 @@ class UpdateCardController extends GetxController {
       editingName.value = false;
     } else if (editingDescription.isTrue) {
       editingDescription.value = false;
+    } else if (addingTask.isTrue) {
+      addingTask.value = false;
     } else {
       Get.back();
     }
@@ -464,5 +472,79 @@ class UpdateCardController extends GetxController {
         }
       });
     }
+  }
+
+  void addTask() {
+    EasyLoading.show(status: "please_wait".tr);
+    TaskRequest taskRequest = TaskRequest(
+        name: taskNameController.text,
+        position: cardUpdate.value.tasks.length,
+        cardId: cardUpdate.value.card_id,
+        isComplete: false,
+        createdBy: dashBoardController.currentId);
+
+    taskRepository.createTask(taskRequest).then((value) {
+      EasyLoading.dismiss();
+
+      EasyLoading.showSuccess("create_success".tr);
+
+      cardUpdate.value.tasks.add(value);
+
+      addingTask.value = false;
+
+      taskNameController.clear();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
+
+  void updateStatusTask(int taskId, bool isComplete) {
+    EasyLoading.show(status: "please_wait".tr);
+    TaskRequest taskRequest = TaskRequest(
+        name: cardUpdate.value.name,
+        position: cardUpdate.value.tasks.length,
+        cardId: cardUpdate.value.card_id,
+        isComplete: isComplete,
+        createdBy: dashBoardController.currentId);
+
+    taskRepository.updateTask(taskId, taskRequest).then((value) {
+      EasyLoading.dismiss();
+
+      cardUpdate.value.tasks[findTaskIndexById(taskId)].is_complete =
+          value.is_complete;
+
+      cardUpdate.refresh();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
+
+  int findTaskIndexById(int taskId) {
+    return cardUpdate.value.tasks
+        .indexWhere((element) => element.task_id == taskId);
   }
 }

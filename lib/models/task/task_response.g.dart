@@ -14,7 +14,7 @@ TaskResponse _$TaskResponseFromJson(Map<String, dynamic> json) => TaskResponse(
       is_complete: json['is_complete'] as bool,
       created_time: json['created_time'] as int,
       updated_time: json['updated_time'] as int,
-      created_by: json['created_by'] as int,
+      created_by: json['created_by'] as String,
     );
 
 Map<String, dynamic> _$TaskResponseToJson(TaskResponse instance) =>

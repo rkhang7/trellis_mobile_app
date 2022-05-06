@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/modules/board/update_board/update_board_controller.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
@@ -91,7 +92,12 @@ class UpdateCardPage extends StatelessWidget {
                 "edit_card_description".tr,
                 style: TextStyle(color: Colors.black, fontSize: 64.sp),
               )
-            : Container();
+            : updateCardController.addingTask.isTrue
+                ? Text(
+                    "add_task".tr,
+                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                  )
+                : Container();
   }
 
   Widget _buildAction() {
@@ -114,10 +120,17 @@ class UpdateCardPage extends StatelessWidget {
                 },
                 icon: const Icon(Icons.check, color: Colors.black),
               )
-            : IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.more_vert, color: Colors.black),
-              );
+            : updateCardController.addingTask.isTrue
+                ? IconButton(
+                    onPressed: () {
+                      updateCardController.addTask();
+                    },
+                    icon: const Icon(Icons.check, color: Colors.black),
+                  )
+                : IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.more_vert, color: Colors.black),
+                  );
   }
 
   Widget _buildInfoCardArea() {
@@ -1002,30 +1015,36 @@ class UpdateCardPage extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 16.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Icon(Icons.check_box_rounded,
-                                  color: Colors.green),
-                              SizedBox(
-                                width: 24.w,
-                              ),
-                              Text(
-                                "add_task".tr,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 56.sp,
+                      child: InkWell(
+                        onTap: () {
+                          updateCardController.focusNode.requestFocus();
+                          updateCardController.addingTask.value = true;
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(Icons.check_box_rounded,
+                                    color: Colors.green),
+                                SizedBox(
+                                  width: 24.w,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  "add_task".tr,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 56.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -1128,22 +1147,34 @@ class UpdateCardPage extends StatelessWidget {
   _buildListTasks() {
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListView.separated(
             scrollDirection: Axis.vertical,
             physics: AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: updateCardController.cardUpdate.value.members.length,
+            itemCount: updateCardController.cardUpdate.value.tasks.length,
             itemBuilder: (_, index) {
+              TaskResponse task =
+                  updateCardController.cardUpdate.value.tasks[index];
               return CheckboxListTile(
+                activeColor: Colors.green,
+                checkColor: Colors.white,
+                contentPadding: EdgeInsets.zero,
                 controlAffinity: ListTileControlAffinity.leading,
-                value: false,
-                onChanged: (value) {},
-                title: Text(
-                  index.toString(),
-                ),
+                value: task.is_complete,
+                onChanged: (value) {
+                  updateCardController.updateStatusTask(task.task_id, value!);
+                },
+                title: Text(task.name,
+                    style: task.is_complete
+                        ? const TextStyle(
+                            fontStyle: FontStyle.italic,
+                            decoration: TextDecoration.lineThrough,
+                            color: Colors.grey)
+                        : const TextStyle(color: Colors.black)),
               );
             },
             separatorBuilder: (_, index) {
@@ -1155,33 +1186,37 @@ class UpdateCardPage extends StatelessWidget {
               );
             },
           ),
-          InkWell(
-            onTap: () {
-              updateCardController.addingTask.value = true;
-            },
-            child: updateCardController.addingTask.isFalse
-                ? Text(
-                    "add_task".tr,
-                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
-                  )
-                : TextFormField(
-                    minLines: 1,
-                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
-                    maxLines: null,
-                    autofocus: true,
-                    controller: updateCardController.taskNameController,
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(0),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 2),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: InkWell(
+              onTap: () {
+                updateCardController.addingTask.value = true;
+              },
+              child: updateCardController.addingTask.isFalse
+                  ? Text(
+                      "${"add_task".tr}...",
+                      style: TextStyle(color: Colors.grey, fontSize: 64.sp),
+                    )
+                  : TextFormField(
+                      focusNode: updateCardController.focusNode,
+                      minLines: 1,
+                      style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                      maxLines: null,
+                      autofocus: true,
+                      controller: updateCardController.taskNameController,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(0),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green, width: 2),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green, width: 2),
+                        ),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 2),
-                      ),
+                      cursorColor: Colors.green,
+                      cursorHeight: 25,
                     ),
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                  ),
+            ),
           ),
         ],
       ),

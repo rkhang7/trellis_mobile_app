@@ -143,4 +143,8 @@ abstract class RestClient {
   //task
   @POST("/tasks")
   Future<TaskResponse> createTask(@Body() TaskRequest taskRequest);
+
+  @PUT("/tasks/{taskId}")
+  Future<TaskResponse> updateTask(
+      @Path("taskId") int taskId, @Body() TaskRequest taskRequest);
 }

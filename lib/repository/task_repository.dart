@@ -11,4 +11,9 @@ class TaskRepository {
     final client = RestClient(dio);
     return await client.createTask(taskRequest);
   }
+
+  Future<TaskResponse> updateTask(int taskId, TaskRequest taskRequest) async {
+    final client = RestClient(dio);
+    return await client.updateTask(taskId, taskRequest);
+  }
 }
