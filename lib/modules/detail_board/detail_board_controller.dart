@@ -7,6 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
+import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
 import 'package:trellis_mobile_app/repository/list_repository.dart';
@@ -256,5 +257,18 @@ class DetailBoardController extends GetxController {
           break;
       }
     });
+  }
+
+  int getLengthTaskIsComplete(CardResponse cardResponse) {
+    int total = 0;
+    cardResponse.tasks.forEach(
+      (element) {
+        if (element.is_complete) {
+          total++;
+        }
+      },
+    );
+
+    return total;
   }
 }

@@ -404,6 +404,44 @@ class DetailBoardPage extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
+            cardModel.tasks.isNotEmpty
+                ? Container(
+                    width: 45,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: detailBoardController
+                                  .getLengthTaskIsComplete(cardModel) ==
+                              cardModel.tasks.length
+                          ? Colors.green
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.check_box_outlined,
+                          color: detailBoardController
+                                      .getLengthTaskIsComplete(cardModel) ==
+                                  cardModel.tasks.length
+                              ? Colors.white
+                              : Colors.black,
+                          size: 20,
+                        ),
+                        Text(
+                            "${detailBoardController.getLengthTaskIsComplete(cardModel)}/${cardModel.tasks.length}",
+                            style: TextStyle(
+                              color: detailBoardController
+                                          .getLengthTaskIsComplete(cardModel) ==
+                                      cardModel.tasks.length
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 48.sp,
+                            )),
+                      ],
+                    ),
+                  )
+                : Container(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

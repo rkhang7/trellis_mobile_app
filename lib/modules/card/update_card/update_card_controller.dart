@@ -526,6 +526,8 @@ class UpdateCardController extends GetxController {
           value.is_complete;
 
       cardUpdate.refresh();
+
+      detailBoardController.lists.refresh();
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
