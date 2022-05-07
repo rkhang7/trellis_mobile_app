@@ -206,6 +206,7 @@ class Messages extends Translations {
           'quick_actions': "Quick actions",
           'add_task': "Add task",
           'add_attachment': 'Add_attachment',
+          'editing_task': 'Editing task',
         },
         'vi_VN': {
           //common
@@ -410,6 +411,7 @@ class Messages extends Translations {
           'quick_actions': "Các hành động nhanh",
           'add_task': "Thêm công việc",
           'add_attachment': 'Thêm tệp đính kèm',
+          'editing_task': 'Chỉnh sửa công việc',
         }
       };
 }

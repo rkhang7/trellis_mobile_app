@@ -97,7 +97,12 @@ class UpdateCardPage extends StatelessWidget {
                     "add_task".tr,
                     style: TextStyle(color: Colors.black, fontSize: 64.sp),
                   )
-                : Container();
+                : updateCardController.editingTask.isTrue
+                    ? Text(
+                        "editing_task".tr,
+                        style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                      )
+                    : Container();
   }
 
   Widget _buildAction() {
@@ -1230,13 +1235,20 @@ class UpdateCardPage extends StatelessWidget {
             updateCardController.updateStatusTask(task.task_id, value!);
           },
         ),
-        Text(task.name,
+        InkWell(
+          onTap: () {
+            updateCardController.editingTask.value = true;
+          },
+          child: Text(
+            task.name,
             style: task.is_complete
                 ? const TextStyle(
                     fontStyle: FontStyle.italic,
                     decoration: TextDecoration.lineThrough,
                     color: Colors.grey)
-                : const TextStyle(color: Colors.black)),
+                : const TextStyle(color: Colors.black),
+          ),
+        ),
       ],
     );
   }

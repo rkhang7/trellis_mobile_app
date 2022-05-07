@@ -70,6 +70,8 @@ class UpdateCardController extends GetxController {
   var addingTask = false.obs;
   var taskNameController = TextEditingController();
 
+  var editingTask = false.obs;
+
   late FocusNode focusNode;
 
   @override
@@ -307,6 +309,8 @@ class UpdateCardController extends GetxController {
       editingDescription.value = false;
     } else if (addingTask.isTrue) {
       addingTask.value = false;
+    } else if (editingTask.isTrue) {
+      editingTask.value = false;
     } else {
       Get.back();
     }
