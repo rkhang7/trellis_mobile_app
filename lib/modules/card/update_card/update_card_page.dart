@@ -1171,23 +1171,7 @@ class UpdateCardPage extends StatelessWidget {
             itemBuilder: (_, index) {
               TaskResponse task =
                   updateCardController.cardUpdate.value.tasks[index];
-              return CheckboxListTile(
-                activeColor: Colors.green,
-                checkColor: Colors.white,
-                contentPadding: EdgeInsets.zero,
-                controlAffinity: ListTileControlAffinity.leading,
-                value: task.is_complete,
-                onChanged: (value) {
-                  updateCardController.updateStatusTask(task.task_id, value!);
-                },
-                title: Text(task.name,
-                    style: task.is_complete
-                        ? const TextStyle(
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.lineThrough,
-                            color: Colors.grey)
-                        : const TextStyle(color: Colors.black)),
-              );
+              return _buildTask(task);
             },
             separatorBuilder: (_, index) {
               return Padding(
@@ -1232,6 +1216,28 @@ class UpdateCardPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildTask(TaskResponse task) {
+    return Row(
+      children: [
+        Checkbox(
+          activeColor: Colors.green,
+          checkColor: Colors.white,
+          value: task.is_complete,
+          onChanged: (value) {
+            updateCardController.updateStatusTask(task.task_id, value!);
+          },
+        ),
+        Text(task.name,
+            style: task.is_complete
+                ? const TextStyle(
+                    fontStyle: FontStyle.italic,
+                    decoration: TextDecoration.lineThrough,
+                    color: Colors.grey)
+                : const TextStyle(color: Colors.black)),
+      ],
     );
   }
 }
