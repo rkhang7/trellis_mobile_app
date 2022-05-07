@@ -513,6 +513,9 @@ class UpdateCardController extends GetxController {
       addingTask.value = false;
 
       taskNameController.clear();
+
+      listEditingTask.add(false);
+      listTaskNameController.add(TextEditingController());
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
         case DioError:
