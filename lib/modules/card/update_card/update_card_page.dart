@@ -132,10 +132,18 @@ class UpdateCardPage extends StatelessWidget {
                     },
                     icon: const Icon(Icons.check, color: Colors.black),
                   )
-                : IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.more_vert, color: Colors.black),
-                  );
+                : updateCardController.editingTask.isTrue
+                    ? IconButton(
+                        onPressed: () {
+                          updateCardController.updateTaskName(
+                              updateCardController.taskIdSelected);
+                        },
+                        icon: const Icon(Icons.check, color: Colors.black),
+                      )
+                    : IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.more_vert, color: Colors.black),
+                      );
   }
 
   Widget _buildInfoCardArea() {
@@ -1176,7 +1184,7 @@ class UpdateCardPage extends StatelessWidget {
             itemBuilder: (_, index) {
               TaskResponse task =
                   updateCardController.cardUpdate.value.tasks[index];
-              return _buildTask(task);
+              return Obx(() => _buildTask(task, index));
             },
             separatorBuilder: (_, index) {
               return Padding(
@@ -1224,7 +1232,8 @@ class UpdateCardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTask(TaskResponse task) {
+  Widget _buildTask(TaskResponse task, int index) {
+    updateCardController.listTaskNameController[index].text = task.name;
     return Row(
       children: [
         Checkbox(
@@ -1235,18 +1244,43 @@ class UpdateCardPage extends StatelessWidget {
             updateCardController.updateStatusTask(task.task_id, value!);
           },
         ),
-        InkWell(
-          onTap: () {
-            updateCardController.editingTask.value = true;
-          },
-          child: Text(
-            task.name,
-            style: task.is_complete
-                ? const TextStyle(
-                    fontStyle: FontStyle.italic,
-                    decoration: TextDecoration.lineThrough,
-                    color: Colors.grey)
-                : const TextStyle(color: Colors.black),
+        Expanded(
+          child: InkWell(
+            onTap: () {
+              updateCardController.taskIdSelected = task.task_id;
+              updateCardController.editingTask.value = true;
+              for (var element in updateCardController.listEditingTask) {
+                element = false;
+              }
+              updateCardController.listEditingTask[index] = true;
+            },
+            child: updateCardController.listEditingTask[index] == false
+                ? Text(
+                    task.name,
+                    style: task.is_complete
+                        ? const TextStyle(
+                            fontStyle: FontStyle.italic,
+                            decoration: TextDecoration.lineThrough,
+                            color: Colors.grey)
+                        : const TextStyle(color: Colors.black),
+                  )
+                : TextFormField(
+                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                    autofocus: true,
+                    controller:
+                        updateCardController.listTaskNameController[index],
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(0),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green, width: 2),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green, width: 2),
+                      ),
+                    ),
+                    cursorColor: Colors.green,
+                    cursorHeight: 25,
+                  ),
           ),
         ),
       ],

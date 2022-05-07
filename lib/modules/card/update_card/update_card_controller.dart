@@ -71,6 +71,10 @@ class UpdateCardController extends GetxController {
   var taskNameController = TextEditingController();
 
   var editingTask = false.obs;
+  var listEditingTask = <bool>[].obs;
+  var listTaskNameController = <TextEditingController>[].obs;
+
+  var taskIdSelected = -1;
 
   late FocusNode focusNode;
 
@@ -311,6 +315,9 @@ class UpdateCardController extends GetxController {
       addingTask.value = false;
     } else if (editingTask.isTrue) {
       editingTask.value = false;
+      for (int i = 0; i < listEditingTask.length; i++) {
+        listEditingTask[i] = false;
+      }
     } else {
       Get.back();
     }
@@ -412,6 +419,15 @@ class UpdateCardController extends GetxController {
         .then((value) {
       listMemberInBoard.assignAll(value);
     });
+
+    // init listEditingTask
+    for (int i = 0; i < cardUpdate.value.tasks.length; i++) {
+      listEditingTask.add(false);
+    }
+
+    for (int i = 0; i < cardUpdate.value.tasks.length; i++) {
+      listTaskNameController.add(TextEditingController());
+    }
   }
 
   bool memberIsExistInCard(String memberId) {
@@ -564,5 +580,44 @@ class UpdateCardController extends GetxController {
       },
     );
     return total;
+  }
+
+  void updateTaskName(int taskId) {
+    EasyLoading.show(status: "please_wait".tr);
+    TaskRequest taskRequest = TaskRequest(
+        name: listTaskNameController[findTaskIndexById(taskId)].text,
+        position: cardUpdate.value.tasks.length,
+        cardId: cardUpdate.value.card_id,
+        isComplete: cardUpdate.value.is_complete,
+        createdBy: dashBoardController.currentId);
+
+    taskRepository.updateTask(taskId, taskRequest).then((value) {
+      EasyLoading.dismiss();
+
+      cardUpdate.value.tasks[findTaskIndexById(taskId)].name = value.name;
+
+      listTaskNameController[findTaskIndexById(taskId)].clear();
+      cardUpdate.refresh();
+
+      editingTask.value = false;
+
+      for (int i = 0; i < cardUpdate.value.tasks.length; i++) {
+        listEditingTask[i] = false;
+      }
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
   }
 }
