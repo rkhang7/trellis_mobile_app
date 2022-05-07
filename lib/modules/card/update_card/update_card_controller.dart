@@ -9,6 +9,7 @@ import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/card_member_request.dart';
 import 'package:trellis_mobile_app/models/task/task_request.dart';
+import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/detail_board/detail_board_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
@@ -533,19 +534,20 @@ class UpdateCardController extends GetxController {
     });
   }
 
-  void updateStatusTask(int taskId, bool isComplete) {
+  void updateStatusTask(TaskResponse task, bool isComplete) {
     EasyLoading.show(status: "please_wait".tr);
+
     TaskRequest taskRequest = TaskRequest(
-        name: cardUpdate.value.name,
-        position: cardUpdate.value.tasks.length,
-        cardId: cardUpdate.value.card_id,
+        name: task.name,
+        position: task.position,
+        cardId: task.card_id,
         isComplete: isComplete,
         createdBy: dashBoardController.currentId);
 
-    taskRepository.updateTask(taskId, taskRequest).then((value) {
+    taskRepository.updateTask(task.task_id, taskRequest).then((value) {
       EasyLoading.dismiss();
 
-      cardUpdate.value.tasks[findTaskIndexById(taskId)].is_complete =
+      cardUpdate.value.tasks[findTaskIndexById(task.task_id)].is_complete =
           value.is_complete;
 
       cardUpdate.refresh();
@@ -587,11 +589,12 @@ class UpdateCardController extends GetxController {
 
   void updateTaskName(int taskId) {
     EasyLoading.show(status: "please_wait".tr);
+    TaskResponse task = cardUpdate.value.tasks[findTaskIndexById(taskId)];
     TaskRequest taskRequest = TaskRequest(
         name: listTaskNameController[findTaskIndexById(taskId)].text,
-        position: cardUpdate.value.tasks.length,
-        cardId: cardUpdate.value.card_id,
-        isComplete: cardUpdate.value.is_complete,
+        position: task.position,
+        cardId: task.card_id,
+        isComplete: task.is_complete,
         createdBy: dashBoardController.currentId);
 
     taskRepository.updateTask(taskId, taskRequest).then((value) {

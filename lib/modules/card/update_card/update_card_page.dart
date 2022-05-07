@@ -1241,7 +1241,7 @@ class UpdateCardPage extends StatelessWidget {
           checkColor: Colors.white,
           value: task.is_complete,
           onChanged: (value) {
-            updateCardController.updateStatusTask(task.task_id, value!);
+            updateCardController.updateStatusTask(task, value!);
           },
         ),
         Expanded(
@@ -1271,12 +1271,8 @@ class UpdateCardPage extends StatelessWidget {
                         updateCardController.listTaskNameController[index],
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.all(0),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 2),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 2),
-                      ),
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
                     ),
                     cursorColor: Colors.green,
                     cursorHeight: 25,
