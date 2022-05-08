@@ -147,4 +147,7 @@ abstract class RestClient {
   @PUT("/tasks/{taskId}")
   Future<TaskResponse> updateTask(
       @Path("taskId") int taskId, @Body() TaskRequest taskRequest);
+
+  @DELETE("/tasks/{taskId}/")
+  Future<String> deleteTask(@Path("taskId") int taskId);
 }

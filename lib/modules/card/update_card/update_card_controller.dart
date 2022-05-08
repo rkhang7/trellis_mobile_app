@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
@@ -515,6 +516,10 @@ class UpdateCardController extends GetxController {
 
       taskNameController.clear();
 
+      cardUpdate.refresh();
+
+      detailBoardController.lists.refresh();
+
       listEditingTask.add(false);
       listTaskNameController.add(TextEditingController());
     }).catchError((Object obj) {
@@ -615,6 +620,34 @@ class UpdateCardController extends GetxController {
         case DioError:
           // Here's the sample to get the failed response error code and message
           EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
+
+  void deleteTask(int taskId) {
+    EasyLoading.show(status: "please_wait".tr);
+    taskRepository.deleteTask(taskId).then((value) {
+      EasyLoading.dismiss();
+      cardUpdate.value.tasks.removeAt(findTaskIndexById(taskId));
+      cardUpdate.refresh();
+
+      detailBoardController.lists.refresh();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          final res = (obj as DioError).response;
+          log("Got error : ${res!.statusCode} -> ${res.statusMessage}");
 
           EasyLoading.showError("error".tr);
           break;

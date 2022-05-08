@@ -16,4 +16,9 @@ class TaskRepository {
     final client = RestClient(dio);
     return await client.updateTask(taskId, taskRequest);
   }
+
+  Future<String> deleteTask(int taskId) async {
+    final client = RestClient(dio);
+    return await client.deleteTask(taskId);
+  }
 }

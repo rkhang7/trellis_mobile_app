@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -1176,6 +1177,9 @@ class UpdateCardPage extends StatelessWidget {
                   )
                 : Container(),
           ),
+          SizedBox(
+            height: 20.h,
+          ),
           ListView.separated(
             scrollDirection: Axis.vertical,
             physics: AlwaysScrollableScrollPhysics(),
@@ -1234,52 +1238,78 @@ class UpdateCardPage extends StatelessWidget {
 
   Widget _buildTask(TaskResponse task, int index) {
     updateCardController.listTaskNameController[index].text = task.name;
-    return Row(
-      children: [
-        Checkbox(
-          activeColor: Colors.green,
-          checkColor: Colors.white,
-          value: task.is_complete,
-          onChanged: (value) {
-            updateCardController.updateStatusTask(task, value!);
-          },
-        ),
-        Expanded(
-          child: InkWell(
-            onTap: () {
-              updateCardController.taskIdSelected = task.task_id;
-              updateCardController.editingTask.value = true;
-              for (var element in updateCardController.listEditingTask) {
-                element = false;
-              }
-              updateCardController.listEditingTask[index] = true;
-            },
-            child: updateCardController.listEditingTask[index] == false
-                ? Text(
-                    task.name,
-                    style: task.is_complete
-                        ? const TextStyle(
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.lineThrough,
-                            color: Colors.grey)
-                        : const TextStyle(color: Colors.black),
-                  )
-                : TextFormField(
-                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
-                    autofocus: true,
-                    controller:
-                        updateCardController.listTaskNameController[index],
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(0),
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                    ),
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                  ),
+    return Slidable(
+      endActionPane: ActionPane(
+        motion: ScrollMotion(),
+        children: [
+          SlidableAction(
+            flex: 1,
+            autoClose: false,
+            onPressed: (_) {},
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
           ),
-        ),
-      ],
+          SlidableAction(
+            flex: 1,
+            autoClose: true,
+            onPressed: (_) {
+              updateCardController.deleteTask(task.task_id);
+            },
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
+            label: 'delete'.tr,
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Checkbox(
+            activeColor: Colors.green,
+            checkColor: Colors.white,
+            value: task.is_complete,
+            onChanged: (value) {
+              updateCardController.updateStatusTask(task, value!);
+            },
+          ),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                updateCardController.taskIdSelected = task.task_id;
+                updateCardController.editingTask.value = true;
+                for (var element in updateCardController.listEditingTask) {
+                  element = false;
+                }
+                updateCardController.listEditingTask[index] = true;
+              },
+              child: updateCardController.listEditingTask[index] == false
+                  ? Text(
+                      task.name,
+                      style: task.is_complete
+                          ? const TextStyle(
+                              fontStyle: FontStyle.italic,
+                              decoration: TextDecoration.lineThrough,
+                              color: Colors.grey)
+                          : const TextStyle(color: Colors.black),
+                    )
+                  : TextFormField(
+                      style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                      autofocus: true,
+                      controller:
+                          updateCardController.listTaskNameController[index],
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(0),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                      ),
+                      cursorColor: Colors.green,
+                      cursorHeight: 25,
+                    ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

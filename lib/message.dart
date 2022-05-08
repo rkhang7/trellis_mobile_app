@@ -207,6 +207,7 @@ class Messages extends Translations {
           'add_task': "Add task",
           'add_attachment': 'Add_attachment',
           'editing_task': 'Editing task',
+          'delete': 'Xóa',
         },
         'vi_VN': {
           //common
@@ -412,6 +413,7 @@ class Messages extends Translations {
           'add_task': "Thêm công việc",
           'add_attachment': 'Thêm tệp đính kèm',
           'editing_task': 'Chỉnh sửa công việc',
+          'delete': 'Xóa',
         }
       };
 }
