@@ -659,4 +659,25 @@ class UpdateCardController extends GetxController {
       }
     });
   }
+
+  void moveTask(int cardId, int oldIndex, int newIndex) {
+    EasyLoading.show(status: "please_wait".tr);
+    taskRepository.moveTasks(cardId, oldIndex, newIndex).then((value) {
+      EasyLoading.dismiss();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
 }

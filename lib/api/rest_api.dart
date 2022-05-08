@@ -150,4 +150,11 @@ abstract class RestClient {
 
   @DELETE("/tasks/{taskId}/")
   Future<String> deleteTask(@Path("taskId") int taskId);
+
+  @GET("/tasks/{cardId}/move/{oldIndex}/{newIndex}")
+  Future<String> moveTasks(
+    @Path("cardId") int cardId,
+    @Path("oldIndex") int oldIndex,
+    @Path("newIndex") int newIndex,
+  );
 }
