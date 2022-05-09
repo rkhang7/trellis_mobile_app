@@ -40,6 +40,10 @@ class BoardMenuPage extends StatelessWidget {
             SizedBox(
               height: 80.h,
             ),
+            _buildEditLabelArea(),
+            SizedBox(
+              height: 80.h,
+            ),
             _buildDeleteBoardArea(context),
           ],
         ),
@@ -234,6 +238,27 @@ class BoardMenuPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildEditLabelArea() {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.only(left: 18),
+      height: 200.h,
+      child: Row(
+        children: [
+          Icon(
+            Icons.label,
+            size: 72.sp,
+          ),
+          SizedBox(width: 60.w),
+          Text(
+            "edit_label".tr,
+            style: TextStyle(fontSize: 64.sp),
+          ),
+        ],
       ),
     );
   }

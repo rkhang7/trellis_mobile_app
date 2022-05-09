@@ -80,7 +80,7 @@ class MyCardPage extends StatelessWidget {
                   _showDialog(
                     CupertinoDatePicker(
                       initialDateTime: DateTime.now(),
-                      mode: CupertinoDatePickerMode.time,
+                      mode: CupertinoDatePickerMode.date,
                       use24hFormat: true,
                       // This is called when the user changes the time.
                       onDateTimeChanged: (DateTime newTime) {},
