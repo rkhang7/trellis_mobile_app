@@ -166,6 +166,7 @@ class Messages extends Translations {
 
           // search board page
           'search': 'Search',
+          'no_results_found': "No results found.",
 
           // EasyLoading message
           'error': "Something went wrong",
@@ -372,6 +373,7 @@ class Messages extends Translations {
 
           // search board page
           'search': 'Tìm kiếm',
+          'no_results_found': "Không có kết quả nào được tìm thấy.",
 
           // EasyLoading message
           'error': "Đã xảy ra lỗi",

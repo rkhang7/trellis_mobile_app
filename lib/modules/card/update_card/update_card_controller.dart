@@ -660,9 +660,9 @@ class UpdateCardController extends GetxController {
     });
   }
 
-  void moveTask(int cardId, int oldIndex, int newIndex) {
+  void moveTask(int taskId, int oldIndex, int newIndex) {
     EasyLoading.show(status: "please_wait".tr);
-    taskRepository.moveTasks(cardId, oldIndex, newIndex).then((value) {
+    taskRepository.moveTasks(taskId, oldIndex, newIndex).then((value) {
       EasyLoading.dismiss();
     }).catchError((Object obj) {
       switch (obj.runtimeType) {
