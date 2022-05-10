@@ -4,6 +4,8 @@ import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
+import 'package:trellis_mobile_app/models/label/label_request.dart';
+import 'package:trellis_mobile_app/models/label/label_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
@@ -157,4 +159,8 @@ abstract class RestClient {
     @Path("oldIndex") int oldIndex,
     @Path("newIndex") int newIndex,
   );
+
+  // label
+  @POST("/labels")
+  Future<LabelResponse> createLabel(@Body() LabelRequest labelRequest);
 }
