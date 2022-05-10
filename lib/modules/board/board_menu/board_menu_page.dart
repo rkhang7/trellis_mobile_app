@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/board/board_menu/board_menu_controller.dart';
 
@@ -40,7 +41,7 @@ class BoardMenuPage extends StatelessWidget {
             SizedBox(
               height: 80.h,
             ),
-            _buildEditLabelArea(),
+            _buildEditLabelArea(context),
             SizedBox(
               height: 80.h,
             ),
@@ -242,23 +243,146 @@ class BoardMenuPage extends StatelessWidget {
     );
   }
 
-  Widget _buildEditLabelArea() {
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.only(left: 18),
-      height: 200.h,
-      child: Row(
+  Widget _buildEditLabelArea(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        openDialog(context).show();
+      },
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(left: 18),
+        height: 200.h,
+        child: Row(
+          children: [
+            Icon(
+              Icons.label,
+              size: 72.sp,
+            ),
+            SizedBox(width: 60.w),
+            Text(
+              "edit_label".tr,
+              style: TextStyle(fontSize: 64.sp),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  dialog.AwesomeDialog openDialog(BuildContext context) {
+    return dialog.AwesomeDialog(
+      context: context,
+      animType: dialog.AnimType.SCALE,
+      dialogType: dialog.DialogType.NO_HEADER,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(
-            Icons.label,
-            size: 72.sp,
+          Padding(
+            padding: const EdgeInsets.only(left: 18),
+            child: Text(
+              "edit_label".tr,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 72.sp,
+              ),
+            ),
           ),
-          SizedBox(width: 60.w),
-          Text(
-            "edit_label".tr,
-            style: TextStyle(fontSize: 64.sp),
+          ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: 4,
+            itemBuilder: (_, index) {
+              return InkWell(
+                onTap: () {},
+                child: Container(),
+              );
+            },
           ),
         ],
+      ),
+      // btnOkOnPress: () async {
+      //   await openBottomSheet();
+      // },
+      // btnOkText: "create_new_label".tr,
+      // btnCancelText: "cancel".tr,
+      // btnCancelOnPress: () {},
+      btnOk: TextButton(
+        onPressed: () async {
+          await openBottomSheet();
+        },
+        child: Text("create_new_label".tr),
+      ),
+      btnCancel: TextButton(
+        onPressed: () {},
+        child: Text("cancel".tr),
+      ),
+    );
+  }
+
+  Future<dynamic> openBottomSheet() {
+    return Get.bottomSheet(
+      Container(
+        height: 1000.h,
+        padding: const EdgeInsets.all(16),
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("new_label".tr),
+            TextFormField(
+              autofocus: false,
+              decoration: InputDecoration(
+                hintText: "label_name".tr,
+                labelStyle: const TextStyle(color: Colors.green),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 2),
+                ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 2),
+                ),
+              ),
+              cursorColor: Colors.green,
+              cursorHeight: 25,
+              onChanged: (value) {},
+              maxLines: null,
+            ),
+            Expanded(
+              child: GridView.builder(
+                physics: const ScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  childAspectRatio: 2,
+                  mainAxisSpacing: 3,
+                  crossAxisSpacing: 3,
+                ),
+                shrinkWrap: true,
+                itemCount: boardMenuController.listLabelColor.length,
+                itemBuilder: (context, index) {
+                  final myColor = boardMenuController.listLabelColor[index];
+                  return InkWell(
+                    onTap: () async {
+                      boardMenuController.changeBackgroundBoard(index);
+                    },
+                    child: myColor.isSelect
+                        ? Card(
+                            color: HexColor(myColor.color),
+                            child: const Icon(Icons.check,
+                                size: 40, color: Colors.white),
+                          )
+                        : Card(
+                            color: HexColor(myColor.color),
+                          ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

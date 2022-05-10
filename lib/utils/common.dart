@@ -19,4 +19,18 @@ class Common {
       MyColor(color: myGreyColor, darkColor: myDarkGreyColor, isSelect: false),
     ];
   }
+
+  static List<MyColor> getListLabelColor() {
+    return <MyColor>[
+      MyColor(color: myBlueColor, isSelect: true),
+      MyColor(color: myAmberColor, isSelect: false),
+      MyColor(color: myGreenColor, isSelect: false),
+      MyColor(color: myRedColor, isSelect: false),
+      MyColor(color: myPurpleColor, isSelect: false),
+      MyColor(color: myPinkColor, isSelect: false),
+      MyColor(color: myTealColor, isSelect: false),
+      MyColor(color: myCyanColor, isSelect: false),
+      MyColor(color: myGreyColor, isSelect: false),
+    ];
+  }
 }

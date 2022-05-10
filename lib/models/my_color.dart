@@ -1,8 +1,7 @@
 class MyColor {
   String color;
-  String darkColor;
+  String? darkColor;
   bool isSelect;
 
-  MyColor(
-      {required this.color, required this.darkColor, required this.isSelect});
+  MyColor({required this.color, this.darkColor, required this.isSelect});
 }

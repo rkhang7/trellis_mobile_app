@@ -37,7 +37,7 @@ class BoardBackgroundPage extends StatelessWidget {
         return InkWell(
           onTap: () async {
             boardBackgroundController.changeBackgroundBoard(
-                index, myColor.color, myColor.darkColor);
+                index, myColor.color, myColor.darkColor!);
           },
           child: myColor.isSelect
               ? Card(

@@ -12,7 +12,6 @@ class Messages extends Translations {
           'leave': "Leave",
           'remove': "Remove",
           'confirm': 'Confirm',
-          
 
           // walk through page
           'sign_in': 'Log in',
@@ -213,6 +212,9 @@ class Messages extends Translations {
 
           // edit lable page
           'edit_label': "Edit labels",
+          'create_new_label': "CREATE NEW LABEL",
+          'new_label': "New label",
+          'label_name': "Label name",
         },
         'vi_VN': {
           //common
@@ -423,6 +425,9 @@ class Messages extends Translations {
 
           // edit lable page
           'edit_label': "Chỉnh sửa nhãn",
+          'create_new_label': "TẠO MỚI NHÃN",
+          'new_label': "Nhãn mới",
+          'label_name': "Tên nhãn",
         }
       };
 }
