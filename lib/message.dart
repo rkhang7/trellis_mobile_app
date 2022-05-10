@@ -12,6 +12,7 @@ class Messages extends Translations {
           'leave': "Leave",
           'remove': "Remove",
           'confirm': 'Confirm',
+          
 
           // walk through page
           'sign_in': 'Log in',

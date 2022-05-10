@@ -76,15 +76,21 @@ class MyCardPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () {
-                  _showDialog(
-                    CupertinoDatePicker(
-                      initialDateTime: DateTime.now(),
-                      mode: CupertinoDatePickerMode.date,
-                      use24hFormat: true,
-                      // This is called when the user changes the time.
-                      onDateTimeChanged: (DateTime newTime) {},
-                    ),
+                onTap: () async {
+                  await showDatePicker(
+                    context: context,
+                    locale: Get.locale.toString() == "vi_VN"
+                        ? const Locale("vi", "VN")
+                        : const Locale("en", "US"),
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2040),
+                  ).then(
+                    (value) {
+                      if (value != null) {
+                        print(value);
+                      }
+                    },
                   );
                 },
                 child: Text(
@@ -109,27 +115,6 @@ class MyCardPage extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  void _showDialog(Widget child) {
-    showCupertinoModalPopup<void>(
-      context: Get.context!,
-      builder: (BuildContext context) => Container(
-        height: 216,
-        padding: const EdgeInsets.only(top: 6.0),
-        // The Bottom margin is provided to align the popup above the system navigation bar.
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        // Provide a background color for the popup.
-        color: CupertinoColors.systemBackground.resolveFrom(context),
-        // Use a SafeArea widget to avoid system overlaps.
-        child: SafeArea(
-          top: false,
-          child: child,
-        ),
       ),
     );
   }

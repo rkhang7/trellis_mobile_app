@@ -1,4 +1,6 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -19,8 +21,38 @@ void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();
+  AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+          channelKey: 'basic_channel',
+          channelName: 'Basic notifications',
+          channelDescription: 'Notification channel for basic tests',
+          defaultColor: const Color(0xFF9D50DD),
+          ledColor: Colors.white)
+    ],
+  );
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(MyApp());
   configLoading();
+}
+
+void notify() async {
+  // local notification
+  AwesomeNotifications().createNotification(
+      content: NotificationContent(
+          id: 10,
+          channelKey: 'basic_channel',
+          title: 'Simple Notification',
+          body: 'Simple body',
+          bigPicture: 'assets://images/protocoderlogo.png'));
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.data}");
+  //call awesomenotification to how the push notification.
+  AwesomeNotifications().createNotificationFromJsonData(message.data);
 }
 
 void configLoading() {
@@ -41,9 +73,45 @@ void configLoading() {
     ..dismissOnTap = false;
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final LanguageService languageService = LanguageService();
+  @override
+  void initState() {
+    FirebaseMessaging.instance.getToken().then((value) {
+      String? token = value;
+      print(token);
+    });
+
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {}
+    });
+
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) {
+        RemoteNotification? notification = message.notification;
+
+        AwesomeNotifications().createNotification(
+            content: NotificationContent(
+          id: 10,
+          channelKey: 'basic_channel',
+          title: notification!.title,
+          body: notification.body,
+          bigPicture: notification.android!.imageUrl,
+        ));
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
