@@ -116,6 +116,10 @@ abstract class RestClient {
   @DELETE("/boards/{boardId}")
   Future<void> deleteBoard(@Path("boardId") int boardId);
 
+  @GET("/boards")
+  Future<List<BoardResponse>> getBoardByDate(
+      @Query("uid") String uid, @Query("date") int date);
+
   // list
   @POST("/board-list")
   Future<ListResponse> createList(@Body() ListRequest listRequest);

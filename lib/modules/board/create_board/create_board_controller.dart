@@ -112,7 +112,8 @@ class CreateBoardController extends GetxController {
         default:
           EasyLoading.dismiss();
 
-          EasyLoading.showError("error".tr);
+          // EasyLoading.showError("error".tr);
+          EasyLoading.showError(obj.toString());
           break;
       }
     });

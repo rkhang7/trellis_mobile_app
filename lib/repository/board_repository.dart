@@ -33,4 +33,9 @@ class BoardRepository {
     final client = RestClient(dio);
     return await client.deleteBoard(boardId);
   }
+
+  Future<List<BoardResponse>> getBoardByDate(String uid, int date) async {
+    final client = RestClient(dio);
+    return await client.getBoardByDate(uid, date);
+  }
 }

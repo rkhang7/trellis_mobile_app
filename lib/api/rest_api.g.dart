@@ -365,6 +365,24 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<List<BoardResponse>> getBoardByDate(uid, date) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'uid': uid, r'date': date};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<BoardResponse>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/boards',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => BoardResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<ListResponse> createList(listRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

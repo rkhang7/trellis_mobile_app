@@ -19,6 +19,9 @@ BoardResponse _$BoardResponseFromJson(Map<String, dynamic> json) =>
       created_by: json['created_by'] as String,
       background_color: json['background_color'] as String,
       background_dark_color: json['background_dark_color'] as String,
+      board_list_resps: (json['board_list_resps'] as List<dynamic>)
+          .map((e) => ListResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$BoardResponseToJson(BoardResponse instance) =>
@@ -34,4 +37,5 @@ Map<String, dynamic> _$BoardResponseToJson(BoardResponse instance) =>
       'created_by': instance.created_by,
       'background_color': instance.background_color,
       'background_dark_color': instance.background_dark_color,
+      'boardListResps': instance.board_list_resps,
     };

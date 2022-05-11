@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
+import 'package:trellis_mobile_app/models/list/list_response.dart';
 part 'board_response.g.dart';
 
 @JsonSerializable()
@@ -15,6 +16,7 @@ class BoardResponse {
   String created_by;
   String background_color;
   String background_dark_color;
+  List<ListResponse> board_list_resps;
 
   BoardResponse({
     required this.board_id,
@@ -28,6 +30,7 @@ class BoardResponse {
     required this.created_by,
     required this.background_color,
     required this.background_dark_color,
+    required this.board_list_resps,
   });
 
   factory BoardResponse.fromJson(Map<String, dynamic> json) =>
