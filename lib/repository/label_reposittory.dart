@@ -11,4 +11,9 @@ class LabelRepository {
     final client = RestClient(dio);
     return await client.createLabel(labelRequest);
   }
+
+  Future<List<LabelResponse>> getLabelsInBoard(int boardId) async {
+    final client = RestClient(dio);
+    return await client.getLabelsInBoard(boardId);
+  }
 }

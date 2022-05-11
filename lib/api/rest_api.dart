@@ -167,4 +167,7 @@ abstract class RestClient {
   // label
   @POST("/labels")
   Future<LabelResponse> createLabel(@Body() LabelRequest labelRequest);
+
+  @GET("/labels")
+  Future<List<LabelResponse>> getLabelsInBoard(@Query("boardId") int boardId);
 }

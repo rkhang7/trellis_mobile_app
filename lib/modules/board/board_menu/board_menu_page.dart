@@ -270,6 +270,7 @@ class BoardMenuPage extends StatelessWidget {
   }
 
   dialog.AwesomeDialog openDialog(BuildContext context) {
+    boardMenuController.getListLabel();
     return dialog.AwesomeDialog(
       context: context,
       animType: dialog.AnimType.SCALE,
@@ -289,17 +290,42 @@ class BoardMenuPage extends StatelessWidget {
               ),
             ),
           ),
-          ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: 4,
-            itemBuilder: (_, index) {
-              return InkWell(
-                onTap: () {},
-                child: Container(),
-              );
-            },
+          const SizedBox(
+            height: 16,
+          ),
+          Obx(
+            () => ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: boardMenuController.listLabel.length,
+              itemBuilder: (_, index) {
+                final label = boardMenuController.listLabel[index];
+                return InkWell(
+                  onTap: () {},
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: HexColor(label.color),
+                      borderRadius: BorderRadius.circular(9),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Text(
+                        label.name,
+                        style: TextStyle(color: Colors.white, fontSize: 81.sp),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(
+                  height: 8,
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -316,7 +342,9 @@ class BoardMenuPage extends StatelessWidget {
         child: Text("create_new_label".tr),
       ),
       btnCancel: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.back();
+        },
         child: Text("cancel".tr),
       ),
     );
@@ -325,7 +353,7 @@ class BoardMenuPage extends StatelessWidget {
   Future<dynamic> openBottomSheet() {
     return Get.bottomSheet(
       Container(
-        height: 1000.h,
+        height: 1200.h,
         padding: const EdgeInsets.all(16),
         color: Colors.white,
         child: Column(
@@ -333,6 +361,7 @@ class BoardMenuPage extends StatelessWidget {
           children: [
             Text("new_label".tr),
             TextFormField(
+              controller: boardMenuController.labelNameController,
               autofocus: false,
               decoration: InputDecoration(
                 hintText: "label_name".tr,
@@ -350,37 +379,62 @@ class BoardMenuPage extends StatelessWidget {
               maxLines: null,
             ),
             Expanded(
-              child: GridView.builder(
-                physics: const ScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  childAspectRatio: 2,
-                  mainAxisSpacing: 3,
-                  crossAxisSpacing: 3,
+              child: Obx(
+                () => GridView.builder(
+                  physics: const ScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 2,
+                    mainAxisSpacing: 3,
+                    crossAxisSpacing: 3,
+                  ),
+                  shrinkWrap: true,
+                  itemCount: boardMenuController.listLabelColor.length,
+                  itemBuilder: (context, index) {
+                    final myColor = boardMenuController.listLabelColor[index];
+                    return InkWell(
+                      onTap: () async {
+                        boardMenuController.changeBackgroundBoard(index);
+                      },
+                      child: myColor.isSelect
+                          ? Card(
+                              color: HexColor(myColor.color),
+                              child: const Icon(Icons.check,
+                                  size: 40, color: Colors.white),
+                            )
+                          : Card(
+                              color: HexColor(myColor.color),
+                            ),
+                    );
+                  },
                 ),
-                shrinkWrap: true,
-                itemCount: boardMenuController.listLabelColor.length,
-                itemBuilder: (context, index) {
-                  final myColor = boardMenuController.listLabelColor[index];
-                  return InkWell(
-                    onTap: () async {
-                      boardMenuController.changeBackgroundBoard(index);
-                    },
-                    child: myColor.isSelect
-                        ? Card(
-                            color: HexColor(myColor.color),
-                            child: const Icon(Icons.check,
-                                size: 40, color: Colors.white),
-                          )
-                        : Card(
-                            color: HexColor(myColor.color),
-                          ),
-                  );
-                },
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text(
+                    "cancel".tr,
+                    style: TextStyle(fontSize: 64.sp),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    boardMenuController.createLabel();
+                  },
+                  child: Text(
+                    "create_new_label".tr,
+                    style: TextStyle(fontSize: 64.sp),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
