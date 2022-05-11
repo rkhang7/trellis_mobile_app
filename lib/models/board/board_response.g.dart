@@ -37,5 +37,5 @@ Map<String, dynamic> _$BoardResponseToJson(BoardResponse instance) =>
       'created_by': instance.created_by,
       'background_color': instance.background_color,
       'background_dark_color': instance.background_dark_color,
-      'boardListResps': instance.board_list_resps,
+      'board_list_resps': instance.board_list_resps,
     };

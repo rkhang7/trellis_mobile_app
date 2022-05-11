@@ -373,7 +373,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<BoardResponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/boards',
+                .compose(_dio.options, '/boards/filter',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!

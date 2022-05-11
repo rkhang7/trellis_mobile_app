@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:trellis_mobile_app/modules/card/my_card/my_card_controller.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
 
 class MyCardPage extends StatelessWidget {
-  const MyCardPage({Key? key}) : super(key: key);
-
+  MyCardPage({Key? key}) : super(key: key);
+  final myCardController = Get.find<MyCardController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +20,7 @@ class MyCardPage extends StatelessWidget {
           children: [
             _buildTaskBar(context),
             _buildDateBar(),
+            _buildListBoard(),
           ],
         ),
       ),
@@ -60,7 +62,10 @@ class MyCardPage extends StatelessWidget {
         dayTextStyle: GoogleFonts.lato(
             textStyle: const TextStyle(
                 fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w600)),
-        onDateChange: (date) {},
+        onDateChange: (date) {
+          myCardController.dateSelected.value = date;
+          myCardController.getBoardsByDate(date.toUtc().microsecondsSinceEpoch);
+        },
         locale: Get.locale.toString() == "vi_VN" ? "vi-VN" : "en-US",
       ),
     );
@@ -115,6 +120,22 @@ class MyCardPage extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  _buildListBoard() {
+    return Expanded(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: myCardController.listBoard.length,
+        itemBuilder: (context, index) {
+          return Container(
+            height: 100,
+            width: 100,
+            color: Colors.red,
+          );
+        },
       ),
     );
   }
