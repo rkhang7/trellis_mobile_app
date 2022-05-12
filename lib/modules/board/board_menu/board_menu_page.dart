@@ -302,7 +302,12 @@ class BoardMenuPage extends StatelessWidget {
               itemBuilder: (_, index) {
                 final label = boardMenuController.listLabel[index];
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    boardMenuController.updateLabelColorSelected(label.color);
+                    boardMenuController.editingLabel.value = true;
+                    boardMenuController.labelNameController.text = label.name;
+                    openBottomSheet(label.label_id);
+                  },
                   child: Container(
                     alignment: Alignment.centerLeft,
                     height: 40,
@@ -329,15 +334,9 @@ class BoardMenuPage extends StatelessWidget {
           ),
         ],
       ),
-      // btnOkOnPress: () async {
-      //   await openBottomSheet();
-      // },
-      // btnOkText: "create_new_label".tr,
-      // btnCancelText: "cancel".tr,
-      // btnCancelOnPress: () {},
       btnOk: TextButton(
         onPressed: () async {
-          await openBottomSheet();
+          await openBottomSheet(-1);
         },
         child: Text("create_new_label".tr),
       ),
@@ -350,7 +349,7 @@ class BoardMenuPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> openBottomSheet() {
+  Future<dynamic> openBottomSheet(int labelId) {
     return Get.bottomSheet(
       Container(
         height: 1200.h,
@@ -359,7 +358,9 @@ class BoardMenuPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("new_label".tr),
+            boardMenuController.editingLabel.isFalse
+                ? Text("new_label".tr)
+                : Text("edit_label".tr),
             TextFormField(
               controller: boardMenuController.labelNameController,
               autofocus: false,
@@ -426,10 +427,12 @@ class BoardMenuPage extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    boardMenuController.createLabel();
+                    boardMenuController.editingLabel.isFalse
+                        ? boardMenuController.createLabel()
+                        : boardMenuController.updateLabel(labelId);
                   },
                   child: Text(
-                    "create_new_label".tr,
+                    "done".tr,
                     style: TextStyle(fontSize: 64.sp),
                   ),
                 ),

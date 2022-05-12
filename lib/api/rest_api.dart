@@ -170,4 +170,11 @@ abstract class RestClient {
 
   @GET("/labels")
   Future<List<LabelResponse>> getLabelsInBoard(@Query("boardId") int boardId);
+
+  @PUT("/labels/{labelId}")
+  Future<LabelResponse> updateLabel(
+      @Path("labelId") int labelId, @Body() LabelRequest labelRequest);
+
+  @DELETE("/labels{labelId}")
+  Future<String> deleteLabel(@Path("labelId") int labelId);
 }

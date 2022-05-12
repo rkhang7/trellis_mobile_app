@@ -584,6 +584,38 @@ class _RestClient implements RestClient {
     return value;
   }
 
+  @override
+  Future<LabelResponse> updateLabel(labelId, labelRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(labelRequest.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<LabelResponse>(
+            Options(method: 'PUT', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/labels/${labelId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = LabelResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<String> deleteLabel(labelId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
+        Options(method: 'DELETE', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/labels${labelId}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

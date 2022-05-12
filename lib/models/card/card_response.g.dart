@@ -25,6 +25,9 @@ CardResponse _$CardResponseFromJson(Map<String, dynamic> json) => CardResponse(
       tasks: (json['tasks'] as List<dynamic>)
           .map((e) => TaskResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      labels: (json['labels'] as List<dynamic>)
+          .map((e) => LabelResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$CardResponseToJson(CardResponse instance) =>
@@ -43,4 +46,5 @@ Map<String, dynamic> _$CardResponseToJson(CardResponse instance) =>
       'created_by': instance.created_by,
       'members': instance.members,
       'tasks': instance.tasks,
+      'labels': instance.labels,
     };

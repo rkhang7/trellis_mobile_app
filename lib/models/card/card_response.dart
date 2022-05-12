@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:trellis_mobile_app/models/label/label_response.dart';
 import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/models/user/user_response.dart';
 part 'card_response.g.dart';
@@ -19,6 +20,7 @@ class CardResponse {
   String created_by;
   List<UserResponse> members;
   List<TaskResponse> tasks;
+  List<LabelResponse> labels;
 
   CardResponse({
     required this.card_id,
@@ -35,6 +37,7 @@ class CardResponse {
     required this.created_by,
     required this.members,
     required this.tasks,
+    required this.labels,
   });
 
   factory CardResponse.fromJson(Map<String, dynamic> json) =>

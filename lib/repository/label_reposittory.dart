@@ -16,4 +16,15 @@ class LabelRepository {
     final client = RestClient(dio);
     return await client.getLabelsInBoard(boardId);
   }
+
+  Future<LabelResponse> updateLabel(
+      int labelId, LabelRequest labelRequest) async {
+    final client = RestClient(dio);
+    return await client.updateLabel(labelId, labelRequest);
+  }
+
+  Future<String> deleteLabel(int labelId) async {
+    final client = RestClient(dio);
+    return await client.deleteLabel(labelId);
+  }
 }

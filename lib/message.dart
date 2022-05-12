@@ -209,6 +209,7 @@ class Messages extends Translations {
           'add_attachment': 'Add_attachment',
           'editing_task': 'Editing task',
           'delete': 'Delete',
+          'label': 'Label',
 
           // edit lable page
           'edit_label': "Edit labels",
@@ -422,6 +423,7 @@ class Messages extends Translations {
           'add_attachment': 'Thêm tệp đính kèm',
           'editing_task': 'Chỉnh sửa công việc',
           'delete': 'Xóa',
+          'label': 'Nhãn',
 
           // edit lable page
           'edit_label': "Chỉnh sửa nhãn",

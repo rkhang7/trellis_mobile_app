@@ -57,6 +57,7 @@ class DetailBoardController extends GetxController {
     created_by: "",
     members: [],
     tasks: [],
+    labels: [],
   ).obs;
 
   @override

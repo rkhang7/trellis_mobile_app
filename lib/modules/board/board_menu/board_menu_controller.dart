@@ -25,6 +25,8 @@ class BoardMenuController extends GetxController {
 
   var listLabel = <LabelResponse>[].obs;
 
+  var editingLabel = false.obs;
+
   @override
   void onInit() {
     listLabelColor.value = Common.getListLabelColor();
@@ -106,9 +108,59 @@ class BoardMenuController extends GetxController {
     });
   }
 
+  void updateLabel(int labelId) {
+    EasyLoading.show(status: "please_wait".tr);
+    final labelRequest = LabelRequest(
+        name: labelNameController.text,
+        color: listLabelColor[
+                listLabelColor.indexWhere((element) => element.isSelect)]
+            .color,
+        boardId: currentBoard!.board_id);
+
+    labelRepository.updateLabel(labelId, labelRequest).then(
+      (value) {
+        labelNameController.clear();
+        listLabel[
+                listLabel.indexWhere((element) => element.label_id == labelId)]
+            .color = value.color;
+        listLabel[
+                listLabel.indexWhere((element) => element.label_id == labelId)]
+            .name = value.name;
+        listLabel.refresh();
+        EasyLoading.dismiss();
+        EasyLoading.showSuccess("update_success".tr);
+        Get.back();
+      },
+    ).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
+
   void getListLabel() {
     labelRepository.getLabelsInBoard(currentBoard!.board_id).then((value) {
       listLabel.assignAll(value);
     });
+  }
+
+  void updateLabelColorSelected(String color) {
+    for (MyColor myColor in listLabelColor) {
+      if (myColor.color == color) {
+        myColor.isSelect = true;
+      } else {
+        myColor.isSelect = false;
+      }
+    }
   }
 }

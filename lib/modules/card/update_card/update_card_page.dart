@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -39,6 +40,10 @@ class UpdateCardPage extends StatelessWidget {
               Obx(
                 () => _buildEditDescriptionArea(),
               ),
+              SizedBox(
+                height: 50.h,
+              ),
+              _buildLabels(context),
               SizedBox(
                 height: 50.h,
               ),
@@ -991,6 +996,83 @@ class UpdateCardPage extends StatelessWidget {
     );
   }
 
+  dialog.AwesomeDialog openDialogLabel(BuildContext context) {
+    return dialog.AwesomeDialog(
+      context: context,
+      animType: dialog.AnimType.SCALE,
+      dialogType: dialog.DialogType.NO_HEADER,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 18),
+          //   child: Text(
+          //     "card_members".tr,
+          //     style: TextStyle(
+          //       color: Colors.black,
+          //       fontSize: 72.sp,
+          //     ),
+          //   ),
+          // ),
+          Obx(
+            () => ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: updateCardController.listLabel.length,
+              itemBuilder: (_, index) {
+                final label = updateCardController.listLabel[index];
+                return InkWell(
+                  onTap: () {},
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: HexColor(label.color),
+                      borderRadius: BorderRadius.circular(9),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            label.name,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 81.sp),
+                          ),
+                          updateCardController
+                                      .labelIsExistInCard(label.label_id) ==
+                                  true
+                              ? const Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(
+                  height: 8,
+                );
+              },
+            ),
+          )
+        ],
+      ),
+      btnOkOnPress: () {},
+    );
+  }
+
   _buildQuickAction(BuildContext context) {
     return Container(
       color: Colors.white,
@@ -1246,7 +1328,7 @@ class UpdateCardPage extends StatelessWidget {
       key: ValueKey(task.task_id),
       child: Slidable(
         endActionPane: ActionPane(
-          motion: ScrollMotion(),
+          motion: const ScrollMotion(),
           children: [
             SlidableAction(
               flex: 1,
@@ -1328,5 +1410,31 @@ class UpdateCardPage extends StatelessWidget {
     }
     final TaskResponse item = listTasks.removeAt(oldIndex);
     listTasks.insert(newIndex, item);
+  }
+
+  _buildLabels(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        openDialogLabel(context).show();
+      },
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(Icons.label_important_outline),
+            SizedBox(width: 80.w),
+            updateCardController.cardUpdate.value.labels.isEmpty
+                ? Text(
+                    "label".tr,
+                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                  )
+                : Container(),
+          ],
+        ),
+      ),
+    );
   }
 }

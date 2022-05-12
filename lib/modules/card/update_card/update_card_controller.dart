@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
+import 'package:trellis_mobile_app/models/label/label_response.dart';
+import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/card_member_request.dart';
 import 'package:trellis_mobile_app/models/task/task_request.dart';
@@ -14,15 +16,18 @@ import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/detail_board/detail_board_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
+import 'package:trellis_mobile_app/repository/label_reposittory.dart';
 import 'package:trellis_mobile_app/repository/member_repository.dart';
 import 'package:trellis_mobile_app/repository/task_repository.dart';
 
+import '../../../models/my_color.dart';
 import '../../../models/my_date_time.dart';
 import '../../../models/user/user_response.dart';
 
 class UpdateCardController extends GetxController {
   final detailBoardController = Get.find<DetailBoardController>();
   final memberRepository = Get.find<MemberRepository>();
+  final labelRepository = Get.find<LabelRepository>();
   final taskRepository = Get.find<TaskRepository>();
   final dashBoardController = Get.find<DashBoardController>();
   final cardNameController = TextEditingController();
@@ -43,6 +48,7 @@ class UpdateCardController extends GetxController {
     created_by: "",
     members: [],
     tasks: [],
+    labels: [],
   ).obs;
 
   var editingName = false.obs;
@@ -79,6 +85,9 @@ class UpdateCardController extends GetxController {
   var taskIdSelected = -1;
 
   late FocusNode focusNode;
+
+  var listLabel = <LabelResponse>[].obs;
+  var listLabelColor = <MyColor>[].obs;
 
   @override
   void onInit() {
@@ -430,11 +439,26 @@ class UpdateCardController extends GetxController {
     for (int i = 0; i < cardUpdate.value.tasks.length; i++) {
       listTaskNameController.add(TextEditingController());
     }
+
+    labelRepository
+        .getLabelsInBoard(dashBoardController.boardIdSelected)
+        .then((value) {
+      listLabel.assignAll(value);
+    });
   }
 
   bool memberIsExistInCard(String memberId) {
     for (UserResponse userResponse in cardUpdate.value.members) {
       if (userResponse.uid == memberId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool labelIsExistInCard(int labelId) {
+    for (LabelResponse labelResponse in cardUpdate.value.labels) {
+      if (labelResponse.label_id == labelId) {
         return true;
       }
     }

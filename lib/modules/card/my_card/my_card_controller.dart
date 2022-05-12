@@ -10,7 +10,7 @@ class MyCardController extends GetxController {
   final boardRepository = Get.find<BoardRepository>();
   final dashBoardController = Get.find<DashBoardController>();
 
-  var listBoard = <BoardResponse>[];
+  var listBoard = <BoardResponse>[].obs;
   var dateSelected = DateTime.now().obs;
   @override
   void onInit() {

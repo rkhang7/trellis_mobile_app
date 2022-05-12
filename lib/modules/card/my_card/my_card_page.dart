@@ -20,7 +20,9 @@ class MyCardPage extends StatelessWidget {
           children: [
             _buildTaskBar(context),
             _buildDateBar(),
-            _buildListBoard(),
+            Obx(
+              () => _buildListBoard(),
+            ),
           ],
         ),
       ),
@@ -64,7 +66,7 @@ class MyCardPage extends StatelessWidget {
                 fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w600)),
         onDateChange: (date) {
           myCardController.dateSelected.value = date;
-          myCardController.getBoardsByDate(date.toUtc().microsecondsSinceEpoch);
+          myCardController.getBoardsByDate(date.toUtc().millisecondsSinceEpoch);
         },
         locale: Get.locale.toString() == "vi_VN" ? "vi-VN" : "en-US",
       ),
