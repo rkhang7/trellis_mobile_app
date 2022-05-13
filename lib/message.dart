@@ -12,6 +12,8 @@ class Messages extends Translations {
           'leave': "Leave",
           'remove': "Remove",
           'confirm': 'Confirm',
+          'in_list': "In list",
+          'no_have_tasks': "No have task",
 
           // walk through page
           'sign_in': 'Log in',
@@ -219,13 +221,15 @@ class Messages extends Translations {
         },
         'vi_VN': {
           //common
-          "please_wait": "vui lòng đợi",
+          "please_wait": "Vui lòng đợi",
           "create_success": "Tạo thành công",
           'update_success': "Cập nhật thành công",
           'admin': "Người quản trị",
           'leave': "Rời khỏi",
           'remove': "Loại bỏ",
           'confirm': 'Xác nhận',
+          'in_list': "Trong danh sách",
+          'no_have_tasks': "Không có công việc nào",
 
           // walk through page
           'sign_in': 'Đăng nhập',
