@@ -406,13 +406,13 @@ class DetailBoardPage extends StatelessWidget {
       },
       itemBuilder: (context, index) {
         CardResponse cardModel = listCard[index];
-        return _buildCard(cardModel);
+        return _buildCard(cardModel, index);
       },
       itemCount: listCard.length,
     );
   }
 
-  Widget _buildCard(CardResponse cardModel) {
+  Widget _buildCard(CardResponse cardModel, int index) {
     return Container(
       key: ValueKey(cardModel),
       margin: EdgeInsets.all(8.w),
@@ -434,7 +434,7 @@ class DetailBoardPage extends StatelessWidget {
           detailBoardController.selectedCard.value = cardModel;
         },
         onDoubleTap: () {
-          openBottomSheet(cardModel.is_complete);
+          openBottomSheet(cardModel, index);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -540,7 +540,7 @@ class DetailBoardPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> openBottomSheet(bool isComplete) {
+  Future<dynamic> openBottomSheet(CardResponse cardResponse, int index) {
     return Get.bottomSheet(
       Container(
         padding: EdgeInsets.all(16),
@@ -556,7 +556,7 @@ class DetailBoardPage extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            isComplete
+            cardResponse.is_complete
                 ? InkWell(
                     onTap: () {},
                     child: Container(
@@ -617,7 +617,22 @@ class DetailBoardPage extends StatelessWidget {
               height: 16,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                await dialog.AwesomeDialog(
+                  context: Get.context!,
+                  dialogType: dialog.DialogType.WARNING,
+                  animType: dialog.AnimType.BOTTOMSLIDE,
+                  title: 'delete_list'.tr,
+                  desc: 'are_you_sure_delete_this_card'.tr,
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {
+                    detailBoardController.deleteCard(
+                        cardResponse.card_id, index);
+                  },
+                ).show();
+
+                Get.back();
+              },
               child: Container(
                 width: Get.width,
                 height: 150.h,
@@ -647,6 +662,7 @@ class DetailBoardPage extends StatelessWidget {
           ],
         ),
       ),
+      isDismissible: true,
     );
   }
 

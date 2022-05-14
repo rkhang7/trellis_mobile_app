@@ -158,6 +158,9 @@ abstract class RestClient {
   Future<List<CardResponse>> sort(
       @Path("listId") int listId, @Query("sort") String sort);
 
+  @DELETE("cards/{cardId}")
+  Future<String> deleteCard(@Path("cardId") int cardId);
+
   //task
   @POST("/tasks")
   Future<TaskResponse> createTask(@Body() TaskRequest taskRequest);

@@ -341,4 +341,28 @@ class DetailBoardController extends GetxController {
       }
     });
   }
+
+  void deleteCard(int cardId, int index) {
+    EasyLoading.show(status: "please_wait".tr);
+
+    cardRepository.deleteCard(cardId).then((value) {
+      lists[index].cards.removeAt(index);
+      lists.refresh();
+      EasyLoading.dismiss();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
 }

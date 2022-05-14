@@ -174,6 +174,7 @@ class Messages extends Translations {
           'confirm_complete': "Confirm complete",
           'delete_card': "Delete card",
           'rework': 'Rework',
+          'are_you_sure_delete_this_card': "Are you sure delete this card ?",
 
           // search board page
           'search': 'Search',
@@ -400,6 +401,7 @@ class Messages extends Translations {
           'confirm_complete': "Xác nhận hoàn thành",
           'delete_card': "Xóa thẻ",
           'rework': "Làm lại",
+          'are_you_sure_delete_this_card': "Bạn có chắc chắn xóa thẻ này ?",
 
           // search board page
           'search': 'Tìm kiếm',

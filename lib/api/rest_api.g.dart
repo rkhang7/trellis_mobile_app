@@ -534,6 +534,21 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<String> deleteCard(cardId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
+        Options(method: 'DELETE', headers: _headers, extra: _extra)
+            .compose(_dio.options, 'cards/${cardId}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
   Future<TaskResponse> createTask(taskRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
