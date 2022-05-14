@@ -11,16 +11,19 @@ class CardRequest {
   int dueDate;
   int listId;
   String createdBy;
+  bool isComplete;
 
-  CardRequest(
-      {required this.name,
-      required this.description,
-      required this.position,
-      required this.startDate,
-      required this.dueDate,
-      required this.reminder,
-      required this.listId,
-      required this.createdBy});
+  CardRequest({
+    required this.name,
+    required this.description,
+    required this.position,
+    required this.startDate,
+    required this.dueDate,
+    required this.reminder,
+    required this.listId,
+    required this.createdBy,
+    required this.isComplete,
+  });
 
   factory CardRequest.fromJson(Map<String, dynamic> json) =>
       _$CardRequestFromJson(json);

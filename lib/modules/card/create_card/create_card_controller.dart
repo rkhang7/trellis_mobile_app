@@ -115,6 +115,7 @@ class CreateCardController extends GetxController {
       reminder: reminderDate.toUtc().millisecondsSinceEpoch,
       listId: listId,
       createdBy: dashBoardController.currentId,
+      isComplete: false,
     );
 
     cardRepository.createCard(cardRequest).then((value) {

@@ -433,6 +433,9 @@ class DetailBoardPage extends StatelessWidget {
           Get.toNamed(AppRoutes.UPDATE_CARD);
           detailBoardController.selectedCard.value = cardModel;
         },
+        onDoubleTap: () {
+          openBottomSheet(cardModel.is_complete);
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -530,6 +533,116 @@ class DetailBoardPage extends StatelessWidget {
                   }).toList(),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> openBottomSheet(bool isComplete) {
+    return Get.bottomSheet(
+      Container(
+        padding: EdgeInsets.all(16),
+        height: 600.h,
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "choose_action".tr,
+              style: TextStyle(color: Colors.black, fontSize: 72.sp),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            isComplete
+                ? InkWell(
+                    onTap: () {},
+                    child: Container(
+                      width: Get.width,
+                      height: 150.h,
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.undo, color: Colors.white),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Text(
+                            "rework".tr,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 64.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {},
+                    child: Container(
+                      width: Get.width,
+                      height: 150.h,
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.check, color: Colors.white),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Text(
+                            "confirm_complete".tr,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 64.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+            const SizedBox(
+              height: 16,
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                width: Get.width,
+                height: 150.h,
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.delete, color: Colors.white),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Text(
+                      "delete_card".tr,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 64.sp,
+                      ),
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
             ),
           ],
         ),

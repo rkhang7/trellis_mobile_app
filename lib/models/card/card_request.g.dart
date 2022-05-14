@@ -15,6 +15,7 @@ CardRequest _$CardRequestFromJson(Map<String, dynamic> json) => CardRequest(
       reminder: json['reminder'] as int,
       listId: json['listId'] as int,
       createdBy: json['createdBy'] as String,
+      isComplete: json['isComplete'] as bool,
     );
 
 Map<String, dynamic> _$CardRequestToJson(CardRequest instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$CardRequestToJson(CardRequest instance) =>
       'dueDate': instance.dueDate,
       'listId': instance.listId,
       'createdBy': instance.createdBy,
+      'isComplete': instance.isComplete,
     };

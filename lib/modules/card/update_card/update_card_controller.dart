@@ -107,6 +107,7 @@ class UpdateCardController extends GetxController {
       reminder: cardUpdate.value.reminder,
       listId: cardUpdate.value.list_id,
       createdBy: cardUpdate.value.created_by,
+      isComplete: cardUpdate.value.is_complete,
     );
 
     cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {
@@ -147,6 +148,7 @@ class UpdateCardController extends GetxController {
       reminder: cardUpdate.value.reminder,
       listId: cardUpdate.value.list_id,
       createdBy: cardUpdate.value.created_by,
+      isComplete: cardUpdate.value.is_complete,
     );
 
     cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {
@@ -199,6 +201,7 @@ class UpdateCardController extends GetxController {
       reminder: cardUpdate.value.reminder,
       listId: cardUpdate.value.list_id,
       createdBy: cardUpdate.value.created_by,
+      isComplete: cardUpdate.value.is_complete,
     );
 
     cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {
@@ -285,6 +288,7 @@ class UpdateCardController extends GetxController {
       reminder: reminderDate.toUtc().millisecondsSinceEpoch,
       listId: cardUpdate.value.list_id,
       createdBy: cardUpdate.value.created_by,
+      isComplete: cardUpdate.value.is_complete,
     );
 
     cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {

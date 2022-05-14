@@ -170,6 +170,10 @@ class Messages extends Translations {
           'sort_by_created_asc': "Sort by date created(oldest first)",
           'sort_by_start_date': "Sort by start day",
           'sort_by_due_date': "Sort by due day",
+          'choose_action': "Choose action",
+          'confirm_complete': "Confirm complete",
+          'delete_card': "Delete card",
+          'rework': 'Rework',
 
           // search board page
           'search': 'Search',
@@ -392,6 +396,10 @@ class Messages extends Translations {
           'sort_by_created_asc': "Sắp xếp theo ngày tạo(cũ nhất)",
           'sort_by_start_date': "Sắp xếp theo ngày bắt đầu",
           'sort_by_due_date': "Sắp xếp theo ngày hết hạn",
+          'choose_action': "Chọn thao tác",
+          'confirm_complete': "Xác nhận hoàn thành",
+          'delete_card': "Xóa thẻ",
+          'rework': "Làm lại",
 
           // search board page
           'search': 'Tìm kiếm',
