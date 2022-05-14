@@ -296,31 +296,34 @@ class DetailBoardPage extends StatelessWidget {
             list.add(
               PopupMenuItem(child: Text("move_list".tr)),
             );
-            list.add(
-              PopupMenuItem(
-                child: InkWell(
-                  onTap: () async {},
-                  child: Text(
-                    "delete_list".tr,
-                    style: const TextStyle(color: Colors.red),
+            if (detailBoardController.getPermissionForCurrentUser() == 1) {
+              list.add(
+                PopupMenuItem(
+                  child: InkWell(
+                    onTap: () async {},
+                    child: Text(
+                      "delete_list".tr,
+                      style: const TextStyle(color: Colors.red),
+                    ),
                   ),
+                  onTap: () async {
+                    await Future.delayed(Duration.zero);
+                    await dialog.AwesomeDialog(
+                      context: context,
+                      dialogType: dialog.DialogType.WARNING,
+                      animType: dialog.AnimType.BOTTOMSLIDE,
+                      title: 'delete_list'.tr,
+                      desc: 'are_you_sure_delete_this_list'.tr,
+                      btnCancelOnPress: () {},
+                      btnOkOnPress: () {
+                        detailBoardController.deleteList(listId, index);
+                      },
+                    ).show();
+                  },
                 ),
-                onTap: () async {
-                  await Future.delayed(Duration.zero);
-                  await dialog.AwesomeDialog(
-                    context: context,
-                    dialogType: dialog.DialogType.WARNING,
-                    animType: dialog.AnimType.BOTTOMSLIDE,
-                    title: 'delete_list'.tr,
-                    desc: 'are_you_sure_delete_this_list'.tr,
-                    btnCancelOnPress: () {},
-                    btnOkOnPress: () {
-                      detailBoardController.deleteList(listId, index);
-                    },
-                  ).show();
-                },
-              ),
-            );
+              );
+            }
+
             return list;
           },
         )

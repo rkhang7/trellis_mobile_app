@@ -10,9 +10,13 @@ import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
 import 'package:trellis_mobile_app/repository/list_repository.dart';
 
+import '../../models/member/board_member_detail_response.dart';
+import '../../repository/member_repository.dart';
+
 class DetailBoardController extends GetxController {
   final listRepository = Get.find<ListRepository>();
   final cardRepository = Get.find<CardRepository>();
+  final memberRepository = Get.find<MemberRepository>();
   var dashBoardController = Get.find<DashBoardController>();
   var pageController = PageController(viewportFraction: 0.8);
   var listCardScrollController = <ScrollController>[];
@@ -58,9 +62,12 @@ class DetailBoardController extends GetxController {
     labels: [],
   ).obs;
 
+  var listMember = <BoardMemberDetailResponse>[].obs;
+
   @override
   void onInit() {
     initData();
+    initListMember();
     backgroundColor.value =
         dashBoardController.getBoardSelected()!.background_color;
     appBarColor.value =
@@ -73,6 +80,14 @@ class DetailBoardController extends GetxController {
     // TODO: implement onClose
     super.onClose();
     pageController.dispose();
+  }
+
+  void initListMember() {
+    memberRepository
+        .getListMemberInBoard(dashBoardController.boardIdSelected)
+        .then((value) {
+      listMember.assignAll(value);
+    });
   }
 
   void initData() async {
@@ -292,5 +307,14 @@ class DetailBoardController extends GetxController {
           break;
       }
     });
+  }
+
+  int getPermissionForCurrentUser() {
+    for (BoardMemberDetailResponse memberDetailResponse in listMember) {
+      if (dashBoardController.currentId == memberDetailResponse.member_id) {
+        return memberDetailResponse.permission;
+      }
+    }
+    return -1;
   }
 }
