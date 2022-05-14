@@ -317,4 +317,28 @@ class DetailBoardController extends GetxController {
     }
     return -1;
   }
+
+  void sort(int listId, int index, String sort) {
+    EasyLoading.show(status: "please_wait".tr);
+
+    cardRepository.sort(listId, sort).then((value) {
+      lists[index].cards.assignAll(value);
+      lists.refresh();
+      EasyLoading.dismiss();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+  }
 }

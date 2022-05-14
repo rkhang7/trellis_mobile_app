@@ -290,17 +290,44 @@ class DetailBoardPage extends StatelessWidget {
           icon: const Icon(Icons.more_vert_outlined),
           itemBuilder: (BuildContext context) {
             List<PopupMenuEntry<Object>> list = [];
+
             list.add(
-              PopupMenuItem(child: Text("add_card".tr)),
+              PopupMenuItem(
+                child: Text("sort_by_created_desc".tr),
+                onTap: () {
+                  detailBoardController.sort(
+                      listId, index, "created_date_desc");
+                },
+              ),
             );
             list.add(
-              PopupMenuItem(child: Text("move_list".tr)),
+              PopupMenuItem(
+                child: Text("sort_by_created_asc".tr),
+                onTap: () {
+                  detailBoardController.sort(listId, index, "created_date_asc");
+                },
+              ),
+            );
+            list.add(
+              PopupMenuItem(
+                child: Text("sort_by_start_date".tr),
+                onTap: () {
+                  detailBoardController.sort(listId, index, "start_date");
+                },
+              ),
+            );
+            list.add(
+              PopupMenuItem(
+                child: Text("sort_by_due_date".tr),
+                onTap: () {
+                  detailBoardController.sort(listId, index, "due_asc");
+                },
+              ),
             );
             if (detailBoardController.getPermissionForCurrentUser() == 1) {
               list.add(
                 PopupMenuItem(
                   child: InkWell(
-                    onTap: () async {},
                     child: Text(
                       "delete_list".tr,
                       style: const TextStyle(color: Colors.red),

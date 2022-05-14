@@ -166,6 +166,10 @@ class Messages extends Translations {
           'edit_list_name': 'Edit list name',
           'add_list': 'Add list',
           'delete_list': "Delete list",
+          'sort_by_created_desc': "Sort by date created(newest first)",
+          'sort_by_created_asc': "Sort by date created(oldest first)",
+          'sort_by_start_date': "Sort by start day",
+          'sort_by_due_date': "Sort by due day",
 
           // search board page
           'search': 'Search',
@@ -384,6 +388,10 @@ class Messages extends Translations {
           'edit_list_name': 'Chỉnh sửa danh sách',
           'add_list': 'Thêm danh sách',
           'delete_list': "Xóa danh sách",
+          'sort_by_created_desc': "Sắp xếp theo ngày tạo(mới nhất)",
+          'sort_by_created_asc': "Sắp xếp theo ngày tạo(cũ nhất)",
+          'sort_by_start_date': "Sắp xếp theo ngày bắt đầu",
+          'sort_by_due_date': "Sắp xếp theo ngày hết hạn",
 
           // search board page
           'search': 'Tìm kiếm',

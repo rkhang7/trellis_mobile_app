@@ -516,6 +516,24 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<List<CardResponse>> sort(listId, sort) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'sort': sort};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<CardResponse>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/cards/sort/${listId}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => CardResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<TaskResponse> createTask(taskRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

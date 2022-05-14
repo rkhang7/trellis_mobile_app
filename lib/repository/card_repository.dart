@@ -21,4 +21,9 @@ class CardRepository {
     final client = RestClient(dio);
     return await client.updateCard(cardId, cardRequest);
   }
+
+  Future<List<CardResponse>> sort(int listId, String sort) async {
+    final client = RestClient(dio);
+    return await client.sort(listId, sort);
+  }
 }

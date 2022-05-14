@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:trellis_mobile_app/models/board/board_request.dart';
@@ -152,6 +153,10 @@ abstract class RestClient {
   @PUT("/cards/{cardId}")
   Future<CardResponse> updateCard(
       @Path("cardId") int cardId, @Body() CardRequest cardRequest);
+
+  @GET("/cards/sort/{listId}")
+  Future<List<CardResponse>> sort(
+      @Path("listId") int listId, @Query("sort") String sort);
 
   //task
   @POST("/tasks")
