@@ -94,11 +94,11 @@ abstract class RestClient {
 
   @POST("/card-member")
   Future<UserResponse> createMemberIntoCard(
-      @Body() CardMemberRequest cardMemberRequest);
+      @Body() CardMemberRequest cardMemberRequest, @Query("uid") String uid);
 
   @DELETE("/card-member/{memberId}/{cardId}")
-  Future<void> removeMemberInCard(
-      @Path("memberId") String memberId, @Path("cardId") int cardId);
+  Future<void> removeMemberInCard(@Path("memberId") String memberId,
+      @Path("cardId") int cardId, @Query("uid") String uid);
 
   // board
   @POST("/boards")
@@ -137,7 +137,7 @@ abstract class RestClient {
       @Path("listId") int listId, @Body() ListRequest listRequest);
 
   @DELETE("/board-list/{listId}")
-  Future<void> deleteList(@Path("listId") int listId);
+  Future<void> deleteList(@Path("listId") int listId, @Query("uid") String uid);
 
   // card
   @POST("/cards")
@@ -159,7 +159,8 @@ abstract class RestClient {
       @Path("listId") int listId, @Query("sort") String sort);
 
   @DELETE("cards/{cardId}")
-  Future<String> deleteCard(@Path("cardId") int cardId);
+  Future<String> deleteCard(
+      @Path("cardId") int cardId, @Query("uid") String uid);
 
   //task
   @POST("/tasks")
@@ -169,8 +170,9 @@ abstract class RestClient {
   Future<TaskResponse> updateTask(
       @Path("taskId") int taskId, @Body() TaskRequest taskRequest);
 
-  @DELETE("/tasks/{taskId}/")
-  Future<String> deleteTask(@Path("taskId") int taskId);
+  @DELETE("/tasks/{taskId}")
+  Future<String> deleteTask(
+      @Path("taskId") int taskId, @Query("uid") String uid);
 
   @GET("/tasks/{cardId}/move/{oldIndex}/{newIndex}")
   Future<String> moveTasks(

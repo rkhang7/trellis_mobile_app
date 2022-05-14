@@ -21,8 +21,8 @@ class ListRepository {
     return await client.updateList(listId, listRequest);
   }
 
-  Future<void> deleteList(int listId) async {
+  Future<void> deleteList(int listId, String uid) async {
     final client = RestClient(dio);
-    return await client.deleteList(listId);
+    return await client.deleteList(listId, uid);
   }
 }

@@ -55,13 +55,14 @@ class MemberRepository {
   }
 
   Future<UserResponse> createMemberIntoCard(
-      CardMemberRequest cardMemberRequest) async {
+      CardMemberRequest cardMemberRequest, String uid) async {
     final client = RestClient(dio);
-    return await client.createMemberIntoCard(cardMemberRequest);
+    return await client.createMemberIntoCard(cardMemberRequest, uid);
   }
 
-  Future<void> removeMemberInCard(String memberId, int cardId) async {
+  Future<void> removeMemberInCard(
+      String memberId, int cardId, String uid) async {
     final client = RestClient(dio);
-    return await client.removeMemberInCard(memberId, cardId);
+    return await client.removeMemberInCard(memberId, cardId, uid);
   }
 }

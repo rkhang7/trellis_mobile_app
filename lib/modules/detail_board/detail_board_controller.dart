@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
@@ -163,7 +165,7 @@ class DetailBoardController extends GetxController {
         case DioError:
           // Here's the sample to get the failed response error code and message
           EasyLoading.dismiss();
-
+          log(obj.toString());
           EasyLoading.showError("error".tr);
           break;
         default:
@@ -288,7 +290,9 @@ class DetailBoardController extends GetxController {
 
   void deleteList(int listId, int index) {
     EasyLoading.show(status: "please_wait".tr);
-    listRepository.deleteList(listId).then((value) {
+    listRepository
+        .deleteList(listId, dashBoardController.currentId)
+        .then((value) {
       lists.removeAt(index);
       lists.refresh();
       EasyLoading.dismiss();
@@ -342,11 +346,16 @@ class DetailBoardController extends GetxController {
     });
   }
 
-  void deleteCard(int cardId, int index) {
+  void deleteCard(CardResponse cardResponse, int index) {
     EasyLoading.show(status: "please_wait".tr);
 
-    cardRepository.deleteCard(cardId).then((value) {
-      lists[index].cards.removeAt(index);
+    cardRepository
+        .deleteCard(cardResponse.card_id, dashBoardController.currentId)
+        .then((value) {
+      lists[lists
+              .indexWhere((element) => element.list_id == cardResponse.list_id)]
+          .cards
+          .removeAt(index);
       lists.refresh();
       EasyLoading.dismiss();
     }).catchError((Object obj) {
@@ -364,5 +373,83 @@ class DetailBoardController extends GetxController {
           break;
       }
     });
+  }
+
+  void updateCardComplete(CardResponse cardResponse, int index) {
+    EasyLoading.show(status: "please_wait".tr);
+    final cardRequest = CardRequest(
+      name: cardResponse.name,
+      description: cardResponse.description,
+      position: cardResponse.position,
+      startDate: cardResponse.start_date,
+      dueDate: cardResponse.due_date,
+      reminder: cardResponse.reminder,
+      listId: cardResponse.list_id,
+      createdBy: cardResponse.created_by,
+      isComplete: true,
+    );
+    cardRepository.updateCard(cardResponse.card_id, cardRequest).then((value) {
+      EasyLoading.dismiss();
+      lists[lists
+              .indexWhere((element) => element.list_id == cardResponse.list_id)]
+          .cards[index]
+          .is_complete = true;
+      lists.refresh();
+    }).catchError(
+      (Object obj) {
+        switch (obj.runtimeType) {
+          case DioError:
+            // Here's the sample to get the failed response error code and message
+            EasyLoading.dismiss();
+
+            EasyLoading.showError("error".tr);
+            break;
+          default:
+            EasyLoading.dismiss();
+
+            EasyLoading.showError("error".tr);
+            break;
+        }
+      },
+    );
+  }
+
+  void updateCardRework(CardResponse cardResponse, int index) {
+    EasyLoading.show(status: "please_wait".tr);
+    final cardRequest = CardRequest(
+      name: cardResponse.name,
+      description: cardResponse.description,
+      position: cardResponse.position,
+      startDate: cardResponse.start_date,
+      dueDate: cardResponse.due_date,
+      reminder: cardResponse.reminder,
+      listId: cardResponse.list_id,
+      createdBy: cardResponse.created_by,
+      isComplete: false,
+    );
+    cardRepository.updateCard(cardResponse.card_id, cardRequest).then((value) {
+      EasyLoading.dismiss();
+      lists[lists
+              .indexWhere((element) => element.list_id == cardResponse.list_id)]
+          .cards[index]
+          .is_complete = false;
+      lists.refresh();
+    }).catchError(
+      (Object obj) {
+        switch (obj.runtimeType) {
+          case DioError:
+            // Here's the sample to get the failed response error code and message
+            EasyLoading.dismiss();
+
+            EasyLoading.showError("error".tr);
+            break;
+          default:
+            EasyLoading.dismiss();
+
+            EasyLoading.showError("error".tr);
+            break;
+        }
+      },
+    );
   }
 }

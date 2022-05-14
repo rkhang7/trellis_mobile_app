@@ -534,6 +534,36 @@ class DetailBoardPage extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(
+              height: 5,
+            ),
+            cardModel.is_complete
+                ? Container(
+                    height: 30,
+                    width: double.infinity,
+                    color: Colors.green,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "complete".tr,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                : Container(
+                    height: 30,
+                    width: double.infinity,
+                    color: Colors.blue,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "incomplete".tr,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),
@@ -558,7 +588,11 @@ class DetailBoardPage extends StatelessWidget {
             ),
             cardResponse.is_complete
                 ? InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      detailBoardController.updateCardRework(
+                          cardResponse, index);
+                      Get.back();
+                    },
                     child: Container(
                       width: Get.width,
                       height: 150.h,
@@ -586,7 +620,11 @@ class DetailBoardPage extends StatelessWidget {
                     ),
                   )
                 : InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      detailBoardController.updateCardComplete(
+                          cardResponse, index);
+                      Get.back();
+                    },
                     child: Container(
                       width: Get.width,
                       height: 150.h,
@@ -627,7 +665,9 @@ class DetailBoardPage extends StatelessWidget {
                   btnCancelOnPress: () {},
                   btnOkOnPress: () {
                     detailBoardController.deleteCard(
-                        cardResponse.card_id, index);
+                      cardResponse,
+                      index,
+                    );
                   },
                 ).show();
 

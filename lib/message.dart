@@ -175,6 +175,8 @@ class Messages extends Translations {
           'delete_card': "Delete card",
           'rework': 'Rework',
           'are_you_sure_delete_this_card': "Are you sure delete this card ?",
+          'complete': "Complete",
+          'incomplete': "Incomplete",
 
           // search board page
           'search': 'Search',
@@ -402,6 +404,8 @@ class Messages extends Translations {
           'delete_card': "Xóa thẻ",
           'rework': "Làm lại",
           'are_you_sure_delete_this_card': "Bạn có chắc chắn xóa thẻ này ?",
+          'complete': "Hoàn thành",
+          'incomplete': "Chưa hoàn thành",
 
           // search board page
           'search': 'Tìm kiếm',

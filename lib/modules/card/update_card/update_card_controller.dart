@@ -474,7 +474,8 @@ class UpdateCardController extends GetxController {
     if (memberIsExistInCard(uid)) {
       // remove member
       memberRepository
-          .removeMemberInCard(uid, cardUpdate.value.card_id)
+          .removeMemberInCard(
+              uid, cardUpdate.value.card_id, dashBoardController.currentId)
           .then((value) {
         cardUpdate.value.members.removeWhere((element) => element.uid == uid);
         cardUpdate.refresh();
@@ -498,8 +499,12 @@ class UpdateCardController extends GetxController {
       });
     } else {
       memberRepository
-          .createMemberIntoCard(CardMemberRequest(
-              memberId: uid, cardId: cardUpdate.value.card_id))
+          .createMemberIntoCard(
+              CardMemberRequest(
+                memberId: uid,
+                cardId: cardUpdate.value.card_id,
+              ),
+              dashBoardController.currentId)
           .then((value) {
         cardUpdate.value.members.add(value);
         cardUpdate.refresh();
@@ -662,7 +667,9 @@ class UpdateCardController extends GetxController {
 
   void deleteTask(int taskId) {
     EasyLoading.show(status: "please_wait".tr);
-    taskRepository.deleteTask(taskId).then((value) {
+    taskRepository
+        .deleteTask(taskId, dashBoardController.currentId)
+        .then((value) {
       EasyLoading.dismiss();
       cardUpdate.value.tasks.removeAt(findTaskIndexById(taskId));
       cardUpdate.refresh();

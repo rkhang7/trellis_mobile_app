@@ -267,9 +267,9 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<UserResponse> createMemberIntoCard(cardMemberRequest) async {
+  Future<UserResponse> createMemberIntoCard(cardMemberRequest, uid) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'uid': uid};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(cardMemberRequest.toJson());
@@ -284,9 +284,9 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<void> removeMemberInCard(memberId, cardId) async {
+  Future<void> removeMemberInCard(memberId, cardId, uid) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'uid': uid};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     await _dio.fetch<void>(_setStreamType<void>(
@@ -452,9 +452,9 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<void> deleteList(listId) async {
+  Future<void> deleteList(listId, uid) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'uid': uid};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     await _dio.fetch<void>(_setStreamType<void>(
@@ -534,9 +534,9 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<String> deleteCard(cardId) async {
+  Future<String> deleteCard(cardId, uid) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'uid': uid};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<String>(_setStreamType<String>(
@@ -583,14 +583,14 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<String> deleteTask(taskId) async {
+  Future<String> deleteTask(taskId, uid) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'uid': uid};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'DELETE', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/tasks/${taskId}/',
+            .compose(_dio.options, '/tasks/${taskId}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

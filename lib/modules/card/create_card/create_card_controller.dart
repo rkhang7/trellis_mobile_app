@@ -127,8 +127,11 @@ class CreateCardController extends GetxController {
 
       if (isAddMeToCard.isTrue) {
         memberRepository
-            .createMemberIntoCard(CardMemberRequest(
-                memberId: dashBoardController.currentId, cardId: value.card_id))
+            .createMemberIntoCard(
+                CardMemberRequest(
+                    memberId: dashBoardController.currentId,
+                    cardId: value.card_id),
+                dashBoardController.currentId)
             .then((value) {
           EasyLoading.dismiss();
 

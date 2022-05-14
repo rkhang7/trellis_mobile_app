@@ -27,8 +27,8 @@ class CardRepository {
     return await client.sort(listId, sort);
   }
 
-  Future<String> deleteCard(int cardId) async {
+  Future<String> deleteCard(int cardId, String uid) async {
     final client = RestClient(dio);
-    return await client.deleteCard(cardId);
+    return await client.deleteCard(cardId, uid);
   }
 }

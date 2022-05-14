@@ -17,9 +17,9 @@ class TaskRepository {
     return await client.updateTask(taskId, taskRequest);
   }
 
-  Future<String> deleteTask(int taskId) async {
+  Future<String> deleteTask(int taskId, String uid) async {
     final client = RestClient(dio);
-    return await client.deleteTask(taskId);
+    return await client.deleteTask(taskId, uid);
   }
 
   Future<String> moveTasks(int cardId, int oldIndex, int newIndex) async {
