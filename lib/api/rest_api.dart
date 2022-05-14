@@ -135,6 +135,9 @@ abstract class RestClient {
   Future<ListResponse> updateList(
       @Path("listId") int listId, @Body() ListRequest listRequest);
 
+  @DELETE("/board-list/{listId}")
+  Future<void> deleteList(@Path("listId") int listId);
+
   // card
   @POST("/cards")
   Future<CardResponse> createCard(@Body() CardRequest cardRequest);

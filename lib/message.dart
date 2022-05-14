@@ -165,6 +165,7 @@ class Messages extends Translations {
           "move_list": "Move list",
           'edit_list_name': 'Edit list name',
           'add_list': 'Add list',
+          'delete_list': "Delete list",
 
           // search board page
           'search': 'Search',
@@ -200,6 +201,7 @@ class Messages extends Translations {
           'board_setting': "Board setting",
           'background_color': "Background color",
           'delete_board': 'Delete board',
+          'are_you_sure_delete_this_list': "Are you sure delete this list",
 
           // update card page
           'edit_card_name': 'Edit name',
@@ -381,6 +383,7 @@ class Messages extends Translations {
           "move_list": "Di chuyển danh sách",
           'edit_list_name': 'Chỉnh sửa danh sách',
           'add_list': 'Thêm danh sách',
+          'delete_list': "Xóa danh sách",
 
           // search board page
           'search': 'Tìm kiếm',
@@ -416,6 +419,7 @@ class Messages extends Translations {
           'board_setting': "Chỉnh sửa bảng",
           'background_color': "Màu nền",
           'delete_board': 'Xóa bảng',
+          'are_you_sure_delete_this_list': "Bạn có chắc chắn xóa danh sách này",
 
           // update card page
           'edit_card_name': 'Chỉnh sửa tên',

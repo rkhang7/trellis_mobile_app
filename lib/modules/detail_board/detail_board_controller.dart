@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
-import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
 import 'package:trellis_mobile_app/repository/list_repository.dart';
@@ -271,5 +269,28 @@ class DetailBoardController extends GetxController {
     );
 
     return total;
+  }
+
+  void deleteList(int listId, int index) {
+    EasyLoading.show(status: "please_wait".tr);
+    listRepository.deleteList(listId).then((value) {
+      lists.removeAt(index);
+      lists.refresh();
+      EasyLoading.dismiss();
+    }).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
   }
 }

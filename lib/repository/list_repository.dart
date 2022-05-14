@@ -20,4 +20,9 @@ class ListRepository {
     final client = RestClient(dio);
     return await client.updateList(listId, listRequest);
   }
+
+  Future<void> deleteList(int listId) async {
+    final client = RestClient(dio);
+    return await client.deleteList(listId);
+  }
 }

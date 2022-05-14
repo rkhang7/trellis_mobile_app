@@ -1,11 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:trellis_mobile_app/components/end_drawer_component.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/app_colors.dart';
@@ -209,7 +208,7 @@ class DetailBoardPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Obx(
-                          () => _buildTitle(list.name, index),
+                          () => _buildTitle(list.name, index, list.list_id),
                         ),
                         Expanded(
                           child: _buildListCard(list.cards, list.name, index),
@@ -227,7 +226,7 @@ class DetailBoardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(String name, int index) {
+  Widget _buildTitle(String name, int index, int listId) {
     detailBoardController.listController[index].text = name;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -292,10 +291,35 @@ class DetailBoardPage extends StatelessWidget {
           itemBuilder: (BuildContext context) {
             List<PopupMenuEntry<Object>> list = [];
             list.add(
-              PopupMenuItem(child: Text("add_card".tr), value: 1),
+              PopupMenuItem(child: Text("add_card".tr)),
             );
             list.add(
-              PopupMenuItem(child: Text("move_list".tr), value: 1),
+              PopupMenuItem(child: Text("move_list".tr)),
+            );
+            list.add(
+              PopupMenuItem(
+                child: InkWell(
+                  onTap: () async {},
+                  child: Text(
+                    "delete_list".tr,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                ),
+                onTap: () async {
+                  await Future.delayed(Duration.zero);
+                  await dialog.AwesomeDialog(
+                    context: context,
+                    dialogType: dialog.DialogType.WARNING,
+                    animType: dialog.AnimType.BOTTOMSLIDE,
+                    title: 'delete_list'.tr,
+                    desc: 'are_you_sure_delete_this_list'.tr,
+                    btnCancelOnPress: () {},
+                    btnOkOnPress: () {
+                      detailBoardController.deleteList(listId, index);
+                    },
+                  ).show();
+                },
+              ),
             );
             return list;
           },
