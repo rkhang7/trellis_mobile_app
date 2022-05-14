@@ -5,6 +5,7 @@ import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
+import 'package:trellis_mobile_app/models/historical/board_historical_response.dart';
 import 'package:trellis_mobile_app/models/label/label_request.dart';
 import 'package:trellis_mobile_app/models/label/label_response.dart';
 import 'package:trellis_mobile_app/models/list/list_request.dart';
@@ -194,4 +195,9 @@ abstract class RestClient {
 
   @DELETE("/labels{labelId}")
   Future<String> deleteLabel(@Path("labelId") int labelId);
+
+  // historical
+  @GET("/board-historical/{boardId}")
+  Future<List<BoardHistoricalResponse>> getBoardHistoricalInBoard(
+      @Path("boardId") int boardId);
 }

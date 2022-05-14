@@ -33,6 +33,10 @@ class BoardMenuPage extends StatelessWidget {
             SizedBox(
               height: 80.h,
             ),
+            _buildActivityArea(context),
+            SizedBox(
+              height: 80.h,
+            ),
             _buildWorkspaceSettingArea(),
             SizedBox(
               height: 80.h,
@@ -442,5 +446,101 @@ class BoardMenuPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _buildActivityArea(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        openHistoricalDialog(context);
+      },
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(left: 18),
+        height: 200.h,
+        child: Row(
+          children: [
+            Icon(
+              Icons.pending_actions,
+              size: 72.sp,
+            ),
+            SizedBox(width: 60.w),
+            Text(
+              "activity".tr,
+              style: TextStyle(fontSize: 64.sp),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future openHistoricalDialog(BuildContext context) {
+    return dialog.AwesomeDialog(
+      context: context,
+      animType: dialog.AnimType.SCALE,
+      dialogType: dialog.DialogType.NO_HEADER,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 2000.h,
+            child: ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: boardMenuController.listBoardHistorical.length,
+              itemBuilder: (_, index) {
+                final historical =
+                    boardMenuController.listBoardHistorical[index];
+
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          CachedNetworkImage(
+                            height: 50,
+                            width: 50,
+                            imageUrl: historical.avatar_url.isEmpty
+                                ? "https://ui-avatars.com/api/?name=${historical.first_name}+${historical.last_name}&&size=120&&rounded=true&&background=${historical.avatar_background_color}&&color=ffffff&&bold=true"
+                                : historical.avatar_url,
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) {
+                              return const Icon(Icons.error);
+                            },
+                          ),
+                          SizedBox(
+                            width: 40.w,
+                          ),
+                          Expanded(
+                            child: Text(
+                              historical.content,
+                              style: TextStyle(
+                                // overflow: TextOverflow.fade,
+                                fontSize: 64.sp,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider(
+                  color: Colors.grey,
+                );
+              },
+            ),
+          )
+        ],
+      ),
+      btnOkOnPress: () {},
+    ).show();
   }
 }

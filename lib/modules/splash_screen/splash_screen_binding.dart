@@ -8,6 +8,8 @@ import 'package:trellis_mobile_app/repository/task_repository.dart';
 import 'package:trellis_mobile_app/repository/user_repository.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
+import '../../repository/historical_repository.dart';
+
 class SplashScreenBinding extends Bindings {
   @override
   void dependencies() {
@@ -19,5 +21,6 @@ class SplashScreenBinding extends Bindings {
     Get.lazyPut(() => CardRepository(), fenix: true);
     Get.lazyPut(() => TaskRepository(), fenix: true);
     Get.lazyPut(() => LabelRepository(), fenix: true);
+    Get.lazyPut(() => HistoricalRepository(), fenix: true);
   }
 }

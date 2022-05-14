@@ -3,12 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
+import 'package:trellis_mobile_app/models/historical/board_historical_response.dart';
 import 'package:trellis_mobile_app/models/label/label_request.dart';
 import 'package:trellis_mobile_app/models/label/label_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
 import 'package:trellis_mobile_app/models/my_color.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/repository/board_repository.dart';
+import 'package:trellis_mobile_app/repository/historical_repository.dart';
 import 'package:trellis_mobile_app/repository/label_reposittory.dart';
 import 'package:trellis_mobile_app/repository/member_repository.dart';
 import 'package:trellis_mobile_app/utils/common.dart';
@@ -17,6 +19,7 @@ class BoardMenuController extends GetxController {
   var listMember = <BoardMemberDetailResponse>[].obs;
   final dashBoardController = Get.find<DashBoardController>();
   final memberRepository = Get.find<MemberRepository>();
+  final historicalRepository = Get.find<HistoricalRepository>();
   final boardRepository = Get.find<BoardRepository>();
   final labelRepository = Get.find<LabelRepository>();
   final labelNameController = TextEditingController();
@@ -27,12 +30,15 @@ class BoardMenuController extends GetxController {
 
   var editingLabel = false.obs;
 
+  final listBoardHistorical = <BoardHistoricalResponse>[];
+
   @override
   void onInit() {
     listLabelColor.value = Common.getListLabelColor();
+
     loadBoard();
     initListMember();
-
+    initBoardHistorical();
     super.onInit();
   }
 
@@ -162,5 +168,15 @@ class BoardMenuController extends GetxController {
         myColor.isSelect = false;
       }
     }
+  }
+
+  void initBoardHistorical() async {
+    await historicalRepository
+        .getBoardHistoricalInBoard(dashBoardController.boardIdSelected)
+        .then(
+      (value) {
+        listBoardHistorical.assignAll(value);
+      },
+    );
   }
 }
