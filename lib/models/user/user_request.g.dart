@@ -13,6 +13,7 @@ UserRequest _$UserRequestFromJson(Map<String, dynamic> json) => UserRequest(
       lastName: json['lastName'] as String,
       avatarBackgroundColor: json['avatarBackgroundColor'] as String,
       avatarURL: json['avatarURL'] as String,
+      token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$UserRequestToJson(UserRequest instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$UserRequestToJson(UserRequest instance) =>
       'lastName': instance.lastName,
       'avatarBackgroundColor': instance.avatarBackgroundColor,
       'avatarURL': instance.avatarURL,
+      'token': instance.token,
     };

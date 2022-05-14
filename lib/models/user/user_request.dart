@@ -9,6 +9,7 @@ class UserRequest {
   String lastName;
   String avatarBackgroundColor;
   String avatarURL;
+  String? token;
 
   UserRequest({
     required this.uid,
@@ -17,6 +18,7 @@ class UserRequest {
     required this.lastName,
     required this.avatarBackgroundColor,
     required this.avatarURL,
+    this.token,
   });
 
   factory UserRequest.fromJson(Map<String, dynamic> json) =>

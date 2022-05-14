@@ -21,4 +21,9 @@ class UserRepository {
     final client = RestClient(dio);
     return await client.searchUserInWorkspace(keyword, workspace, boardId);
   }
+
+  Future<UserResponse> updateUser(String uid, UserRequest userRequest) async {
+    final client = RestClient(dio);
+    return await client.updateUser(uid, userRequest);
+  }
 }

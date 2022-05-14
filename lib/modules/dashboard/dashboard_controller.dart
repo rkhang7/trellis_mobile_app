@@ -1,10 +1,14 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
+import 'package:trellis_mobile_app/models/user/user_request.dart';
+import 'package:trellis_mobile_app/models/user/user_response.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 import 'package:trellis_mobile_app/repository/board_repository.dart';
+import 'package:trellis_mobile_app/repository/user_repository.dart';
 import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
 class DashBoardController extends GetxController {
@@ -20,6 +24,7 @@ class DashBoardController extends GetxController {
       .obs;
   final workspaceRepository = Get.find<WorkspaceRepository>();
   final boardRepository = Get.find<BoardRepository>();
+  final userRepository = Get.find<UserRepository>();
 
   var listWorkspace = <WorkSpaceResponse>[].obs;
 
@@ -31,8 +36,22 @@ class DashBoardController extends GetxController {
 
   var boardIdSelected = -1;
 
+  var currentUser = UserResponse(
+    uid: "",
+    email: "email",
+    first_name: "first_name",
+    last_name: "last_name",
+    avatar_background_color: "avatar_background_color",
+    avatar_url: "avatar_url",
+    created_time: 1,
+    updated_time: 2,
+    token: "",
+  ).obs;
+
   @override
   void onInit() {
+    initUser();
+    updateToken();
     initWorkspace();
     loadListBoards(workspaceSelected.value.workspace_id);
     super.onInit();
@@ -84,4 +103,26 @@ class DashBoardController extends GetxController {
   Future refresh() async {
     loadListBoards(workspaceSelected.value.workspace_id);
   }
+
+  void updateToken() async {
+    FirebaseMessaging.instance.getToken().then((value) {
+      String? token = value;
+      userRepository.getUserById(currentId).then(
+        (value) {
+          UserRequest userRequest = UserRequest(
+            uid: currentId,
+            email: value.email,
+            firstName: value.first_name,
+            lastName: value.last_name,
+            avatarBackgroundColor: value.avatar_background_color,
+            avatarURL: value.avatar_url,
+            token: token,
+          );
+          userRepository.updateUser(currentId, userRequest);
+        },
+      );
+    });
+  }
+
+  void initUser() async {}
 }

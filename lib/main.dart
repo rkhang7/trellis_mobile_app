@@ -84,11 +84,6 @@ class _MyAppState extends State<MyApp> {
   final LanguageService languageService = LanguageService();
   @override
   void initState() {
-    FirebaseMessaging.instance.getToken().then((value) {
-      String? token = value;
-      print(token);
-    });
-
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) {

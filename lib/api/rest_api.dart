@@ -45,6 +45,10 @@ abstract class RestClient {
       @Query("workspace") int workspace,
       @Query("board") int boardId);
 
+  @PUT("/users/{uid}")
+  Future<UserResponse> updateUser(
+      @Path("uid") String uid, @Body() UserRequest userRequest);
+
   // workspace
   @POST("/workspaces")
   Future<WorkSpaceResponse> createWorkspace(

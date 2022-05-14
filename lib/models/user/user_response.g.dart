@@ -15,6 +15,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
       avatar_url: json['avatar_url'] as String,
       created_time: json['created_time'] as int,
       updated_time: json['updated_time'] as int,
+      token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'avatar_url': instance.avatar_url,
       'created_time': instance.created_time,
       'updated_time': instance.updated_time,
+      'token': instance.token,
     };

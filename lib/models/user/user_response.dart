@@ -12,6 +12,7 @@ class UserResponse {
   String avatar_url;
   int created_time;
   int updated_time;
+  String? token;
 
   UserResponse({
     required this.uid,
@@ -22,6 +23,7 @@ class UserResponse {
     required this.avatar_url,
     required this.created_time,
     required this.updated_time,
+    this.token,
   });
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
