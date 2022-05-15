@@ -243,12 +243,12 @@ class DetailBoardController extends GetxController {
     String s = "";
 
     if (Get.locale.toString() == "vi_VN") {
-      var start = DateFormat('dd/MM, HH:mm')
+      var start = DateFormat('dd/MM/yyyy, HH:mm')
           .format(convertTimestampToDate(card.start_date));
 
-      var end = DateFormat('dd/MM, HH:mm')
+      var end = DateFormat('dd/MM/yyyy, HH:mm')
           .format(convertTimestampToDate(card.due_date));
-      s = "$start  -  $end";
+      s = "$start\n$end";
     }
 
     return s;

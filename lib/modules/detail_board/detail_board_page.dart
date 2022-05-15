@@ -379,7 +379,8 @@ class DetailBoardPage extends StatelessWidget {
             // // change appBar
             // detailBoardController.nameCardAdding.value = true;
             Get.toNamed(AppRoutes.CREATE_CARD, parameters: {
-              "listId": detailBoardController.lists[index].list_id.toString()
+              "listId": detailBoardController.lists[index].list_id.toString(),
+              "listName": detailBoardController.lists[index].name,
             });
           },
           child: Text(
@@ -455,7 +456,9 @@ class DetailBoardPage extends StatelessWidget {
                 SizedBox(
                   width: 30.w,
                 ),
-                Text(detailBoardController.getDateShowUI(cardModel)),
+                Expanded(
+                    child:
+                        Text(detailBoardController.getDateShowUI(cardModel))),
               ],
             ),
             SizedBox(
@@ -486,15 +489,16 @@ class DetailBoardPage extends StatelessWidget {
                           size: 20,
                         ),
                         Text(
-                            "${detailBoardController.getLengthTaskIsComplete(cardModel)}/${cardModel.tasks.length}",
-                            style: TextStyle(
-                              color: detailBoardController
-                                          .getLengthTaskIsComplete(cardModel) ==
-                                      cardModel.tasks.length
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 48.sp,
-                            )),
+                          "${detailBoardController.getLengthTaskIsComplete(cardModel)}/${cardModel.tasks.length}",
+                          style: TextStyle(
+                            color: detailBoardController
+                                        .getLengthTaskIsComplete(cardModel) ==
+                                    cardModel.tasks.length
+                                ? Colors.white
+                                : Colors.black,
+                            fontSize: 48.sp,
+                          ),
+                        ),
                       ],
                     ),
                   )

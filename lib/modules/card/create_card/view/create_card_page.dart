@@ -13,6 +13,7 @@ class CreateCardPage extends StatelessWidget {
   CreateCardPage({Key? key}) : super(key: key);
   final createCardController = Get.find<CreateCardController>();
   var listId = Get.parameters["listId"];
+  var listName = Get.parameters["listName"];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -100,11 +101,25 @@ class CreateCardPage extends StatelessWidget {
     return AppBar(
       backgroundColor: backgroundColor,
       leading: const CloseButton(),
-      title: Text(
-        "add_card".tr,
-        style: boldTextStyle(
-          color: Colors.white,
-          size: 18,
+      title: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: "${'add_card'.tr} ${'into'.tr} ",
+              style: boldTextStyle(
+                color: Colors.white,
+                size: 18,
+              ),
+            ),
+            TextSpan(
+              text: "$listName",
+              style: boldTextStyle(
+                color: Colors.white,
+                size: 18,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
         ),
       ),
       actions: [

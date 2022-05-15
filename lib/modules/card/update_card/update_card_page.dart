@@ -1378,7 +1378,8 @@ class UpdateCardPage extends StatelessWidget {
                             ? const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 decoration: TextDecoration.lineThrough,
-                                color: Colors.grey)
+                                color: Colors.grey,
+                              )
                             : const TextStyle(color: Colors.black),
                       )
                     : TextFormField(

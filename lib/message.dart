@@ -127,6 +127,7 @@ class Messages extends Translations {
           'attach_link': "Attach a link",
           'the_due_date_must_be_before_the_start_date':
               'The due date must be before the start date',
+          'into_the': 'into the',
 
           // settings page
           'settings': 'Settings',
@@ -177,6 +178,7 @@ class Messages extends Translations {
           'are_you_sure_delete_this_card': "Are you sure delete this card ?",
           'complete': "Complete",
           'incomplete': "Incomplete",
+          'to': 'to',
 
           // search board page
           'search': 'Search',
@@ -357,6 +359,7 @@ class Messages extends Translations {
           'attach_link': "Đính kèm liên kết",
           'the_due_date_must_be_before_the_start_date':
               "Ngày hết bạn phải trước ngày bắt đầu",
+          'into_the': 'vào',
 
           // settings page
           'settings': 'Cài đặt',
@@ -407,6 +410,7 @@ class Messages extends Translations {
           'are_you_sure_delete_this_card': "Bạn có chắc chắn xóa thẻ này ?",
           'complete': "Hoàn thành",
           'incomplete': "Chưa hoàn thành",
+          'to': 'đến',
 
           // search board page
           'search': 'Tìm kiếm',
