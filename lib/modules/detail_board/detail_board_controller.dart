@@ -242,14 +242,12 @@ class DetailBoardController extends GetxController {
   String getDateShowUI(CardResponse card) {
     String s = "";
 
-    if (Get.locale.toString() == "vi_VN") {
-      var start = DateFormat('dd/MM/yyyy, HH:mm')
-          .format(convertTimestampToDate(card.start_date));
+    var start = DateFormat('dd-MM-yyyy, kk:mm')
+        .format(convertTimestampToDate(card.start_date));
 
-      var end = DateFormat('dd/MM/yyyy, HH:mm')
-          .format(convertTimestampToDate(card.due_date));
-      s = "$start\n$end";
-    }
+    var end = DateFormat('dd-MM-yyyy, kk:mm')
+        .format(convertTimestampToDate(card.due_date));
+    s = "$start\n$end";
 
     return s;
   }

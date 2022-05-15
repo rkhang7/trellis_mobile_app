@@ -353,7 +353,7 @@ class UpdateCardPage extends StatelessWidget {
             },
             child: Obx(
               () => Text(
-                "${"due_date".tr}: ${DateFormat('dd-MM, kk:mm').format(updateCardController.endDatePicker.value)}",
+                "${"due_date".tr}: ${DateFormat('dd-MM-yyyy, kk:mm').format(updateCardController.endDatePicker.value)}",
                 style: primaryTextStyle(color: Colors.black),
               ),
             )),
@@ -682,7 +682,7 @@ class UpdateCardPage extends StatelessWidget {
           },
           child: Obx(
             () => Text(
-              "${"start_date".tr}: ${DateFormat('dd-MM, kk:mm').format(updateCardController.startDatePicker.value)}",
+              "${"start_date".tr}: ${DateFormat('dd-MM-yyyy, kk:mm').format(updateCardController.startDatePicker.value)}",
               style: primaryTextStyle(color: Colors.black),
             ),
           ),
