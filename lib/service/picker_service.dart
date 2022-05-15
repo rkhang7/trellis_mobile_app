@@ -6,6 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../repository/file_repository.dart';
+
+final fileRepository = Get.find<FileRepository>();
+
 class PickerService extends GetxService {
   @override
   void onInit() {
@@ -18,27 +22,33 @@ class PickerService extends GetxService {
   }
 
   pickImageFromCamera() async {
+    XFile? file;
     var cameraStatus = await Permission.camera.status;
     if (!cameraStatus.isGranted) {
       await Permission.camera.request();
     } else {
       final ImagePicker _picker = ImagePicker();
-      final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-      log(photo?.name);
+      file = await _picker.pickImage(source: ImageSource.camera);
+      fileRepository.uploadImage(file!);
     }
+
+    return file;
   }
 
-  pickFile() async {
+  Future<File?> pickFile() async {
+    File? file;
     var storageStatus = await Permission.storage.status;
     if (!storageStatus.isGranted) {
       await Permission.storage.request();
     } else {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
-        File file = File(result.files.single.path!);
+        file = File(result.files.single.path!);
       } else {
         // User canceled the picker
       }
     }
+
+    return file;
   }
 }

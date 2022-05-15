@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
@@ -16,6 +17,7 @@ import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/detail_board/detail_board_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
+import 'package:trellis_mobile_app/repository/file_repository.dart';
 import 'package:trellis_mobile_app/repository/label_reposittory.dart';
 import 'package:trellis_mobile_app/repository/member_repository.dart';
 import 'package:trellis_mobile_app/repository/task_repository.dart';
@@ -30,6 +32,7 @@ class UpdateCardController extends GetxController {
   final memberRepository = Get.find<MemberRepository>();
   final labelRepository = Get.find<LabelRepository>();
   final taskRepository = Get.find<TaskRepository>();
+  final fileRepository = Get.find<FileRepository>();
   final pickerService = Get.find<PickerService>();
   final dashBoardController = Get.find<DashBoardController>();
   final cardNameController = TextEditingController();
@@ -99,7 +102,7 @@ class UpdateCardController extends GetxController {
   }
 
   void pickImageFromCamera() {
-    pickerService.pickImageFromCamera();
+    XFile xFile = pickerService.pickImageFromCamera();
   }
 
   void pickFile() {

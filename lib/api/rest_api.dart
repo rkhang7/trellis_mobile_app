@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:trellis_mobile_app/models/board/board_request.dart';
@@ -208,4 +211,7 @@ abstract class RestClient {
   @GET("/board-historical/{boardId}")
   Future<List<BoardHistoricalResponse>> getBoardHistoricalInBoard(
       @Path("boardId") int boardId);
+
+  // file
+
 }
