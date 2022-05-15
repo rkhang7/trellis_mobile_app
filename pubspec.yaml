@@ -71,6 +71,8 @@ dependencies:
   awesome_notifications: ^0.6.21
   firebase_messaging: ^11.3.0
   icons_plus: ^2.0.1
+  syncfusion_flutter_charts: ^20.1.55
+  pie_chart: ^5.3.0
 
   
   # flutter_launcher_name: ^0.0.1                                                                                                                                         

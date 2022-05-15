@@ -203,7 +203,7 @@ class _RestClient implements RestClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<MemberDetailResponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'members',
+                .compose(_dio.options, '/members',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
@@ -541,10 +541,29 @@ class _RestClient implements RestClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'DELETE', headers: _headers, extra: _extra)
-            .compose(_dio.options, 'cards/${cardId}',
+            .compose(_dio.options, '/cards/${cardId}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<StatisticsResponse> getStatistics(uid, fromTime, toTime) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'fromTime': fromTime,
+      r'toTime': toTime
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<StatisticsResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/cards/statistics/${uid}',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = StatisticsResponse.fromJson(_result.data!);
     return value;
   }
 

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
+import 'package:trellis_mobile_app/models/statistics/statistics_response.dart';
 
 import '../api/rest_api.dart';
 
@@ -30,5 +31,14 @@ class CardRepository {
   Future<String> deleteCard(int cardId, String uid) async {
     final client = RestClient(dio);
     return await client.deleteCard(cardId, uid);
+  }
+
+  Future<StatisticsResponse> getStatistics(
+    String uid,
+    int fromDate,
+    int toDate,
+  ) async {
+    final client = RestClient(dio);
+    return await client.getStatistics(uid, fromDate, toDate);
   }
 }

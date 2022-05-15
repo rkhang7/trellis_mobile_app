@@ -18,6 +18,7 @@ import 'package:trellis_mobile_app/models/member/card_member_response.dart';
 import 'package:trellis_mobile_app/models/member/member_detail_response.dart';
 import 'package:trellis_mobile_app/models/member/member_request.dart';
 import 'package:trellis_mobile_app/models/member/member_response.dart';
+import 'package:trellis_mobile_app/models/statistics/statistics_response.dart';
 import 'package:trellis_mobile_app/models/task/task_request.dart';
 import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/models/user/user_request.dart';
@@ -77,7 +78,7 @@ abstract class RestClient {
   Future<void> removeMemberFromWorkspace(
       @Path("uid") String uid, @Path("workspaceId") int workspaceId);
 
-  @GET("members")
+  @GET("/members")
   Future<List<MemberDetailResponse>> getListMemberInWorkspace(
       @Query("workspace") int workspaceId);
 
@@ -159,9 +160,16 @@ abstract class RestClient {
   Future<List<CardResponse>> sort(
       @Path("listId") int listId, @Query("sort") String sort);
 
-  @DELETE("cards/{cardId}")
+  @DELETE("/cards/{cardId}")
   Future<String> deleteCard(
       @Path("cardId") int cardId, @Query("uid") String uid);
+
+  @GET("/cards/statistics/{uid}")
+  Future<StatisticsResponse> getStatistics(
+    @Path("uid") String uid,
+    @Query("fromTime") int fromTime,
+    @Query("toTime") int toTime,
+  );
 
   //task
   @POST("/tasks")
