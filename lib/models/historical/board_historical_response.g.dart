@@ -17,6 +17,8 @@ BoardHistoricalResponse _$BoardHistoricalResponseFromJson(
       avatar_background_color: json['avatar_background_color'] as String,
       avatar_url: json['avatar_url'] as String,
       content: json['content'] as String,
+      created_time: json['created_time'] as int,
+      updated_time: json['updated_time'] as int,
     );
 
 Map<String, dynamic> _$BoardHistoricalResponseToJson(
@@ -30,4 +32,6 @@ Map<String, dynamic> _$BoardHistoricalResponseToJson(
       'avatar_background_color': instance.avatar_background_color,
       'avatar_url': instance.avatar_url,
       'content': instance.content,
+      'created_time': instance.created_time,
+      'updated_time': instance.updated_time,
     };

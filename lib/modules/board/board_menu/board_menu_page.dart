@@ -20,37 +20,39 @@ class BoardMenuPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       body: SafeArea(
-        child: Column(
-          children: [
-            InkWell(
-              onTap: () {
-                Get.toNamed(AppRoutes.REMOVE_BOARD_MEMBER);
-              },
-              child: Obx(
-                () => _buildInviteMemberArea(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  Get.toNamed(AppRoutes.REMOVE_BOARD_MEMBER);
+                },
+                child: Obx(
+                  () => _buildInviteMemberArea(),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 80.h,
-            ),
-            _buildActivityArea(context),
-            SizedBox(
-              height: 80.h,
-            ),
-            _buildWorkspaceSettingArea(),
-            SizedBox(
-              height: 80.h,
-            ),
-            _buildBackgroundColorArea(),
-            SizedBox(
-              height: 80.h,
-            ),
-            _buildEditLabelArea(context),
-            SizedBox(
-              height: 80.h,
-            ),
-            _buildDeleteBoardArea(context),
-          ],
+              SizedBox(
+                height: 80.h,
+              ),
+              _buildActivityArea(context),
+              SizedBox(
+                height: 80.h,
+              ),
+              _buildWorkspaceSettingArea(),
+              SizedBox(
+                height: 80.h,
+              ),
+              _buildBackgroundColorArea(),
+              SizedBox(
+                height: 80.h,
+              ),
+              _buildEditLabelArea(context),
+              SizedBox(
+                height: 80.h,
+              ),
+              _buildDeleteBoardArea(context),
+            ],
+          ),
         ),
       ),
       appBar: _buildAppBar(),
@@ -498,12 +500,14 @@ class BoardMenuPage extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CachedNetworkImage(
-                            height: 50,
-                            width: 50,
+                            height: 45,
+                            width: 45,
                             imageUrl: historical.avatar_url.isEmpty
                                 ? "https://ui-avatars.com/api/?name=${historical.first_name}+${historical.last_name}&&size=120&&rounded=true&&background=${historical.avatar_background_color}&&color=ffffff&&bold=true"
                                 : historical.avatar_url,
@@ -517,12 +521,28 @@ class BoardMenuPage extends StatelessWidget {
                             width: 40.w,
                           ),
                           Expanded(
-                            child: Text(
-                              historical.content,
-                              style: TextStyle(
-                                // overflow: TextOverflow.fade,
-                                fontSize: 64.sp,
-                              ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  historical.content,
+                                  style: TextStyle(
+                                    // overflow: TextOverflow.fade,
+                                    fontSize: 64.sp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 50.h,
+                                ),
+                                Text(
+                                  boardMenuController.handleDateTimeShowUI(
+                                      historical.created_time),
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

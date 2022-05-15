@@ -11,6 +11,8 @@ class BoardHistoricalResponse {
   String avatar_background_color;
   String avatar_url;
   String content;
+  int created_time;
+  int updated_time;
 
   BoardHistoricalResponse({
     required this.board_id,
@@ -21,6 +23,8 @@ class BoardHistoricalResponse {
     required this.avatar_background_color,
     required this.avatar_url,
     required this.content,
+    required this.created_time,
+    required this.updated_time,
   });
 
   factory BoardHistoricalResponse.fromJson(Map<String, dynamic> json) =>

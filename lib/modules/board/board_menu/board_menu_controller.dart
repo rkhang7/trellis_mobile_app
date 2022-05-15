@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
 import 'package:trellis_mobile_app/models/historical/board_historical_response.dart';
 import 'package:trellis_mobile_app/models/label/label_request.dart';
@@ -178,5 +179,12 @@ class BoardMenuController extends GetxController {
         listBoardHistorical.assignAll(value);
       },
     );
+  }
+
+  String handleDateTimeShowUI(int timestamp) {
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String formattedDate = DateFormat('dd-MM-yyyy').format(date);
+    String formattedTime = DateFormat('HH:mm').format(date);
+    return "$formattedDate ${'at'.tr} $formattedTime";
   }
 }

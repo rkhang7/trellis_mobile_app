@@ -213,6 +213,7 @@ class Messages extends Translations {
           'background_color': "Background color",
           'delete_board': 'Delete board',
           'are_you_sure_delete_this_list': "Are you sure delete this list",
+          'at': 'at',
 
           // update card page
           'edit_card_name': 'Edit name',
@@ -442,6 +443,7 @@ class Messages extends Translations {
           'background_color': "Màu nền",
           'delete_board': 'Xóa bảng',
           'are_you_sure_delete_this_list': "Bạn có chắc chắn xóa danh sách này",
+          'at': "lúc",
 
           // update card page
           'edit_card_name': 'Chỉnh sửa tên',
