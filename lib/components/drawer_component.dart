@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/user/user_response.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
@@ -165,6 +166,13 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 title: "my_cards".tr,
                 onTap: () {
                   Get.toNamed(AppRoutes.MY_CARD);
+                },
+              ),
+              DrawerList(
+                leading: const Icon(Bootstrap.activity),
+                title: "statistics".tr,
+                onTap: () {
+                  Get.toNamed(AppRoutes.STATISTICS);
                 },
               ),
               DrawerList(

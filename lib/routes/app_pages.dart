@@ -27,6 +27,8 @@ import 'package:trellis_mobile_app/modules/sign_up/sign_up_binding.dart';
 import 'package:trellis_mobile_app/modules/sign_up/sign_up_page.dart';
 import 'package:trellis_mobile_app/modules/splash_screen/splash_screen_binding.dart';
 import 'package:trellis_mobile_app/modules/splash_screen/splash_screen_page.dart';
+import 'package:trellis_mobile_app/modules/statistics/statistics_binding.dart';
+import 'package:trellis_mobile_app/modules/statistics/statistics_page.dart';
 import 'package:trellis_mobile_app/modules/walk_through/walk_through_binding.dart';
 import 'package:trellis_mobile_app/modules/walk_through/view/walk_through_page.dart';
 
@@ -177,6 +179,11 @@ class AppPages {
       name: AppRoutes.MY_CARD,
       page: () => MyCardPage(),
       binding: MyCardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.STATISTICS,
+      page: () => StatisticsPage(),
+      binding: StatisticsBinding(),
     ),
   ];
 }
