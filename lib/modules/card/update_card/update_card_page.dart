@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:trellis_mobile_app/models/task/task_response.dart';
+import 'package:trellis_mobile_app/modules/card/create_card/view/components/attach_item.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 
@@ -1151,30 +1152,59 @@ class UpdateCardPage extends StatelessWidget {
                       flex: 1,
                     ),
                     Expanded(
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 16.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.attach_file_rounded,
-                                  color: Colors.blue.shade600),
-                              SizedBox(
-                                width: 24.w,
-                              ),
-                              Text(
-                                "add_attachment".tr,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 56.sp,
+                      child: InkWell(
+                        onTap: () {
+                          Get.defaultDialog(
+                            radius: 5,
+                            title: "attach_from".tr,
+                            contentPadding: const EdgeInsets.only(
+                                left: 24, top: 12, right: 24),
+                            content: Column(
+                              children: [
+                                AttachItem(
+                                  icon: Icons.camera_alt_outlined,
+                                  title: "camera".tr,
+                                  onClick: () {
+                                    updateCardController.pickImageFromCamera();
+                                  },
                                 ),
-                              ),
-                            ],
+                                30.height,
+                                AttachItem(
+                                  icon: Icons.attach_file,
+                                  title: "file".tr,
+                                  onClick: () {
+                                    updateCardController.pickFile();
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(Icons.attach_file_rounded,
+                                    color: Colors.blue.shade600),
+                                SizedBox(
+                                  width: 24.w,
+                                ),
+                                Text(
+                                  "add_attachment".tr,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 56.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

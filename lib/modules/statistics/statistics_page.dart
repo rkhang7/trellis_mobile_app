@@ -95,7 +95,7 @@ class StatisticsPage extends StatelessWidget {
             initialAngleInDegree: 0,
             chartType: ChartType.ring,
             ringStrokeWidth: 32,
-            colorList: [
+            colorList: const [
               Colors.green,
               Colors.blue,
             ],

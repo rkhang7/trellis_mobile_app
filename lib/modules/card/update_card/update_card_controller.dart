@@ -23,12 +23,14 @@ import 'package:trellis_mobile_app/repository/task_repository.dart';
 import '../../../models/my_color.dart';
 import '../../../models/my_date_time.dart';
 import '../../../models/user/user_response.dart';
+import '../../../service/picker_service.dart';
 
 class UpdateCardController extends GetxController {
   final detailBoardController = Get.find<DetailBoardController>();
   final memberRepository = Get.find<MemberRepository>();
   final labelRepository = Get.find<LabelRepository>();
   final taskRepository = Get.find<TaskRepository>();
+  final pickerService = Get.find<PickerService>();
   final dashBoardController = Get.find<DashBoardController>();
   final cardNameController = TextEditingController();
   final cardDescriptionController = TextEditingController();
@@ -94,6 +96,14 @@ class UpdateCardController extends GetxController {
     focusNode = FocusNode();
     initData();
     super.onInit();
+  }
+
+  void pickImageFromCamera() {
+    pickerService.pickImageFromCamera();
+  }
+
+  void pickFile() {
+    pickerService.pickFile();
   }
 
   void updateCardName() {
