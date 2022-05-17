@@ -34,6 +34,10 @@ class BoardMenuPage extends StatelessWidget {
               SizedBox(
                 height: 80.h,
               ),
+              _buildMyCalendar(context),
+              SizedBox(
+                height: 80.h,
+              ),
               _buildActivityArea(context),
               SizedBox(
                 height: 80.h,
@@ -562,5 +566,31 @@ class BoardMenuPage extends StatelessWidget {
       ),
       btnOkOnPress: () {},
     ).show();
+  }
+
+  _buildMyCalendar(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Get.toNamed(AppRoutes.MY_CALENDAR);
+      },
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(left: 18),
+        height: 200.h,
+        child: Row(
+          children: [
+            Icon(
+              Icons.calendar_today,
+              size: 72.sp,
+            ),
+            SizedBox(width: 60.w),
+            Text(
+              "my_calendar".tr,
+              style: TextStyle(fontSize: 64.sp),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

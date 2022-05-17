@@ -236,6 +236,9 @@ class Messages extends Translations {
           'create_new_label': "CREATE NEW LABEL",
           'new_label': "New label",
           'label_name': "Label name",
+
+          // my calendar page
+          'my_calendar': "My calendar",
         },
         'vi_VN': {
           //common
@@ -470,6 +473,9 @@ class Messages extends Translations {
           'create_new_label': "TẠO MỚI NHÃN",
           'new_label': "Nhãn mới",
           'label_name': "Tên nhãn",
+
+          // my calendar page
+          'my_calendar': "Lịch của tôi",
         }
       };
 }
