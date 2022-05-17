@@ -77,7 +77,11 @@ class AuthService {
           .createUserWithEmailAndPassword(
               email: yourEmail, password: yourPassword);
       user = userCredential.user;
-      saveUid(user!.uid);
+      FirebaseAuth.instance.currentUser?.sendEmailVerification().then((value) {
+        EasyLoading.showInfo("please_check_your".tr);
+      });
+
+      // saveUid(user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
       } else if (e.code == 'email-already-in-use') {
@@ -97,7 +101,12 @@ class AuthService {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: yourEmail, password: yourPassword);
       user = userCredential.user;
-      saveUid(user!.uid);
+      if (user!.emailVerified) {
+        saveUid(user.uid);
+      } else {
+        EasyLoading.showInfo("please_check_your".tr);
+        user = null;
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Get.snackbar("Lỗi", "Email không tồn tại");

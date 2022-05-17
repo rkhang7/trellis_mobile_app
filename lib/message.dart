@@ -14,6 +14,7 @@ class Messages extends Translations {
           'confirm': 'Confirm',
           'in_list': "In list",
           'no_have_tasks': "No have task",
+          'please_check_your': "Please check your mail and verify email",
 
           // walk through page
           'sign_in': 'Log in',
@@ -247,6 +248,7 @@ class Messages extends Translations {
           'confirm': 'Xác nhận',
           'in_list': "Trong danh sách",
           'no_have_tasks': "Không có công việc nào",
+          'please_check_your': "Vui lòng kiểm tra email và xác minh email",
 
           // walk through page
           'sign_in': 'Đăng nhập',

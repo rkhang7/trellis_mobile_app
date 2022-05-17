@@ -47,7 +47,7 @@ class SignUpController extends GetxController {
                 .then(
               (value) {
                 isLoadingButton.value = false;
-                Get.offAllNamed(AppRoutes.DASHBOARD);
+                Get.offAllNamed(AppRoutes.SIGN_IN);
                 EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
               },
             ).catchError(
