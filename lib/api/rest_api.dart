@@ -130,6 +130,10 @@ abstract class RestClient {
   Future<List<BoardResponse>> getBoardByDate(
       @Query("uid") String uid, @Query("date") int date);
 
+  @GET("/boards/in/{uid}/{boardId}")
+  Future<List<CardResponse>> getCardsInBoard(
+      @Path("uid") String uid, @Path("boardId") int boardId);
+
   // list
   @POST("/board-list")
   Future<ListResponse> createList(@Body() ListRequest listRequest);

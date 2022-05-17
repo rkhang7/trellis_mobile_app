@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:trellis_mobile_app/models/card/card_response.dart';
+import 'package:trellis_mobile_app/modules/my_calendar/my_calendar_controller.dart';
+
+import '../../utils/colors.dart';
 
 class MyCalendarPage extends StatelessWidget {
-  const MyCalendarPage({Key? key}) : super(key: key);
-
-  get backgroundColor => null;
-
+  MyCalendarPage({Key? key}) : super(key: key);
+  final myCalendarController = Get.find<MyCalendarController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +18,7 @@ class MyCalendarPage extends StatelessWidget {
       body: SafeArea(
         child: SfCalendar(
           view: CalendarView.month,
-          dataSource: MeetingDataSource(
+          dataSource: CardResponseDataSource(
             _getDataSource(),
           ),
           // by default the month appointment display mode set as Indicator, we can
@@ -75,36 +77,10 @@ class MyCalendarPage extends StatelessWidget {
     );
   }
 
-  List<Meeting> _getDataSource() {
-    final List<Meeting> meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime =
-        DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(days: 3));
+  List<CardResponse> _getDataSource() {
+    final List<CardResponse> listCard = myCalendarController.listCard.value;
 
-    final DateTime startTime1 =
-        DateTime(today.year, today.month, today.day, 9, 0, 0)
-            .add(Duration(days: 3));
-    final DateTime endTime1 = startTime.add(const Duration(days: 7));
-    meetings.add(
-      Meeting('Conference', startTime, endTime, const Color(0xFF0F8644)),
-    );
-    meetings.add(
-      Meeting('sad', startTime, endTime, const Color(0xFF0F8644)),
-    );
-    meetings.add(
-      Meeting('Conference', startTime, endTime, const Color(0xFF0F8644)),
-    );
-    meetings.add(
-      Meeting('Conference', startTime, endTime, const Color(0xFF0F8644)),
-    );
-    meetings.add(
-      Meeting('Conference', startTime, endTime, const Color(0xFF0F8644)),
-    );
-    meetings.add(
-      Meeting('Conference', startTime1, endTime1, const Color(0xFF0F8644)),
-    );
-    return meetings;
+    return listCard;
   }
 
   _buildAppBar() {
@@ -118,46 +94,42 @@ class MyCalendarPage extends StatelessWidget {
   }
 }
 
-class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Meeting> source) {
+class CardResponseDataSource extends CalendarDataSource {
+  CardResponseDataSource(List<CardResponse> source) {
     appointments = source;
   }
   @override
   DateTime getStartTime(int index) {
-    return _getMeetingData(index).from;
+    return DateTime.fromMillisecondsSinceEpoch(
+        _getCardReponseData(index).start_date);
   }
 
   @override
   DateTime getEndTime(int index) {
-    return _getMeetingData(index).to;
+    return DateTime.fromMillisecondsSinceEpoch(
+        _getCardReponseData(index).due_date);
   }
 
   @override
   String getSubject(int index) {
-    return _getMeetingData(index).eventName;
+    return _getCardReponseData(index).name;
   }
 
   @override
   Color getColor(int index) {
-    return _getMeetingData(index).background;
+    return _getCardReponseData(index).is_complete ? Colors.green : Colors.blue;
   }
 
-  Meeting _getMeetingData(int index) {
-    final dynamic meeting = appointments![index];
-    late final Meeting meetingData;
-    if (meeting is Meeting) {
-      meetingData = meeting;
+  CardResponse _getCardReponseData(int index) {
+    final dynamic cardResponse = appointments![index];
+    late final CardResponse cardResponseData;
+    if (cardResponse is CardResponse) {
+      cardResponseData = cardResponse;
     }
-    return meetingData;
+    return cardResponseData;
   }
 }
 
 /// Custom business object class which contains properties to hold the detailed
 /// information about the event data which will be rendered in calendar.
-class Meeting {
-  String eventName;
-  DateTime from;
-  DateTime to;
-  Color background;
-  Meeting(this.eventName, this.from, this.to, this.background);
-}
+

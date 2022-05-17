@@ -24,6 +24,7 @@ class MyCardController extends GetxController {
     start_date: 1,
     due_date: 1,
     reminder: 1,
+    list_name: "",
     list_id: -1,
     is_complete: false,
     created_time: 1,

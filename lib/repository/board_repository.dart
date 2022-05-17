@@ -3,6 +3,7 @@ import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
 
 import '../api/rest_api.dart';
+import '../models/card/card_response.dart';
 
 class BoardRepository {
   final dio = Dio(); // Provide a dio instance
@@ -37,5 +38,10 @@ class BoardRepository {
   Future<List<BoardResponse>> getBoardByDate(String uid, int date) async {
     final client = RestClient(dio);
     return await client.getBoardByDate(uid, date);
+  }
+
+  Future<List<CardResponse>> getCardsInBoard(String uid, int boardId) async {
+    final client = RestClient(dio);
+    return await client.getCardsInBoard(uid, boardId);
   }
 }

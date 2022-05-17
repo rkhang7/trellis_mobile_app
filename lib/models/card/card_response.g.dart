@@ -19,6 +19,7 @@ CardResponse _$CardResponseFromJson(Map<String, dynamic> json) => CardResponse(
       created_time: json['created_time'] as int,
       updated_time: json['updated_time'] as int,
       created_by: json['created_by'] as String,
+      list_name: json['list_name'] as String?,
       members: (json['members'] as List<dynamic>)
           .map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -44,6 +45,7 @@ Map<String, dynamic> _$CardResponseToJson(CardResponse instance) =>
       'created_time': instance.created_time,
       'updated_time': instance.updated_time,
       'created_by': instance.created_by,
+      'list_name': instance.list_name,
       'members': instance.members,
       'tasks': instance.tasks,
       'labels': instance.labels,

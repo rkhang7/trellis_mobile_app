@@ -50,6 +50,7 @@ class UpdateCardController extends GetxController {
     is_complete: false,
     created_time: -1,
     updated_time: -1,
+    list_name: "",
     created_by: "",
     members: [],
     tasks: [],

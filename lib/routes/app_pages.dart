@@ -15,6 +15,7 @@ import 'package:trellis_mobile_app/modules/card/update_card/update_card_page.dar
 
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_binding.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_page.dart';
+import 'package:trellis_mobile_app/modules/my_calendar/my_calendar_binding.dart';
 import 'package:trellis_mobile_app/modules/my_calendar/my_calendar_page.dart';
 
 import 'package:trellis_mobile_app/modules/notification/notification_binding.dart';
@@ -189,7 +190,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.MY_CALENDAR,
       page: () => MyCalendarPage(),
-      binding: MyCardBinding(),
+      binding: MyCalendarBinding(),
     ),
   ];
 }

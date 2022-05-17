@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/board/board_request.dart';
 import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
@@ -106,6 +107,8 @@ class CreateBoardController extends GetxController {
         case DioError:
           // Here's the sample to get the failed response error code and message
           EasyLoading.dismiss();
+
+          log(obj.toString());
 
           EasyLoading.showError("error".tr);
           break;

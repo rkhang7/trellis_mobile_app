@@ -59,6 +59,7 @@ class DetailBoardController extends GetxController {
     created_time: 1,
     updated_time: 1,
     created_by: "",
+    list_name: "",
     members: [],
     tasks: [],
     labels: [],

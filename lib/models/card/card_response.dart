@@ -18,6 +18,7 @@ class CardResponse {
   int created_time;
   int updated_time;
   String created_by;
+  String? list_name;
   List<UserResponse> members;
   List<TaskResponse> tasks;
   List<LabelResponse> labels;
@@ -35,6 +36,7 @@ class CardResponse {
     required this.created_time,
     required this.updated_time,
     required this.created_by,
+    this.list_name,
     required this.members,
     required this.tasks,
     required this.labels,

@@ -168,13 +168,13 @@ class _DrawerComponentState extends State<DrawerComponent> {
                   Get.toNamed(AppRoutes.MY_CARD);
                 },
               ),
-              DrawerList(
-                leading: const Icon(Icons.calendar_today),
-                title: "my_calendar".tr,
-                onTap: () {
-                  Get.toNamed(AppRoutes.MY_CALENDAR);
-                },
-              ),
+              // DrawerList(
+              //   leading: const Icon(Icons.calendar_today),
+              //   title: "my_calendar".tr,
+              //   onTap: () {
+              //     Get.toNamed(AppRoutes.MY_CALENDAR);
+              //   },
+              // ),
               DrawerList(
                 leading: const Icon(Bootstrap.activity),
                 title: "statistics".tr,
