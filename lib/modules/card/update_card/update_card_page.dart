@@ -29,6 +29,7 @@ class UpdateCardPage extends StatelessWidget {
               Obx(
                 () => _buildInfoCardArea(),
               ),
+              _buildCardInList(),
               SizedBox(
                 height: 50.h,
               ),
@@ -1467,5 +1468,34 @@ class UpdateCardPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _buildCardInList() {
+    return Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(left: 8),
+        color: Colors.white,
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "in_list".tr,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 64.sp,
+                ),
+              ),
+              TextSpan(
+                text: " ${updateCardController.cardUpdate.value.list_name}",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 64.sp,
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
