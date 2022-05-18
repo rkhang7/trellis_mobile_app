@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
 import 'package:trellis_mobile_app/modules/my_calendar/my_calendar_controller.dart';
 
+import '../../routes/app_routes.dart';
 import '../../utils/colors.dart';
 
 class MyCalendarPage extends StatefulWidget {
@@ -28,7 +29,7 @@ class _MyCalendarPageState extends State<MyCalendarPage> {
         () => SfCalendar(
           view: CalendarView.month,
           dataSource: CardResponseDataSource(
-            _getDataSource(),
+            _getDataSource().obs,
           ),
           // by default the month appointment display mode set as Indicator, we can
           // change the display mode as appointment using the appointment display
@@ -48,8 +49,12 @@ class _MyCalendarPageState extends State<MyCalendarPage> {
             // );
           },
           onLongPress: (CalendarLongPressDetails t) {
-            print(t.appointments!.length.toString());
-            openDialog(context, t.appointments as List<CardResponse>).show();
+            List<CardResponse> list =
+                List<CardResponse>.from(t.appointments!.toList());
+            openDialog(
+              context,
+              list,
+            ).show();
           },
         ),
       )),
@@ -61,22 +66,23 @@ class _MyCalendarPageState extends State<MyCalendarPage> {
       context: context,
       animType: AnimType.SCALE,
       dialogType: DialogType.NO_HEADER,
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: list.length,
-            itemBuilder: (_, index) {
-              final card = myCalendarController.listCard[index];
-              return _buildCard(card, index);
-            },
-          )
-        ],
+      body: SizedBox(
+        height: 2000.h,
+        child: ListView.separated(
+          physics: const AlwaysScrollableScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: list.length,
+          itemBuilder: (_, index) {
+            final card = list[index];
+            return _buildCard(card, index);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(
+              height: 8,
+            );
+          },
+        ),
       ),
       btnOkOnPress: () {},
     );
@@ -116,8 +122,9 @@ class _MyCalendarPageState extends State<MyCalendarPage> {
       ),
       child: InkWell(
         onTap: () {
-          // Get.toNamed(AppRoutes.UPDATE_CARD);
-          // detailBoardController.selectedCard.value = cardModel;
+          Get.toNamed(AppRoutes.UPDATE_CARD);
+          myCalendarController.detailBoardController.selectedCard.value =
+              cardModel;
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
