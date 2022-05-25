@@ -47,19 +47,19 @@ class DetailBoardController extends GetxController {
   var appBarColor = "".obs;
 
   final selectedCard = CardResponse(
-    card_id: -1,
+    cardId: -1,
     name: "name",
     description: "description",
     position: -1,
-    start_date: 1,
-    due_date: 1,
+    startDate: 1,
+    dueDate: 1,
     reminder: 1,
-    list_id: -1,
-    is_complete: false,
-    created_time: 1,
-    updated_time: 1,
-    created_by: "",
-    list_name: "",
+    listId: -1,
+    isComplete: false,
+    createdTime: 1,
+    updatedTime: 1,
+    createdBy: "",
+    listName: "",
     members: [],
     tasks: [],
     labels: [],
@@ -72,9 +72,9 @@ class DetailBoardController extends GetxController {
     initData();
     initListMember();
     backgroundColor.value =
-        dashBoardController.getBoardSelected()!.background_color;
+        dashBoardController.getBoardSelected()!.backgroundColor;
     appBarColor.value =
-        dashBoardController.getBoardSelected()!.background_dark_color;
+        dashBoardController.getBoardSelected()!.backgroundDarkColor;
     super.onInit();
   }
 
@@ -193,12 +193,12 @@ class DetailBoardController extends GetxController {
     String newName = listController[currentIndex].text;
     listRepository
         .updateList(
-      currentList.list_id,
+      currentList.listId,
       ListRequest(
         name: newName,
         position: currentList.position,
-        boardId: currentList.board_id,
-        createdBy: currentList.created_by,
+        boardId: currentList.boardId,
+        createdBy: currentList.createdBy,
       ),
     )
         .then((value) {
@@ -228,11 +228,11 @@ class DetailBoardController extends GetxController {
   }
 
   ListResponse findListById(int id) {
-    return lists.firstWhere((element) => element.list_id == id);
+    return lists.firstWhere((element) => element.listId == id);
   }
 
   int findIndexListById(int id) {
-    return lists.indexWhere((element) => element.list_id == id);
+    return lists.indexWhere((element) => element.listId == id);
   }
 
   DateTime convertTimestampToDate(int timestamp) {
@@ -244,10 +244,10 @@ class DetailBoardController extends GetxController {
     String s = "";
 
     var start = DateFormat('dd-MM-yyyy, kk:mm')
-        .format(convertTimestampToDate(card.start_date));
+        .format(convertTimestampToDate(card.startDate));
 
     var end = DateFormat('dd-MM-yyyy, kk:mm')
-        .format(convertTimestampToDate(card.due_date));
+        .format(convertTimestampToDate(card.dueDate));
     s = "$start\n$end";
 
     return s;
@@ -278,7 +278,7 @@ class DetailBoardController extends GetxController {
     int total = 0;
     cardResponse.tasks.forEach(
       (element) {
-        if (element.is_complete) {
+        if (element.isComplete) {
           total++;
         }
       },
@@ -314,7 +314,7 @@ class DetailBoardController extends GetxController {
 
   int getPermissionForCurrentUser() {
     for (BoardMemberDetailResponse memberDetailResponse in listMember) {
-      if (dashBoardController.currentId == memberDetailResponse.member_id) {
+      if (dashBoardController.currentId == memberDetailResponse.memberId) {
         return memberDetailResponse.permission;
       }
     }
@@ -349,10 +349,10 @@ class DetailBoardController extends GetxController {
     EasyLoading.show(status: "please_wait".tr);
 
     cardRepository
-        .deleteCard(cardResponse.card_id, dashBoardController.currentId)
+        .deleteCard(cardResponse.cardId, dashBoardController.currentId)
         .then((value) {
       lists[lists
-              .indexWhere((element) => element.list_id == cardResponse.list_id)]
+              .indexWhere((element) => element.listId == cardResponse.listId)]
           .cards
           .removeAt(index);
       lists.refresh();
@@ -380,19 +380,19 @@ class DetailBoardController extends GetxController {
       name: cardResponse.name,
       description: cardResponse.description,
       position: cardResponse.position,
-      startDate: cardResponse.start_date,
-      dueDate: cardResponse.due_date,
+      startDate: cardResponse.startDate,
+      dueDate: cardResponse.dueDate,
       reminder: cardResponse.reminder,
-      listId: cardResponse.list_id,
-      createdBy: cardResponse.created_by,
+      listId: cardResponse.listId,
+      createdBy: cardResponse.createdBy,
       isComplete: true,
     );
-    cardRepository.updateCard(cardResponse.card_id, cardRequest).then((value) {
+    cardRepository.updateCard(cardResponse.cardId, cardRequest).then((value) {
       EasyLoading.dismiss();
       lists[lists
-              .indexWhere((element) => element.list_id == cardResponse.list_id)]
+              .indexWhere((element) => element.listId == cardResponse.listId)]
           .cards[index]
-          .is_complete = true;
+          .isComplete = true;
       lists.refresh();
     }).catchError(
       (Object obj) {
@@ -419,19 +419,19 @@ class DetailBoardController extends GetxController {
       name: cardResponse.name,
       description: cardResponse.description,
       position: cardResponse.position,
-      startDate: cardResponse.start_date,
-      dueDate: cardResponse.due_date,
+      startDate: cardResponse.startDate,
+      dueDate: cardResponse.dueDate,
       reminder: cardResponse.reminder,
-      listId: cardResponse.list_id,
-      createdBy: cardResponse.created_by,
+      listId: cardResponse.listId,
+      createdBy: cardResponse.createdBy,
       isComplete: false,
     );
-    cardRepository.updateCard(cardResponse.card_id, cardRequest).then((value) {
+    cardRepository.updateCard(cardResponse.cardId, cardRequest).then((value) {
       EasyLoading.dismiss();
       lists[lists
-              .indexWhere((element) => element.list_id == cardResponse.list_id)]
+              .indexWhere((element) => element.listId == cardResponse.listId)]
           .cards[index]
-          .is_complete = false;
+          .isComplete = false;
       lists.refresh();
     }).catchError(
       (Object obj) {

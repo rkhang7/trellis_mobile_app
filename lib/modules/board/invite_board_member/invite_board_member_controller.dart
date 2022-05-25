@@ -75,16 +75,16 @@ class InviteBoardMemberController extends GetxController {
 
       listMemberDetail.add(
         BoardMemberDetailResponse(
-            member_id: userResponse.uid,
+            memberId: userResponse.uid,
             permission: 2,
-            board_id: boardId,
+            boardId: boardId,
             email: userResponse.email,
-            first_name: userResponse.first_name,
-            last_name: userResponse.last_name,
-            avatar_background_color: userResponse.avatar_background_color,
-            avatar_url: userResponse.avatar_url,
-            created_time: userResponse.created_time,
-            updated_time: userResponse.updated_time),
+            firstName: userResponse.firstName,
+            lastName: userResponse.lastName,
+            avatarBackgroundColor: userResponse.avatarBackgroundColor,
+            avatarUrl: userResponse.avatarURL,
+            createdTime: userResponse.createdTime,
+            updatedTime: userResponse.updatedTime),
       );
 
       boardMenuController.listMember.addAll(listMemberDetail);

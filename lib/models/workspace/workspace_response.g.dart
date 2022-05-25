@@ -8,24 +8,24 @@ part of 'workspace_response.dart';
 
 WorkSpaceResponse _$WorkSpaceResponseFromJson(Map<String, dynamic> json) =>
     WorkSpaceResponse(
-      workspace_id: json['workspace_id'] as int,
+      workspaceId: json['workspaceId'] as int,
       name: json['name'] as String,
-      workspace_type: json['workspace_type'] as String,
+      workspaceType: json['workspaceType'] as String,
       description: json['description'] as String,
       closed: json['closed'] as bool,
-      created_time: json['created_time'] as int,
-      updated_time: json['updated_time'] as int,
-      created_by: json['created_by'] as String,
+      createdTime: json['createdTime'] as int,
+      updatedTime: json['updatedTime'] as int,
+      createdBy: json['createdBy'] as String,
     );
 
 Map<String, dynamic> _$WorkSpaceResponseToJson(WorkSpaceResponse instance) =>
     <String, dynamic>{
-      'workspace_id': instance.workspace_id,
+      'workspaceId': instance.workspaceId,
       'name': instance.name,
-      'workspace_type': instance.workspace_type,
+      'workspaceType': instance.workspaceType,
       'description': instance.description,
       'closed': instance.closed,
-      'created_time': instance.created_time,
-      'updated_time': instance.updated_time,
-      'created_by': instance.created_by,
+      'createdTime': instance.createdTime,
+      'updatedTime': instance.updatedTime,
+      'createdBy': instance.createdBy,
     };

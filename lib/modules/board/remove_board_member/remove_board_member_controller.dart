@@ -21,7 +21,7 @@ class RemoveBoardMemberController extends GetxController {
 
   int getPermissionForCurrentUser() {
     for (BoardMemberDetailResponse memberDetailResponse in listMember) {
-      if (dashBoardController.currentId == memberDetailResponse.member_id) {
+      if (dashBoardController.currentId == memberDetailResponse.memberId) {
         return memberDetailResponse.permission;
       }
     }
@@ -57,7 +57,7 @@ class RemoveBoardMemberController extends GetxController {
     EasyLoading.show(status: "please_wait".tr);
     await memberRepository
         .removeMemberFromWorkspace(dashBoardController.currentId,
-            dashBoardController.workspaceSelected.value.workspace_id)
+            dashBoardController.workspaceSelected.value.workspaceId)
         .then((value) {
       EasyLoading.dismiss();
       Get.back();

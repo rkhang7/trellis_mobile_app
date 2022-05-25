@@ -3,20 +3,20 @@ part 'label_response.g.dart';
 
 @JsonSerializable()
 class LabelResponse {
-  int label_id;
+  int labelId;
   String name;
   String color;
-  int board_id;
-  int created_time;
-  int updated_time;
+  int boardId;
+  int createdTime;
+  int updatedTime;
 
   LabelResponse({
-    required this.label_id,
+    required this.labelId,
     required this.name,
     required this.color,
-    required this.board_id,
-    required this.created_time,
-    required this.updated_time,
+    required this.boardId,
+    required this.createdTime,
+    required this.updatedTime,
   });
 
   factory LabelResponse.fromJson(Map<String, dynamic> json) =>

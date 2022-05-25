@@ -902,9 +902,9 @@ class UpdateCardPage extends StatelessWidget {
                       color: Colors.white,
                       child: ClipOval(
                         child: CachedNetworkImage(
-                          imageUrl: userResponse.avatar_url.isEmpty
-                              ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                              : userResponse.avatar_url,
+                          imageUrl: userResponse.avatarURL.isEmpty
+                              ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                              : userResponse.avatarURL,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) {
@@ -960,16 +960,16 @@ class UpdateCardPage extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     updateCardController
-                        .handleClickListMember(userResponse.member_id);
+                        .handleClickListMember(userResponse.memberId);
                   },
                   child: ListTile(
                     leading: ClipOval(
                       child: CachedNetworkImage(
                         height: 50,
                         width: 50,
-                        imageUrl: userResponse.avatar_url.isEmpty
-                            ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                            : userResponse.avatar_url,
+                        imageUrl: userResponse.avatarUrl.isEmpty
+                            ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                            : userResponse.avatarUrl,
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
                         errorWidget: (context, url, error) {
@@ -978,10 +978,10 @@ class UpdateCardPage extends StatelessWidget {
                       ),
                     ),
                     title: Text(
-                        "${userResponse.first_name} ${userResponse.last_name}"),
+                        "${userResponse.firstName} ${userResponse.lastName}"),
                     subtitle: Text(userResponse.email),
                     trailing: updateCardController
-                            .memberIsExistInCard(userResponse.member_id)
+                            .memberIsExistInCard(userResponse.memberId)
                         ? const Icon(
                             Icons.check,
                             color: Colors.black,
@@ -1046,7 +1046,7 @@ class UpdateCardPage extends StatelessWidget {
                                 TextStyle(color: Colors.white, fontSize: 81.sp),
                           ),
                           updateCardController
-                                      .labelIsExistInCard(label.label_id) ==
+                                      .labelIsExistInCard(label.labelId) ==
                                   true
                               ? const Padding(
                                   padding: EdgeInsets.only(right: 8),
@@ -1356,7 +1356,7 @@ class UpdateCardPage extends StatelessWidget {
   Widget _buildTask(TaskResponse task, int index) {
     updateCardController.listTaskNameController[index].text = task.name;
     return Container(
-      key: ValueKey(task.task_id),
+      key: ValueKey(task.taskId),
       child: Slidable(
         endActionPane: ActionPane(
           motion: const ScrollMotion(),
@@ -1373,7 +1373,7 @@ class UpdateCardPage extends StatelessWidget {
               flex: 1,
               autoClose: true,
               onPressed: (_) {
-                updateCardController.deleteTask(task.task_id);
+                updateCardController.deleteTask(task.taskId);
               },
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
@@ -1387,7 +1387,7 @@ class UpdateCardPage extends StatelessWidget {
             Checkbox(
               activeColor: Colors.green,
               checkColor: Colors.white,
-              value: task.is_complete,
+              value: task.isComplete,
               onChanged: (value) {
                 updateCardController.updateStatusTask(task, value!);
               },
@@ -1395,7 +1395,7 @@ class UpdateCardPage extends StatelessWidget {
             Expanded(
               child: InkWell(
                 onTap: () {
-                  updateCardController.taskIdSelected = task.task_id;
+                  updateCardController.taskIdSelected = task.taskId;
                   updateCardController.editingTask.value = true;
                   for (var element in updateCardController.listEditingTask) {
                     element = false;
@@ -1405,7 +1405,7 @@ class UpdateCardPage extends StatelessWidget {
                 child: updateCardController.listEditingTask[index] == false
                     ? Text(
                         task.name,
-                        style: task.is_complete
+                        style: task.isComplete
                             ? const TextStyle(
                                 fontStyle: FontStyle.italic,
                                 decoration: TextDecoration.lineThrough,
@@ -1436,7 +1436,7 @@ class UpdateCardPage extends StatelessWidget {
 
   void swapTasks(List<TaskResponse> listTasks, int oldIndex, int newIndex) {
     updateCardController.moveTask(
-        updateCardController.cardUpdate.value.card_id, oldIndex, newIndex);
+        updateCardController.cardUpdate.value.cardId, oldIndex, newIndex);
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
@@ -1487,7 +1487,7 @@ class UpdateCardPage extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: " ${updateCardController.cardUpdate.value.list_name}",
+                text: " ${updateCardController.cardUpdate.value.listName}",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,

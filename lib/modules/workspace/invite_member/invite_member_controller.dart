@@ -47,7 +47,7 @@ class InviteMemberController extends GetxController {
   void searchUserByEmail(String keyword) {
     userRepository
         .searchUserInWorkspace(keyword,
-            dashboardController.workspaceSelected.value.workspace_id, -1)
+            dashboardController.workspaceSelected.value.workspaceId, -1)
         .then(
       (value) {
         listUserBySearch.assignAll(value);
@@ -72,7 +72,7 @@ class InviteMemberController extends GetxController {
     // insert to workspace menu page
     var listMemberDetail = <MemberDetailResponse>[];
 
-    int workspaceId = dashboardController.workspaceSelected.value.workspace_id;
+    int workspaceId = dashboardController.workspaceSelected.value.workspaceId;
     for (UserResponse userResponse in litsInviteMember) {
       listInviteMulti.add(
         MemberRequest(
@@ -83,16 +83,16 @@ class InviteMemberController extends GetxController {
 
       listMemberDetail.add(
         MemberDetailResponse(
-            member_id: userResponse.uid,
+            memberId: userResponse.uid,
             permission: 2,
-            workspace_id: workspaceId,
+            workspaceId: workspaceId,
             email: userResponse.email,
-            first_name: userResponse.first_name,
-            last_name: userResponse.last_name,
-            avatar_background_color: userResponse.avatar_background_color,
-            avatar_url: userResponse.avatar_url,
-            created_time: userResponse.created_time,
-            updated_time: userResponse.updated_time),
+            firstName: userResponse.firstName,
+            lastName: userResponse.lastName,
+            avatarBackgroundColor: userResponse.avatarBackgroundColor,
+            avatarUrl: userResponse.avatarURL,
+            createdTime: userResponse.createdTime,
+            updatedTime: userResponse.updatedTime),
       );
 
       workspaceMenuController.listMember.addAll(listMemberDetail);

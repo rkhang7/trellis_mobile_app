@@ -39,7 +39,7 @@ class CreateWorkspaceController extends GetxController {
         MemberRequest(
             memberId: dashboardController.currentId,
             permission: 1,
-            workspaceId: value.workspace_id),
+            workspaceId: value.workspaceId),
       )
           .then(
         (value) {

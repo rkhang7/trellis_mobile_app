@@ -121,9 +121,9 @@ class BoardMenuPage extends StatelessWidget {
                       color: Colors.white,
                       child: ClipOval(
                         child: CachedNetworkImage(
-                          imageUrl: userResponse.avatar_url.isEmpty
-                              ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                              : userResponse.avatar_url,
+                          imageUrl: userResponse.avatarUrl.isEmpty
+                              ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                              : userResponse.avatarUrl,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) {
@@ -316,7 +316,7 @@ class BoardMenuPage extends StatelessWidget {
                     boardMenuController.updateLabelColorSelected(label.color);
                     boardMenuController.editingLabel.value = true;
                     boardMenuController.labelNameController.text = label.name;
-                    openBottomSheet(label.label_id);
+                    openBottomSheet(label.labelId);
                   },
                   child: Container(
                     alignment: Alignment.centerLeft,
@@ -512,9 +512,9 @@ class BoardMenuPage extends StatelessWidget {
                           CachedNetworkImage(
                             height: 45,
                             width: 45,
-                            imageUrl: historical.avatar_url.isEmpty
-                                ? "https://ui-avatars.com/api/?name=${historical.first_name}+${historical.last_name}&&size=120&&rounded=true&&background=${historical.avatar_background_color}&&color=ffffff&&bold=true"
-                                : historical.avatar_url,
+                            imageUrl: historical.avatarUrl.isEmpty
+                                ? "https://ui-avatars.com/api/?name=${historical.firstName}+${historical.lastName}&&size=120&&rounded=true&&background=${historical.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                                : historical.avatarUrl,
                             placeholder: (context, url) =>
                                 const CircularProgressIndicator(),
                             errorWidget: (context, url, error) {
@@ -540,7 +540,7 @@ class BoardMenuPage extends StatelessWidget {
                                 ),
                                 Text(
                                   boardMenuController.handleDateTimeShowUI(
-                                      historical.created_time),
+                                      historical.createdTime),
                                   style: const TextStyle(
                                     color: Colors.grey,
                                     fontStyle: FontStyle.italic,

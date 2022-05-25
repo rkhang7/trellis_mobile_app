@@ -47,34 +47,26 @@ class SignUpController extends GetxController {
                 .then(
               (value) {
                 isLoadingButton.value = false;
-                Get.offAllNamed(AppRoutes.SIGN_IN);
+                Get.offAllNamed(AppRoutes.DASHBOARD);
                 EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
               },
-            ).catchError(
-              (Object obj) {
-                // non-200 error goes here.
-                switch (obj.runtimeType) {
-                  case DioError:
-                    // Here's the sample to get the failed response error code and message
-                    final res = (obj as DioError).response;
-                    if (obj.type == DioErrorType.connectTimeout) {
-                      isLoadingButton.value = false;
+            ).catchError((Object obj) {
+              switch (obj.runtimeType) {
+                case DioError:
+                  // Here's the sample to get the failed response error code and message
+                  EasyLoading.dismiss();
 
-                      EasyLoading.showError("error".tr);
-                    } else if (obj.type == DioErrorType.receiveTimeout) {
-                      EasyLoading.showError("error".tr);
-                    }
-                    if (res!.statusCode != 200) {
-                      isLoadingButton.value = false;
+                  EasyLoading.showError("error".tr);
+                  isLoadingButton.value = false;
+                  break;
+                default:
+                  EasyLoading.dismiss();
 
-                      EasyLoading.showError("error".tr);
-                    }
-                    break;
-                  default:
-                    break;
-                }
-              },
-            );
+                  EasyLoading.showError("error".tr);
+                  isLoadingButton.value = false;
+                  break;
+              }
+            });
           } else {
             isLoadingButton.value = false;
           }

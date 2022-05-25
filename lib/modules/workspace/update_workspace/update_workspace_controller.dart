@@ -28,12 +28,12 @@ class UpdateWorkspaceController extends GetxController {
     descriptionController.text =
         dashBoardController.workspaceSelected.value.description;
     selectedType.value =
-        dashBoardController.workspaceSelected.value.workspace_type;
+        dashBoardController.workspaceSelected.value.workspaceType;
   }
 
   void updateWorkspace() {
     EasyLoading.show(status: "update_success".tr);
-    int workspaceId = dashBoardController.workspaceSelected.value.workspace_id;
+    int workspaceId = dashBoardController.workspaceSelected.value.workspaceId;
     workspaceRepository
         .updateWorkspace(
             workspaceId,
@@ -45,7 +45,7 @@ class UpdateWorkspaceController extends GetxController {
                 createdBy: dashBoardController.currentId))
         .then((value) {
       dashBoardController.workspaceSelected.value.name = value.name;
-      dashBoardController.workspaceSelected.value.workspace_type = value.name;
+      dashBoardController.workspaceSelected.value.workspaceType = value.name;
       dashBoardController.workspaceSelected.value.description =
           value.description;
       EasyLoading.dismiss();

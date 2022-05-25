@@ -28,7 +28,7 @@ class MyCalendarController extends GetxController {
     int total = 0;
     cardResponse.tasks.forEach(
       (element) {
-        if (element.is_complete) {
+        if (element.isComplete) {
           total++;
         }
       },
@@ -41,10 +41,10 @@ class MyCalendarController extends GetxController {
     String s = "";
 
     var start = DateFormat('dd-MM-yyyy, kk:mm')
-        .format(convertTimestampToDate(card.start_date));
+        .format(convertTimestampToDate(card.startDate));
 
     var end = DateFormat('dd-MM-yyyy, kk:mm')
-        .format(convertTimestampToDate(card.due_date));
+        .format(convertTimestampToDate(card.dueDate));
     s = "$start\n$end";
 
     return s;

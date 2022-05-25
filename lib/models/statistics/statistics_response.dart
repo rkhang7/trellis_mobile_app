@@ -5,12 +5,12 @@ part 'statistics_response.g.dart';
 class StatisticsResponse {
   int total;
   int completed;
-  int in_completed;
+  int inCompleted;
 
   StatisticsResponse({
     required this.total,
     required this.completed,
-    required this.in_completed,
+    required this.inCompleted,
   });
 
   factory StatisticsResponse.fromJson(Map<String, dynamic> json) =>

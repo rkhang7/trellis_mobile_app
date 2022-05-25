@@ -3,24 +3,24 @@ part 'task_response.g.dart';
 
 @JsonSerializable()
 class TaskResponse {
-  int task_id;
+  int taskId;
   String name;
   int position;
-  int card_id;
-  bool is_complete;
-  int created_time;
-  int updated_time;
-  String created_by;
+  int cardId;
+  bool isComplete;
+  int createdTime;
+  int updatedTime;
+  String createdBy;
 
   TaskResponse({
-    required this.task_id,
+    required this.taskId,
     required this.name,
     required this.position,
-    required this.card_id,
-    required this.is_complete,
-    required this.created_time,
-    required this.updated_time,
-    required this.created_by,
+    required this.cardId,
+    required this.isComplete,
+    required this.createdTime,
+    required this.updatedTime,
+    required this.createdBy,
   });
 
   factory TaskResponse.fromJson(Map<String, dynamic> json) =>

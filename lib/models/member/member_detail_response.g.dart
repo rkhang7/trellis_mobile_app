@@ -9,29 +9,29 @@ part of 'member_detail_response.dart';
 MemberDetailResponse _$MemberDetailResponseFromJson(
         Map<String, dynamic> json) =>
     MemberDetailResponse(
-      member_id: json['member_id'] as String,
+      memberId: json['memberId'] as String,
       permission: json['permission'] as int,
-      workspace_id: json['workspace_id'] as int,
+      workspaceId: json['workspaceId'] as int,
       email: json['email'] as String,
-      first_name: json['first_name'] as String,
-      last_name: json['last_name'] as String,
-      avatar_background_color: json['avatar_background_color'] as String,
-      avatar_url: json['avatar_url'] as String,
-      created_time: json['created_time'] as int,
-      updated_time: json['updated_time'] as int,
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
+      avatarBackgroundColor: json['avatarBackgroundColor'] as String,
+      avatarUrl: json['avatarUrl'] as String,
+      createdTime: json['createdTime'] as int,
+      updatedTime: json['updatedTime'] as int,
     );
 
 Map<String, dynamic> _$MemberDetailResponseToJson(
         MemberDetailResponse instance) =>
     <String, dynamic>{
-      'member_id': instance.member_id,
+      'memberId': instance.memberId,
       'permission': instance.permission,
-      'workspace_id': instance.workspace_id,
+      'workspaceId': instance.workspaceId,
       'email': instance.email,
-      'first_name': instance.first_name,
-      'last_name': instance.last_name,
-      'avatar_background_color': instance.avatar_background_color,
-      'avatar_url': instance.avatar_url,
-      'created_time': instance.created_time,
-      'updated_time': instance.updated_time,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'avatarBackgroundColor': instance.avatarBackgroundColor,
+      'avatarUrl': instance.avatarUrl,
+      'createdTime': instance.createdTime,
+      'updatedTime': instance.updatedTime,
     };

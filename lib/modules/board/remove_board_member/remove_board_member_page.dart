@@ -103,7 +103,7 @@ class RemoveBoardMemberPage extends StatelessWidget {
               removeBoardMemberController.boardMenuController.listMember[index];
           return InkWell(
             onTap: () {
-              if (userResponse.member_id ==
+              if (userResponse.memberId ==
                   removeBoardMemberController.dashBoardController.currentId) {
               } else {
                 if (removeBoardMemberController.getPermissionForCurrentUser() ==
@@ -116,9 +116,9 @@ class RemoveBoardMemberPage extends StatelessWidget {
             child: ListTile(
               leading: ClipOval(
                 child: CachedNetworkImage(
-                  imageUrl: userResponse.avatar_url.isEmpty
-                      ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                      : userResponse.avatar_url,
+                  imageUrl: userResponse.avatarUrl.isEmpty
+                      ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                      : userResponse.avatarUrl,
                   placeholder: (context, url) =>
                       const CircularProgressIndicator(),
                   errorWidget: (context, url, error) {
@@ -127,7 +127,7 @@ class RemoveBoardMemberPage extends StatelessWidget {
                 ),
               ),
               title: Text(
-                "${userResponse.first_name} ${userResponse.last_name}",
+                "${userResponse.firstName} ${userResponse.lastName}",
                 style: const TextStyle(overflow: TextOverflow.clip),
               ),
               subtitle: Text(
@@ -160,9 +160,9 @@ class RemoveBoardMemberPage extends StatelessWidget {
         ListTile(
           leading: ClipOval(
             child: CachedNetworkImage(
-              imageUrl: userResponse.avatar_url.isEmpty
-                  ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                  : userResponse.avatar_url,
+              imageUrl: userResponse.avatarUrl.isEmpty
+                  ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                  : userResponse.avatarUrl,
               placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) {
                 return const Icon(Icons.error);
@@ -170,7 +170,7 @@ class RemoveBoardMemberPage extends StatelessWidget {
             ),
           ),
           title: Text(
-            "${userResponse.first_name} ${userResponse.last_name}",
+            "${userResponse.firstName} ${userResponse.lastName}",
             style: const TextStyle(overflow: TextOverflow.clip),
           ),
           subtitle: Text(
@@ -205,7 +205,7 @@ class RemoveBoardMemberPage extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               removeBoardMemberController.removeMemberFormBoard(
-                  userResponse.member_id, index);
+                  userResponse.memberId, index);
             },
             child: Text("remove_from_workspace".tr),
             style: ElevatedButton.styleFrom(primary: Colors.deepOrangeAccent),

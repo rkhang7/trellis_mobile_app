@@ -85,9 +85,9 @@ class WorkspaceMenuPage extends StatelessWidget {
                       color: Colors.white,
                       child: ClipOval(
                         child: CachedNetworkImage(
-                          imageUrl: userResponse.avatar_url.isEmpty
-                              ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                              : userResponse.avatar_url,
+                          imageUrl: userResponse.avatarUrl.isEmpty
+                              ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                              : userResponse.avatarUrl,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) {

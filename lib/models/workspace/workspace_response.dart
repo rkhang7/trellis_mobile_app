@@ -6,24 +6,24 @@ part 'workspace_response.g.dart';
 
 @JsonSerializable()
 class WorkSpaceResponse {
-  int workspace_id;
+  int workspaceId;
   String name;
-  String workspace_type;
+  String workspaceType;
   String description;
   bool closed;
-  int created_time;
-  int updated_time;
-  String created_by;
+  int createdTime;
+  int updatedTime;
+  String createdBy;
 
   WorkSpaceResponse({
-    required this.workspace_id,
+    required this.workspaceId,
     required this.name,
-    required this.workspace_type,
+    required this.workspaceType,
     required this.description,
     required this.closed,
-    required this.created_time,
-    required this.updated_time,
-    required this.created_by,
+    required this.createdTime,
+    required this.updatedTime,
+    required this.createdBy,
   });
 
   factory WorkSpaceResponse.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +32,6 @@ class WorkSpaceResponse {
 
   @override
   String toString() {
-    return 'WorkSpaceResponse(workspace_id: $workspace_id, name: $name, workspace_type: $workspace_type, description: $description, created_time: $created_time, updated_time: $updated_time, created_by: $created_by)';
+    return 'WorkSpaceResponse(workspace_id: $workspaceId, name: $name, workspace_type: $workspaceType, description: $description, created_time: $createdTime, updated_time: $updatedTime, created_by: $createdBy)';
   }
 }

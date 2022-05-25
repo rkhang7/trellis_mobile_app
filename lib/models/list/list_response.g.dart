@@ -7,13 +7,13 @@ part of 'list_response.dart';
 // **************************************************************************
 
 ListResponse _$ListResponseFromJson(Map<String, dynamic> json) => ListResponse(
-      list_id: json['list_id'] as int,
+      listId: json['listId'] as int,
       name: json['name'] as String,
       position: json['position'] as int,
-      board_id: json['board_id'] as int,
-      created_time: json['created_time'] as int,
-      updated_time: json['updated_time'] as int,
-      created_by: json['created_by'] as String,
+      boardId: json['boardId'] as int,
+      createdTime: json['createdTime'] as int,
+      updatedTime: json['updatedTime'] as int,
+      createdBy: json['createdBy'] as String,
       cards: (json['cards'] as List<dynamic>)
           .map((e) => CardResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -21,12 +21,12 @@ ListResponse _$ListResponseFromJson(Map<String, dynamic> json) => ListResponse(
 
 Map<String, dynamic> _$ListResponseToJson(ListResponse instance) =>
     <String, dynamic>{
-      'list_id': instance.list_id,
+      'listId': instance.listId,
       'name': instance.name,
       'position': instance.position,
-      'board_id': instance.board_id,
-      'created_time': instance.created_time,
-      'updated_time': instance.updated_time,
-      'created_by': instance.created_by,
+      'boardId': instance.boardId,
+      'createdTime': instance.createdTime,
+      'updatedTime': instance.updatedTime,
+      'createdBy': instance.createdBy,
       'cards': instance.cards,
     };

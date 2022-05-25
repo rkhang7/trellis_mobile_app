@@ -33,7 +33,7 @@ class UpdateBoardController extends GetxController {
 
   void updateBoard() {
     EasyLoading.show(status: "please_wait".tr);
-    int boardId = boardMenuController.currentBoard!.board_id;
+    int boardId = boardMenuController.currentBoard!.boardId;
     boardRepository
         .updateBoard(
             boardId,
@@ -41,13 +41,13 @@ class UpdateBoardController extends GetxController {
               name: boardNameController.text.trim(),
               description: descriptionController.text,
               closed: false,
-              workspaceId: boardMenuController.currentBoard!.workspace_id,
+              workspaceId: boardMenuController.currentBoard!.workspaceId,
               visibility: selectedType.value,
-              createdBy: boardMenuController.currentBoard!.created_by,
+              createdBy: boardMenuController.currentBoard!.createdBy,
               backgroundColor:
-                  boardMenuController.currentBoard!.background_color,
+                  boardMenuController.currentBoard!.backgroundColor,
               backgroundDarkColor:
-                  boardMenuController.currentBoard!.background_dark_color,
+                  boardMenuController.currentBoard!.backgroundDarkColor,
             ))
         .then((value) {
       int index = dashBoardController.findIndexBoardById(boardId);

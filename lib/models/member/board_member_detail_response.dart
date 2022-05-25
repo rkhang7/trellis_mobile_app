@@ -3,28 +3,28 @@ part 'board_member_detail_response.g.dart';
 
 @JsonSerializable()
 class BoardMemberDetailResponse {
-  String member_id;
+  String memberId;
   int permission;
-  int board_id;
+  int boardId;
   String email;
-  String first_name;
-  String last_name;
-  String avatar_background_color;
-  String avatar_url;
-  int created_time;
-  int updated_time;
+  String firstName;
+  String lastName;
+  String avatarBackgroundColor;
+  String avatarUrl;
+  int createdTime;
+  int updatedTime;
 
   BoardMemberDetailResponse(
-      {required this.member_id,
+      {required this.memberId,
       required this.permission,
-      required this.board_id,
+      required this.boardId,
       required this.email,
-      required this.first_name,
-      required this.last_name,
-      required this.avatar_background_color,
-      required this.avatar_url,
-      required this.created_time,
-      required this.updated_time});
+      required this.firstName,
+      required this.lastName,
+      required this.avatarBackgroundColor,
+      required this.avatarUrl,
+      required this.createdTime,
+      required this.updatedTime});
 
   factory BoardMemberDetailResponse.fromJson(Map<String, dynamic> json) =>
       _$BoardMemberDetailResponseFromJson(json);

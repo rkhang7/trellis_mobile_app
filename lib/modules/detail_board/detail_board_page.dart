@@ -208,7 +208,7 @@ class DetailBoardPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Obx(
-                          () => _buildTitle(list.name, index, list.list_id),
+                          () => _buildTitle(list.name, index, list.listId),
                         ),
                         Expanded(
                           child: _buildListCard(list.cards, list.name, index),
@@ -379,7 +379,7 @@ class DetailBoardPage extends StatelessWidget {
             // // change appBar
             // detailBoardController.nameCardAdding.value = true;
             Get.toNamed(AppRoutes.CREATE_CARD, parameters: {
-              "listId": detailBoardController.lists[index].list_id.toString(),
+              "listId": detailBoardController.lists[index].listId.toString(),
               "listName": detailBoardController.lists[index].name,
             });
           },
@@ -518,9 +518,9 @@ class DetailBoardPage extends StatelessWidget {
                       color: Colors.white,
                       child: ClipOval(
                         child: CachedNetworkImage(
-                          imageUrl: userResponse.avatar_url.isEmpty
-                              ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                              : userResponse.avatar_url,
+                          imageUrl: userResponse.avatarURL.isEmpty
+                              ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                              : userResponse.avatarURL,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) {
@@ -541,7 +541,7 @@ class DetailBoardPage extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            cardModel.is_complete
+            cardModel.isComplete
                 ? Container(
                     height: 30,
                     width: double.infinity,
@@ -590,7 +590,7 @@ class DetailBoardPage extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            cardResponse.is_complete
+            cardResponse.isComplete
                 ? InkWell(
                     onTap: () {
                       detailBoardController.updateCardRework(
@@ -713,7 +713,7 @@ class DetailBoardPage extends StatelessWidget {
   void swapCards(
       List<CardResponse> listCard, int oldIndex, int newIndex, int index) {
     detailBoardController.moveCards(
-        detailBoardController.lists[index].list_id, oldIndex, newIndex);
+        detailBoardController.lists[index].listId, oldIndex, newIndex);
 
     if (oldIndex < newIndex) {
       newIndex -= 1;

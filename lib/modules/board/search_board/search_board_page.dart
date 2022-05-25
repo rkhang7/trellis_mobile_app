@@ -91,7 +91,7 @@ class SearchBoardPage extends StatelessWidget {
         ),
         suggestionsCallback: (pattern) async {
           return await boardRepository.getListBoardsInWorkspace(
-              dashBoardController.workspaceSelected.value.workspace_id,
+              dashBoardController.workspaceSelected.value.workspaceId,
               dashBoardController.currentId,
               pattern);
         },
@@ -101,7 +101,7 @@ class SearchBoardPage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onTap: () async {
-                dashBoardController.boardIdSelected = boardResponse.board_id;
+                dashBoardController.boardIdSelected = boardResponse.boardId;
                 await Get.toNamed(
                   AppRoutes.DETAIL_BOARD,
                   parameters: {
@@ -115,7 +115,7 @@ class SearchBoardPage extends StatelessWidget {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: HexColor(boardResponse.background_color),
+                      color: HexColor(boardResponse.backgroundColor),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),

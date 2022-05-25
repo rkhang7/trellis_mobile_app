@@ -206,9 +206,9 @@ class _MyCalendarPageState extends State<MyCalendarPage> {
                       color: Colors.white,
                       child: ClipOval(
                         child: CachedNetworkImage(
-                          imageUrl: userResponse.avatar_url.isEmpty
-                              ? "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true"
-                              : userResponse.avatar_url,
+                          imageUrl: userResponse.avatarURL.isEmpty
+                              ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
+                              : userResponse.avatarURL,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) {
@@ -229,7 +229,7 @@ class _MyCalendarPageState extends State<MyCalendarPage> {
             const SizedBox(
               height: 5,
             ),
-            cardModel.is_complete
+            cardModel.isComplete
                 ? Container(
                     height: 30,
                     width: double.infinity,
@@ -270,13 +270,13 @@ class CardResponseDataSource extends CalendarDataSource {
   @override
   DateTime getStartTime(int index) {
     return DateTime.fromMillisecondsSinceEpoch(
-        _getCardReponseData(index).start_date);
+        _getCardReponseData(index).startDate);
   }
 
   @override
   DateTime getEndTime(int index) {
     return DateTime.fromMillisecondsSinceEpoch(
-        _getCardReponseData(index).due_date);
+        _getCardReponseData(index).dueDate);
   }
 
   @override
@@ -286,7 +286,7 @@ class CardResponseDataSource extends CalendarDataSource {
 
   @override
   Color getColor(int index) {
-    return _getCardReponseData(index).is_complete ? Colors.green : Colors.blue;
+    return _getCardReponseData(index).isComplete ? Colors.green : Colors.blue;
   }
 
   CardResponse _getCardReponseData(int index) {

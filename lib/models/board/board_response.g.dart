@@ -8,34 +8,34 @@ part of 'board_response.dart';
 
 BoardResponse _$BoardResponseFromJson(Map<String, dynamic> json) =>
     BoardResponse(
-      board_id: json['board_id'] as int,
+      boardId: json['boardId'] as int,
       name: json['name'] as String,
       description: json['description'] as String,
       closed: json['closed'] as bool,
-      workspace_id: json['workspace_id'] as int,
+      workspaceId: json['workspaceId'] as int,
       visibility: json['visibility'] as int,
-      created_time: json['created_time'] as int,
-      updated_time: json['updated_time'] as int,
-      created_by: json['created_by'] as String,
-      background_color: json['background_color'] as String,
-      background_dark_color: json['background_dark_color'] as String,
-      board_list_resps: (json['board_list_resps'] as List<dynamic>)
+      createdTime: json['createdTime'] as int,
+      updatedTime: json['updatedTime'] as int,
+      createdBy: json['createdBy'] as String,
+      backgroundColor: json['backgroundColor'] as String,
+      backgroundDarkColor: json['backgroundDarkColor'] as String,
+      boardListResps: (json['boardListResps'] as List<dynamic>)
           .map((e) => ListResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$BoardResponseToJson(BoardResponse instance) =>
     <String, dynamic>{
-      'board_id': instance.board_id,
+      'boardId': instance.boardId,
       'name': instance.name,
       'description': instance.description,
       'closed': instance.closed,
       'visibility': instance.visibility,
-      'workspace_id': instance.workspace_id,
-      'created_time': instance.created_time,
-      'updated_time': instance.updated_time,
-      'created_by': instance.created_by,
-      'background_color': instance.background_color,
-      'background_dark_color': instance.background_dark_color,
-      'board_list_resps': instance.board_list_resps,
+      'workspaceId': instance.workspaceId,
+      'createdTime': instance.createdTime,
+      'updatedTime': instance.updatedTime,
+      'createdBy': instance.createdBy,
+      'backgroundColor': instance.backgroundColor,
+      'backgroundDarkColor': instance.backgroundDarkColor,
+      'boardListResps': instance.boardListResps,
     };

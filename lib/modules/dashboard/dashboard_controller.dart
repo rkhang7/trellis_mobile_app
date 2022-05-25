@@ -13,14 +13,14 @@ import 'package:trellis_mobile_app/repository/workspace_repository.dart';
 
 class DashBoardController extends GetxController {
   var workspaceSelected = WorkSpaceResponse(
-          workspace_id: -1,
+          workspaceId: -1,
           name: "name",
-          workspace_type: "workspace_type",
+          workspaceType: "workspace_type",
           description: "description",
           closed: false,
-          created_time: 1,
-          updated_time: 1,
-          created_by: "!")
+          createdTime: 1,
+          updatedTime: 1,
+          createdBy: "!")
       .obs;
   final workspaceRepository = Get.find<WorkspaceRepository>();
   final boardRepository = Get.find<BoardRepository>();
@@ -39,12 +39,12 @@ class DashBoardController extends GetxController {
   var currentUser = UserResponse(
     uid: "",
     email: "email",
-    first_name: "first_name",
-    last_name: "last_name",
-    avatar_background_color: "avatar_background_color",
-    avatar_url: "avatar_url",
-    created_time: 1,
-    updated_time: 2,
+    firstName: "first_name",
+    lastName: "last_name",
+    avatarBackgroundColor: "avatar_background_color",
+    avatarURL: "avatar_url",
+    createdTime: 1,
+    updatedTime: 2,
     token: "",
   ).obs;
 
@@ -53,7 +53,7 @@ class DashBoardController extends GetxController {
     initUser();
     updateToken();
     initWorkspace();
-    loadListBoards(workspaceSelected.value.workspace_id);
+    loadListBoards(workspaceSelected.value.workspaceId);
     super.onInit();
   }
 
@@ -66,7 +66,7 @@ class DashBoardController extends GetxController {
         workspaceSelected.value = workspaces.elementAt(0);
         log(workspaceSelected.value.name);
       }
-      loadListBoards(workspaceSelected.value.workspace_id);
+      loadListBoards(workspaceSelected.value.workspaceId);
       checkVisible();
     });
   }
@@ -88,12 +88,12 @@ class DashBoardController extends GetxController {
   }
 
   int findIndexBoardById(int boardId) {
-    return listBoards.indexWhere((element) => element.board_id == boardId);
+    return listBoards.indexWhere((element) => element.boardId == boardId);
   }
 
   BoardResponse? getBoardSelected() {
     for (BoardResponse boardResponse in listBoards) {
-      if (boardResponse.board_id == boardIdSelected) {
+      if (boardResponse.boardId == boardIdSelected) {
         return boardResponse;
       }
     }
@@ -101,7 +101,7 @@ class DashBoardController extends GetxController {
   }
 
   Future refresh() async {
-    loadListBoards(workspaceSelected.value.workspace_id);
+    loadListBoards(workspaceSelected.value.workspaceId);
   }
 
   void updateToken() async {
@@ -112,10 +112,10 @@ class DashBoardController extends GetxController {
           UserRequest userRequest = UserRequest(
             uid: currentId,
             email: value.email,
-            firstName: value.first_name,
-            lastName: value.last_name,
-            avatarBackgroundColor: value.avatar_background_color,
-            avatarURL: value.avatar_url,
+            firstName: value.firstName,
+            lastName: value.lastName,
+            avatarBackgroundColor: value.avatarBackgroundColor,
+            avatarURL: value.avatarURL,
             token: token,
           );
           userRepository.updateUser(currentId, userRequest);

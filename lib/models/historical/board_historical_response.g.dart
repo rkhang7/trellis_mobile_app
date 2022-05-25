@@ -9,29 +9,29 @@ part of 'board_historical_response.dart';
 BoardHistoricalResponse _$BoardHistoricalResponseFromJson(
         Map<String, dynamic> json) =>
     BoardHistoricalResponse(
-      board_id: json['board_id'] as int,
+      boardId: json['boardId'] as int,
       uid: json['uid'] as String,
       email: json['email'] as String,
-      first_name: json['first_name'] as String,
-      last_name: json['last_name'] as String,
-      avatar_background_color: json['avatar_background_color'] as String,
-      avatar_url: json['avatar_url'] as String,
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
+      avatarBackgroundColor: json['avatarBackgroundColor'] as String,
+      avatarUrl: json['avatarUrl'] as String,
       content: json['content'] as String,
-      created_time: json['created_time'] as int,
-      updated_time: json['updated_time'] as int,
+      createdTime: json['createdTime'] as int,
+      updatedTime: json['updatedTime'] as int,
     );
 
 Map<String, dynamic> _$BoardHistoricalResponseToJson(
         BoardHistoricalResponse instance) =>
     <String, dynamic>{
-      'board_id': instance.board_id,
+      'boardId': instance.boardId,
       'uid': instance.uid,
       'email': instance.email,
-      'first_name': instance.first_name,
-      'last_name': instance.last_name,
-      'avatar_background_color': instance.avatar_background_color,
-      'avatar_url': instance.avatar_url,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'avatarBackgroundColor': instance.avatarBackgroundColor,
+      'avatarUrl': instance.avatarUrl,
       'content': instance.content,
-      'created_time': instance.created_time,
-      'updated_time': instance.updated_time,
+      'createdTime': instance.createdTime,
+      'updatedTime': instance.updatedTime,
     };

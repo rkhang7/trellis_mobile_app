@@ -62,7 +62,7 @@ class BoardMenuController extends GetxController {
   bool currentUserIsAdmin() {
     if (listMember.isNotEmpty) {
       for (BoardMemberDetailResponse boardMemberDetailResponse in listMember) {
-        if (boardMemberDetailResponse.member_id ==
+        if (boardMemberDetailResponse.memberId ==
             dashBoardController.currentId) {
           return true;
         }
@@ -88,7 +88,7 @@ class BoardMenuController extends GetxController {
         color: listLabelColor[
                 listLabelColor.indexWhere((element) => element.isSelect)]
             .color,
-        boardId: currentBoard!.board_id);
+        boardId: currentBoard!.boardId);
 
     labelRepository.createLabel(labelRequest).then(
       (value) {
@@ -122,16 +122,14 @@ class BoardMenuController extends GetxController {
         color: listLabelColor[
                 listLabelColor.indexWhere((element) => element.isSelect)]
             .color,
-        boardId: currentBoard!.board_id);
+        boardId: currentBoard!.boardId);
 
     labelRepository.updateLabel(labelId, labelRequest).then(
       (value) {
         labelNameController.clear();
-        listLabel[
-                listLabel.indexWhere((element) => element.label_id == labelId)]
+        listLabel[listLabel.indexWhere((element) => element.labelId == labelId)]
             .color = value.color;
-        listLabel[
-                listLabel.indexWhere((element) => element.label_id == labelId)]
+        listLabel[listLabel.indexWhere((element) => element.labelId == labelId)]
             .name = value.name;
         listLabel.refresh();
         EasyLoading.dismiss();
@@ -156,7 +154,7 @@ class BoardMenuController extends GetxController {
   }
 
   void getListLabel() {
-    labelRepository.getLabelsInBoard(currentBoard!.board_id).then((value) {
+    labelRepository.getLabelsInBoard(currentBoard!.boardId).then((value) {
       listLabel.assignAll(value);
     });
   }

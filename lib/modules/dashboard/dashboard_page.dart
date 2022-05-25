@@ -105,7 +105,7 @@ class DashBoardPage extends StatelessWidget {
           final boardResponse = dashBoardController.listBoards[index];
           return InkWell(
             onTap: () async {
-              dashBoardController.boardIdSelected = boardResponse.board_id;
+              dashBoardController.boardIdSelected = boardResponse.boardId;
               await Get.toNamed(
                 AppRoutes.DETAIL_BOARD,
                 parameters: {
@@ -118,7 +118,7 @@ class DashBoardPage extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: HexColor(boardResponse.background_color),
+                    color: HexColor(boardResponse.backgroundColor),
                   ),
                 ),
                 Positioned(
@@ -127,7 +127,7 @@ class DashBoardPage extends StatelessWidget {
                         borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10)),
-                        color: HexColor(boardResponse.background_dark_color),
+                        color: HexColor(boardResponse.backgroundDarkColor),
                       ),
                       height: 50,
                       child: Padding(

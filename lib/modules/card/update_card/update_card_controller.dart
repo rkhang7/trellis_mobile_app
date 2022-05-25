@@ -39,19 +39,19 @@ class UpdateCardController extends GetxController {
   final cardDescriptionController = TextEditingController();
   final cardRepository = Get.find<CardRepository>();
   var cardUpdate = CardResponse(
-    card_id: -1,
+    cardId: -1,
     name: "name",
     description: "description",
     position: -1,
-    start_date: -1,
-    due_date: -1,
+    startDate: -1,
+    dueDate: -1,
     reminder: -1,
-    list_id: -1,
-    is_complete: false,
-    created_time: -1,
-    updated_time: -1,
-    list_name: "",
-    created_by: "",
+    listId: -1,
+    isComplete: false,
+    createdTime: -1,
+    updatedTime: -1,
+    listName: "",
+    createdBy: "",
     members: [],
     tasks: [],
     labels: [],
@@ -116,15 +116,15 @@ class UpdateCardController extends GetxController {
       name: cardNameController.text.trim(),
       description: cardUpdate.value.description,
       position: cardUpdate.value.position,
-      startDate: cardUpdate.value.start_date,
-      dueDate: cardUpdate.value.due_date,
+      startDate: cardUpdate.value.startDate,
+      dueDate: cardUpdate.value.dueDate,
       reminder: cardUpdate.value.reminder,
-      listId: cardUpdate.value.list_id,
-      createdBy: cardUpdate.value.created_by,
-      isComplete: cardUpdate.value.is_complete,
+      listId: cardUpdate.value.listId,
+      createdBy: cardUpdate.value.createdBy,
+      isComplete: cardUpdate.value.isComplete,
     );
 
-    cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {
+    cardRepository.updateCard(cardUpdate.value.cardId, newCard).then((value) {
       EasyLoading.dismiss();
 
       EasyLoading.showSuccess("update_success".tr);
@@ -157,15 +157,15 @@ class UpdateCardController extends GetxController {
       name: cardUpdate.value.name,
       description: cardDescriptionController.text.trim(),
       position: cardUpdate.value.position,
-      startDate: cardUpdate.value.start_date,
-      dueDate: cardUpdate.value.due_date,
+      startDate: cardUpdate.value.startDate,
+      dueDate: cardUpdate.value.dueDate,
       reminder: cardUpdate.value.reminder,
-      listId: cardUpdate.value.list_id,
-      createdBy: cardUpdate.value.created_by,
-      isComplete: cardUpdate.value.is_complete,
+      listId: cardUpdate.value.listId,
+      createdBy: cardUpdate.value.createdBy,
+      isComplete: cardUpdate.value.isComplete,
     );
 
-    cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {
+    cardRepository.updateCard(cardUpdate.value.cardId, newCard).then((value) {
       EasyLoading.dismiss();
 
       EasyLoading.showSuccess("update_success".tr);
@@ -211,22 +211,22 @@ class UpdateCardController extends GetxController {
       description: cardUpdate.value.description,
       position: cardUpdate.value.position,
       startDate: startDate.toUtc().millisecondsSinceEpoch,
-      dueDate: cardUpdate.value.due_date,
+      dueDate: cardUpdate.value.dueDate,
       reminder: cardUpdate.value.reminder,
-      listId: cardUpdate.value.list_id,
-      createdBy: cardUpdate.value.created_by,
-      isComplete: cardUpdate.value.is_complete,
+      listId: cardUpdate.value.listId,
+      createdBy: cardUpdate.value.createdBy,
+      isComplete: cardUpdate.value.isComplete,
     );
 
-    cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {
+    cardRepository.updateCard(cardUpdate.value.cardId, newCard).then((value) {
       EasyLoading.dismiss();
 
       EasyLoading.showSuccess("update_success".tr);
 
       startDatePicker.value =
-          DateTime.fromMillisecondsSinceEpoch(value.start_date);
+          DateTime.fromMillisecondsSinceEpoch(value.startDate);
 
-      cardUpdate.value.start_date = value.start_date;
+      cardUpdate.value.startDate = value.startDate;
 
       Get.back();
 
@@ -297,22 +297,22 @@ class UpdateCardController extends GetxController {
       name: cardUpdate.value.name,
       description: cardUpdate.value.description,
       position: cardUpdate.value.position,
-      startDate: cardUpdate.value.due_date,
+      startDate: cardUpdate.value.dueDate,
       dueDate: endDate.toUtc().millisecondsSinceEpoch,
       reminder: reminderDate.toUtc().millisecondsSinceEpoch,
-      listId: cardUpdate.value.list_id,
-      createdBy: cardUpdate.value.created_by,
-      isComplete: cardUpdate.value.is_complete,
+      listId: cardUpdate.value.listId,
+      createdBy: cardUpdate.value.createdBy,
+      isComplete: cardUpdate.value.isComplete,
     );
 
-    cardRepository.updateCard(cardUpdate.value.card_id, newCard).then((value) {
+    cardRepository.updateCard(cardUpdate.value.cardId, newCard).then((value) {
       EasyLoading.dismiss();
 
       EasyLoading.showSuccess("update_success".tr);
 
-      endDatePicker.value = DateTime.fromMillisecondsSinceEpoch(value.due_date);
+      endDatePicker.value = DateTime.fromMillisecondsSinceEpoch(value.dueDate);
 
-      cardUpdate.value.due_date = value.due_date;
+      cardUpdate.value.dueDate = value.dueDate;
       cardUpdate.value.reminder = value.reminder;
 
       Get.back();
@@ -390,9 +390,9 @@ class UpdateCardController extends GetxController {
     cardNameController.text = cardUpdate.value.name;
     cardDescriptionController.text = cardUpdate.value.description;
     startDatePicker.value =
-        DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.start_date);
+        DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.startDate);
     endDatePicker.value =
-        DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.due_date);
+        DateTime.fromMillisecondsSinceEpoch(cardUpdate.value.dueDate);
 
     String startHour = startDatePicker.value.hour < 10
         ? "0${startDatePicker.value.hour}"
@@ -476,7 +476,7 @@ class UpdateCardController extends GetxController {
 
   bool labelIsExistInCard(int labelId) {
     for (LabelResponse labelResponse in cardUpdate.value.labels) {
-      if (labelResponse.label_id == labelId) {
+      if (labelResponse.labelId == labelId) {
         return true;
       }
     }
@@ -489,7 +489,7 @@ class UpdateCardController extends GetxController {
       // remove member
       memberRepository
           .removeMemberInCard(
-              uid, cardUpdate.value.card_id, dashBoardController.currentId)
+              uid, cardUpdate.value.cardId, dashBoardController.currentId)
           .then((value) {
         cardUpdate.value.members.removeWhere((element) => element.uid == uid);
         cardUpdate.refresh();
@@ -516,7 +516,7 @@ class UpdateCardController extends GetxController {
           .createMemberIntoCard(
               CardMemberRequest(
                 memberId: uid,
-                cardId: cardUpdate.value.card_id,
+                cardId: cardUpdate.value.cardId,
               ),
               dashBoardController.currentId)
           .then((value) {
@@ -548,7 +548,7 @@ class UpdateCardController extends GetxController {
     TaskRequest taskRequest = TaskRequest(
         name: taskNameController.text,
         position: cardUpdate.value.tasks.length,
-        cardId: cardUpdate.value.card_id,
+        cardId: cardUpdate.value.cardId,
         isComplete: false,
         createdBy: dashBoardController.currentId);
 
@@ -592,15 +592,15 @@ class UpdateCardController extends GetxController {
     TaskRequest taskRequest = TaskRequest(
         name: task.name,
         position: task.position,
-        cardId: task.card_id,
+        cardId: task.cardId,
         isComplete: isComplete,
         createdBy: dashBoardController.currentId);
 
-    taskRepository.updateTask(task.task_id, taskRequest).then((value) {
+    taskRepository.updateTask(task.taskId, taskRequest).then((value) {
       EasyLoading.dismiss();
 
-      cardUpdate.value.tasks[findTaskIndexById(task.task_id)].is_complete =
-          value.is_complete;
+      cardUpdate.value.tasks[findTaskIndexById(task.taskId)].isComplete =
+          value.isComplete;
 
       cardUpdate.refresh();
 
@@ -624,14 +624,14 @@ class UpdateCardController extends GetxController {
 
   int findTaskIndexById(int taskId) {
     return cardUpdate.value.tasks
-        .indexWhere((element) => element.task_id == taskId);
+        .indexWhere((element) => element.taskId == taskId);
   }
 
   int getLengthTaskIsComplete() {
     int total = 0;
     cardUpdate.value.tasks.forEach(
       (element) {
-        if (element.is_complete) {
+        if (element.isComplete) {
           total++;
         }
       },
@@ -645,8 +645,8 @@ class UpdateCardController extends GetxController {
     TaskRequest taskRequest = TaskRequest(
         name: listTaskNameController[findTaskIndexById(taskId)].text,
         position: task.position,
-        cardId: task.card_id,
-        isComplete: task.is_complete,
+        cardId: task.cardId,
+        isComplete: task.isComplete,
         createdBy: dashBoardController.currentId);
 
     taskRepository.updateTask(taskId, taskRequest).then((value) {

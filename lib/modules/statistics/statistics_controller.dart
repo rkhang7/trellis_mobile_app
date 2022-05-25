@@ -14,7 +14,7 @@ class StatisticsController extends GetxController {
   final cardRepository = Get.find<CardRepository>();
   final dashBoardController = Get.find<DashBoardController>();
   var statistics =
-      StatisticsResponse(total: 0, completed: 0, in_completed: 0).obs;
+      StatisticsResponse(total: 0, completed: 0, inCompleted: 0).obs;
 
   var dataMap = {
     "complete".tr: 5.1,
@@ -45,7 +45,7 @@ class StatisticsController extends GetxController {
       (value) {
         statistics.value = value;
         dataMap["complete".tr] = value.completed.toDouble();
-        dataMap["incomplete".tr] = value.in_completed.toDouble();
+        dataMap["incomplete".tr] = value.inCompleted.toDouble();
         dataMap.refresh();
         EasyLoading.dismiss();
       },

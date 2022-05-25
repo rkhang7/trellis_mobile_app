@@ -33,12 +33,12 @@ class _DrawerComponentState extends State<DrawerComponent> {
   var userResponse = UserResponse(
       uid: "uid",
       email: "email",
-      first_name: "first_name",
-      last_name: "last_name",
-      avatar_background_color: "ffffff",
-      created_time: 1,
-      updated_time: 1,
-      avatar_url: "");
+      firstName: "first_name",
+      lastName: "last_name",
+      avatarBackgroundColor: "ffffff",
+      createdTime: 1,
+      updatedTime: 1,
+      avatarURL: "");
 
   var workspaces = <WorkSpaceResponse>[];
 
@@ -83,7 +83,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 currentUser!.providerData[0].providerId == "password"
                     ? CachedNetworkImage(
                         imageUrl:
-                            "https://ui-avatars.com/api/?name=${userResponse.first_name}+${userResponse.last_name}&&size=120&&rounded=true&&background=${userResponse.avatar_background_color}&&color=ffffff&&bold=true",
+                            "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true",
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
                         errorWidget: (context, url, error) {
@@ -93,7 +93,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                     : Image.network(currentUser!.photoURL.toString())
                         .cornerRadiusWithClipRRect(50),
             accountName: currentUser!.providerData[0].providerId == "password"
-                ? Text("${userResponse.first_name} ${userResponse.last_name}",
+                ? Text("${userResponse.firstName} ${userResponse.lastName}",
                     style: boldTextStyle(color: Colors.white, size: 16))
                 : Text(currentUser!.displayName.toString(),
                     style: boldTextStyle(color: Colors.white, size: 16)),
@@ -142,7 +142,7 @@ class _DrawerComponentState extends State<DrawerComponent> {
                               dashboardController.workspaceSelected.value =
                                   workspaces[index];
                               dashboardController.loadListBoards(
-                                  workspaces[index].workspace_id);
+                                  workspaces[index].workspaceId);
                               Get.back();
                             },
                             child: DrawerList(

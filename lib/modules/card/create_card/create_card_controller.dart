@@ -130,7 +130,7 @@ class CreateCardController extends GetxController {
             .createMemberIntoCard(
                 CardMemberRequest(
                     memberId: dashBoardController.currentId,
-                    cardId: value.card_id),
+                    cardId: value.cardId),
                 dashBoardController.currentId)
             .then((value) {
           EasyLoading.dismiss();

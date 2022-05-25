@@ -3,16 +3,16 @@ part 'card_member_response.g.dart';
 
 @JsonSerializable()
 class CardMemberResponse {
-  String member_id;
-  int card_id;
-  int created_time;
-  int updated_time;
+  String memberId;
+  int cardId;
+  int createdTime;
+  int updatedTime;
 
   CardMemberResponse({
-    required this.member_id,
-    required this.card_id,
-    required this.created_time,
-    required this.updated_time,
+    required this.memberId,
+    required this.cardId,
+    required this.createdTime,
+    required this.updatedTime,
   });
 
   factory CardMemberResponse.fromJson(Map<String, dynamic> json) =>

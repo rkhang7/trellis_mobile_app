@@ -22,7 +22,7 @@ class RemoveMemberController extends GetxController {
 
   int getPermissionForCurrentUser() {
     for (MemberDetailResponse memberDetailResponse in listMember) {
-      if (dashBoardController.currentId == memberDetailResponse.member_id) {
+      if (dashBoardController.currentId == memberDetailResponse.memberId) {
         return memberDetailResponse.permission;
       }
     }
@@ -33,7 +33,7 @@ class RemoveMemberController extends GetxController {
     EasyLoading.show(status: "please_wait".tr);
     await memberRepository
         .removeMemberFromWorkspace(
-            uid, dashBoardController.workspaceSelected.value.workspace_id)
+            uid, dashBoardController.workspaceSelected.value.workspaceId)
         .then((value) {
       listMember.removeAt(index);
       EasyLoading.dismiss();
@@ -59,7 +59,7 @@ class RemoveMemberController extends GetxController {
     EasyLoading.show(status: "please_wait".tr);
     await memberRepository
         .removeMemberFromWorkspace(dashBoardController.currentId,
-            dashBoardController.workspaceSelected.value.workspace_id)
+            dashBoardController.workspaceSelected.value.workspaceId)
         .then((value) {
       EasyLoading.dismiss();
       Get.back();

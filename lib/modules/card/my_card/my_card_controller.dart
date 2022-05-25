@@ -17,19 +17,19 @@ class MyCardController extends GetxController {
   var dateSelected = DateTime.now().obs;
 
   final selectedCard = CardResponse(
-    card_id: -1,
+    cardId: -1,
     name: "name",
     description: "description",
     position: -1,
-    start_date: 1,
-    due_date: 1,
+    startDate: 1,
+    dueDate: 1,
     reminder: 1,
-    list_name: "",
-    list_id: -1,
-    is_complete: false,
-    created_time: 1,
-    updated_time: 1,
-    created_by: "",
+    listName: "",
+    listId: -1,
+    isComplete: false,
+    createdTime: 1,
+    updatedTime: 1,
+    createdBy: "",
     members: [],
     tasks: [],
     labels: [],
@@ -72,10 +72,10 @@ class MyCardController extends GetxController {
 
     if (Get.locale.toString() == "vi_VN") {
       var start = DateFormat('dd/MM, HH:mm')
-          .format(convertTimestampToDate(card.start_date));
+          .format(convertTimestampToDate(card.startDate));
 
       var end = DateFormat('dd/MM, HH:mm')
-          .format(convertTimestampToDate(card.due_date));
+          .format(convertTimestampToDate(card.dueDate));
       s = "$start  -  $end";
     }
 
@@ -91,7 +91,7 @@ class MyCardController extends GetxController {
     int total = 0;
     cardResponse.tasks.forEach(
       (element) {
-        if (element.is_complete) {
+        if (element.isComplete) {
           total++;
         }
       },

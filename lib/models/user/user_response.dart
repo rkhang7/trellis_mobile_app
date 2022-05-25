@@ -6,23 +6,23 @@ part 'user_response.g.dart';
 class UserResponse {
   String uid;
   String email;
-  String first_name;
-  String last_name;
-  String avatar_background_color;
-  String avatar_url;
-  int created_time;
-  int updated_time;
+  String firstName;
+  String lastName;
+  String avatarBackgroundColor;
+  String avatarURL;
+  int createdTime;
+  int updatedTime;
   String? token;
 
   UserResponse({
     required this.uid,
     required this.email,
-    required this.first_name,
-    required this.last_name,
-    required this.avatar_background_color,
-    required this.avatar_url,
-    required this.created_time,
-    required this.updated_time,
+    required this.firstName,
+    required this.lastName,
+    required this.avatarBackgroundColor,
+    required this.avatarURL,
+    required this.createdTime,
+    required this.updatedTime,
     this.token,
   });
 
@@ -32,6 +32,6 @@ class UserResponse {
 
   @override
   String toString() {
-    return 'UserResponse(uid: $uid, email: $email, first_name: $first_name, last_name: $last_name, avatar_background_color: $avatar_background_color, created_time: $created_time, updated_time: $updated_time)';
+    return 'UserResponse(uid: $uid, email: $email, first_name: $firstName, last_name: $lastName, avatar_background_color: $avatarBackgroundColor, created_time: $createdTime, updated_time: $updatedTime)';
   }
 }

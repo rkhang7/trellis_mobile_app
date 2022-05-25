@@ -20,7 +20,7 @@ class BoardBackgroundController extends GetxController {
     selectListBackgroundColor(dashBoardController
         .listBoards[dashBoardController
             .findIndexBoardById(dashBoardController.boardIdSelected)]
-        .background_color);
+        .backgroundColor);
     super.onInit();
   }
 
@@ -38,9 +38,8 @@ class BoardBackgroundController extends GetxController {
     listMyColor.refresh();
     int indexBoard = dashBoardController
         .findIndexBoardById(dashBoardController.boardIdSelected);
-    dashBoardController.listBoards[indexBoard].background_color = primaryColor;
-    dashBoardController.listBoards[indexBoard].background_dark_color =
-        darkColor;
+    dashBoardController.listBoards[indexBoard].backgroundColor = primaryColor;
+    dashBoardController.listBoards[indexBoard].backgroundDarkColor = darkColor;
     dashBoardController.listBoards.refresh();
     detailBoardController.backgroundColor.value = primaryColor;
     detailBoardController.appBarColor.value = darkColor;
@@ -53,8 +52,8 @@ class BoardBackgroundController extends GetxController {
         description: dashBoardController.listBoards[indexBoard].description,
         closed: dashBoardController.listBoards[indexBoard].closed,
         visibility: dashBoardController.listBoards[indexBoard].visibility,
-        workspaceId: dashBoardController.listBoards[indexBoard].workspace_id,
-        createdBy: dashBoardController.listBoards[indexBoard].created_by,
+        workspaceId: dashBoardController.listBoards[indexBoard].workspaceId,
+        createdBy: dashBoardController.listBoards[indexBoard].createdBy,
         backgroundColor: primaryColor,
         backgroundDarkColor: darkColor,
       ),
