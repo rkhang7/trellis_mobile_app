@@ -90,7 +90,7 @@ class InviteMemberController extends GetxController {
             firstName: userResponse.firstName,
             lastName: userResponse.lastName,
             avatarBackgroundColor: userResponse.avatarBackgroundColor,
-            avatarUrl: userResponse.avatarURL,
+            avatarURL: userResponse.avatarURL,
             createdTime: userResponse.createdTime,
             updatedTime: userResponse.updatedTime),
       );

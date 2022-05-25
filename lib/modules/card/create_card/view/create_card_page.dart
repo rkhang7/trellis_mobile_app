@@ -105,7 +105,7 @@ class CreateCardPage extends StatelessWidget {
         text: TextSpan(
           children: [
             TextSpan(
-              text: "${'add_card'.tr} ${'into'.tr} ",
+              text: "${'add_card'.tr} ${'into_the'.tr} ",
               style: boldTextStyle(
                 color: Colors.white,
                 size: 18,
@@ -184,7 +184,7 @@ class CreateCardPage extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.blue,
                       letterSpacing: 3,
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -199,7 +199,7 @@ class CreateCardPage extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.blue,
                     letterSpacing: 3,
-                    fontSize: 16,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -296,7 +296,7 @@ class CreateCardPage extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.blue,
                       letterSpacing: 3,
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -311,7 +311,7 @@ class CreateCardPage extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.blue,
                     letterSpacing: 3,
-                    fontSize: 16,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -330,7 +330,7 @@ class CreateCardPage extends StatelessWidget {
   _buildDropdownDateStartDate() {
     var datePicker = createCardController.startDatePicker;
     return SizedBox(
-      width: 540.w,
+      width: 600.w,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -475,7 +475,7 @@ class CreateCardPage extends StatelessWidget {
   _buildDropdownDateEndDate() {
     var datePicker = createCardController.endDatePicker;
     return SizedBox(
-      width: 540.w,
+      width: 600.w,
       child: DropdownButton(
         underline: Container(
           height: 1,

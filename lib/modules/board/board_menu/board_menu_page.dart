@@ -1,19 +1,20 @@
 import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/modules/board/board_menu/board_menu_controller.dart';
+import 'package:trellis_mobile_app/utils/colors.dart';
 
 import '../../../routes/app_routes.dart';
 
 class BoardMenuPage extends StatelessWidget {
   BoardMenuPage({Key? key}) : super(key: key);
   final boardMenuController = Get.find<BoardMenuController>();
-  get backgroundColor => null;
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +122,9 @@ class BoardMenuPage extends StatelessWidget {
                       color: Colors.white,
                       child: ClipOval(
                         child: CachedNetworkImage(
-                          imageUrl: userResponse.avatarUrl.isEmpty
+                          imageUrl: userResponse.avatarURL.isEmpty
                               ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
-                              : userResponse.avatarUrl,
+                              : userResponse.avatarURL,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) {
@@ -218,36 +219,39 @@ class BoardMenuPage extends StatelessWidget {
   }
 
   _buildDeleteBoardArea(BuildContext context) {
-    return Visibility(
-      visible: true,
-      child: InkWell(
-        onTap: () {
-          dialog.AwesomeDialog(
-            context: context,
-            dialogType: dialog.DialogType.WARNING,
-            animType: dialog.AnimType.BOTTOMSLIDE,
-            title: 'delete_board'.tr,
-            desc: 'are_you_sure_delete_this_board'.tr,
-            btnCancelOnPress: () {},
-            btnOkOnPress: () {},
-          ).show();
-        },
-        child: Container(
-          color: Colors.white,
-          padding: const EdgeInsets.only(left: 18),
-          height: 200.h,
-          child: Row(
-            children: [
-              Icon(
-                Icons.delete,
-                size: 72.sp,
-                color: Colors.red,
-              ),
-              SizedBox(width: 60.w),
-              Text("delete_board".tr,
-                  style: TextStyle(fontSize: 64.sp, color: Colors.red)),
-            ],
-          ),
+    return InkWell(
+      onTap: () {
+        dialog.AwesomeDialog(
+          context: context,
+          dialogType: dialog.DialogType.WARNING,
+          animType: dialog.AnimType.BOTTOMSLIDE,
+          title: 'delete_board'.tr,
+          desc: 'are_you_sure_delete_this_board'.tr,
+          btnCancelOnPress: () {},
+          btnOkOnPress: () {
+            if (boardMenuController.getPermissionForCurrentUser() == 1) {
+              boardMenuController.deleteBoard();
+            } else {
+              EasyLoading.showError("only_admin_delete_board".tr);
+            }
+          },
+        ).show();
+      },
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(left: 18),
+        height: 200.h,
+        child: Row(
+          children: [
+            Icon(
+              Icons.delete,
+              size: 72.sp,
+              color: Colors.red,
+            ),
+            SizedBox(width: 60.w),
+            Text("delete_board".tr,
+                style: TextStyle(fontSize: 64.sp, color: Colors.red)),
+          ],
         ),
       ),
     );
@@ -512,9 +516,9 @@ class BoardMenuPage extends StatelessWidget {
                           CachedNetworkImage(
                             height: 45,
                             width: 45,
-                            imageUrl: historical.avatarUrl.isEmpty
+                            imageUrl: historical.avatarURL.isEmpty
                                 ? "https://ui-avatars.com/api/?name=${historical.firstName}+${historical.lastName}&&size=120&&rounded=true&&background=${historical.avatarBackgroundColor}&&color=ffffff&&bold=true"
-                                : historical.avatarUrl,
+                                : historical.avatarURL,
                             placeholder: (context, url) =>
                                 const CircularProgressIndicator(),
                             errorWidget: (context, url, error) {

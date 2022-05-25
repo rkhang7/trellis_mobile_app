@@ -218,6 +218,8 @@ class Messages extends Translations {
           'delete_board': 'Delete board',
           'are_you_sure_delete_this_list': "Are you sure delete this list",
           'at': 'at',
+          'are_you_sure_delete_this_board': "Are you sure delete this board? ",
+          'only_admin_delete_board': "Only admin can delete this board",
 
           // update card page
           'edit_card_name': 'Edit name',
@@ -453,8 +455,13 @@ class Messages extends Translations {
           'board_setting': "Chỉnh sửa bảng",
           'background_color': "Màu nền",
           'delete_board': 'Xóa bảng',
-          'are_you_sure_delete_this_list': "Bạn có chắc chắn xóa danh sách này",
+          'are_you_sure_delete_this_list':
+              "Bạn có chắc chắn xóa danh sách này không? ",
           'at': "lúc",
+          'are_you_sure_delete_this_board':
+              "Bạn có chắc chắc xóa bảng này không? ",
+          'only_admin_delete_board':
+              "Chỉ có thể người quản trị mới có thể xóa bảng này",
 
           // update card page
           'edit_card_name': 'Chỉnh sửa tên',

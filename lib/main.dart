@@ -130,8 +130,11 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         initialRoute: AppRoutes.SPLASH_SCREEN,
-        builder: (context, child) {
-          return EasyLoading.init()(context, child);
+        builder: (ctx, child) {
+          child = EasyLoading.init()(ctx, child);
+          ScreenUtil.setContext(ctx);
+
+          return child;
         },
         localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
       ),

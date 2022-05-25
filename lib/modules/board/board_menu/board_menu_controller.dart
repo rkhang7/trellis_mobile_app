@@ -59,18 +59,13 @@ class BoardMenuController extends GetxController {
     });
   }
 
-  bool currentUserIsAdmin() {
-    if (listMember.isNotEmpty) {
-      for (BoardMemberDetailResponse boardMemberDetailResponse in listMember) {
-        if (boardMemberDetailResponse.memberId ==
-            dashBoardController.currentId) {
-          return true;
-        }
+  int getPermissionForCurrentUser() {
+    for (BoardMemberDetailResponse memberDetailResponse in listMember) {
+      if (dashBoardController.currentId == memberDetailResponse.memberId) {
+        return memberDetailResponse.permission;
       }
-      return false;
-    } else {
-      return false;
     }
+    return -1;
   }
 
   void changeBackgroundBoard(int index) {
@@ -79,6 +74,36 @@ class BoardMenuController extends GetxController {
     }
     listLabelColor[index].isSelect = true;
     listLabelColor.refresh();
+  }
+
+  void deleteBoard() {
+    EasyLoading.show(status: "please_wait".tr);
+    boardRepository.deleteBoard(dashBoardController.boardIdSelected).then(
+      (value) {
+        EasyLoading.dismiss();
+
+        dashBoardController.listBoards.refresh();
+        dashBoardController.listBoards.removeAt(dashBoardController.listBoards
+            .indexWhere((element) =>
+                element.boardId == dashBoardController.boardIdSelected));
+        Get.back();
+        Get.back();
+      },
+    ).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
   }
 
   void createLabel() {

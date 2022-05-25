@@ -116,9 +116,9 @@ class RemoveBoardMemberPage extends StatelessWidget {
             child: ListTile(
               leading: ClipOval(
                 child: CachedNetworkImage(
-                  imageUrl: userResponse.avatarUrl.isEmpty
+                  imageUrl: userResponse.avatarURL.isEmpty
                       ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
-                      : userResponse.avatarUrl,
+                      : userResponse.avatarURL,
                   placeholder: (context, url) =>
                       const CircularProgressIndicator(),
                   errorWidget: (context, url, error) {
@@ -160,9 +160,9 @@ class RemoveBoardMemberPage extends StatelessWidget {
         ListTile(
           leading: ClipOval(
             child: CachedNetworkImage(
-              imageUrl: userResponse.avatarUrl.isEmpty
+              imageUrl: userResponse.avatarURL.isEmpty
                   ? "https://ui-avatars.com/api/?name=${userResponse.firstName}+${userResponse.lastName}&&size=120&&rounded=true&&background=${userResponse.avatarBackgroundColor}&&color=ffffff&&bold=true"
-                  : userResponse.avatarUrl,
+                  : userResponse.avatarURL,
               placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) {
                 return const Icon(Icons.error);

@@ -388,10 +388,10 @@ class DetailBoardPage extends StatelessWidget {
             style: const TextStyle(color: Colors.green),
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.image_outlined),
-        ),
+        // IconButton(
+        //   onPressed: () {},
+        //   icon: const Icon(Icons.image_outlined),
+        // ),
       ],
     );
   }
@@ -578,7 +578,7 @@ class DetailBoardPage extends StatelessWidget {
     return Get.bottomSheet(
       Container(
         padding: EdgeInsets.all(16),
-        height: 600.h,
+        height: 650.h,
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

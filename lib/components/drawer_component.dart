@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -215,40 +216,56 @@ class _DrawerComponentState extends State<DrawerComponent> {
     );
   }
 
-  void _openConfirmDialog() {
-    Get.defaultDialog(
-      title: "are_you_sure_logout".tr,
-      titlePadding: const EdgeInsets.only(left: 32, right: 32, top: 32),
-      titleStyle: TextStyle(
-        color: Colors.grey.shade700,
-        fontSize: 18,
+  void _openConfirmDialog() async {
+    //   Get.defaultDialog(
+    //     title: "are_you_sure_logout".tr,
+    //     titlePadding: const EdgeInsets.only(left: 32, right: 32, top: 32),
+    //     titleStyle: TextStyle(
+    //       color: Colors.grey.shade700,
+    //       fontSize: 18,
+    //     ),
+    //     radius: 5,
+    //     content: Container(),
+    //     confirm: GestureDetector(
+    //       onTap: () async {
+    //         authService.logout();
+    //       },
+    //       child: Container(
+    //         margin: const EdgeInsets.only(left: 32, bottom: 12),
+    //         child: Text(
+    //           "yes".tr,
+    //           style: const TextStyle(color: Colors.black),
+    //         ),
+    //       ),
+    //     ),
+    //     cancel: GestureDetector(
+    //       onTap: () {
+    //         Get.back();
+    //       },
+    //       child: Container(
+    //         margin: const EdgeInsets.only(left: 64),
+    //         child: Text(
+    //           "no".tr,
+    //           style: const TextStyle(color: Colors.black),
+    //         ),
+    //       ),
+    //     ),
+    //   );
+
+    if (await confirm(
+      context,
+      // title: Text("are_you_sure_logout".tr),
+      content: Text("are_you_sure_logout".tr),
+      textOK: Text(
+        'yes'.tr,
+        style: TextStyle(fontSize: 64.sp),
       ),
-      radius: 5,
-      content: Container(),
-      confirm: GestureDetector(
-        onTap: () async {
-          authService.logout();
-        },
-        child: Container(
-          margin: const EdgeInsets.only(left: 32, bottom: 12),
-          child: Text(
-            "yes".tr,
-            style: const TextStyle(color: Colors.black),
-          ),
-        ),
+      textCancel: Text(
+        'no'.tr,
+        style: TextStyle(fontSize: 64.sp),
       ),
-      cancel: GestureDetector(
-        onTap: () {
-          Get.back();
-        },
-        child: Container(
-          margin: const EdgeInsets.only(left: 64),
-          child: Text(
-            "no".tr,
-            style: const TextStyle(color: Colors.black),
-          ),
-        ),
-      ),
-    );
+    )) {
+      authService.logout();
+    }
   }
 }

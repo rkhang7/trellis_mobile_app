@@ -16,7 +16,7 @@ MemberDetailResponse _$MemberDetailResponseFromJson(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       avatarBackgroundColor: json['avatarBackgroundColor'] as String,
-      avatarUrl: json['avatarUrl'] as String,
+      avatarURL: json['avatarURL'] as String,
       createdTime: json['createdTime'] as int,
       updatedTime: json['updatedTime'] as int,
     );
@@ -31,7 +31,7 @@ Map<String, dynamic> _$MemberDetailResponseToJson(
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'avatarBackgroundColor': instance.avatarBackgroundColor,
-      'avatarUrl': instance.avatarUrl,
+      'avatarURL': instance.avatarURL,
       'createdTime': instance.createdTime,
       'updatedTime': instance.updatedTime,
     };

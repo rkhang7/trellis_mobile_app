@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 
@@ -68,7 +70,7 @@ class CreateCardController extends GetxController {
 
     switch (reminderCode.value) {
       case 0:
-        reminderDate = DateTime.now();
+        reminderDate = endDate;
         break;
       case 1:
         reminderDate = endDate.subtract(const Duration(minutes: 5));
@@ -92,7 +94,7 @@ class CreateCardController extends GetxController {
         reminderDate = endDate.subtract(const Duration(days: 2));
         break;
       default:
-        reminderDate = DateTime.now();
+        reminderDate = endDate;
         break;
     }
 
@@ -117,7 +119,7 @@ class CreateCardController extends GetxController {
       createdBy: dashBoardController.currentId,
       isComplete: false,
     );
-
+    log(jsonEncode(cardRequest));
     cardRepository.createCard(cardRequest).then((value) {
       // insert to first index list workspace
 

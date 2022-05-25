@@ -99,7 +99,10 @@ class CreateBoardController extends GetxController {
       EasyLoading.showSuccess("create_success".tr);
 
       // insert to first index list workspace
-      dashBoardController.listBoards.insert(0, value);
+      if (value.workspaceId ==
+          dashBoardController.workspaceSelected.value.workspaceId) {
+        dashBoardController.listBoards.insert(0, value);
+      }
 
       Get.back();
     }).catchError((Object obj) {

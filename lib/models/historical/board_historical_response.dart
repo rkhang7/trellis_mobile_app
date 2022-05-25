@@ -9,7 +9,7 @@ class BoardHistoricalResponse {
   String firstName;
   String lastName;
   String avatarBackgroundColor;
-  String avatarUrl;
+  String avatarURL;
   String content;
   int createdTime;
   int updatedTime;
@@ -21,7 +21,7 @@ class BoardHistoricalResponse {
     required this.firstName,
     required this.lastName,
     required this.avatarBackgroundColor,
-    required this.avatarUrl,
+    required this.avatarURL,
     required this.content,
     required this.createdTime,
     required this.updatedTime,
