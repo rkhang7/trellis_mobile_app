@@ -104,18 +104,18 @@ class _DrawerComponentState extends State<DrawerComponent> {
           ListView(
             shrinkWrap: true,
             children: [
-              DrawerList(
-                leading: const Icon(FontAwesomeIcons.table),
-                title: "boards".tr,
-                onTap: () {
-                  Get.back();
-                },
-              ),
-              DrawerList(
-                leading: const Icon(Icons.home),
-                title: "home".tr,
-                onTap: () {},
-              ),
+              // DrawerList(
+              //   leading: const Icon(FontAwesomeIcons.table),
+              //   title: "boards".tr,
+              //   onTap: () {
+              //     Get.back();
+              //   },
+              // ),
+              // DrawerList(
+              //   leading: const Icon(Icons.home),
+              //   title: "home".tr,
+              //   onTap: () {},
+              // ),
               const Divider(
                 height: 2,
                 color: Colors.grey,

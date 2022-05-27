@@ -68,6 +68,11 @@ abstract class RestClient {
       @Path("workspaceId") int workspaceId,
       @Body() WorkSpaceRequest workSpaceRequest);
 
+  @DELETE("/workspaces/{workspaceId}")
+  Future<void> deleteWorkspace(
+    @Path("workspaceId") int workspaceId,
+  );
+
   // member
   @POST("/members")
   Future<MemberResponse> createMemberIntoWorkspace(

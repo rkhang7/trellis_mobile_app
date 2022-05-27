@@ -23,4 +23,9 @@ class WorkspaceRepository {
     final client = RestClient(dio);
     return await client.updateWorkspace(workspaceId, workSpaceRequest);
   }
+
+  Future<void> deleteWorkspace(int workspaceId) async {
+    final client = RestClient(dio);
+    return await client.deleteWorkspace(workspaceId);
+  }
 }

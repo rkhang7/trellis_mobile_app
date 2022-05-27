@@ -61,6 +61,7 @@ class RemoveMemberController extends GetxController {
         .removeMemberFromWorkspace(dashBoardController.currentId,
             dashBoardController.workspaceSelected.value.workspaceId)
         .then((value) {
+      dashBoardController.initWorkspace();
       EasyLoading.dismiss();
       Get.back();
       Get.back();

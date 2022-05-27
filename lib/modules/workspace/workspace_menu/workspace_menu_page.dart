@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 import 'package:trellis_mobile_app/utils/colors.dart';
-
+import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'workspace_menu_controller.dart';
 
 class WorkspaceMenuPage extends StatelessWidget {
@@ -31,6 +32,10 @@ class WorkspaceMenuPage extends StatelessWidget {
               height: 80.h,
             ),
             _buildWorkspaceSettingArea(),
+            SizedBox(
+              height: 80.h,
+            ),
+            _buildDeleteWorkspaceArea(context),
           ],
         ),
       ),
@@ -164,6 +169,47 @@ class WorkspaceMenuPage extends StatelessWidget {
         style: boldTextStyle(color: Colors.white, size: 18),
       ),
       elevation: 2,
+    );
+  }
+
+  _buildDeleteWorkspaceArea(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        dialog.AwesomeDialog(
+          context: context,
+          dialogType: dialog.DialogType.WARNING,
+          animType: dialog.AnimType.BOTTOMSLIDE,
+          title: 'delete_workspace'.tr,
+          desc: 'are_you_sure_delete_this_workspace'.tr,
+          btnCancelOnPress: () {},
+          btnOkOnPress: () {
+            if (workspaceMenuController.getPermissionForCurrentUser() == 1) {
+              workspaceMenuController.deleteWorkspace();
+            } else {
+              EasyLoading.showError("only_admin_delete_board".tr);
+            }
+          },
+        ).show();
+      },
+      child: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.only(left: 18),
+        height: 200.h,
+        child: Row(
+          children: [
+            Icon(
+              Icons.delete,
+              size: 72.sp,
+              color: Colors.red,
+            ),
+            SizedBox(width: 60.w),
+            Text(
+              "delete_workspace".tr,
+              style: TextStyle(fontSize: 64.sp, color: Colors.red),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

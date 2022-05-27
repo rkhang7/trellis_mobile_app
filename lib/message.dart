@@ -194,6 +194,9 @@ class Messages extends Translations {
           'workspace_menu': 'Workspace menu',
           'invite': 'Invite',
           'workspace_setting': "Workspace setting",
+          'delete_workspace': "Delete workspace",
+          'are_you_sure_delete_this_workspace':
+              "Are you sure delete this workspace?",
 
           // invite member page
           'add_members': 'Invite members',
@@ -433,6 +436,9 @@ class Messages extends Translations {
           'workspace_menu': "Menu không gian làm việc",
           'invite': 'Mời',
           'workspace_setting': "Chỉnh sửa Không gian làm việc",
+          'delete_workspace': "Xóa không gian làm việc",
+          'are_you_sure_delete_this_workspace':
+              "Bạn có chắc chắc xóa không gian làm việc này không?",
 
           // invite member page
           'add_members': 'Mời các thành viên',

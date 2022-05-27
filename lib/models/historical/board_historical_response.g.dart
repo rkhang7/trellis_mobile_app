@@ -30,7 +30,7 @@ Map<String, dynamic> _$BoardHistoricalResponseToJson(
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'avatarBackgroundColor': instance.avatarBackgroundColor,
-      'avatarUrl': instance.avatarURL,
+      'avatarURL': instance.avatarURL,
       'content': instance.content,
       'createdTime': instance.createdTime,
       'updatedTime': instance.updatedTime,
