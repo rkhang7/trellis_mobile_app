@@ -88,7 +88,7 @@ class WalkThroughPage extends StatelessWidget {
                           height: 200.h,
                           child: ElevatedButton(
                             onPressed: () async {
-                              await openBottomSheetSignUp();
+                              Get.toNamed(AppRoutes.SIGN_UP);
                             },
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -239,29 +239,29 @@ class WalkThroughPage extends StatelessWidget {
     );
   }
 
-  Future<dynamic> openBottomSheetSignUp() {
-    return Get.bottomSheet(Container(
-      height: 480.h,
-      width: Get.width,
-      color: Colors.white,
-      child: Column(
-        children: [
-          buildItemAuth(
-            label: "signUpEmailLabel".tr,
-            iconPath: "assets/icons/email.png",
-            onClick: () {
-              Get.toNamed(AppRoutes.SIGN_UP);
-            },
-          ),
-          buildItemAuth(
-            label: "signUpGoogleLabel".tr,
-            iconPath: "assets/icons/google.png",
-            onClick: () {},
-          ),
-        ],
-      ),
-    ));
-  }
+  // Future<dynamic> openBottomSheetSignUp() {
+  //   return Get.bottomSheet(Container(
+  //     height: 480.h,
+  //     width: Get.width,
+  //     color: Colors.white,
+  //     child: Column(
+  //       children: [
+  //         buildItemAuth(
+  //           label: "signUpEmailLabel".tr,
+  //           iconPath: "assets/icons/email.png",
+  //           onClick: () {
+  //             Get.toNamed(AppRoutes.SIGN_UP);
+  //           },
+  //         ),
+  //         buildItemAuth(
+  //           label: "signUpGoogleLabel".tr,
+  //           iconPath: "assets/icons/google.png",
+  //           onClick: () {},
+  //         ),
+  //       ],
+  //     ),
+  //   ));
+  // }
 
   Future<dynamic> openBottomSheetSignIn() {
     return Get.bottomSheet(Container(

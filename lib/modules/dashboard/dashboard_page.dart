@@ -167,12 +167,12 @@ class DashBoardPage extends StatelessWidget {
             onPressed: () {
               Get.toNamed(AppRoutes.SEARCH_BOARD);
             }),
-        IconButton(
-          icon: const Icon(Icons.notifications_none, color: iconColorPrimary),
-          onPressed: () {
-            Get.toNamed(AppRoutes.NOTIFICATION);
-          },
-        ),
+        // IconButton(
+        //   icon: const Icon(Icons.notifications_none, color: iconColorPrimary),
+        //   onPressed: () {
+        //     Get.toNamed(AppRoutes.NOTIFICATION);
+        //   },
+        // ),
         IconButton(
           onPressed: () {
             if (dashBoardController.listWorkspace.isEmpty) {

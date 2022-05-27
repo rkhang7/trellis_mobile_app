@@ -82,7 +82,7 @@ class CreateCardPage extends StatelessWidget {
                             10.height,
                             _buildEndDate(),
                             20.height,
-                            _buildAttachment(),
+                            // _buildAttachment(),
                           ],
                         ),
                       ),

@@ -520,6 +520,7 @@ class UpdateCardController extends GetxController {
               ),
               dashBoardController.currentId)
           .then((value) {
+        cardUpdate.value.members.clear();
         cardUpdate.value.members.add(value);
         cardUpdate.refresh();
         listMemberInBoard.refresh();

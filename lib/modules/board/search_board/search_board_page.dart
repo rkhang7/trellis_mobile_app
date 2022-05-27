@@ -124,7 +124,11 @@ class SearchBoardPage extends StatelessWidget {
                   ),
                   Text(
                     boardResponse.name,
-                    style: TextStyle(color: Colors.black, fontSize: 64.sp),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 64.sp,
+                      overflow: TextOverflow.fade,
+                    ),
                   ),
                 ],
               ),

@@ -150,19 +150,19 @@ class DetailBoardPage extends StatelessWidget {
             } else {
               return Row(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      toast('Coming Soon');
-                    },
-                    icon: const Icon(Icons.search, color: iconColorPrimary),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.NOTIFICATION);
-                    },
-                    icon: const Icon(Icons.notifications_none_outlined,
-                        color: iconColorPrimary),
-                  ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     toast('Coming Soon');
+                  //   },
+                  //   icon: const Icon(Icons.search, color: iconColorPrimary),
+                  // ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     Get.toNamed(AppRoutes.NOTIFICATION);
+                  //   },
+                  //   icon: const Icon(Icons.notifications_none_outlined,
+                  //       color: iconColorPrimary),
+                  // ),
                   IconButton(
                     onPressed: () {
                       Get.toNamed(AppRoutes.BOARD_MENU);

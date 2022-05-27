@@ -48,10 +48,10 @@ class BoardMenuPage extends StatelessWidget {
                 height: 80.h,
               ),
               _buildBackgroundColorArea(),
-              SizedBox(
-                height: 80.h,
-              ),
-              _buildEditLabelArea(context),
+              // SizedBox(
+              //   height: 80.h,
+              // ),
+              // _buildEditLabelArea(context),
               SizedBox(
                 height: 80.h,
               ),
