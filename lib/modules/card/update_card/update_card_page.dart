@@ -57,7 +57,10 @@ class UpdateCardPage extends StatelessWidget {
               SizedBox(
                 height: 50.h,
               ),
-              _buildImageArea(),
+              Obx(
+                () => _buildImageArea(),
+              ),
+
               SizedBox(
                 height: 50.h,
               ),

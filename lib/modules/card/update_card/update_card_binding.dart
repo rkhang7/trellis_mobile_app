@@ -5,6 +5,6 @@ import 'package:trellis_mobile_app/modules/card/update_card/update_card_controll
 class UpdateCardBiding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => UpdateCardController());
+    Get.lazyPut(() => UpdateCardController(), fenix: true);
   }
 }

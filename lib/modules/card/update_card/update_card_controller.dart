@@ -32,7 +32,7 @@ class UpdateCardController extends GetxController {
   final memberRepository = Get.find<MemberRepository>();
   final labelRepository = Get.find<LabelRepository>();
   final taskRepository = Get.find<TaskRepository>();
-  final fileRepository = Get.find<FileRepository>();
+  // final fileRepository = Get.find<FileRepository>();
   final pickerService = Get.find<PickerService>();
   final dashBoardController = Get.find<DashBoardController>();
   final cardNameController = TextEditingController();

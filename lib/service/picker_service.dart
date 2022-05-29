@@ -30,6 +30,7 @@ class PickerService extends GetxService {
       final ImagePicker _picker = ImagePicker();
       file = await _picker.pickImage(source: ImageSource.camera);
       fileRepository.uploadImage(file!, cardId);
+      Get.back();
     }
 
     return file;

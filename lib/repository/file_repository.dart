@@ -8,8 +8,15 @@ import 'package:trellis_mobile_app/models/file/file_response.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_controller.dart';
 
 class FileRepository {
-  // final updateCardController = getX.Get.find<UpdateCardController>();
+  final updateCardController = getX.Get.find<UpdateCardController>();
   void uploadImage(XFile file, int cardId) async {
+    FileResponse fileResponse = FileResponse(
+        id: -1,
+        cardId: -1,
+        name: "",
+        url: "url",
+        createdTime: 1,
+        updatedTime: 1);
     String fileName = file.path.split('/').last;
 
     FormData data = FormData.fromMap({
@@ -21,7 +28,7 @@ class FileRepository {
 
     Dio dio = Dio();
 
-    dio
+    await dio
         .post("http://10.0.2.2:8080/storage/uploadFile?cardId=$cardId",
             data: data)
         .then(
@@ -30,13 +37,14 @@ class FileRepository {
 
         var _item = FileResponse.fromJson(map);
 
-        // updateCardController.cardUpdate.value.cardAttachments.add(_item);
-        // updateCardController.cardUpdate.refresh();
+        fileResponse = _item;
 
-        log(jsonEncode(_item));
+        log(jsonEncode(fileResponse));
       },
-    ).catchError(
-      (error) => print(error),
     );
+
+    updateCardController.cardUpdate.value.cardAttachments
+        .insert(0, fileResponse);
+    updateCardController.cardUpdate.refresh();
   }
 }
