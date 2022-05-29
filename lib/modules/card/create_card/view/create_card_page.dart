@@ -762,56 +762,56 @@ class CreateCardPage extends StatelessWidget {
     Get.back();
   }
 
-  _buildAttachment() {
-    return Row(
-      children: [
-        const Icon(Icons.attach_file),
-        10.width,
-        GestureDetector(
-          onTap: () {
-            Get.defaultDialog(
-                radius: 5,
-                title: "attach_from".tr,
-                contentPadding:
-                    const EdgeInsets.only(left: 24, top: 12, right: 24),
-                content: Column(
-                  children: [
-                    AttachItem(
-                      icon: Icons.camera_alt_outlined,
-                      title: "camera".tr,
-                      onClick: () {
-                        createCardController.pickImageFromCamera();
-                      },
-                    ),
-                    30.height,
-                    AttachItem(
-                      icon: Icons.attach_file,
-                      title: "file".tr,
-                      onClick: () {
-                        createCardController.pickFile();
-                      },
-                    ),
-                    30.height,
-                    AttachItem(
-                      icon: FontAwesomeIcons.externalLinkAlt,
-                      title: "attach_link".tr,
-                      onClick: () {},
-                    ),
-                    30.height,
-                    AttachItem(
-                      icon: Icons.table_chart_outlined,
-                      title: "Trello",
-                      onClick: () {},
-                    ),
-                  ],
-                ));
-          },
-          child: Text(
-            "${"attachment".tr}...",
-            style: primaryTextStyle(color: Colors.black),
-          ),
-        )
-      ],
-    );
-  }
+  // _buildAttachment() {
+  //   return Row(
+  //     children: [
+  //       const Icon(Icons.attach_file),
+  //       10.width,
+  //       GestureDetector(
+  //         onTap: () {
+  //           Get.defaultDialog(
+  //               radius: 5,
+  //               title: "attach_from".tr,
+  //               contentPadding:
+  //                   const EdgeInsets.only(left: 24, top: 12, right: 24),
+  //               content: Column(
+  //                 children: [
+  //                   AttachItem(
+  //                     icon: Icons.camera_alt_outlined,
+  //                     title: "camera".tr,
+  //                     onClick: () {
+  //                       createCardController.pickImageFromCamera();
+  //                     },
+  //                   ),
+  //                   30.height,
+  //                   AttachItem(
+  //                     icon: Icons.attach_file,
+  //                     title: "file".tr,
+  //                     onClick: () {
+  //                       createCardController.pickFile();
+  //                     },
+  //                   ),
+  //                   30.height,
+  //                   AttachItem(
+  //                     icon: FontAwesomeIcons.externalLinkAlt,
+  //                     title: "attach_link".tr,
+  //                     onClick: () {},
+  //                   ),
+  //                   30.height,
+  //                   AttachItem(
+  //                     icon: Icons.table_chart_outlined,
+  //                     title: "Trello",
+  //                     onClick: () {},
+  //                   ),
+  //                 ],
+  //               ));
+  //         },
+  //         child: Text(
+  //           "${"attachment".tr}...",
+  //           style: primaryTextStyle(color: Colors.black),
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
 }

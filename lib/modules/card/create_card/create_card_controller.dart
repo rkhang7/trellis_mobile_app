@@ -50,14 +50,6 @@ class CreateCardController extends GetxController {
     super.onInit();
   }
 
-  void pickImageFromCamera() {
-    pickerService.pickImageFromCamera();
-  }
-
-  void pickFile() {
-    pickerService.pickFile();
-  }
-
   void createCard(int listId) {
     updateDateTime();
     var startDate = DateTime(startDateTime.year, startDateTime.month,

@@ -31,7 +31,7 @@ import 'package:trellis_mobile_app/models/workspace/workspace_response.dart';
 
 part 'rest_api.g.dart';
 
-@RestApi(baseUrl: "http://ec2-54-144-207-65.compute-1.amazonaws.com:8080")
+@RestApi(baseUrl: "http://10.0.2.2:8080")
 abstract class RestClient {
   factory RestClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);

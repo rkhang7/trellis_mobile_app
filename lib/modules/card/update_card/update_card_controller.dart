@@ -55,6 +55,7 @@ class UpdateCardController extends GetxController {
     members: [],
     tasks: [],
     labels: [],
+    cardAttachments: [],
   ).obs;
 
   var editingName = false.obs;
@@ -103,7 +104,7 @@ class UpdateCardController extends GetxController {
   }
 
   void pickImageFromCamera() {
-    XFile xFile = pickerService.pickImageFromCamera();
+    XFile xFile = pickerService.pickImageFromCamera(cardUpdate.value.cardId);
   }
 
   void pickFile() {

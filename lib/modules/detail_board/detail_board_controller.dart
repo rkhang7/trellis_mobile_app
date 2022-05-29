@@ -63,6 +63,7 @@ class DetailBoardController extends GetxController {
     members: [],
     tasks: [],
     labels: [],
+    cardAttachments: [],
   ).obs;
 
   var listMember = <BoardMemberDetailResponse>[].obs;

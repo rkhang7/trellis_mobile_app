@@ -21,7 +21,7 @@ class PickerService extends GetxService {
     return this;
   }
 
-  pickImageFromCamera() async {
+  pickImageFromCamera(int cardId) async {
     XFile? file;
     var cameraStatus = await Permission.camera.status;
     if (!cameraStatus.isGranted) {
@@ -29,7 +29,7 @@ class PickerService extends GetxService {
     } else {
       final ImagePicker _picker = ImagePicker();
       file = await _picker.pickImage(source: ImageSource.camera);
-      fileRepository.uploadImage(file!);
+      fileRepository.uploadImage(file!, cardId);
     }
 
     return file;

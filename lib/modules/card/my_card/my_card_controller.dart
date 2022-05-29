@@ -33,6 +33,7 @@ class MyCardController extends GetxController {
     members: [],
     tasks: [],
     labels: [],
+    cardAttachments: [],
   ).obs;
   @override
   void onInit() {
