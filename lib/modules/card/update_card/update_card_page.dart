@@ -1182,6 +1182,14 @@ class UpdateCardPage extends StatelessWidget {
                                 ),
                                 30.height,
                                 AttachItem(
+                                  icon: Icons.album_outlined,
+                                  title: "gallery".tr,
+                                  onClick: () {
+                                    updateCardController.pickImageFromGallery();
+                                  },
+                                ),
+                                30.height,
+                                AttachItem(
                                   icon: Icons.attach_file,
                                   title: "file".tr,
                                   onClick: () {
@@ -1528,54 +1536,60 @@ class UpdateCardPage extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            height: 100,
-            width: 500,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount:
-                  updateCardController.cardUpdate.value.cardAttachments.length,
-              itemBuilder: (context, index) {
-                FileResponse fileResponse = updateCardController
-                    .cardUpdate.value.cardAttachments[index];
-                // return PhotoView(
-                //   enableRotation: true,
-                //   backgroundDecoration: BoxDecoration(
-                //     color: Colors.white,
-                //   ),
-                //   customSize: Size(100, 100),
-                //   imageProvider: NetworkImage(fileResponse.url),
-                // );
+          updateCardController.cardUpdate.value.cardAttachments.isNotEmpty
+              ? Container(
+                  height: 100,
+                  width: 500,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: updateCardController
+                        .cardUpdate.value.cardAttachments.length,
+                    itemBuilder: (context, index) {
+                      FileResponse fileResponse = updateCardController
+                          .cardUpdate.value.cardAttachments[index];
+                      // return PhotoView(
+                      //   enableRotation: true,
+                      //   backgroundDecoration: BoxDecoration(
+                      //     color: Colors.white,
+                      //   ),
+                      //   customSize: Size(100, 100),
+                      //   imageProvider: NetworkImage(fileResponse.url),
+                      // );
 
-                // return Container(
-                //   color: index % 2 == 0 ? Colors.red : Colors.green,
-                //   height: 100,
-                //   width: 200,
-                // );
+                      // return Container(
+                      //   color: index % 2 == 0 ? Colors.red : Colors.green,
+                      //   height: 100,
+                      //   width: 200,
+                      // );
 
-                return Container(
-                  padding: EdgeInsets.all(8),
-                  child: InkWell(
-                    onTap: () {
-                      Get.toNamed(
-                        AppRoutes.VIEW_IMAGE,
-                        arguments: fileResponse.url,
-                      );
+                      if (fileResponse.url.isImage) {
+                        return Container(
+                          padding: EdgeInsets.all(8),
+                          child: InkWell(
+                            onTap: () {
+                              Get.toNamed(
+                                AppRoutes.VIEW_IMAGE,
+                                arguments: fileResponse.url,
+                              );
+                            },
+                            child: CachedNetworkImage(
+                              imageUrl: fileResponse.url,
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) {
+                                return const Icon(Icons.error);
+                              },
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
                     },
-                    child: CachedNetworkImage(
-                      imageUrl: fileResponse.url,
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      errorWidget: (context, url, error) {
-                        return const Icon(Icons.error);
-                      },
-                    ),
                   ),
-                );
-              },
-            ),
-          )
+                )
+              : Container(),
         ],
       ),
     );

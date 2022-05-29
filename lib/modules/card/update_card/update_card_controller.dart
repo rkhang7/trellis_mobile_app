@@ -107,8 +107,12 @@ class UpdateCardController extends GetxController {
     XFile xFile = pickerService.pickImageFromCamera(cardUpdate.value.cardId);
   }
 
+  void pickImageFromGallery() {
+    XFile xFile = pickerService.pickImageFromGallery(cardUpdate.value.cardId);
+  }
+
   void pickFile() {
-    pickerService.pickFile();
+    pickerService.pickFile(cardUpdate.value.cardId);
   }
 
   void updateCardName() {

@@ -36,7 +36,22 @@ class PickerService extends GetxService {
     return file;
   }
 
-  Future<File?> pickFile() async {
+  pickImageFromGallery(int cardId) async {
+    XFile? file;
+    var cameraStatus = await Permission.camera.status;
+    if (!cameraStatus.isGranted) {
+      await Permission.camera.request();
+    } else {
+      final ImagePicker _picker = ImagePicker();
+      file = await _picker.pickImage(source: ImageSource.gallery);
+      fileRepository.uploadImage(file!, cardId);
+      Get.back();
+    }
+
+    return file;
+  }
+
+  Future<File?> pickFile(int cardId) async {
     File? file;
     var storageStatus = await Permission.storage.status;
     if (!storageStatus.isGranted) {
@@ -45,6 +60,7 @@ class PickerService extends GetxService {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         file = File(result.files.single.path!);
+        fileRepository.uploadFile(file, cardId);
       } else {
         // User canceled the picker
       }

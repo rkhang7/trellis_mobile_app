@@ -125,6 +125,7 @@ class Messages extends Translations {
           'attachment': "Attachment",
           'attach_from': 'Attach from...',
           'camera': "Camera",
+          'gallery': "Gallery",
           'file': 'File',
           'attach_link': "Attach a link",
           'the_due_date_must_be_before_the_start_date':
@@ -370,6 +371,7 @@ class Messages extends Translations {
           'attachment': "Tệp đính kèm",
           'attach_from': 'Đính kèm từ...',
           'camera': "Chụp ảnh",
+          'gallery': "Bộ sưu tập",
           'file': 'Tệp',
           'attach_link': "Đính kèm liên kết",
           'the_due_date_must_be_before_the_start_date':

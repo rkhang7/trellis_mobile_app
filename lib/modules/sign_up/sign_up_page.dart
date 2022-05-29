@@ -51,12 +51,15 @@ class SignUpPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: Get.width / 2.5,
+                        width: Get.width / 2.8,
                         child: _buildFirstNameField(
                             signUpUpController.firstNameController),
                       ),
                       SizedBox(
-                        width: Get.width / 2.5,
+                        width: 20.w,
+                      ),
+                      SizedBox(
+                        width: Get.width / 2.8,
                         child: _buildLastNameField(
                             signUpUpController.lastNameController),
                       ),

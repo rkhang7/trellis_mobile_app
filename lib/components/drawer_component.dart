@@ -162,13 +162,13 @@ class _DrawerComponentState extends State<DrawerComponent> {
                 height: 2,
                 color: Colors.grey,
               ),
-              DrawerList(
-                leading: const Icon(Icons.laptop),
-                title: "my_cards".tr,
-                onTap: () {
-                  Get.toNamed(AppRoutes.MY_CARD);
-                },
-              ),
+              // DrawerList(
+              //   leading: const Icon(Icons.laptop),
+              //   title: "my_cards".tr,
+              //   onTap: () {
+              //     Get.toNamed(AppRoutes.MY_CARD);
+              //   },
+              // ),
               // DrawerList(
               //   leading: const Icon(Icons.calendar_today),
               //   title: "my_calendar".tr,

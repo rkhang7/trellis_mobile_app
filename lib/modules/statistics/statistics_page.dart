@@ -25,7 +25,7 @@ class StatisticsPage extends StatelessWidget {
                 children: [
                   Obx(
                     () => ChooseRangeDate(
-                      flex: 3,
+                      flex: 5,
                       hint: "",
                       startDate: statisticsController.startDate.value,
                       endDate: statisticsController.endDate.value,
@@ -43,7 +43,7 @@ class StatisticsPage extends StatelessWidget {
                     width: 20.w,
                   ),
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: ElevatedButton(
                       child: Text("statistics".tr),
                       onPressed: () {
