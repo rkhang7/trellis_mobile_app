@@ -12,6 +12,8 @@ import 'package:trellis_mobile_app/modules/card/my_card/my_card_binding.dart';
 import 'package:trellis_mobile_app/modules/card/my_card/my_card_page.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_binding.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_page.dart';
+import 'package:trellis_mobile_app/modules/card/view_image/view_image_binding.dart';
+import 'package:trellis_mobile_app/modules/card/view_image/view_image_page.dart';
 
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_binding.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_page.dart';
@@ -191,6 +193,11 @@ class AppPages {
       name: AppRoutes.MY_CALENDAR,
       page: () => MyCalendarPage(),
       binding: MyCalendarBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.VIEW_IMAGE,
+      page: () => ViewImagePage(),
+      binding: ViewImageBinding(),
     ),
   ];
 }

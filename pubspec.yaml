@@ -75,7 +75,8 @@ dependencies:
   pie_chart: ^5.3.0
   http: ^0.13.4
   syncfusion_flutter_calendar: ^20.1.55
-
+  photo_view: ^0.14.0
+  gallery_saver: ^2.3.2
   
   # flutter_launcher_name: ^0.0.1                                                                                                                                         
   flutter_localizations: 

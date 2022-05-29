@@ -8,11 +8,15 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:trellis_mobile_app/models/file/file_response.dart';
 import 'package:trellis_mobile_app/models/task/task_response.dart';
 import 'package:trellis_mobile_app/modules/card/create_card/view/components/attach_item.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_controller.dart';
 import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
+import 'package:trellis_mobile_app/routes/app_routes.dart';
 
 class UpdateCardPage extends StatelessWidget {
   UpdateCardPage({Key? key}) : super(key: key);
@@ -50,6 +54,10 @@ class UpdateCardPage extends StatelessWidget {
               //   height: 50.h,
               // ),
               _buildMemberArea(context),
+              SizedBox(
+                height: 50.h,
+              ),
+              _buildImageArea(),
               SizedBox(
                 height: 50.h,
               ),
@@ -1497,5 +1505,76 @@ class UpdateCardPage extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  _buildImageArea() {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(Icons.image_outlined),
+              SizedBox(width: 80.w),
+              Text(
+                "${"image".tr} (${updateCardController.cardUpdate.value.cardAttachments.length})",
+                style: TextStyle(color: Colors.black, fontSize: 64.sp),
+              )
+            ],
+          ),
+          Container(
+            height: 100,
+            width: 500,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount:
+                  updateCardController.cardUpdate.value.cardAttachments.length,
+              itemBuilder: (context, index) {
+                FileResponse fileResponse = updateCardController
+                    .cardUpdate.value.cardAttachments[index];
+                // return PhotoView(
+                //   enableRotation: true,
+                //   backgroundDecoration: BoxDecoration(
+                //     color: Colors.white,
+                //   ),
+                //   customSize: Size(100, 100),
+                //   imageProvider: NetworkImage(fileResponse.url),
+                // );
+
+                // return Container(
+                //   color: index % 2 == 0 ? Colors.red : Colors.green,
+                //   height: 100,
+                //   width: 200,
+                // );
+
+                return Container(
+                  padding: EdgeInsets.all(8),
+                  child: InkWell(
+                    onTap: () {
+                      Get.toNamed(
+                        AppRoutes.VIEW_IMAGE,
+                        arguments: fileResponse.url,
+                      );
+                    },
+                    child: CachedNetworkImage(
+                      imageUrl: fileResponse.url,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) {
+                        return const Icon(Icons.error);
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

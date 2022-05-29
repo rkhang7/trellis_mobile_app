@@ -235,6 +235,9 @@ class Messages extends Translations {
           'editing_task': 'Editing task',
           'delete': 'Delete',
           'label': 'Label',
+          'image': "Images",
+          'download_image': "Download image",
+          'download_image_success': "Download image success",
 
           // edit lable page
           'edit_label': "Edit labels",
@@ -480,6 +483,9 @@ class Messages extends Translations {
           'editing_task': 'Chỉnh sửa công việc',
           'delete': 'Xóa',
           'label': 'Nhãn',
+          'image': "Hình ảnh",
+          'download_image': "Tải hình ảnh",
+          'download_image_success': "Tải ảnh thành công",
 
           // edit lable page
           'edit_label': "Chỉnh sửa nhãn",

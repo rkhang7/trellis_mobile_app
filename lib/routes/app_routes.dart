@@ -24,4 +24,6 @@ class AppRoutes {
   static const String MY_CARD = "/my_card";
   static const String STATISTICS = "/statistics";
   static const String MY_CALENDAR = "/my_calendar";
+
+  static const String VIEW_IMAGE = "/view_image";
 }
