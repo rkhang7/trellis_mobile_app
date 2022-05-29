@@ -90,8 +90,8 @@ class CreateBoardPage extends StatelessWidget {
       isExpanded: true,
       hint: Text(
         createBoardController.selectType.value == 1
-            ? "private".tr
-            : "public".tr,
+            ? "public".tr
+            : "private".tr,
         style: const TextStyle(color: Colors.black),
       ),
       onChanged: (dynamic value) {
@@ -100,7 +100,7 @@ class CreateBoardPage extends StatelessWidget {
       items: [
         DropdownMenuItem(
             child: ListTile(
-              title: Text("private".tr),
+              title: Text("public".tr),
               leading: const Icon(
                 Icons.lock,
                 color: Colors.black,
@@ -113,7 +113,7 @@ class CreateBoardPage extends StatelessWidget {
                 Icons.group_outlined,
                 color: Colors.black,
               ),
-              title: Text("public".tr),
+              title: Text("private".tr),
             ),
             value: 2),
       ],

@@ -81,8 +81,8 @@ class UpdateBoardPage extends StatelessWidget {
       isExpanded: true,
       hint: Text(
         updateBoardController.selectedType.value == 1
-            ? "private".tr
-            : "public".tr,
+            ? "public".tr
+            : "private".tr,
         style: const TextStyle(color: Colors.black),
       ),
       onChanged: (dynamic value) {
@@ -91,7 +91,7 @@ class UpdateBoardPage extends StatelessWidget {
       items: [
         DropdownMenuItem(
             child: ListTile(
-              title: Text("private".tr),
+              title: Text("public".tr),
               leading: const Icon(
                 Icons.lock,
                 color: Colors.black,
@@ -104,7 +104,7 @@ class UpdateBoardPage extends StatelessWidget {
                 Icons.group_outlined,
                 color: Colors.black,
               ),
-              title: Text("public".tr),
+              title: Text("private".tr),
             ),
             value: 2),
       ],

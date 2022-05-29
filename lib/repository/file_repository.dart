@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart' as getX;
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -11,6 +12,7 @@ import 'package:trellis_mobile_app/modules/card/update_card/update_card_controll
 class FileRepository {
   final updateCardController = getX.Get.find<UpdateCardController>();
   void uploadImage(XFile file, int cardId) async {
+    EasyLoading.show(status: "please_wait".tr);
     FileResponse fileResponse = FileResponse(
         id: -1,
         cardId: -1,
@@ -40,7 +42,7 @@ class FileRepository {
         var _item = FileResponse.fromJson(map);
 
         fileResponse = _item;
-
+        EasyLoading.dismiss();
         log(jsonEncode(fileResponse));
       },
     );

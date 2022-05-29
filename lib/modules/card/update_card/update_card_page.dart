@@ -1188,14 +1188,14 @@ class UpdateCardPage extends StatelessWidget {
                                     updateCardController.pickImageFromGallery();
                                   },
                                 ),
-                                30.height,
-                                AttachItem(
-                                  icon: Icons.attach_file,
-                                  title: "file".tr,
-                                  onClick: () {
-                                    updateCardController.pickFile();
-                                  },
-                                ),
+                                // 30.height,
+                                // AttachItem(
+                                //   icon: Icons.attach_file,
+                                //   title: "file".tr,
+                                //   onClick: () {
+                                //     updateCardController.pickFile();
+                                //   },
+                                // ),
                               ],
                             ),
                           );
