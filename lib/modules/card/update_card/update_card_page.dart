@@ -45,10 +45,10 @@ class UpdateCardPage extends StatelessWidget {
               SizedBox(
                 height: 50.h,
               ),
-              _buildLabels(context),
-              SizedBox(
-                height: 50.h,
-              ),
+              // _buildLabels(context),
+              // SizedBox(
+              //   height: 50.h,
+              // ),
               _buildMemberArea(context),
               SizedBox(
                 height: 50.h,
@@ -331,7 +331,7 @@ class UpdateCardPage extends StatelessWidget {
                       style: const TextStyle(
                         color: Colors.blue,
                         letterSpacing: 3,
-                        fontSize: 16,
+                        fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -346,7 +346,7 @@ class UpdateCardPage extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.blue,
                       letterSpacing: 3,
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -551,7 +551,7 @@ class UpdateCardPage extends StatelessWidget {
   _buildDropdownDateEndDate() {
     var datePicker = updateCardController.endDatePicker;
     return SizedBox(
-      width: 540.w,
+      width: 560.w,
       child: DropdownButton(
         underline: Container(
           height: 1,
@@ -660,7 +660,7 @@ class UpdateCardPage extends StatelessWidget {
                     style: const TextStyle(
                       color: Colors.blue,
                       letterSpacing: 3,
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -675,7 +675,7 @@ class UpdateCardPage extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.blue,
                     letterSpacing: 3,
-                    fontSize: 16,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -795,7 +795,7 @@ class UpdateCardPage extends StatelessWidget {
   _buildDropdownDateStartDate() {
     var datePicker = updateCardController.startDatePicker;
     return SizedBox(
-      width: 540.w,
+      width: 560.w,
       child: DropdownButton(
         underline: Container(
           height: 1,

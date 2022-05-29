@@ -35,7 +35,11 @@ class WakThroughController extends GetxController {
   }
 
   Future<User?> signInByGoogleAccount() async {
-    return await authService.signInWithGoogle();
+    return await authService.signInWithGoogle().then((value) {
+      if (value != null) {
+        Get.offAllNamed(AppRoutes.DASHBOARD);
+      }
+    });
   }
 
   void checkLogin() {

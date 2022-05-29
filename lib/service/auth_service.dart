@@ -53,6 +53,8 @@ class AuthService {
                 ),
               )
               .then((value) => {saveUid(user!.uid)});
+        } else {
+          saveUid(user!.uid);
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
