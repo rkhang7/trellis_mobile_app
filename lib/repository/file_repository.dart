@@ -53,6 +53,7 @@ class FileRepository {
   }
 
   void uploadFile(File file, int cardId) async {
+    EasyLoading.show(status: "please_wait".tr);
     FileResponse fileResponse = FileResponse(
         id: -1,
         cardId: -1,
@@ -82,6 +83,8 @@ class FileRepository {
         var _item = FileResponse.fromJson(map);
 
         fileResponse = _item;
+
+        EasyLoading.dismiss();
 
         log(jsonEncode(fileResponse));
       },

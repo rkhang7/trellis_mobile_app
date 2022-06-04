@@ -239,6 +239,10 @@ class Messages extends Translations {
           'image': "Images",
           'download_image': "Download image",
           'download_image_success': "Download image success",
+          'open': "Open",
+          'failed': "Failed",
+          'canceled': 'Canceled',
+          'pending': "Pending",
 
           // edit lable page
           'edit_label': "Edit labels",
@@ -488,6 +492,10 @@ class Messages extends Translations {
           'image': "Hình ảnh",
           'download_image': "Tải hình ảnh",
           'download_image_success': "Tải ảnh thành công",
+          'open': "Mở",
+          'failed': "Lỗi",
+          'canceled': 'hủy',
+          'pending': "Đang chờ",
 
           // edit lable page
           'edit_label': "Chỉnh sửa nhãn",

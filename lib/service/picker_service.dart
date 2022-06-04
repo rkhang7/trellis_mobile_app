@@ -64,6 +64,8 @@ class PickerService extends GetxService {
       } else {
         // User canceled the picker
       }
+
+      Get.back();
     }
 
     return file;

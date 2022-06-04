@@ -1,6 +1,12 @@
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
+
+import 'package:android_path_provider/android_path_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +14,8 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -18,9 +26,48 @@ import 'package:trellis_mobile_app/modules/card/update_card/update_card_controll
 import 'package:awesome_dialog/awesome_dialog.dart' as dialog;
 import 'package:trellis_mobile_app/routes/app_routes.dart';
 
-class UpdateCardPage extends StatelessWidget {
+class UpdateCardPage extends StatefulWidget {
   UpdateCardPage({Key? key}) : super(key: key);
+
+  @override
+  State<UpdateCardPage> createState() => _UpdateCardPageState();
+}
+
+class _UpdateCardPageState extends State<UpdateCardPage> {
   final updateCardController = Get.find<UpdateCardController>();
+  List<_TaskInfo>? _tasks;
+  late List<_ItemHolder> _items;
+  late bool _isLoading;
+  late bool _permissionReady;
+  late String _localPath;
+  final ReceivePort _port = ReceivePort();
+  @override
+  void initState() {
+    super.initState();
+
+    _bindBackgroundIsolate();
+
+    FlutterDownloader.registerCallback(downloadCallback);
+
+    _isLoading = true;
+    _permissionReady = false;
+
+    _prepare();
+  }
+
+  @override
+  void dispose() {
+    _unbindBackgroundIsolate();
+    super.dispose();
+  }
+
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort send =
+        IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    send.send([id, status, progress]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +108,10 @@ class UpdateCardPage extends StatelessWidget {
                 () => _buildImageArea(),
               ),
 
+              Obx(
+                () => _buildFileArea(),
+              ),
+
               SizedBox(
                 height: 50.h,
               ),
@@ -77,6 +128,209 @@ class UpdateCardPage extends StatelessWidget {
       ),
       appBar: _buildAppBar(),
     );
+  }
+
+  Widget _buildDownloadList() => Container(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          children: _items
+              .map((item) => item.task == null
+                  ? _buildListSection(item.name!)
+                  : DownloadItem(
+                      data: item,
+                      onItemClick: (task) {
+                        _openDownloadedFile(task).then((success) {
+                          if (!success) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Cannot open this file'),
+                              ),
+                            );
+                          }
+                        });
+                      },
+                      onActionClick: (task) {
+                        if (task.status == DownloadTaskStatus.undefined) {
+                          _requestDownload(task);
+                        } else if (task.status == DownloadTaskStatus.running) {
+                          _pauseDownload(task);
+                        } else if (task.status == DownloadTaskStatus.paused) {
+                          _resumeDownload(task);
+                        } else if (task.status == DownloadTaskStatus.complete) {
+                          _delete(task);
+                        } else if (task.status == DownloadTaskStatus.failed) {
+                          _retryDownload(task);
+                        }
+                      },
+                    ))
+              .toList(),
+        ),
+      );
+
+  Widget _buildListSection(String title) => Container(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.blue,
+          fontSize: 18,
+          overflow: TextOverflow.visible,
+        ),
+      ));
+  Future<bool> _openDownloadedFile(_TaskInfo? task) {
+    if (task != null) {
+      return FlutterDownloader.open(taskId: task.taskId!);
+    } else {
+      return Future.value(false);
+    }
+  }
+
+  void _delete(_TaskInfo task) async {
+    await FlutterDownloader.remove(
+        taskId: task.taskId!, shouldDeleteContent: true);
+    await _prepare();
+    setState(() {});
+  }
+
+  void _requestDownload(_TaskInfo task) async {
+    task.taskId = await FlutterDownloader.enqueue(
+      url: task.link!,
+      headers: {"auth": "test_for_sql_encoding"},
+      savedDir: _localPath,
+      showNotification: true,
+      openFileFromNotification: true,
+      saveInPublicStorage: true,
+    );
+  }
+
+  // Not used in the example.
+  // void _cancelDownload(_TaskInfo task) async {
+  //   await FlutterDownloader.cancel(taskId: task.taskId!);
+  // }
+
+  void _pauseDownload(_TaskInfo task) async {
+    await FlutterDownloader.pause(taskId: task.taskId!);
+  }
+
+  void _resumeDownload(_TaskInfo task) async {
+    String? newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
+    task.taskId = newTaskId;
+  }
+
+  void _retryDownload(_TaskInfo task) async {
+    String? newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
+    task.taskId = newTaskId;
+  }
+
+  void _bindBackgroundIsolate() {
+    bool isSuccess = IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'downloader_send_port');
+    if (!isSuccess) {
+      _unbindBackgroundIsolate();
+      _bindBackgroundIsolate();
+      return;
+    }
+    _port.listen((dynamic data) {
+      String? id = data[0];
+      DownloadTaskStatus? status = data[1];
+      int? progress = data[2];
+
+      if (_tasks != null && _tasks!.isNotEmpty) {
+        final task = _tasks!.firstWhere((task) => task.taskId == id);
+        setState(() {
+          task.status = status;
+          task.progress = progress;
+        });
+      }
+    });
+  }
+
+  void _unbindBackgroundIsolate() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+  }
+
+  Future<void> _prepare() async {
+    final tasks = await FlutterDownloader.loadTasks();
+
+    int count = 0;
+    _tasks = [];
+    _items = [];
+    updateCardController.getListDocument().length;
+    _tasks!.addAll(
+      updateCardController.getListDocument().map(
+            (file) => _TaskInfo(name: file.name, link: file.url),
+          ),
+    );
+
+    for (int i = count; i < _tasks!.length; i++) {
+      _items.add(_ItemHolder(name: _tasks![i].name, task: _tasks![i]));
+      count++;
+    }
+
+    for (var task in tasks!) {
+      for (_TaskInfo info in _tasks!) {
+        if (info.link == task.url) {
+          info.taskId = task.taskId;
+          info.status = task.status;
+          info.progress = task.progress;
+        }
+      }
+    }
+
+    _permissionReady = await _checkPermission();
+
+    if (_permissionReady) {
+      await _prepareSaveDir();
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _prepareSaveDir() async {
+    _localPath = (await _findLocalPath())!;
+    final savedDir = Directory(_localPath);
+    bool hasExisted = await savedDir.exists();
+    if (!hasExisted) {
+      savedDir.create();
+    }
+  }
+
+  Future<String?> _findLocalPath() async {
+    String? externalStorageDirPath;
+    if (Platform.isAndroid) {
+      try {
+        externalStorageDirPath = await AndroidPathProvider.downloadsPath;
+      } catch (e) {
+        final directory = await getExternalStorageDirectory();
+        externalStorageDirPath = directory?.path;
+      }
+    } else if (Platform.isIOS) {
+      externalStorageDirPath =
+          (await getApplicationDocumentsDirectory()).absolute.path;
+    }
+    return externalStorageDirPath;
+  }
+
+  Future<bool> _checkPermission() async {
+    if (Platform.isIOS) return true;
+
+    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if (true) {
+      final status = await Permission.storage.status;
+      if (status != PermissionStatus.granted) {
+        final result = await Permission.storage.request();
+        if (result == PermissionStatus.granted) {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+    return false;
   }
 
   _buildAppBar() {
@@ -1180,22 +1434,22 @@ class UpdateCardPage extends StatelessWidget {
                                     updateCardController.pickImageFromCamera();
                                   },
                                 ),
-                                30.height,
-                                AttachItem(
-                                  icon: Icons.album_outlined,
-                                  title: "gallery".tr,
-                                  onClick: () {
-                                    updateCardController.pickImageFromGallery();
-                                  },
-                                ),
                                 // 30.height,
                                 // AttachItem(
-                                //   icon: Icons.attach_file,
-                                //   title: "file".tr,
+                                //   icon: Icons.album_outlined,
+                                //   title: "gallery".tr,
                                 //   onClick: () {
-                                //     updateCardController.pickFile();
+                                //     updateCardController.pickImageFromGallery();
                                 //   },
                                 // ),
+                                30.height,
+                                AttachItem(
+                                  icon: Icons.attach_file,
+                                  title: "file".tr,
+                                  onClick: () {
+                                    updateCardController.pickFile();
+                                  },
+                                ),
                               ],
                             ),
                           );
@@ -1531,7 +1785,7 @@ class UpdateCardPage extends StatelessWidget {
               const Icon(Icons.image_outlined),
               SizedBox(width: 80.w),
               Text(
-                "${"image".tr} (${updateCardController.cardUpdate.value.cardAttachments.length})",
+                "${"image".tr} (${updateCardController.cardUpdate.value.cardAttachments.where((element) => element.url.isImage).length})",
                 style: TextStyle(color: Colors.black, fontSize: 64.sp),
               )
             ],
@@ -1548,20 +1802,6 @@ class UpdateCardPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       FileResponse fileResponse = updateCardController
                           .cardUpdate.value.cardAttachments[index];
-                      // return PhotoView(
-                      //   enableRotation: true,
-                      //   backgroundDecoration: BoxDecoration(
-                      //     color: Colors.white,
-                      //   ),
-                      //   customSize: Size(100, 100),
-                      //   imageProvider: NetworkImage(fileResponse.url),
-                      // );
-
-                      // return Container(
-                      //   color: index % 2 == 0 ? Colors.red : Colors.green,
-                      //   height: 100,
-                      //   width: 200,
-                      // );
 
                       if (fileResponse.url.isImage) {
                         return Container(
@@ -1593,5 +1833,247 @@ class UpdateCardPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildNoPermissionWarning() => Container(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                child: Text(
+                  'Please grant accessing storage permission to continue -_-',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.blueGrey, fontSize: 18.0),
+                ),
+              ),
+              const SizedBox(
+                height: 32.0,
+              ),
+              TextButton(
+                  onPressed: () {
+                    _retryRequestPermission();
+                  },
+                  child: const Text(
+                    'Retry',
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0),
+                  ))
+            ],
+          ),
+        ),
+      );
+
+  Future<void> _retryRequestPermission() async {
+    final hasGranted = await _checkPermission();
+
+    if (hasGranted) {
+      await _prepareSaveDir();
+    }
+
+    setState(() {
+      _permissionReady = hasGranted;
+    });
+  }
+
+  _buildFileArea() {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Icon(Icons.image_outlined),
+              SizedBox(width: 80.w),
+              Text(
+                "${"file".tr} (${updateCardController.cardUpdate.value.cardAttachments.where((element) => !element.url.isImage).length})",
+                style: TextStyle(color: Colors.black, fontSize: 64.sp),
+              )
+            ],
+          ),
+          updateCardController.cardUpdate.value.cardAttachments.isNotEmpty
+              ? Container(
+                  height: 200,
+                  width: 500,
+                  child: Builder(
+                      builder: (context) => _isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : _permissionReady
+                              ? _buildDownloadList()
+                              : _buildNoPermissionWarning()),
+                )
+              : Container(),
+        ],
+      ),
+    );
+  }
+}
+
+class _TaskInfo {
+  final String? name;
+  final String? link;
+
+  String? taskId;
+  int? progress = 0;
+  DownloadTaskStatus? status = DownloadTaskStatus.undefined;
+
+  _TaskInfo({this.name, this.link});
+}
+
+class _ItemHolder {
+  final String? name;
+  final _TaskInfo? task;
+
+  _ItemHolder({this.name, this.task});
+}
+
+class DownloadItem extends StatelessWidget {
+  final _ItemHolder? data;
+  final Function(_TaskInfo?)? onItemClick;
+  final Function(_TaskInfo)? onActionClick;
+
+  DownloadItem({this.data, this.onItemClick, this.onActionClick});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+      child: InkWell(
+        onTap: data!.task!.status == DownloadTaskStatus.complete
+            ? () {
+                onItemClick!(data!.task);
+              }
+            : null,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: 64.0,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      data!.name!,
+                      maxLines: 1,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: _buildActionForTask(data!.task!),
+                  ),
+                ],
+              ),
+            ),
+            data!.task!.status == DownloadTaskStatus.running ||
+                    data!.task!.status == DownloadTaskStatus.paused
+                ? Positioned(
+                    left: 0.0,
+                    right: 0.0,
+                    bottom: 0.0,
+                    child: LinearProgressIndicator(
+                      value: data!.task!.progress! / 100,
+                    ),
+                  )
+                : Container()
+          ].toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget? _buildActionForTask(_TaskInfo task) {
+    if (task.status == DownloadTaskStatus.undefined) {
+      return RawMaterialButton(
+        onPressed: () {
+          onActionClick!(task);
+        },
+        child: const Icon(Icons.file_download),
+        shape: const CircleBorder(),
+        constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0),
+      );
+    } else if (task.status == DownloadTaskStatus.running) {
+      return RawMaterialButton(
+        onPressed: () {
+          onActionClick!(task);
+        },
+        child: const Icon(
+          Icons.pause,
+          color: Colors.red,
+        ),
+        shape: CircleBorder(),
+        constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0),
+      );
+    } else if (task.status == DownloadTaskStatus.paused) {
+      return RawMaterialButton(
+        onPressed: () {
+          onActionClick!(task);
+        },
+        child: const Icon(
+          Icons.play_arrow,
+          color: Colors.green,
+        ),
+        shape: const CircleBorder(),
+        constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0),
+      );
+    } else if (task.status == DownloadTaskStatus.complete) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            'open'.tr,
+            style: const TextStyle(color: Colors.green),
+          ),
+          RawMaterialButton(
+            onPressed: () {
+              onActionClick!(task);
+            },
+            child: const Icon(
+              Icons.delete_forever,
+              color: Colors.red,
+            ),
+            shape: const CircleBorder(),
+            constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0),
+          )
+        ],
+      );
+    } else if (task.status == DownloadTaskStatus.canceled) {
+      return Text('canceled'.tr, style: TextStyle(color: Colors.red));
+    } else if (task.status == DownloadTaskStatus.failed) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text('failed'.tr, style: const TextStyle(color: Colors.red)),
+          RawMaterialButton(
+            onPressed: () {
+              onActionClick!(task);
+            },
+            child: const Icon(
+              Icons.refresh,
+              color: Colors.green,
+            ),
+            shape: const CircleBorder(),
+            constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0),
+          )
+        ],
+      );
+    } else if (task.status == DownloadTaskStatus.enqueued) {
+      return Text('pending'.tr, style: TextStyle(color: Colors.orange));
+    } else {
+      return null;
+    }
   }
 }

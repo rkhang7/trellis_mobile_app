@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.1"
+  android_path_provider:
+    dependency: "direct main"
+    description:
+      name: android_path_provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   animations:
     dependency: "direct main"
     description:
@@ -454,6 +461,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
+  flutter_downloader:
+    dependency: "direct main"
+    description:
+      name: flutter_downloader
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.7.4"
   flutter_easyloading:
     dependency: "direct main"
     description:
@@ -890,12 +904,12 @@ packages:
     source: hosted
     version: "1.0.0"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.10"
   path_provider_android:
     dependency: transitive
     description:

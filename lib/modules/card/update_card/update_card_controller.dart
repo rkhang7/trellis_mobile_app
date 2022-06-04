@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/card/card_request.dart';
 import 'package:trellis_mobile_app/models/card/card_response.dart';
+import 'package:trellis_mobile_app/models/file/file_response.dart';
 import 'package:trellis_mobile_app/models/label/label_response.dart';
 import 'package:trellis_mobile_app/models/list/list_response.dart';
 import 'package:trellis_mobile_app/models/member/board_member_detail_response.dart';
@@ -734,5 +735,11 @@ class UpdateCardController extends GetxController {
           break;
       }
     });
+  }
+
+  List<FileResponse> getListDocument() {
+    return cardUpdate.value.cardAttachments
+        .where((element) => !element.url.isImage)
+        .toList();
   }
 }
