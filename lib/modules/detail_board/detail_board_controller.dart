@@ -95,6 +95,7 @@ class DetailBoardController extends GetxController {
   }
 
   void initData() async {
+    EasyLoading.show(status: 'loading'.tr);
     await listRepository
         .getListsInBoard(dashBoardController.boardIdSelected)
         .then(
@@ -106,6 +107,8 @@ class DetailBoardController extends GetxController {
         initListNameCardController();
         initListNameCardAdding();
         initListCardScrollController();
+
+        EasyLoading.dismiss();
       },
     );
   }

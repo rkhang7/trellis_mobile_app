@@ -15,6 +15,7 @@ class Messages extends Translations {
           'in_list': "In list",
           'no_have_tasks': "No have task",
           'please_check_your': "Please check your mail and verify email",
+          'loading': "Loading...",
 
           // walk through page
           'sign_in': 'Log in',
@@ -265,6 +266,7 @@ class Messages extends Translations {
           'in_list': "Trong danh sách",
           'no_have_tasks': "Không có công việc nào",
           'please_check_your': "Vui lòng kiểm tra email và xác minh email",
+          'loading': "Đang tải...",
 
           // walk through page
           'sign_in': 'Đăng nhập',

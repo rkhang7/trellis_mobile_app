@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:trellis_mobile_app/models/board/board_response.dart';
 import 'package:trellis_mobile_app/models/user/user_request.dart';
@@ -80,10 +81,12 @@ class DashBoardController extends GetxController {
   }
 
   void loadListBoards(int workspaceId) async {
+    EasyLoading.show(status: 'loading'.tr);
     await boardRepository
         .getListBoardsInWorkspace(workspaceId, currentId, "")
         .then((value) {
       listBoards.assignAll(value);
+      EasyLoading.dismiss();
     });
   }
 
