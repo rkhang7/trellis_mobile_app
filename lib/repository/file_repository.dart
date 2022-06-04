@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:trellis_mobile_app/models/file/file_response.dart';
 import 'package:trellis_mobile_app/modules/card/update_card/update_card_controller.dart';
+import 'package:trellis_mobile_app/modules/card/update_card/update_card_page.dart';
 
 class FileRepository {
   final updateCardController = getX.Get.find<UpdateCardController>();
@@ -43,13 +44,28 @@ class FileRepository {
 
         fileResponse = _item;
         EasyLoading.dismiss();
+
+        updateCardController.cardUpdate.value.cardAttachments
+            .insert(0, fileResponse);
+        updateCardController.cardUpdate.refresh();
         log(jsonEncode(fileResponse));
       },
-    );
+    ).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
 
-    updateCardController.cardUpdate.value.cardAttachments
-        .insert(0, fileResponse);
-    updateCardController.cardUpdate.refresh();
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
+    ;
   }
 
   void uploadFile(File file, int cardId) async {
@@ -84,14 +100,51 @@ class FileRepository {
 
         fileResponse = _item;
 
+        updateCardController.cardUpdate.value.cardAttachments
+            .insert(0, fileResponse);
+        // int count = 0;
+        // var _tasks = [];
+
+        // _tasks.addAll(
+        //   updateCardController.getListDocument().map(
+        //         (file) => TaskInfo(name: file.name, link: file.url),
+        //       ),
+        // );
+
+        // _tasks.insert(0, TaskInfo(name: fileResponse.name, link: fileResponse.url));
+
+        // for (int i = 0; i < _tasks!.length; i++) {
+        //   updateCardController.items
+        //       .add(ItemHolder(name: _tasks![i].name, task: _tasks![i]));
+        //   count++;
+        // }
+        updateCardController.items.insert(
+          0,
+          ItemHolder(
+            name: fileResponse.name,
+            task: TaskInfo(name: fileResponse.name, link: fileResponse.url),
+          ),
+        );
+        updateCardController.cardUpdate.refresh();
+
         EasyLoading.dismiss();
 
         log(jsonEncode(fileResponse));
       },
-    );
+    ).catchError((Object obj) {
+      switch (obj.runtimeType) {
+        case DioError:
+          // Here's the sample to get the failed response error code and message
+          EasyLoading.dismiss();
 
-    updateCardController.cardUpdate.value.cardAttachments
-        .insert(0, fileResponse);
-    updateCardController.cardUpdate.refresh();
+          EasyLoading.showError("error".tr);
+          break;
+        default:
+          EasyLoading.dismiss();
+
+          EasyLoading.showError("error".tr);
+          break;
+      }
+    });
   }
 }

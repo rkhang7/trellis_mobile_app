@@ -35,8 +35,8 @@ class UpdateCardPage extends StatefulWidget {
 
 class _UpdateCardPageState extends State<UpdateCardPage> {
   final updateCardController = Get.find<UpdateCardController>();
-  List<_TaskInfo>? _tasks;
-  late List<_ItemHolder> _items;
+  List<TaskInfo>? _tasks;
+
   late bool _isLoading;
   late bool _permissionReady;
   late String _localPath;
@@ -133,7 +133,7 @@ class _UpdateCardPageState extends State<UpdateCardPage> {
   Widget _buildDownloadList() => Container(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          children: _items
+          children: updateCardController.items
               .map((item) => item.task == null
                   ? _buildListSection(item.name!)
                   : DownloadItem(
@@ -178,7 +178,7 @@ class _UpdateCardPageState extends State<UpdateCardPage> {
           overflow: TextOverflow.visible,
         ),
       ));
-  Future<bool> _openDownloadedFile(_TaskInfo? task) {
+  Future<bool> _openDownloadedFile(TaskInfo? task) {
     if (task != null) {
       return FlutterDownloader.open(taskId: task.taskId!);
     } else {
@@ -186,14 +186,14 @@ class _UpdateCardPageState extends State<UpdateCardPage> {
     }
   }
 
-  void _delete(_TaskInfo task) async {
+  void _delete(TaskInfo task) async {
     await FlutterDownloader.remove(
         taskId: task.taskId!, shouldDeleteContent: true);
     await _prepare();
     setState(() {});
   }
 
-  void _requestDownload(_TaskInfo task) async {
+  void _requestDownload(TaskInfo task) async {
     task.taskId = await FlutterDownloader.enqueue(
       url: task.link!,
       headers: {"auth": "test_for_sql_encoding"},
@@ -209,16 +209,16 @@ class _UpdateCardPageState extends State<UpdateCardPage> {
   //   await FlutterDownloader.cancel(taskId: task.taskId!);
   // }
 
-  void _pauseDownload(_TaskInfo task) async {
+  void _pauseDownload(TaskInfo task) async {
     await FlutterDownloader.pause(taskId: task.taskId!);
   }
 
-  void _resumeDownload(_TaskInfo task) async {
+  void _resumeDownload(TaskInfo task) async {
     String? newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
     task.taskId = newTaskId;
   }
 
-  void _retryDownload(_TaskInfo task) async {
+  void _retryDownload(TaskInfo task) async {
     String? newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
     task.taskId = newTaskId;
   }
@@ -255,21 +255,22 @@ class _UpdateCardPageState extends State<UpdateCardPage> {
 
     int count = 0;
     _tasks = [];
-    _items = [];
+    updateCardController.items.value = [];
     updateCardController.getListDocument().length;
     _tasks!.addAll(
       updateCardController.getListDocument().map(
-            (file) => _TaskInfo(name: file.name, link: file.url),
+            (file) => TaskInfo(name: file.name, link: file.url),
           ),
     );
 
-    for (int i = count; i < _tasks!.length; i++) {
-      _items.add(_ItemHolder(name: _tasks![i].name, task: _tasks![i]));
+    for (int i = 0; i < _tasks!.length; i++) {
+      updateCardController.items
+          .add(ItemHolder(name: _tasks![i].name, task: _tasks![i]));
       count++;
     }
 
     for (var task in tasks!) {
-      for (_TaskInfo info in _tasks!) {
+      for (TaskInfo info in _tasks!) {
         if (info.link == task.url) {
           info.taskId = task.taskId;
           info.status = task.status;
@@ -1918,7 +1919,7 @@ class _UpdateCardPageState extends State<UpdateCardPage> {
   }
 }
 
-class _TaskInfo {
+class TaskInfo {
   final String? name;
   final String? link;
 
@@ -1926,20 +1927,20 @@ class _TaskInfo {
   int? progress = 0;
   DownloadTaskStatus? status = DownloadTaskStatus.undefined;
 
-  _TaskInfo({this.name, this.link});
+  TaskInfo({this.name, this.link});
 }
 
-class _ItemHolder {
+class ItemHolder {
   final String? name;
-  final _TaskInfo? task;
+  final TaskInfo? task;
 
-  _ItemHolder({this.name, this.task});
+  ItemHolder({this.name, this.task});
 }
 
 class DownloadItem extends StatelessWidget {
-  final _ItemHolder? data;
-  final Function(_TaskInfo?)? onItemClick;
-  final Function(_TaskInfo)? onActionClick;
+  final ItemHolder? data;
+  final Function(TaskInfo?)? onItemClick;
+  final Function(TaskInfo)? onActionClick;
 
   DownloadItem({this.data, this.onItemClick, this.onActionClick});
 
@@ -1993,7 +1994,7 @@ class DownloadItem extends StatelessWidget {
     );
   }
 
-  Widget? _buildActionForTask(_TaskInfo task) {
+  Widget? _buildActionForTask(TaskInfo task) {
     if (task.status == DownloadTaskStatus.undefined) {
       return RawMaterialButton(
         onPressed: () {

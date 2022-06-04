@@ -15,6 +15,7 @@ import 'package:trellis_mobile_app/models/member/board_member_detail_response.da
 import 'package:trellis_mobile_app/models/member/card_member_request.dart';
 import 'package:trellis_mobile_app/models/task/task_request.dart';
 import 'package:trellis_mobile_app/models/task/task_response.dart';
+import 'package:trellis_mobile_app/modules/card/update_card/update_card_page.dart';
 import 'package:trellis_mobile_app/modules/dashboard/dashboard_controller.dart';
 import 'package:trellis_mobile_app/modules/detail_board/detail_board_controller.dart';
 import 'package:trellis_mobile_app/repository/card_repository.dart';
@@ -96,6 +97,8 @@ class UpdateCardController extends GetxController {
 
   var listLabel = <LabelResponse>[].obs;
   var listLabelColor = <MyColor>[].obs;
+
+  var items = <ItemHolder>[].obs;
 
   @override
   void onInit() {
