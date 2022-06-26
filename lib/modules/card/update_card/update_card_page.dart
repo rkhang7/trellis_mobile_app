@@ -1891,7 +1891,7 @@ class _UpdateCardPageState extends State<UpdateCardPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Icons.image_outlined),
+              const Icon(Icons.file_copy_outlined),
               SizedBox(width: 80.w),
               Text(
                 "${"file".tr} (${updateCardController.cardUpdate.value.cardAttachments.where((element) => !element.url.isImage).length})",
